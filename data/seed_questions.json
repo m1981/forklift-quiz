@@ -1,0 +1,28 @@
+[
+  {
+    "id": "184",
+    "text": "W oparciu o tabelę, określ na które najwyższe gniazdo ładunkowe podasz towar dysponując wózkiem o maksymalnej wysokości podnoszenia 2100 mm:",
+    "image_path": "assets/q184_diagram.jpg",
+    "options": {
+      "A": "gniazdo 1",
+      "B": "gniazdo 2",
+      "C": "gniazdo 3",
+      "D": "gniazdo 4"
+    },
+    "correct_option": "B",
+    "explanation": "Wysokość podnoszenia 2100mm pozwala obsłużyć gniazdo 2 (wysokość b), ale nie gniazdo 3."
+  },
+  {
+    "id": "185",
+    "text": "Odstawiając ładunek na regał magazynowy operator powinien znać:",
+    "image_path": null,
+    "options": {
+      "A": "masę towaru i obciążenie maksymalne gniazda regału",
+      "B": "masę towaru i obciążenie minimalne ramy regału",
+      "C": "wymiary zewnętrzne transportowanego ładunku",
+      "D": "odpowiedź a i c jest prawidłowa"
+    },
+    "correct_option": "D",
+    "explanation": "Operator musi znać zarówno masę (by nie przeciążyć) jak i wymiary (by się zmieścić)."
+  }
+]

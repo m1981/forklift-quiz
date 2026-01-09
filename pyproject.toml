@@ -1,0 +1,12 @@
+[project]
+name = "warehouse-quiz-app"
+version = "1.0.0"
+description = "Commercial grade Streamlit Quiz App with adaptive learning"
+requires-python = ">=3.9"
+dependencies = [
+    "streamlit>=1.30.0",
+    "pydantic>=2.0.0"
+]
+
+[tool.setuptools]
+packages = ["src"]
