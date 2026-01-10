@@ -5,32 +5,48 @@ from src.repository import SQLiteQuizRepository
 from src.service import QuizService
 
 # --- Configuration ---
-st.set_page_config(page_title="Wozki", layout="centered")
+st.set_page_config(page_title="Warehouse Certification Quiz", layout="centered")
+
+
+# --- Custom CSS (Mobile Optimization) ---
+def apply_custom_styling():
+    st.markdown("""
+        <style>
+            .block-container { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+            .question-text { font-size: 1.1rem !important; font-weight: 600; line-height: 1.4; margin-bottom: 10px; color: #31333F; }
+            .stButton button { text-align: left !important; padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+            div[data-testid="stVerticalBlock"] > div { gap: 0.5rem !important; }
+        </style>
+    """, unsafe_allow_html=True)
 
 
 # --- Dependency Injection ---
 @st.cache_resource
 def get_service():
+    # Sequence 1: Startup
     repo = SQLiteQuizRepository(db_path="data/quiz.db")
     service = QuizService(repo)
-    if os.path.exists("data/seed_questions.json"):
-        service.initialize_db_from_file("data/seed_questions.json")
+
+    seed_file = "data/seed_questions.json"
+    if os.path.exists(seed_file):
+        service.initialize_db_from_file(seed_file)
     return service
 
 
-service = get_service()
+try:
+    service = get_service()
+except Exception as e:
+    st.error(f"Critical System Error: Could not initialize application. {e}")
+    st.stop()
 
-# --- Session State Initialization ---
-if 'current_index' not in st.session_state:
-    st.session_state.current_index = 0
-if 'score' not in st.session_state:
-    st.session_state.score = 0
-if 'quiz_questions' not in st.session_state:
-    st.session_state.quiz_questions = []
-if 'answer_submitted' not in st.session_state:
-    st.session_state.answer_submitted = False
-if 'last_feedback' not in st.session_state:
-    st.session_state.last_feedback = None
+# --- Session State ---
+if 'current_index' not in st.session_state: st.session_state.current_index = 0
+if 'score' not in st.session_state: st.session_state.score = 0
+if 'quiz_questions' not in st.session_state: st.session_state.quiz_questions = []
+if 'answer_submitted' not in st.session_state: st.session_state.answer_submitted = False
+if 'last_feedback' not in st.session_state: st.session_state.last_feedback = None
+
+apply_custom_styling()
 
 # --- Sidebar ---
 st.sidebar.header("Settings")
@@ -43,8 +59,9 @@ if st.sidebar.button("Reset My Progress"):
     st.rerun()
 
 
-# --- Logic Functions ---
+# --- Logic ---
 def start_quiz():
+    # Sequence 2 & 3: Fetching
     questions = service.get_quiz_questions(mode, user_id)
     st.session_state.quiz_questions = questions
     st.session_state.current_index = 0
@@ -54,105 +71,81 @@ def start_quiz():
 
 
 def handle_answer(question, selected_key):
-    """Callback function triggered immediately when an answer button is clicked"""
-    is_correct = service.submit_answer(user_id, question, selected_key)
+    # Sequence 2: Submit & Save
+    try:
+        is_correct = service.submit_answer(user_id, question, selected_key)
 
-    if is_correct:
-        st.session_state.score += 1
-        feedback = {
-            "type": "success",
-            "msg": "✅ Correct!",
-            "explanation": question.explanation
-        }
-    else:
-        feedback = {
-            "type": "error",
-            "msg": f"❌ Incorrect. The correct answer was {question.correct_option.value}.",
-            "explanation": question.explanation
-        }
+        if is_correct:
+            st.session_state.score += 1
+            feedback = {"type": "success", "msg": "✅ Correct!", "explanation": question.explanation}
+        else:
+            feedback = {"type": "error", "msg": f"❌ Incorrect. The correct answer was {question.correct_option.value}.",
+                        "explanation": question.explanation}
 
-    st.session_state.last_feedback = feedback
-    st.session_state.answer_submitted = True
+        st.session_state.last_feedback = feedback
+        st.session_state.answer_submitted = True
+    except Exception as e:
+        st.error(f"Error saving answer: {e}")
 
 
 def next_question():
-    """Callback to move to next question"""
     st.session_state.current_index += 1
     st.session_state.answer_submitted = False
     st.session_state.last_feedback = None
 
 
-# --- Main App Flow ---
-
-# 1. Load Questions if needed
+# --- Main Flow ---
 if not st.session_state.quiz_questions:
     start_quiz()
 
 questions = st.session_state.quiz_questions
 
+st.caption("🏗️ Warehouse Certification Quiz")
 
-# 2. Handle Empty State
 if not questions:
     if mode == "Review (Struggling Only)":
         st.info("Great job! You have no struggling questions to review.")
     else:
-        st.error("No questions found in database.")
-
-# 3. Quiz Interface
+        st.error("No questions found. Please check 'data/seed_questions.json'.")
 else:
-    # Progress Bar
+    # Progress
     progress = (st.session_state.current_index / len(questions))
     st.progress(progress)
-    st.caption(f"Pytanie {st.session_state.current_index + 1} of {len(questions)}")
+    st.caption(f"Question {st.session_state.current_index + 1} of {len(questions)}")
 
-    # Get Current Question
     q = questions[st.session_state.current_index]
 
-    # Display Question Text
-    st.subheader(f"{q.id}: {q.text}")
+    # Question Text
+    st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
 
-    # Display Image
+    # Image
     if q.image_path and os.path.exists(q.image_path):
-        # Updated: use_container_width=True -> width="stretch" (or just rely on default behavior for images)
-        # Note: st.image doesn't strictly use width='stretch' in the same way as buttons yet in all versions,
-        # but use_container_width is the specific deprecation target.
-        # For st.image, use_column_width is the old param, use_container_width is the current one.
-        # If your specific version asks for width='stretch' on buttons, apply it there.
         st.image(q.image_path, use_container_width=True)
 
-    # 4. State Machine: Input vs Feedback
+    st.write("")
 
+    # Interaction
     if not st.session_state.answer_submitted:
-        # STATE A: Waiting for Input
-        st.write("Wybierz odpowiedź:")
-
-        # Loop through options and create a button for each
+        st.write("Select an answer:")
         for key, text in q.options.items():
-            # We use a callback (on_click) to handle the logic immediately
             st.button(
                 f"{key.value}) {text}",
                 key=f"btn_{q.id}_{key}",
-                # If your specific Streamlit version demands width='stretch' for buttons specifically:
-                # type="secondary",
+                # Removed use_container_width to prevent warnings, relying on CSS for width
                 on_click=handle_answer,
                 args=(q, key)
             )
-
     else:
-        # STATE B: Feedback Shown (Answer buttons hidden)
         fb = st.session_state.last_feedback
+        if fb:
+            if fb['type'] == 'success':
+                st.success(fb['msg'])
+            else:
+                st.error(fb['msg'])
+            if fb['explanation']: st.info(f"ℹ️ **Explanation:** {fb['explanation']}")
 
-        if fb['type'] == 'success':
-            st.success(fb['msg'])
-        else:
-            st.error(fb['msg'])
-
-        if fb['explanation']:
-            st.info(f"ℹ️ **Explanation:** {fb['explanation']}")
-
-        # Next Button Logic
         if st.session_state.current_index < len(questions) - 1:
-            st.button("Next Question ➡️", on_click=next_question, type="primary", use_container_width=True)
+            st.button("Next Question ➡️", on_click=next_question, type="primary")
         else:
             st.balloons()
             st.success(f"Quiz Complete! Final Score: {st.session_state.score}/{len(questions)}")
