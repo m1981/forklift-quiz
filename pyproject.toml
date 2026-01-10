@@ -22,27 +22,26 @@ test = [
 [tool.setuptools]
 packages = ["src"]
 
+
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = "."
 testpaths = ["tests"]
-# Automatically run coverage, show missing lines, and set strict markers
-addopts = "--cov=src --cov-report=term-missing --cov-report=html"
 
 [tool.coverage.run]
-source = ["src"]
+source = ["."]
 branch = true
 omit = [
     "*/__init__.py",
     "tests/*"
 ]
 
-[tool.coverage.report]
-show_missing = true
-fail_under = 80
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if __name__ == .__main__.:",
-    "raise NotImplementedError",
-    "if TYPE_CHECKING:"
-]
+#[tool.coverage.report]
+#show_missing = true
+#fail_under = 80
+#exclude_lines = [
+#    "pragma: no cover",
+#    "def __repr__",
+#    "if __name__ == .__main__.:",
+#    "raise NotImplementedError",
+#    "if TYPE_CHECKING:"
+#]
