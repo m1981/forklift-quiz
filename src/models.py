@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Dict, Optional
-from datetime import datetime, date
+from datetime import date
 from pydantic import BaseModel, Field
 
 class OptionKey(str, Enum):

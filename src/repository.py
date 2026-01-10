@@ -36,7 +36,7 @@ class SQLiteQuizRepository:
         return sqlite3.connect(self.db_path)
 
     def _init_db(self):
-        """Initialize the database schema."""
+        logger.debug("🔍 DB: Checking schema...")
         # Note: 'with conn:' handles transaction commit/rollback, it does NOT close the connection.
         with self._get_connection() as conn:
             conn.execute("""
@@ -60,7 +60,7 @@ class SQLiteQuizRepository:
                     user_id TEXT PRIMARY KEY,
                     streak_days INTEGER DEFAULT 0,
                     last_login DATE,
-                    daily_goal INTEGER DEFAULT 10,
+                    daily_goal INTEGER DEFAULT 3,
                     daily_progress INTEGER DEFAULT 0,
                     last_daily_reset DATE
                 )
@@ -69,11 +69,14 @@ class SQLiteQuizRepository:
     def get_all_attempted_ids(self, user_id: str) -> List[str]:
         """Returns IDs of ALL questions the user has ever answered (Correct or Incorrect)."""
         with self._get_connection() as conn:
+            logger.debug(f"🔍 DB: Fetching attempted IDs for user='{user_id}'")
             cursor = conn.execute(
                 "SELECT question_id FROM user_progress WHERE user_id = ?",
                 (user_id,)
             )
-            return [row[0] for row in cursor.fetchall()]
+            results = [row[0] for row in cursor.fetchall()]
+            logger.debug(f"🔍 DB: Found {len(results)} attempted questions.")
+            return results
 
     # --- Existing Question Methods (Unchanged) ---
     def seed_questions(self, questions: List[Question]):
@@ -96,10 +99,14 @@ class SQLiteQuizRepository:
     def get_all_questions(self) -> List[Question]:
         try:
             with self._get_connection() as conn:
+                logger.debug("🔍 DB: Fetching ALL questions from 'questions' table.")
                 cursor = conn.execute("SELECT json_data FROM questions")
-                return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+                rows = cursor.fetchall()
+                questions = [Question.model_validate_json(row[0]) for row in rows]
+                logger.debug(f"🔍 DB: Successfully deserialized {len(questions)} questions.")
+                return questions
         except Exception as e:
-            logger.error(f"Error fetching questions: {e}")
+            logger.error(f"❌ DB ERROR: Fetching questions failed: {e}", exc_info=True)
             return []
 
     def get_question_by_id(self, q_id: str) -> Optional[Question]:
@@ -143,6 +150,7 @@ class SQLiteQuizRepository:
             logger.error(f"Failed to seed questions: {e}")
 
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool):
+        logger.info(f"💾 DB: Saving Attempt -> User={user_id}, Q={question_id}, Correct={is_correct}")
         with self._get_connection() as conn:
             conn.execute("""
                 INSERT INTO user_progress (user_id, question_id, is_correct)
@@ -151,16 +159,21 @@ class SQLiteQuizRepository:
                 DO UPDATE SET is_correct=excluded.is_correct, timestamp=CURRENT_TIMESTAMP
             """, (user_id, question_id, is_correct))
             conn.commit()
+        logger.debug("💾 DB: Save committed.")
 
     def get_incorrect_question_ids(self, user_id: str) -> List[str]:
         with self._get_connection() as conn:
+            logger.debug(f"🔍 DB: Querying incorrect answers for {user_id}")
             cursor = conn.execute(
                 "SELECT question_id FROM user_progress WHERE user_id = ? AND is_correct = 0",
                 (user_id,)
             )
-            return [row[0] for row in cursor.fetchall()]
+            ids = [row[0] for row in cursor.fetchall()]
+            logger.info(f"📉 DB: User {user_id} has {len(ids)} active errors: {ids}")
+            return ids
 
     def reset_user_progress(self, user_id: str):
+        logger.warning(f"🧨 DB: Wiping all history for {user_id}")
         with self._get_connection() as conn:
             conn.execute("DELETE FROM user_progress WHERE user_id = ?", (user_id,))
             # Also reset profile stats
@@ -173,10 +186,7 @@ class SQLiteQuizRepository:
     # --- NEW: User Profile Methods ---
 
     def get_or_create_profile(self, user_id: str) -> UserProfile:
-        """
-        Fetches the profile. If it doesn't exist, creates a default one.
-        Also handles the 'New Day' logic (resetting daily progress).
-        """
+        logger.debug(f"👤 DB: Fetching profile for {user_id}")
         with self._get_connection() as conn:
             cursor = conn.execute("SELECT * FROM user_profiles WHERE user_id = ?", (user_id,))
             row = cursor.fetchone()
@@ -184,7 +194,7 @@ class SQLiteQuizRepository:
             today = date.today()
 
             if not row:
-                # Create new profile
+                logger.info(f"👤 DB: No profile found for {user_id}. Creating new.")
                 profile = UserProfile(user_id=user_id)
                 conn.execute("""
                     INSERT INTO user_profiles (user_id, streak_days, last_login, daily_goal, daily_progress, last_daily_reset)
@@ -200,22 +210,24 @@ class SQLiteQuizRepository:
             daily_progress = row[4]
             last_reset_str = row[5]
 
-            # Convert DB strings to date objects
+            # --- TRACE LOGGING FOR PROFILE DATA ---
+            logger.debug(f"👤 DB: Raw Profile Row for '{user_id}': Goal={daily_goal}, Progress={daily_progress}")
+            # --------------------------------------
+
             last_login = datetime.strptime(last_login_str, "%Y-%m-%d").date() if last_login_str else today
             last_reset = datetime.strptime(last_reset_str, "%Y-%m-%d").date() if last_reset_str else today
 
-            # --- LOGIC: Handle Date Rollover ---
             if last_reset < today:
-                # It's a new day! Reset daily progress
+                logger.warning(f"📅 DB: New Day Detected! Resetting daily progress for {user_id}. (Last: {last_reset}, Today: {today})")
                 daily_progress = 0
                 last_reset = today
-
-                # Update DB immediately
                 conn.execute("""
                     UPDATE user_profiles 
                     SET daily_progress = 0, last_daily_reset = ? 
                     WHERE user_id = ?
                 """, (today, user_id))
+            else:
+                logger.debug(f"📅 DB: No rollover needed. Last reset: {last_reset}, Today: {today}")
 
             return UserProfile(
                 user_id=user_id,
@@ -227,32 +239,23 @@ class SQLiteQuizRepository:
             )
 
     def update_profile_stats(self, user_id: str, increment_progress: bool = True):
-        """
-        Called when a user answers a question.
-        1. Updates Last Login to today.
-        2. Increments Daily Progress.
-        3. Updates Streak if applicable.
-        """
         profile = self.get_or_create_profile(user_id)
         today = date.today()
 
         new_streak = profile.streak_days
-
-        # Streak Logic
         if profile.last_login == today - timedelta(days=1):
-            # Logged in yesterday, streak continues
             new_streak += 1
         elif profile.last_login < today - timedelta(days=1):
-            # Missed a day, streak reset (unless it's the first login ever)
             if profile.streak_days > 0:
-                new_streak = 1 # Reset to 1 (today)
+                new_streak = 1
             else:
-                new_streak = 1 # First day
+                new_streak = 1
         elif profile.last_login == today:
-            # Already logged in today, keep streak
             if new_streak == 0: new_streak = 1
 
         new_progress = profile.daily_progress + (1 if increment_progress else 0)
+
+        logger.info(f"📈 DB: Stats Updated for {user_id}. Streak={new_streak}, Daily={new_progress}")
 
         with self._get_connection() as conn:
             conn.execute("""

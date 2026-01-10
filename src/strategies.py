@@ -9,55 +9,47 @@ logger = logging.getLogger(__name__)
 
 
 class QuestionStrategy(ABC):
-    """
-    Interface for question generation algorithms.
-    """
-
     @abstractmethod
     def generate(self, user_id: str, repo: SQLiteQuizRepository) -> List[Question]:
         pass
 
 
 class StandardStrategy(QuestionStrategy):
-    """
-    Returns all available questions in the database.
-    """
-
     def generate(self, user_id: str, repo: SQLiteQuizRepository) -> List[Question]:
         return repo.get_all_questions()
 
 
 class ReviewStrategy(QuestionStrategy):
-    """
-    Returns only questions the user has currently marked as incorrect.
-    """
-
     def generate(self, user_id: str, repo: SQLiteQuizRepository) -> List[Question]:
+        logger.info(f"🧠 STRATEGY: Starting Review generation for {user_id}")
+
         all_questions = repo.get_all_questions()
         incorrect_ids = set(repo.get_incorrect_question_ids(user_id))
 
+        logger.debug(f"🧠 STRATEGY: Total Questions in DB: {len(all_questions)}")
+        logger.debug(f"🧠 STRATEGY: Incorrect IDs found: {incorrect_ids}")
+
         # Filter
         filtered = [q for q in all_questions if q.id in incorrect_ids]
-        logger.info(f"Review Strategy: Found {len(filtered)} incorrect questions for {user_id}")
+
+        logger.info(f"🧠 STRATEGY: Final Review Set: {len(filtered)} questions.")
         return filtered
 
 
 class DailySprintStrategy(QuestionStrategy):
-    """
-    Complex Logic:
-    1. Calculate remaining daily goal.
-    2. Mix Struggling (30%) + New (70%).
-    3. Backfill with Mastered if needed.
-    """
-
     def generate(self, user_id: str, repo: SQLiteQuizRepository) -> List[Question]:
+        logger.info(f"🧠 STRATEGY: Starting Sprint generation for {user_id}")
+
         all_questions = repo.get_all_questions()
         profile = repo.get_or_create_profile(user_id)
 
         # 1. Determine Batch Size
         needed = profile.daily_goal - profile.daily_progress
+        logger.debug(f"🧠 STRATEGY: Goal={profile.daily_goal}, Progress={profile.daily_progress}, Needed={needed}")
+
         if needed <= 0:
-            needed = 5  # Bonus round
+            needed = 5
+            logger.info("🧠 STRATEGY: Goal met. Triggering Bonus Round (5 questions).")
 
         logger.info(f"Sprint Strategy: User needs {needed} questions.")
 
@@ -65,9 +57,10 @@ class DailySprintStrategy(QuestionStrategy):
         incorrect_ids = set(repo.get_incorrect_question_ids(user_id))
         attempted_ids = set(repo.get_all_attempted_ids(user_id))
 
+        logger.debug(f"🧠 STRATEGY: Pool Stats -> Incorrect: {len(incorrect_ids)}, Attempted: {len(attempted_ids)}")
+
         sprint_questions = []
 
-        # 3. Add Struggling (Max 30% of batch)
         struggling_count = min(len(incorrect_ids), int(needed * 0.3) + 1)
         struggling_candidates = [q for q in all_questions if q.id in incorrect_ids]
         random.shuffle(struggling_candidates)
@@ -87,6 +80,7 @@ class DailySprintStrategy(QuestionStrategy):
             random.shuffle(mastered_candidates)
             sprint_questions.extend(mastered_candidates[:remaining_slots])
 
+        logger.info(f"🧠 STRATEGY: Final Sprint Set generated with {len(sprint_questions)} questions.")
         return sprint_questions
 
 

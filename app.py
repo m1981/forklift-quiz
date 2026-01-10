@@ -8,11 +8,18 @@ from src.viewmodel import QuizViewModel
 # --- Logging Configuration ---
 # We add a custom handler to ensure logs appear in your terminal immediately
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s',
-    datefmt='%H:%M:%S'
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - [%(filename)s:%(funcName)s:%(lineno)d] - %(message)s',
+    datefmt='%H:%M:%S',
+    force=True
 )
 logger = logging.getLogger(__name__)
+
+# 🔇 SILENCE THIRD-PARTY NOISE
+# These libraries are too chatty at DEBUG level
+logging.getLogger("PIL").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger("fsevents").setLevel(logging.WARNING)
 
 # --- Configuration ---
 st.set_page_config(page_title="Warehouse Certification Quiz", layout="centered")
@@ -62,12 +69,30 @@ apply_custom_styling()
 # --- Sidebar ---
 st.sidebar.header("Ustawienia")
 
+def switch_to_standard():
+    """
+    Callback: Switches the UI mode to Standard and resets state.
+    """
+    logger.info("🔀 SWITCH: User clicked 'Return to Learning'. Switching to Standard Mode.")
+    # We must match the exact string key used in the radio button
+    st.session_state["ui_mode_selection"] = "Nauka (Standard)"
+    # Clear quiz data to force reload
+    st.session_state.quiz_questions = []
+    st.session_state.current_index = 0
+    st.session_state.score = 0
+    st.session_state.answer_submitted = False
+    st.session_state.quiz_complete = False
 
 def on_settings_change():
     """
     Callback: Wipes the current quiz session when User or Mode changes.
     """
     logger.info("🔄 STATE RESET: User changed settings. Clearing 'quiz_questions' to force reload.")
+    st.session_state.quiz_questions = []
+    st.session_state.current_index = 0
+    st.session_state.score = 0
+    st.session_state.answer_submitted = False
+    st.session_state.quiz_complete = False
 
     # Debug Dump (Optional)
     try:
@@ -86,7 +111,8 @@ def on_settings_change():
 
 # Update the selectbox to store the key so we can access it
 user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], key="user_id_selection", on_change=on_settings_change)
-ui_mode = st.sidebar.radio("Tryb", list(MODE_MAPPING.keys()), on_change=on_settings_change)
+
+ui_mode = st.sidebar.radio("Tryb", list(MODE_MAPPING.keys()), key="ui_mode_selection", on_change=on_settings_change)
 
 if st.sidebar.button("Zeruj postęp"):
     logger.warning(f"🗑️ RESET: Manual progress reset triggered for {user_id}")
@@ -113,6 +139,14 @@ current_service_mode = MODE_MAPPING.get(ui_mode, "Standard")
 # Hide it in "Maintenance" mode (Review) to reduce clutter and confusion.
 if current_service_mode in ["Standard", "Daily Sprint"]:
     profile = vm.user_profile
+
+    # --- TRACE LOGGING FOR DASHBOARD ---
+    if profile:
+        logger.info(f"📊 DASHBOARD: Rendering for {user_id}. DB says: Progress={profile.daily_progress} / Goal={profile.daily_goal}")
+    else:
+        logger.warning(f"📊 DASHBOARD: Profile is None for {user_id}!")
+    # -----------------------------------
+
     if profile:
         col1, col2 = st.columns(2)
         with col1:
@@ -159,15 +193,11 @@ elif vm.is_complete and st.session_state.answer_submitted:
 
     st.markdown("---")
 
-    # --- NEW LOGIC: Smart Loop for Review Mode ---
     if "Powtórka" in ui_mode:
-        # Check if there are ANY incorrect questions left in the DB
-        # We access the repo directly via the service to check the count
         remaining_errors = len(vm.service.repo.get_incorrect_question_ids(user_id))
 
         if remaining_errors > 0:
             st.warning(f"⚠️ Pozostało jeszcze {remaining_errors} błędów do poprawy.")
-            # The button triggers 'on_settings_change' which clears state -> triggers auto-reload -> fetches remaining errors
             st.button(f"Poprawiaj dalej ({remaining_errors}) ➡️", on_click=on_settings_change, type="primary")
         else:
             st.balloons()
@@ -183,8 +213,6 @@ elif vm.is_complete and st.session_state.answer_submitted:
 else:
     # --- QUIZ SCREEN ---
     q = vm.current_question
-
-    # Debug Log: Verify what question is being shown
     logger.info(f"👀 RENDER: QID={q.id} | Index={st.session_state.current_index + 1}/{len(vm.questions)}")
 
     # Progress Text
@@ -214,14 +242,16 @@ else:
                 args=(user_id, key)
             )
     else:
-        # Feedback
         fb = st.session_state.last_feedback
         if fb:
             if fb['type'] == 'success':
                 st.success(fb['msg'])
             else:
                 st.error(fb['msg'])
-            if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
+
+            # FIX: Use .get() to safely check if explanation exists
+            if fb.get('explanation'):
+                st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
 
         if st.session_state.current_index < len(vm.questions) - 1:
             st.button("Następne ➡️", on_click=vm.next_question, type="primary")
