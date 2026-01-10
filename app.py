@@ -129,7 +129,6 @@ if current_service_mode in ["Standard", "Daily Sprint"]:
 
         st.divider()
 else:
-    # In Review Mode, we might just want a simple divider or a small header
     st.caption("🛠️ Tryb Poprawy Błędów")
     st.divider()
 
@@ -159,9 +158,27 @@ elif vm.is_complete and st.session_state.answer_submitted:
         if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
 
     st.markdown("---")
-    st.balloons()
-    st.success(f"✨ Sesja zakończona! Wynik: {st.session_state.score}/{len(vm.questions)}")
-    st.button("Nowy start", on_click=on_settings_change, type="primary")
+
+    # --- NEW LOGIC: Smart Loop for Review Mode ---
+    if "Powtórka" in ui_mode:
+        # Check if there are ANY incorrect questions left in the DB
+        # We access the repo directly via the service to check the count
+        remaining_errors = len(vm.service.repo.get_incorrect_question_ids(user_id))
+
+        if remaining_errors > 0:
+            st.warning(f"⚠️ Pozostało jeszcze {remaining_errors} błędów do poprawy.")
+            # The button triggers 'on_settings_change' which clears state -> triggers auto-reload -> fetches remaining errors
+            st.button(f"Poprawiaj dalej ({remaining_errors}) ➡️", on_click=on_settings_change, type="primary")
+        else:
+            st.balloons()
+            st.success("🎉 Gratulacje! Wyczyściłeś wszystkie błędy!")
+            st.button("Wróć do Nauki", on_click=on_settings_change)
+
+    else:
+        # Standard behavior for other modes
+        st.balloons()
+        st.success(f"✨ Sesja zakończona! Wynik: {st.session_state.score}/{len(vm.questions)}")
+        st.button("Nowy start", on_click=on_settings_change, type="primary")
 
 else:
     # --- QUIZ SCREEN ---

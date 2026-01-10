@@ -74,9 +74,9 @@ class QuizViewModel:
 
         if is_correct:
             st.session_state.score += 1
-            feedback = {"type": "success", "msg": "✅ Dobrze!", "explanation": q.explanation}
+            feedback = {"type": "success", "msg": "✅ Dobrze!"}
         else:
-            feedback = {"type": "error", "msg": f"❌ Źle. Poprawna: {q.correct_option.value}.",
+            feedback = {"type": "error", "msg": f"❌ Poprawna: {q.correct_option.value}.",
                         "explanation": q.explanation}
 
         st.session_state.last_feedback = feedback
