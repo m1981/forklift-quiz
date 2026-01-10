@@ -24,5 +24,57 @@
     },
     "correct_option": "D",
     "explanation": "Operator musi znać zarówno masę (by nie przeciążyć) jak i wymiary (by się zmieścić)."
+  },
+  {
+    "id": "186",
+    "text": "Podczas transportu ładunków wielkogabarytowych operator powinien:",
+    "image_path": null,
+    "options": {
+      "A": "jechać tyłem",
+      "B": "jechać przodem wychylając się poza obrys wózka",
+      "C": "jechać przodem korzystając z pomocy drugiej osoby",
+      "D": "odpowiedź a i c jest prawidłowa"
+    },
+    "correct_option": "D",
+    "explanation": "Przy ładunkach ograniczających widoczność należy jechać tyłem lub korzystać z pomocy pilota (drugiej osoby)."
+  },
+  {
+    "id": "187",
+    "text": "Na co powinien zwrócić uwagę operator podczas wymiany baterii trakcyjnych?",
+    "image_path": null,
+    "options": {
+      "A": "na masę i wymiary baterii",
+      "B": "na pojemność baterii",
+      "C": "na dane adresowe producenta baterii",
+      "D": "odpowiedzi a i b są prawidłowe"
+    },
+    "correct_option": "D",
+    "explanation": "Kluczowe parametry techniczne to masa (bezpieczeństwo podnoszenia), wymiary (dopasowanie do komory) oraz pojemność (zgodność z prostownikiem/wózkiem)."
+  },
+  {
+    "id": "188",
+    "text": "Przyczyną utraty stateczności wózka może być:",
+    "image_path": null,
+    "options": {
+      "A": "zbyt niskie ciśnienie w oponach",
+      "B": "szybka jazda w zakrętach",
+      "C": "gwałtowne hamowanie przy jeździe z ładunkiem",
+      "D": "wszystkie odpowiedzi są prawidłowe"
+    },
+    "correct_option": "D",
+    "explanation": "Wszystkie wymienione czynniki negatywnie wpływają na środek ciężkości wózka i mogą doprowadzić do wywrócenia."
+  },
+  {
+    "id": "189",
+    "text": "Dopuszczalna prędkość jazdy wózka jest określona:",
+    "image_path": null,
+    "options": {
+      "A": "w ustawie o dozorze technicznym",
+      "B": "w protokole badania wystawionym przez UDT",
+      "C": "w decyzji zezwalającej na eksploatację",
+      "D": "wszystkie odpowiedzi są niepoprawne"
+    },
+    "correct_option": "D",
+    "explanation": "Dopuszczalna prędkość jest określona w Dokumentacji Techniczno-Ruchowej (DTR) wózka lub instrukcji obsługi producenta, a nie w dokumentach urzędowych UDT."
   }
 ]
