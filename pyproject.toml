@@ -1,12 +1,48 @@
 [project]
 name = "warehouse-quiz-app"
-version = "1.0.0"
+version = "1.0.1"
 description = "Commercial grade Streamlit Quiz App with adaptive learning"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 dependencies = [
     "streamlit>=1.30.0",
     "pydantic>=2.0.0"
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0"
+]
+
 [tool.setuptools]
 packages = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+# Automatically run coverage, show missing lines, and set strict markers
+addopts = "--cov=src --cov-report=term-missing --cov-report=html"
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = [
+    "*/__init__.py",
+    "tests/*"
+]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:"
+]
