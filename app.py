@@ -105,18 +105,21 @@ if not vm.questions:
 
     logger.info(f"✅ LOADED: {len(vm.questions)} questions into session state.")
 
-# 2. Dashboard Rendering
-profile = vm.user_profile
-if profile:
-    # Debug Log: Check if UI matches DB
-    logger.info(f"📊 DASHBOARD: Streak={profile.streak_days} | Daily={profile.daily_progress}/{profile.daily_goal}")
+# 2. Dashboard Rendering (CONTEXT AWARE FIX)
+# We determine the internal mode string
+current_service_mode = MODE_MAPPING.get(ui_mode, "Standard")
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
-    with col2:
-        st.markdown(f'<div class="stat-box">🎯 Cel Dzienny: {profile.daily_progress}/{profile.daily_goal}</div>',
-                    unsafe_allow_html=True)
+# FIX: Only show Gamification Dashboard in "Growth" modes (Standard & Sprint).
+# Hide it in "Maintenance" mode (Review) to reduce clutter and confusion.
+if current_service_mode in ["Standard", "Daily Sprint"]:
+    profile = vm.user_profile
+    if profile:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown(f'<div class="stat-box">🎯 Cel Dzienny: {profile.daily_progress}/{profile.daily_goal}</div>',
+                        unsafe_allow_html=True)
 
     daily_pct = min(profile.daily_progress / profile.daily_goal, 1.0)
     st.progress(daily_pct)
@@ -124,6 +127,10 @@ if profile:
     if profile.daily_progress >= profile.daily_goal:
         st.success("🎉 Cel dzienny osiągnięty! Wszystko co robisz teraz to Twój dodatkowy sukces!")
 
+        st.divider()
+else:
+    # In Review Mode, we might just want a simple divider or a small header
+    st.caption("🛠️ Tryb Poprawy Błędów")
     st.divider()
 
 # 3. Content Rendering
