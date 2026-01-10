@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Dict, Optional
+from datetime import datetime, date
 from pydantic import BaseModel, Field
 
 class OptionKey(str, Enum):
@@ -22,3 +23,11 @@ class QuizSessionState(BaseModel):
     score: int = 0
     last_answer_correct: Optional[bool] = None
     quiz_complete: bool = False
+
+class UserProfile(BaseModel):
+    user_id: str
+    streak_days: int = 0
+    last_login: date = Field(default_factory=date.today)
+    daily_goal: int = 3
+    daily_progress: int = 0
+    last_daily_reset: date = Field(default_factory=date.today)
