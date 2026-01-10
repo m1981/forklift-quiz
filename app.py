@@ -8,7 +8,7 @@ from src.service import QuizService
 st.set_page_config(page_title="Warehouse Certification Quiz", layout="centered")
 
 
-# --- Custom CSS (Mobile Optimization) ---
+# --- Custom CSS ---
 def apply_custom_styling():
     st.markdown("""
         <style>
@@ -23,10 +23,8 @@ def apply_custom_styling():
 # --- Dependency Injection ---
 @st.cache_resource
 def get_service():
-    # Sequence 1: Startup
     repo = SQLiteQuizRepository(db_path="data/quiz.db")
     service = QuizService(repo)
-
     seed_file = "data/seed_questions.json"
     if os.path.exists(seed_file):
         service.initialize_db_from_file(seed_file)
@@ -36,32 +34,35 @@ def get_service():
 try:
     service = get_service()
 except Exception as e:
-    st.error(f"Critical System Error: Could not initialize application. {e}")
+    st.error(f"System Error: {e}")
     st.stop()
 
-# --- Session State ---
+# --- Session State Initialization ---
+if 'quiz_questions' not in st.session_state: st.session_state.quiz_questions = []
 if 'current_index' not in st.session_state: st.session_state.current_index = 0
 if 'score' not in st.session_state: st.session_state.score = 0
-if 'quiz_questions' not in st.session_state: st.session_state.quiz_questions = []
 if 'answer_submitted' not in st.session_state: st.session_state.answer_submitted = False
 if 'last_feedback' not in st.session_state: st.session_state.last_feedback = None
 
 apply_custom_styling()
 
-# --- Sidebar ---
-st.sidebar.header("Settings")
-user_id = st.sidebar.selectbox("Select User", ["User A", "User B"])
-mode = st.sidebar.radio("Quiz Mode", ["Standard", "Review (Struggling Only)"])
 
-if st.sidebar.button("Reset My Progress"):
-    service.repo.reset_user_progress(user_id)
-    st.sidebar.success(f"Progress reset for {user_id}")
-    st.rerun()
+# --- Logic Functions ---
+
+def reset_quiz_state():
+    """
+    Callback: Clears the current questions.
+    This forces the app to re-fetch data matching the NEW mode/user.
+    """
+    st.session_state.quiz_questions = []
+    st.session_state.current_index = 0
+    st.session_state.score = 0
+    st.session_state.answer_submitted = False
+    st.session_state.last_feedback = None
 
 
-# --- Logic ---
-def start_quiz():
-    # Sequence 2 & 3: Fetching
+def start_quiz(mode, user_id):
+    """Fetches data and populates state"""
     questions = service.get_quiz_questions(mode, user_id)
     st.session_state.quiz_questions = questions
     st.session_state.current_index = 0
@@ -70,16 +71,15 @@ def start_quiz():
     st.session_state.last_feedback = None
 
 
-def handle_answer(question, selected_key):
-    # Sequence 2: Submit & Save
+def handle_answer(question, selected_key, user_id):
     try:
         is_correct = service.submit_answer(user_id, question, selected_key)
 
         if is_correct:
             st.session_state.score += 1
-            feedback = {"type": "success", "msg": "✅ Correct!", "explanation": question.explanation}
+            feedback = {"type": "success", "msg": "✅ Dobrze!", "explanation": question.explanation}
         else:
-            feedback = {"type": "error", "msg": f"❌ Incorrect. The correct answer was {question.correct_option.value}.",
+            feedback = {"type": "error", "msg": f"❌ Poprawna: {question.correct_option.value}.",
                         "explanation": question.explanation}
 
         st.session_state.last_feedback = feedback
@@ -94,19 +94,48 @@ def next_question():
     st.session_state.last_feedback = None
 
 
-# --- Main Flow ---
+# --- Sidebar ---
+st.sidebar.header("Ustwienia")
+
+# CRITICAL FIX: Added on_change=reset_quiz_state
+# This ensures that when you switch users or modes, the old quiz data is wiped.
+user_id = st.sidebar.selectbox(
+    "Użytkownik",
+    ["Daniel", "Michał"],
+    on_change=reset_quiz_state
+)
+
+mode = st.sidebar.radio(
+    "Tryb",
+    ["Nauka", "Powtórka"],
+    on_change=reset_quiz_state
+)
+
+if st.sidebar.button("Zeruj postęp"):
+    service.repo.reset_user_progress(user_id)
+    reset_quiz_state()  # Also reset UI state
+    st.sidebar.success(f"Progress reset for {user_id}")
+    st.rerun()
+
+# --- Main App Flow ---
+
+# 1. Auto-Start if empty (This happens after reset_quiz_state clears it)
 if not st.session_state.quiz_questions:
-    start_quiz()
+    start_quiz(mode, user_id)
 
 questions = st.session_state.quiz_questions
 
 st.caption("🏗️ Warehouse Certification Quiz")
 
+# 2. Handle Empty State (e.g., No wrong answers found)
 if not questions:
     if mode == "Review (Struggling Only)":
-        st.info("Great job! You have no struggling questions to review.")
+        st.info("🎉 Great job! You have no struggling questions to review.")
+        st.markdown("Switch back to **Standard** mode to continue learning.")
     else:
         st.error("No questions found. Please check 'data/seed_questions.json'.")
+
+# 3. Quiz Interface
 else:
     # Progress
     progress = (st.session_state.current_index / len(questions))
@@ -131,9 +160,8 @@ else:
             st.button(
                 f"{key.value}) {text}",
                 key=f"btn_{q.id}_{key}",
-                # Removed use_container_width to prevent warnings, relying on CSS for width
                 on_click=handle_answer,
-                args=(q, key)
+                args=(q, key, user_id)
             )
     else:
         fb = st.session_state.last_feedback
@@ -142,11 +170,12 @@ else:
                 st.success(fb['msg'])
             else:
                 st.error(fb['msg'])
-            if fb['explanation']: st.info(f"ℹ️ **Explanation:** {fb['explanation']}")
+                if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
 
         if st.session_state.current_index < len(questions) - 1:
-            st.button("Next Question ➡️", on_click=next_question, type="primary")
+            st.button("Następne ➡️", on_click=next_question, type="primary")
         else:
             st.balloons()
-            st.success(f"Quiz Complete! Final Score: {st.session_state.score}/{len(questions)}")
-            st.button("Start New Quiz", on_click=start_quiz, type="primary")
+            # st.success(f"Quiz Complete! Session Score: {st.session_state.score}/{len(questions)}")
+            # Button to restart the CURRENT mode
+            st.button("Nowy start", on_click=reset_quiz_state, type="primary")
