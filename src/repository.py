@@ -260,3 +260,28 @@ class SQLiteQuizRepository:
                 SET streak_days = ?, last_login = ?, daily_progress = ?
                 WHERE user_id = ?
             """, (new_streak, today, new_progress, user_id))
+
+    def debug_dump_user_state(self, user_id: str):
+        """
+        DEBUG TOOL: Prints raw DB state to console for verification.
+        """
+        with self._get_connection() as conn:
+            print(f"\n--- 🕵️‍♂️ DEBUG DUMP FOR {user_id} ---")
+
+            # 1. Check Profile
+            row = conn.execute("SELECT * FROM user_profiles WHERE user_id = ?", (user_id,)).fetchone()
+            print(f"👤 PROFILE: {row}")
+
+            # 2. Check Incorrect Answers (The 'Review' Queue)
+            cursor = conn.execute("SELECT question_id FROM user_progress WHERE user_id = ? AND is_correct = 0",
+                                  (user_id,))
+            incorrect = [r[0] for r in cursor.fetchall()]
+            print(f"❌ INCORRECT IDs ({len(incorrect)}): {incorrect}")
+
+            # 3. Check Total Daily Activity
+            # We count how many records have today's timestamp (approximate check)
+            cursor = conn.execute(
+                "SELECT count(*) FROM user_progress WHERE user_id = ? AND date(timestamp) = date('now')", (user_id,))
+            today_count = cursor.fetchone()[0]
+            print(f"📅 ANSWERS TODAY (DB Count): {today_count}")
+            print("-------------------------------------\n")

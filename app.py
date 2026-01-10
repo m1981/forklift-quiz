@@ -3,10 +3,15 @@ import os
 import logging
 from src.repository import SQLiteQuizRepository
 from src.service import QuizService
-from src.viewmodel import QuizViewModel  # <--- NEW IMPORT
+from src.viewmodel import QuizViewModel
 
-# --- Logging ---
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# --- Logging Configuration ---
+# We add a custom handler to ensure logs appear in your terminal immediately
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s',
+    datefmt='%H:%M:%S'
+)
 logger = logging.getLogger(__name__)
 
 # --- Configuration ---
@@ -35,6 +40,7 @@ def apply_custom_styling():
 # --- Dependency Injection ---
 @st.cache_resource
 def get_viewmodel():
+    logger.info("🔌 Bootstrapping Application (Service & Repository)...")
     repo = SQLiteQuizRepository(db_path="data/quiz.db")
     service = QuizService(repo)
     seed_file = "data/seed_questions.json"
@@ -47,6 +53,7 @@ try:
     vm = get_viewmodel()
     vm.ensure_state_initialized()
 except Exception as e:
+    logger.critical(f"🔥 System Crash: {e}")
     st.error(f"System Error: {e}")
     st.stop()
 
@@ -56,30 +63,54 @@ apply_custom_styling()
 st.sidebar.header("Ustawienia")
 
 
-# We use a callback to force a reload when settings change
 def on_settings_change():
-    # Just clear the questions to force a reload in the main flow
+    """
+    Callback: Wipes the current quiz session when User or Mode changes.
+    """
+    logger.info("🔄 STATE RESET: User changed settings. Clearing 'quiz_questions' to force reload.")
+
+    # Debug Dump (Optional)
+    try:
+        repo = SQLiteQuizRepository(db_path="data/quiz.db")
+        # We access the session state key directly here
+        current_user = st.session_state.get("user_id_selection", "Daniel")
+        repo.debug_dump_user_state(current_user)
+    except Exception as e:
+        print(f"Debug dump failed: {e}")
+
     st.session_state.quiz_questions = []
+    st.session_state.current_index = 0
+    st.session_state.score = 0
+    st.session_state.answer_submitted = False
+    st.session_state.quiz_complete = False
 
-
-user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], on_change=on_settings_change)
+# Update the selectbox to store the key so we can access it
+user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], key="user_id_selection", on_change=on_settings_change)
 ui_mode = st.sidebar.radio("Tryb", list(MODE_MAPPING.keys()), on_change=on_settings_change)
 
 if st.sidebar.button("Zeruj postęp"):
+    logger.warning(f"🗑️ RESET: Manual progress reset triggered for {user_id}")
     vm.reset_progress(user_id)
     st.sidebar.success("Postęp wyzerowany.")
     st.rerun()
 
 # --- Main Flow ---
 
-# 1. Auto-Load if empty
+# 1. Auto-Load Logic (The "Brain" of the page load)
 if not vm.questions:
     service_mode = MODE_MAPPING.get(ui_mode, "Standard")
+    logger.info(f"📥 LOAD QUIZ: Mode='{service_mode}' | User='{user_id}'")
+
     vm.load_quiz(service_mode, user_id)
 
-# 2. Dashboard (Always Visible & Synced)
+    logger.info(f"✅ LOADED: {len(vm.questions)} questions into session state.")
+
+# 2. Dashboard Rendering
 profile = vm.user_profile
 if profile:
+    # Debug Log: Check if UI matches DB
+    logger.info(f"📊 DASHBOARD: Streak={profile.streak_days} | Daily={profile.daily_progress}/{profile.daily_goal}")
+
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
@@ -89,23 +120,29 @@ if profile:
 
     daily_pct = min(profile.daily_progress / profile.daily_goal, 1.0)
     st.progress(daily_pct)
+
     if profile.daily_progress >= profile.daily_goal:
         st.success("🎉 Cel dzienny osiągnięty! Wszystko co robisz teraz to Twój dodatkowy sukces!")
+
     st.divider()
 
-# 3. Content Area
+# 3. Content Rendering
 if not vm.questions:
     if "Powtórka" in ui_mode:
+        logger.info("ℹ️ STATE: Review mode empty (User has 0 incorrect answers).")
         st.info("🎉 Brak błędów do poprawy!")
     elif "Sprint" in ui_mode:
+        logger.info("ℹ️ STATE: Sprint mode empty (Goal met).")
         st.balloons()
         st.success("🎉 Cel dzienny już zrealizowany!")
     else:
+        logger.error("❌ STATE: Standard mode returned 0 questions. Check DB/Seed file.")
         st.error("Brak pytań w bazie.")
 
 elif vm.is_complete and st.session_state.answer_submitted:
     # --- SUMMARY SCREEN ---
-    # Show feedback for the very last question first
+    logger.info(f"🏁 END SCREEN: Score={st.session_state.score}/{len(vm.questions)}")
+
     fb = st.session_state.last_feedback
     if fb:
         if fb['type'] == 'success':
@@ -123,10 +160,21 @@ else:
     # --- QUIZ SCREEN ---
     q = vm.current_question
 
-    # Progress Text
-    st.caption(f"Pytanie {st.session_state.current_index + 1} z {len(vm.questions)}")
+    # Debug Log: Verify what question is being shown
+    logger.info(f"👀 RENDER: QID={q.id} | Index={st.session_state.current_index + 1}/{len(vm.questions)}")
 
-    # Question
+    # Progress Text
+    total_q = len(vm.questions)
+    current_q = st.session_state.current_index + 1
+
+    if "Powtórka" in ui_mode:
+        st.caption(f"📝 Do poprawy: {current_q} z {total_q} błędów")
+    elif "Sprint" in ui_mode:
+        st.caption(f"🏃 Sprint: Pytanie {current_q} z {total_q}")
+    else:
+        st.caption(f"📚 Baza pytań: {current_q} z {total_q}")
+
+    # Question Text
     st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path)
@@ -138,7 +186,7 @@ else:
             st.button(
                 f"{key.value}) {text}",
                 key=f"btn_{q.id}_{key}",
-                on_click=vm.submit_answer,  # <--- Delegating to ViewModel
+                on_click=vm.submit_answer,
                 args=(user_id, key)
             )
     else:
@@ -154,5 +202,5 @@ else:
         if st.session_state.current_index < len(vm.questions) - 1:
             st.button("Następne ➡️", on_click=vm.next_question, type="primary")
         else:
-            # Trigger Summary
+            logger.info("🏁 UI: Showing 'Podsumowanie' button (Last Question).")
             st.button("Podsumowanie 🏁", on_click=lambda: None, type="primary")
