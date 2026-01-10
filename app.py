@@ -1,9 +1,9 @@
 import streamlit as st
 import os
 import logging
-from src.models import OptionKey
 from src.repository import SQLiteQuizRepository
 from src.service import QuizService
+from src.viewmodel import QuizViewModel  # <--- NEW IMPORT
 
 # --- Logging ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -23,7 +23,7 @@ MODE_MAPPING = {
 def apply_custom_styling():
     st.markdown("""
         <style>
-            .block-container { padding-top: 2rem !important; padding-bottom: 1rem !important; }
+            .block-container { padding-top: 3rem !important; padding-bottom: 1rem !important; }
             .question-text { font-size: 1.1rem !important; font-weight: 600; line-height: 1.4; margin-bottom: 10px; color: #31333F; }
             .stButton button { text-align: left !important; padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
             div[data-testid="stVerticalBlock"] > div { gap: 0.5rem !important; }
@@ -34,101 +34,52 @@ def apply_custom_styling():
 
 # --- Dependency Injection ---
 @st.cache_resource
-def get_service():
+def get_viewmodel():
     repo = SQLiteQuizRepository(db_path="data/quiz.db")
     service = QuizService(repo)
     seed_file = "data/seed_questions.json"
     if os.path.exists(seed_file):
         service.initialize_db_from_file(seed_file)
-    return service
+    return QuizViewModel(service)
 
 
 try:
-    service = get_service()
+    vm = get_viewmodel()
+    vm.ensure_state_initialized()
 except Exception as e:
     st.error(f"System Error: {e}")
     st.stop()
 
-# --- Session State ---
-if 'quiz_questions' not in st.session_state: st.session_state.quiz_questions = []
-if 'current_index' not in st.session_state: st.session_state.current_index = 0
-if 'score' not in st.session_state: st.session_state.score = 0
-if 'answer_submitted' not in st.session_state: st.session_state.answer_submitted = False
-if 'last_feedback' not in st.session_state: st.session_state.last_feedback = None
-if 'quiz_complete' not in st.session_state: st.session_state.quiz_complete = False
-
 apply_custom_styling()
-
-
-# --- Logic Functions ---
-
-def reset_quiz_state():
-    logger.info("🔄 State Reset Triggered")
-    st.session_state.quiz_questions = []
-    st.session_state.current_index = 0
-    st.session_state.score = 0
-    st.session_state.answer_submitted = False
-    st.session_state.last_feedback = None
-    st.session_state.quiz_complete = False
-
-
-def start_quiz(ui_mode, user_id):
-    service_mode = MODE_MAPPING.get(ui_mode, "Standard")
-    logger.info(f"🚀 Loading Quiz: {service_mode} for {user_id}")
-
-    questions = service.get_quiz_questions(service_mode, user_id)
-    st.session_state.quiz_questions = questions
-    st.session_state.current_index = 0
-    st.session_state.score = 0
-    st.session_state.answer_submitted = False
-    st.session_state.last_feedback = None
-    st.session_state.quiz_complete = False
-
-
-def handle_answer(question, selected_key, user_id):
-    try:
-        is_correct = service.submit_answer(user_id, question, selected_key)
-        if is_correct:
-            st.session_state.score += 1
-            feedback = {"type": "success", "msg": "✅ Dobrze!", "explanation": question.explanation}
-        else:
-            feedback = {"type": "error", "msg": f"❌ Źle. Poprawna: {question.correct_option.value}.",
-                        "explanation": question.explanation}
-
-        st.session_state.last_feedback = feedback
-        st.session_state.answer_submitted = True
-
-        # Check if this was the last question
-        if st.session_state.current_index >= len(st.session_state.quiz_questions) - 1:
-            st.session_state.quiz_complete = True
-
-    except Exception as e:
-        st.error(f"Error: {e}")
-
-
-def next_question():
-    st.session_state.current_index += 1
-    st.session_state.answer_submitted = False
-    st.session_state.last_feedback = None
-
 
 # --- Sidebar ---
 st.sidebar.header("Ustawienia")
-user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], on_change=reset_quiz_state)
-mode = st.sidebar.radio("Tryb", ["Nauka (Standard)", "Powtórka (Błędy)", "Codzienny Sprint (10 pytań)"],
-                        on_change=reset_quiz_state)
+
+
+# We use a callback to force a reload when settings change
+def on_settings_change():
+    # Just clear the questions to force a reload in the main flow
+    st.session_state.quiz_questions = []
+
+
+user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], on_change=on_settings_change)
+ui_mode = st.sidebar.radio("Tryb", list(MODE_MAPPING.keys()), on_change=on_settings_change)
 
 if st.sidebar.button("Zeruj postęp"):
-    service.repo.reset_user_progress(user_id)
-    reset_quiz_state()
+    vm.reset_progress(user_id)
     st.sidebar.success("Postęp wyzerowany.")
     st.rerun()
 
-# --- GAMIFICATION DASHBOARD ---
-dashboard_placeholder = st.container()
+# --- Main Flow ---
 
-with dashboard_placeholder:
-    profile = service.get_user_profile(user_id)
+# 1. Auto-Load if empty
+if not vm.questions:
+    service_mode = MODE_MAPPING.get(ui_mode, "Standard")
+    vm.load_quiz(service_mode, user_id)
+
+# 2. Dashboard (Always Visible & Synced)
+profile = vm.user_profile
+if profile:
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
@@ -138,28 +89,60 @@ with dashboard_placeholder:
 
     daily_pct = min(profile.daily_progress / profile.daily_goal, 1.0)
     st.progress(daily_pct)
+    if profile.daily_progress >= profile.daily_goal:
+        st.success("🎉 Cel dzienny osiągnięty! Wszystko co robisz teraz to Twój dodatkowy sukces!")
     st.divider()
 
-# --- Main App Flow ---
-
-if not st.session_state.quiz_questions:
-    start_quiz(mode, user_id)
-
-questions = st.session_state.quiz_questions
-
-if not questions:
-    if "Powtórka" in mode:
+# 3. Content Area
+if not vm.questions:
+    if "Powtórka" in ui_mode:
         st.info("🎉 Brak błędów do poprawy!")
-    elif "Sprint" in mode:
+    elif "Sprint" in ui_mode:
         st.balloons()
         st.success("🎉 Cel dzienny już zrealizowany!")
     else:
         st.error("Brak pytań w bazie.")
 
+elif vm.is_complete and st.session_state.answer_submitted:
+    # --- SUMMARY SCREEN ---
+    # Show feedback for the very last question first
+    fb = st.session_state.last_feedback
+    if fb:
+        if fb['type'] == 'success':
+            st.success(fb['msg'])
+        else:
+            st.error(fb['msg'])
+        if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
+
+    st.markdown("---")
+    st.balloons()
+    st.success(f"✨ Sesja zakończona! Wynik: {st.session_state.score}/{len(vm.questions)}")
+    st.button("Nowy start", on_click=on_settings_change, type="primary")
+
 else:
-    # Check if we are in the "Complete" state
-    if st.session_state.quiz_complete and st.session_state.answer_submitted:
-        # --- SESSION SUMMARY SCREEN ---
+    # --- QUIZ SCREEN ---
+    q = vm.current_question
+
+    # Progress Text
+    st.caption(f"Pytanie {st.session_state.current_index + 1} z {len(vm.questions)}")
+
+    # Question
+    st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
+    if q.image_path and os.path.exists(q.image_path):
+        st.image(q.image_path)
+    st.write("")
+
+    # Interaction
+    if not st.session_state.answer_submitted:
+        for key, text in q.options.items():
+            st.button(
+                f"{key.value}) {text}",
+                key=f"btn_{q.id}_{key}",
+                on_click=vm.submit_answer,  # <--- Delegating to ViewModel
+                args=(user_id, key)
+            )
+    else:
+        # Feedback
         fb = st.session_state.last_feedback
         if fb:
             if fb['type'] == 'success':
@@ -168,47 +151,8 @@ else:
                 st.error(fb['msg'])
             if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
 
-        st.markdown("---")
-        st.balloons()
-        st.success(f"✨ Sesja zakończona! Wynik: {st.session_state.score}/{len(questions)}")
-
-        if "Sprint" in mode:
-            st.markdown(f"### 🚀 Postęp Dzienny: {profile.daily_progress}/{profile.daily_goal}")
-
-        st.button("Nowy start", on_click=reset_quiz_state, type="primary")
-
-    else:
-        # --- ACTIVE QUIZ SCREEN ---
-        progress = (st.session_state.current_index / len(questions))
-        st.caption(f"Pytanie {st.session_state.current_index + 1} z {len(questions)}")
-
-        q = questions[st.session_state.current_index]
-        st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
-
-        if q.image_path and os.path.exists(q.image_path):
-            # FIX: Removed width=None
-            st.image(q.image_path)
-
-        st.write("")
-
-        if not st.session_state.answer_submitted:
-            for key, text in q.options.items():
-                st.button(
-                    f"{key.value}) {text}",
-                    key=f"btn_{q.id}_{key}",
-                    on_click=handle_answer,
-                    args=(q, key, user_id)
-                )
+        if st.session_state.current_index < len(vm.questions) - 1:
+            st.button("Następne ➡️", on_click=vm.next_question, type="primary")
         else:
-            fb = st.session_state.last_feedback
-            if fb:
-                if fb['type'] == 'success':
-                    st.success(fb['msg'])
-                else:
-                    st.error(fb['msg'])
-                if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
-
-            if st.session_state.current_index < len(questions) - 1:
-                st.button("Następne ➡️", on_click=next_question, type="primary")
-            else:
-                st.button("Podsumowanie 🏁", on_click=lambda: None, type="primary")
+            # Trigger Summary
+            st.button("Podsumowanie 🏁", on_click=lambda: None, type="primary")
