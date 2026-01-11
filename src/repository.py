@@ -5,12 +5,10 @@ from datetime import date, datetime, timedelta
 from typing import List, Optional
 from src.models import Question, UserProfile
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class SQLiteQuizRepository:
     def __init__(self, db_path: str = "data/quiz.db"):
-        # 1. Handle Directory Creation (Prevent FileNotFoundError)
         dir_name = os.path.dirname(db_path)
         if dir_name:
             os.makedirs(dir_name, exist_ok=True)
@@ -18,7 +16,6 @@ class SQLiteQuizRepository:
         self.db_path = db_path
         self._memory_conn = None
 
-        # 2. Handle In-Memory Persistence (The Fix for TDD)
         if self.db_path == ":memory:":
             self._memory_conn = sqlite3.connect(":memory:", check_same_thread=False)
 
@@ -47,7 +44,6 @@ class SQLiteQuizRepository:
                     PRIMARY KEY (user_id, question_id)
                 )
             """)
-            # 3. NEW: User Profiles Table
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS user_profiles (
                     user_id TEXT PRIMARY KEY,
@@ -59,19 +55,15 @@ class SQLiteQuizRepository:
                 )
             """)
 
-    # --- NEW HELPER METHOD FOR LOGIC FIX ---
+    # --- FIX: Check for duplicates today ---
     def was_question_answered_today(self, user_id: str, question_id: str) -> bool:
-        """
-        Checks if the user has already submitted an answer for this specific question ID
-        at any point during the current day (local server time).
-        """
         with self._get_connection() as conn:
             cursor = conn.execute("""
                 SELECT count(*) FROM user_progress 
                 WHERE user_id = ? AND question_id = ? AND date(timestamp) = date('now')
             """, (user_id, question_id))
             count = cursor.fetchone()[0]
-            return count > 0
+            is_duplicate = count > 0
 
             if is_duplicate:
                 logger.debug(f"🕵️‍♂️ DB CHECK: User {user_id} already answered {question_id} today.")
@@ -79,7 +71,6 @@ class SQLiteQuizRepository:
                 logger.debug(f"🆕 DB CHECK: First time answering {question_id} today.")
 
             return is_duplicate
-    # ---------------------------------------
 
     def get_all_attempted_ids(self, user_id: str) -> List[str]:
         with self._get_connection() as conn:
@@ -105,43 +96,21 @@ class SQLiteQuizRepository:
             logger.error(f"❌ DB ERROR: Fetching questions failed: {e}", exc_info=True)
             return []
 
-    def get_question_by_id(self, q_id: str) -> Optional[Question]:
-        try:
-            with self._get_connection() as conn:
-                cursor = conn.execute("SELECT json_data FROM questions WHERE id = ?", (q_id,))
-                row = cursor.fetchone()
-                return Question.model_validate_json(row[0]) if row else None
-        except Exception:
-            return None
-
     def seed_questions(self, new_questions: List[Question]):
-        """
-        Smart Seeding:
-        1. Updates question text/images.
-        2. If the CORRECT ANSWER changes, resets user progress for that question.
-        """
         try:
-            # Load existing questions to compare
             existing_questions = {q.id: q for q in self.get_all_questions()}
-
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-
                 for new_q in new_questions:
                     old_q = existing_questions.get(new_q.id)
-
-                    # Check if critical logic changed (The Answer Key)
                     if old_q and old_q.correct_option != new_q.correct_option:
                         logger.warning(f"⚠️ Answer key changed for Q{new_q.id}. Resetting user progress.")
                         cursor.execute("DELETE FROM user_progress WHERE question_id = ?", (new_q.id,))
-
                     cursor.execute(
                         "INSERT OR REPLACE INTO questions (id, json_data) VALUES (?, ?)",
                         (new_q.id, new_q.json())
                     )
-
                 conn.commit()
-
         except sqlite3.Error as e:
             logger.error(f"Failed to seed questions: {e}")
 
@@ -172,14 +141,11 @@ class SQLiteQuizRepository:
         logger.warning(f"🧨 DB: Wiping all history for {user_id}")
         with self._get_connection() as conn:
             conn.execute("DELETE FROM user_progress WHERE user_id = ?", (user_id,))
-            # Also reset profile stats
             conn.execute("""
                 UPDATE user_profiles 
                 SET streak_days=0, daily_progress=0 
                 WHERE user_id = ?
             """, (user_id,))
-
-    # --- NEW: User Profile Methods ---
 
     def get_or_create_profile(self, user_id: str) -> UserProfile:
         logger.debug(f"👤 DB: Fetching profile for {user_id}")
@@ -198,17 +164,13 @@ class SQLiteQuizRepository:
                 """, (profile.user_id, profile.streak_days, today, profile.daily_goal, 0, today))
                 return profile
 
-            # Parse existing profile
-            # Row order: user_id, streak_days, last_login, daily_goal, daily_progress, last_daily_reset
             streak = row[1]
             last_login_str = row[2]
             daily_goal = row[3]
             daily_progress = row[4]
             last_reset_str = row[5]
 
-            # --- TRACE LOGGING FOR PROFILE DATA ---
             logger.debug(f"👤 DB: Raw Profile Row for '{user_id}': Goal={daily_goal}, Progress={daily_progress}")
-            # --------------------------------------
 
             last_login = datetime.strptime(last_login_str, "%Y-%m-%d").date() if last_login_str else today
             last_reset = datetime.strptime(last_reset_str, "%Y-%m-%d").date() if last_reset_str else today
@@ -249,6 +211,7 @@ class SQLiteQuizRepository:
         elif profile.last_login == today:
             if new_streak == 0: new_streak = 1
 
+        # --- LOGIC FIX: Only increment if told to do so ---
         if increment_progress:
             new_progress = profile.daily_progress + 1
             logger.info(f"📈 DB: Incrementing Daily Progress for {user_id} -> {new_progress}")
@@ -270,21 +233,9 @@ class SQLiteQuizRepository:
         """
         with self._get_connection() as conn:
             print(f"\n--- 🕵️‍♂️ DEBUG DUMP FOR {user_id} ---")
-
-            # 1. Check Profile
             row = conn.execute("SELECT * FROM user_profiles WHERE user_id = ?", (user_id,)).fetchone()
             print(f"👤 PROFILE: {row}")
-
-            # 2. Check Incorrect Answers (The 'Review' Queue)
-            cursor = conn.execute("SELECT question_id FROM user_progress WHERE user_id = ? AND is_correct = 0",
-                                  (user_id,))
+            cursor = conn.execute("SELECT question_id FROM user_progress WHERE user_id = ? AND is_correct = 0", (user_id,))
             incorrect = [r[0] for r in cursor.fetchall()]
             print(f"❌ INCORRECT IDs ({len(incorrect)}): {incorrect}")
-
-            # 3. Check Total Daily Activity
-            # We count how many records have today's timestamp (approximate check)
-            cursor = conn.execute(
-                "SELECT count(*) FROM user_progress WHERE user_id = ? AND date(timestamp) = date('now')", (user_id,))
-            today_count = cursor.fetchone()[0]
-            print(f"📅 ANSWERS TODAY (DB Count): {today_count}")
             print("-------------------------------------\n")

@@ -6,7 +6,6 @@ from src.service import QuizService
 from src.viewmodel import QuizViewModel
 
 # --- Logging Configuration ---
-# We add a custom handler to ensure logs appear in your terminal immediately
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - [%(filename)s:%(funcName)s:%(lineno)d] - %(message)s',
@@ -16,7 +15,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # 🔇 SILENCE THIRD-PARTY NOISE
-# These libraries are too chatty at DEBUG level
 logging.getLogger("PIL").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger("fsevents").setLevel(logging.WARNING)
@@ -24,10 +22,10 @@ logging.getLogger("fsevents").setLevel(logging.WARNING)
 # --- Configuration ---
 st.set_page_config(page_title="Warehouse Certification Quiz", layout="centered")
 
+# CHANGED: Removed Standard, promoted Sprint to top
 MODE_MAPPING = {
-    "Nauka (Standard)": "Standard",
-    "Powtórka (Błędy)": "Review (Struggling Only)",
-    "Codzienny Sprint (10 pytań)": "Daily Sprint"
+    "Codzienny Sprint (10 pytań)": "Daily Sprint",
+    "Powtórka (Błędy)": "Review (Struggling Only)"
 }
 
 
@@ -60,28 +58,14 @@ try:
     vm = get_viewmodel()
     vm.ensure_state_initialized()
 except Exception as e:
-`    logger.critical(f"🔥 System Crash: {e}", exc_info=True)
+    logger.critical(f"🔥 System Crash: {e}", exc_info=True)
     st.error(f"System Error: {e}")
     st.stop()
 
 apply_custom_styling()
 
-# --- Sidebar ---
-st.sidebar.header("Ustawienia")
 
-def switch_to_standard():
-    """
-    Callback: Switches the UI mode to Standard and resets state.
-    """
-    logger.info("🔀 SWITCH: User clicked 'Return to Learning'. Switching to Standard Mode.")
-    # We must match the exact string key used in the radio button
-    st.session_state["ui_mode_selection"] = "Nauka (Standard)"
-    # Clear quiz data to force reload
-    st.session_state.quiz_questions = []
-    st.session_state.current_index = 0
-    st.session_state.score = 0
-    st.session_state.answer_submitted = False
-    st.session_state.quiz_complete = False
+# --- Sidebar Logic ---
 
 def on_settings_change():
     """
@@ -94,23 +78,21 @@ def on_settings_change():
     st.session_state.answer_submitted = False
     st.session_state.quiz_complete = False
 
-    # Debug Dump (Optional)
-    try:
-        repo = SQLiteQuizRepository(db_path="data/quiz.db")
-        # We access the session state key directly here
-        current_user = st.session_state.get("user_id_selection", "Daniel")
-        repo.debug_dump_user_state(current_user)
-    except Exception as e:
-        print(f"Debug dump failed: {e}")
 
-    st.session_state.quiz_questions = []
-    st.session_state.current_index = 0
-    st.session_state.score = 0
-    st.session_state.answer_submitted = False
-    st.session_state.quiz_complete = False
+def switch_to_sprint():
+    """
+    NEW CALLBACK: Forces the UI Mode widget to switch to Sprint (Default).
+    """
+    logger.info("🔀 SWITCH: User clicked 'Return to Learning'. Switching to Sprint Mode.")
+    # Must match the key in MODE_MAPPING exactly
+    st.session_state["ui_mode_selection"] = "Codzienny Sprint (10 pytań)"
+    on_settings_change()
 
-# Update the selectbox to store the key so we can access it
-user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], key="user_id_selection", on_change=on_settings_change)
+
+st.sidebar.header("Ustawienia")
+
+user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], key="user_id_selection",
+                               on_change=on_settings_change)
 
 ui_mode = st.sidebar.radio("Tryb", list(MODE_MAPPING.keys()), key="ui_mode_selection", on_change=on_settings_change)
 
@@ -122,30 +104,24 @@ if st.sidebar.button("Zeruj postęp"):
 
 # --- Main Flow ---
 
-# 1. Auto-Load Logic (The "Brain" of the page load)
+# 1. Auto-Load Logic
 if not vm.questions:
-    service_mode = MODE_MAPPING.get(ui_mode, "Standard")
+    service_mode = MODE_MAPPING.get(ui_mode, "Daily Sprint")  # Default to Sprint
     logger.info(f"📥 LOAD QUIZ: Mode='{service_mode}' | User='{user_id}'")
-
     vm.load_quiz(service_mode, user_id)
-
     logger.info(f"✅ LOADED: {len(vm.questions)} questions into session state.")
 
-# 2. Dashboard Rendering (CONTEXT AWARE FIX)
-# We determine the internal mode string
-current_service_mode = MODE_MAPPING.get(ui_mode, "Standard")
+# 2. Dashboard Rendering
+current_service_mode = MODE_MAPPING.get(ui_mode, "Daily Sprint")
 
-# FIX: Only show Gamification Dashboard in "Growth" modes (Standard & Sprint).
-# Hide it in "Maintenance" mode (Review) to reduce clutter and confusion.
-if current_service_mode in ["Standard", "Daily Sprint"]:
+if current_service_mode == "Daily Sprint":
     profile = vm.user_profile
 
-    # --- TRACE LOGGING FOR DASHBOARD ---
     if profile:
-        logger.info(f"📊 DASHBOARD: Rendering for {user_id}. DB says: Progress={profile.daily_progress} / Goal={profile.daily_goal}")
+        logger.info(
+            f"📊 DASHBOARD: Rendering for {user_id}. DB says: Progress={profile.daily_progress} / Goal={profile.daily_goal}")
     else:
         logger.warning(f"📊 DASHBOARD: Profile is None for {user_id}!")
-    # -----------------------------------
 
     if profile:
         col1, col2 = st.columns(2)
@@ -155,13 +131,12 @@ if current_service_mode in ["Standard", "Daily Sprint"]:
             st.markdown(f'<div class="stat-box">🎯 Cel Dzienny: {profile.daily_progress}/{profile.daily_goal}</div>',
                         unsafe_allow_html=True)
 
-    daily_pct = min(profile.daily_progress / profile.daily_goal, 1.0)
-    st.progress(daily_pct)
+        daily_pct = min(profile.daily_progress / profile.daily_goal, 1.0)
+        st.progress(daily_pct)
 
-    if profile.daily_progress >= profile.daily_goal:
-        st.success("🎉 Cel dzienny osiągnięty! Wszystko co robisz teraz to Twój dodatkowy sukces!")
-
-        st.divider()
+        if profile.daily_progress >= profile.daily_goal:
+            st.success("🎉 Cel dzienny osiągnięty! Wszystko co robisz teraz to Twój dodatkowy sukces!")
+            st.divider()
 else:
     st.caption("🛠️ Tryb Poprawy Błędów")
     st.divider()
@@ -171,13 +146,12 @@ if not vm.questions:
     if "Powtórka" in ui_mode:
         logger.info("ℹ️ STATE: Review mode empty (User has 0 incorrect answers).")
         st.info("🎉 Brak błędów do poprawy!")
-        st.button("Wróć do Nauki", on_click=switch_to_standard, type="primary")
+        st.button("Wróć do Nauki", on_click=switch_to_sprint, type="primary")
     elif "Sprint" in ui_mode:
-        logger.info("ℹ️ STATE: Sprint mode empty (Goal met).")
+        logger.info("ℹ️ STATE: Sprint mode empty.")
         st.balloons()
         st.success("🎉 Cel dzienny już zrealizowany!")
     else:
-        logger.error("❌ STATE: Standard mode returned 0 questions. Check DB/Seed file.")
         st.error("Brak pytań w bazie.")
 
 elif vm.is_complete and st.session_state.answer_submitted:
@@ -196,16 +170,14 @@ elif vm.is_complete and st.session_state.answer_submitted:
 
     if "Powtórka" in ui_mode:
         remaining_errors = len(vm.service.repo.get_incorrect_question_ids(user_id))
-
         if remaining_errors > 0:
             st.warning(f"⚠️ Pozostało jeszcze {remaining_errors} błędów do poprawy.")
             st.button(f"Poprawiaj dalej ({remaining_errors}) ➡️", on_click=on_settings_change, type="primary")
         else:
             st.balloons()
             st.success("🎉 Gratulacje! Wyczyściłeś wszystkie błędy!")
-            st.button("Wróć do Nauki", on_click=switch_to_standard, type="primary")
+            st.button("Wróć do Nauki", on_click=switch_to_sprint, type="primary")
     else:
-        # Standard behavior for other modes
         st.balloons()
         st.success(f"✨ Sesja zakończona! Wynik: {st.session_state.score}/{len(vm.questions)}")
         st.button("Nowy start", on_click=on_settings_change, type="primary")
@@ -215,7 +187,6 @@ else:
     q = vm.current_question
     logger.info(f"👀 RENDER: QID={q.id} | Index={st.session_state.current_index + 1}/{len(vm.questions)}")
 
-    # Progress Text
     total_q = len(vm.questions)
     current_q = st.session_state.current_index + 1
 
@@ -223,16 +194,12 @@ else:
         st.caption(f"📝 Do poprawy: {current_q} z {total_q} błędów")
     elif "Sprint" in ui_mode:
         st.caption(f"🏃 Sprint: Pytanie {current_q} z {total_q}")
-    else:
-        st.caption(f"📚 Baza pytań: {current_q} z {total_q}")
 
-    # Question Text
     st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path)
     st.write("")
 
-    # Interaction
     if not st.session_state.answer_submitted:
         for key, text in q.options.items():
             st.button(
