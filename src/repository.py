@@ -20,24 +20,17 @@ class SQLiteQuizRepository:
 
         # 2. Handle In-Memory Persistence (The Fix for TDD)
         if self.db_path == ":memory:":
-            # We must keep this reference alive, otherwise the DB is garbage collected immediately
             self._memory_conn = sqlite3.connect(":memory:", check_same_thread=False)
 
         self._init_db()
 
     def _get_connection(self):
-        """
-        Returns a database connection.
-        If using :memory:, returns the persistent shared connection.
-        If using a file, creates a new connection (standard SQLite pattern).
-        """
         if self._memory_conn:
             return self._memory_conn
         return sqlite3.connect(self.db_path)
 
     def _init_db(self):
         logger.debug("🔍 DB: Checking schema...")
-        # Note: 'with conn:' handles transaction commit/rollback, it does NOT close the connection.
         with self._get_connection() as conn:
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS questions (
@@ -66,8 +59,29 @@ class SQLiteQuizRepository:
                 )
             """)
 
+    # --- NEW HELPER METHOD FOR LOGIC FIX ---
+    def was_question_answered_today(self, user_id: str, question_id: str) -> bool:
+        """
+        Checks if the user has already submitted an answer for this specific question ID
+        at any point during the current day (local server time).
+        """
+        with self._get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT count(*) FROM user_progress 
+                WHERE user_id = ? AND question_id = ? AND date(timestamp) = date('now')
+            """, (user_id, question_id))
+            count = cursor.fetchone()[0]
+            return count > 0
+
+            if is_duplicate:
+                logger.debug(f"🕵️‍♂️ DB CHECK: User {user_id} already answered {question_id} today.")
+            else:
+                logger.debug(f"🆕 DB CHECK: First time answering {question_id} today.")
+
+            return is_duplicate
+    # ---------------------------------------
+
     def get_all_attempted_ids(self, user_id: str) -> List[str]:
-        """Returns IDs of ALL questions the user has ever answered (Correct or Incorrect)."""
         with self._get_connection() as conn:
             logger.debug(f"🔍 DB: Fetching attempted IDs for user='{user_id}'")
             cursor = conn.execute(
@@ -77,24 +91,6 @@ class SQLiteQuizRepository:
             results = [row[0] for row in cursor.fetchall()]
             logger.debug(f"🔍 DB: Found {len(results)} attempted questions.")
             return results
-
-    # --- Existing Question Methods (Unchanged) ---
-    def seed_questions(self, questions: List[Question]):
-        # ... (Keep your existing smart seeding logic here) ...
-        # For brevity, I am not repeating the full smart seeding code,
-        # but ensure you keep the version we wrote previously!
-        try:
-            existing_questions = {q.id: q for q in self.get_all_questions()}
-            with self._get_connection() as conn:
-                cursor = conn.cursor()
-                for new_q in questions:
-                    old_q = existing_questions.get(new_q.id)
-                    if old_q and old_q.correct_option != new_q.correct_option:
-                        cursor.execute("DELETE FROM user_progress WHERE question_id = ?", (new_q.id,))
-                    cursor.execute("INSERT OR REPLACE INTO questions (id, json_data) VALUES (?, ?)", (new_q.id, new_q.json()))
-                conn.commit()
-        except sqlite3.Error as e:
-            logger.error(f"Failed to seed questions: {e}")
 
     def get_all_questions(self) -> List[Question]:
         try:
@@ -253,9 +249,13 @@ class SQLiteQuizRepository:
         elif profile.last_login == today:
             if new_streak == 0: new_streak = 1
 
-        new_progress = profile.daily_progress + (1 if increment_progress else 0)
-
-        logger.info(f"📈 DB: Stats Updated for {user_id}. Streak={new_streak}, Daily={new_progress}")
+        if increment_progress:
+            new_progress = profile.daily_progress + 1
+            logger.info(f"📈 DB: Incrementing Daily Progress for {user_id} -> {new_progress}")
+        else:
+            new_progress = profile.daily_progress
+            logger.info(f"🛑 DB: Daily Progress NOT incremented (Duplicate or skipped). Stays at {new_progress}")
+        # --------------------------------------------------
 
         with self._get_connection() as conn:
             conn.execute("""
