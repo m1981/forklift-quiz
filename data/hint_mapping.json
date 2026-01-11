@@ -1,0 +1,30 @@
+{
+  "heuristics": {
+    "all_correct": "Zastosuj heurystykę 'Wszystkie odpowiedzi są poprawne'. W testach UDT, jeśli jedna z opcji to 'wszystkie powyższe' lub 'odpowiedź a i b', ma ona bardzo wysokie prawdopodobieństwo bycia poprawną (ok. 90-95%).",
+    "safety_first": "Złota zasada bezpieczeństwa: Wybierz opcję najbardziej restrykcyjną. W razie awarii, wypadku lub wątpliwości – natychmiast przerwij pracę i zgłoś problem. Nigdy nie naprawiaj sam ani nie ryzykuj.",
+    "manufacturer_rules": "Heurystyka 'Producent rządzi': Parametry techniczne (ciśnienie, olej, terminy) są określane w Instrukcji Eksploatacji (DTR) przez producenta, a nie przez ogólne przepisy.",
+    "bureaucracy": "Zasada ról UDT: Operator tylko obsługuje. Konserwator naprawia. UDT wydaje decyzje i uprawnienia. Eksploatujący (właściciel) odpowiada za sprzęt.",
+    "load_charts": "Analiza diagramu: Pamiętaj, że środek ciężkości to zazwyczaj połowa długości ładunku (chyba że podano inaczej). Zawsze zaokrąglaj wartości w dół (w stronę bezpieczeństwa).",
+    "technical_fact": "To pytanie wymaga zapamiętania konkretnego faktu technicznego lub wartości liczbowej (np. 3%, 100mm, 3 stopnie). Nie ma tu drogi na skróty."
+  },
+  "mapping": {
+    "all_correct": [
+      "2", "10", "11", "12", "17", "22", "25", "26", "27", "28", "29", "31", "37", "43", "45", "46", "50", "58", "60", "62", "77", "78", "85", "87", "93", "94", "95", "96", "97", "100", "101", "103", "106", "107", "108", "109", "115", "119", "120", "124", "125", "126", "129", "131", "133", "140", "141", "145", "148", "153", "155", "156", "158", "159", "164", "166", "167", "171", "174", "175", "177", "178", "180", "185", "186", "187", "188", "190", "191", "192", "193", "194", "195", "197", "199", "219", "245"
+    ],
+    "safety_first": [
+      "13", "14", "18", "20", "39", "61", "63", "64", "65", "66", "147", "157", "165", "176", "196", "198"
+    ],
+    "manufacturer_rules": [
+      "3", "36", "41", "55", "92", "98", "99", "150", "151", "160", "161", "181", "182", "189"
+    ],
+    "bureaucracy": [
+      "1", "4", "5", "6", "7", "8", "9", "15", "16", "21", "23", "24", "30", "32", "33", "34", "35", "38", "40", "42", "44", "48", "49", "51", "52", "53", "54", "56", "57", "59", "67", "68", "69", "70", "71", "72"
+    ],
+    "load_charts": [
+      "74", "75", "76", "183", "184", "207", "208", "209", "210", "211", "212", "213", "214", "215", "216", "217", "218", "220", "221", "222", "223", "224", "225", "226", "227", "228", "229", "230", "231", "232", "233", "234", "235", "236", "237", "238", "239", "240", "241", "242", "243", "244"
+    ],
+    "technical_fact": [
+      "19", "73", "79", "80", "81", "82", "83", "84", "86", "88", "89", "90", "91", "102", "104", "105", "110", "111", "112", "113", "114", "116", "117", "118", "121", "122", "123", "127", "128", "130", "132", "134", "135", "136", "137", "138", "139", "142", "143", "144", "146", "149", "152", "154", "162", "163", "168", "169", "170", "172", "173", "179", "200", "201", "202", "203", "204", "205", "206"
+    ]
+  }
+}
