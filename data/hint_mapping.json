@@ -1,11 +1,11 @@
 {
-  "heuristics": {
-    "all_correct": "Zastosuj heurystykę 'Wszystkie odpowiedzi są poprawne'. W testach UDT, jeśli jedna z opcji to 'wszystkie powyższe' lub 'odpowiedź a i b', ma ona bardzo wysokie prawdopodobieństwo bycia poprawną (ok. 90-95%).",
-    "safety_first": "Złota zasada bezpieczeństwa: Wybierz opcję najbardziej restrykcyjną. W razie awarii, wypadku lub wątpliwości – natychmiast przerwij pracę i zgłoś problem. Nigdy nie naprawiaj sam ani nie ryzykuj.",
-    "manufacturer_rules": "Heurystyka 'Producent rządzi': Parametry techniczne (ciśnienie, olej, terminy) są określane w Instrukcji Eksploatacji (DTR) przez producenta, a nie przez ogólne przepisy.",
-    "bureaucracy": "Zasada ról UDT: Operator tylko obsługuje. Konserwator naprawia. UDT wydaje decyzje i uprawnienia. Eksploatujący (właściciel) odpowiada za sprzęt.",
-    "load_charts": "Analiza diagramu: Pamiętaj, że środek ciężkości to zazwyczaj połowa długości ładunku (chyba że podano inaczej). Zawsze zaokrąglaj wartości w dół (w stronę bezpieczeństwa).",
-    "technical_fact": "To pytanie wymaga zapamiętania konkretnego faktu technicznego lub wartości liczbowej (np. 3%, 100mm, 3 stopnie). Nie ma tu drogi na skróty."
+"heuristics": {
+    "all_correct": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak.",
+    "safety_first": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam.",
+    "manufacturer_rules": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR).",
+    "bureaucracy": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT.",
+    "load_charts": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku.",
+    "technical_fact": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   "mapping": {
     "all_correct": [
