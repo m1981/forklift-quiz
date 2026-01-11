@@ -1345,14 +1345,8 @@
     "options": {
       "A": "ruch wideł w dół",
       "B": "ruch wideł w górę",
-      "C": "przechył masztu "
-      na
-      siebie
-      "",
-      "D": "przechył masztu "
-      od
-      siebie
-      ""
+      "C": "przechył masztu \"na siebie\"",
+      "D": "przechył masztu \"od siebie\""
     },
     "correct_option": "A",
     "explanation": "Standardowo w wózkach widłowych pchnięcie dźwigni podnoszenia do przodu powoduje opuszczanie wideł (zgodnie z grawitacją)."
@@ -1684,9 +1678,7 @@
   },
   {
     "id": "130",
-    "text": ""
-    Skokowy
-    " ruch mechanizmu podnoszenia do góry może być spowodowany:",
+    "text": "\"Skokowy\" ruch mechanizmu podnoszenia do góry może być spowodowany:",
     "image_path": null,
     "options": {
       "A": "zbyt niskim poziomem oleju w układzie hydraulicznym",
@@ -1786,9 +1778,7 @@
       "D": "125% obciążenia nominalnego"
     },
     "correct_option": "B",
-    "explanation": "Próbę szczelności wykonuje się pod pełnym obciążeniem nominalnym (100%), aby sprawdzić, czy układ "
-    trzyma
-    " parametry."
+    "explanation": "Próbę szczelności wykonuje się pod pełnym obciążeniem nominalnym (100%), aby sprawdzić, czy układ \"trzyma\" parametry."
   },
   {
     "id": "138",
@@ -1909,9 +1899,7 @@
   },
   {
     "id": "147",
-    "text": "Łącznik bezpieczeństwa "
-    STOP
-    " służy do:",
+    "text": "Łącznik bezpieczeństwa \"STOP\" służy do:",
     "image_path": null,
     "options": {
       "A": "awaryjnego zatrzymania pracy wózka",
@@ -2076,9 +2064,7 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Dźwignie muszą być "
-    samopowrotne
-    " (dla bezpieczeństwa) i działać zgodnie z piktogramami (dla przewidywalności)."
+    "explanation": "Dźwignie muszą być \"samopowrotne\" (dla bezpieczeństwa) i działać zgodnie z piktogramami (dla przewidywalności)."
   },
   {
     "id": "160",
@@ -2117,10 +2103,7 @@
       "D": "pionowej"
     },
     "correct_option": "B",
-    "explanation": "Przechylenie masztu "
-    na
-    siebie
-    " zwiększa stabilność ładunku podczas gwałtownego hamowania testowego."
+    "explanation": "Przechylenie masztu \"na siebie\" zwiększa stabilność ładunku podczas gwałtownego hamowania testowego."
   },
   {
     "id": "163",
@@ -2221,10 +2204,7 @@
       "A": "zawsze załączyć hamulec postojowy",
       "B": "załączyć hamulec postojowy tylko w przypadku postoju wózka na wzniesieniu",
       "C": "unieść widły na maksymalną wysokość",
-      "D": "przechylić maszt w pozycję "
-      na
-      siebie
-      ""
+      "D": "przechylić maszt w pozycję \"na siebie\""
     },
     "correct_option": "A",
     "explanation": "Opuszczenie stanowiska pracy wymaga zabezpieczenia wózka przed niekontrolowanym przemieszczeniem się, czyli zaciągnięcia hamulca ręcznego."
@@ -2253,10 +2233,7 @@
       "D": "manipulować pochyłem masztu w zależności od prędkości poruszania się"
     },
     "correct_option": "B",
-    "explanation": "Przechylenie masztu "
-    na
-    siebie
-    " (w stronę operatora) stabilizuje ładunek na widłach i zapobiega jego zsunięciu się podczas hamowania."
+    "explanation": "Przechylenie masztu \"na siebie\" (w stronę operatora) stabilizuje ładunek na widłach i zapobiega jego zsunięciu się podczas hamowania."
   },
   {
     "id": "173",
@@ -2750,10 +2727,7 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "D",
-    "explanation": "Ładunek 1100 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. Patrzymy na kolumnę 650 mm (jest wprost w tabeli). Wartości: 1250, 950, 650. Nasz ładunek 1100 kg jest mniejszy od 1250 kg (dla wys. 2700 mm), ale większy od 950 kg (dla wys. 3510 mm). Zatem możemy podnieść tylko na 2700 mm. W opcjach jest 2700 mm (odpowiedź B), ale klucz wskazuje D. Dlaczego? Sprawdźmy dokładnie. Opcja B to 2700 mm. Jeśli klucz mówi D, to może być błąd w kluczu lub podchwytliwość. Jednak logicznie: 1100 kg przy C=650 mm mieści się w limicie 1250 kg dla wysokości 2700 mm. Korekta: W pytaniu 210 klucz podaje D. Spójrzmy na opcje: a) 4212, b) 2700, c) 3520. Skoro 2700 jest poprawną wysokością, a jest w opcji B, to odpowiedź D ("
-    wszystkie
-    niepoprawne
-    ") sugeruje, że 2700 jest błędne? Nie, 1100 kg < 1250 kg. Może chodzi o to, że 1100 kg to masa samej paczki, a widły też ważą? Nie, diagramy uwzględniają standardowe widły. Wg zasad interpretacji diagramów odpowiedź powinna być 2700 mm. Jeśli klucz mówi D, to jest to błąd w oficjalnych testach lub specyficzna interpretacja, której tu nie widać. Uwaga: W oficjalnych bazach pytań UDT często zdarzają się błędy w kluczach lub pytaniach. Tutaj trzymamy się klucza (D), choć logicznie pasuje B."
+    "explanation": "Ładunek 1100 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. Patrzymy na kolumnę 650 mm (jest wprost w tabeli). Wartości: 1250, 950, 650. Nasz ładunek 1100 kg jest mniejszy od 1250 kg (dla wys. 2700 mm), ale większy od 950 kg (dla wys. 3510 mm). Zatem możemy podnieść tylko na 2700 mm. W opcjach jest 2700 mm (odpowiedź B), ale klucz wskazuje D. Dlaczego? Sprawdźmy dokładnie. Opcja B to 2700 mm. Jeśli klucz mówi D, to może być błąd w kluczu lub podchwytliwość. Jednak logicznie: 1100 kg przy C=650 mm mieści się w limicie 1250 kg dla wysokości 2700 mm. Korekta: W pytaniu 210 klucz podaje D. Spójrzmy na opcje: a) 4212, b) 2700, c) 3520. Skoro 2700 jest poprawną wysokością, a jest w opcji B, to odpowiedź D (\"wszystkie niepoprawne\") sugeruje, że 2700 jest błędne? Nie, 1100 kg < 1250 kg. Może chodzi o to, że 1100 kg to masa samej paczki, a widły też ważą? Nie, diagramy uwzględniają standardowe widły. Wg zasad interpretacji diagramów odpowiedź powinna być 2700 mm. Jeśli klucz mówi D, to jest to błąd w oficjalnych testach lub specyficzna interpretacja, której tu nie widać. Uwaga: W oficjalnych bazach pytań UDT często zdarzają się błędy w kluczach lub pytaniach. Tutaj trzymamy się klucza (D), choć logicznie pasuje B."
   },
   {
     "id": "211",
@@ -2883,10 +2857,7 @@
       "D": "4500 mm"
     },
     "correct_option": "A",
-    "explanation": "Ładunek 1000 kg. Kierunek A (800 mm) -> C = 400 mm. W tabeli kolumna 400 mm. Szukamy wartości 1000 kg. Znajdujemy ją w ostatnim wierszu tabeli. Odczytujemy wysokość przypisaną do tego wiersza (po lewej stronie tabeli, ale tu wysokości są w kolumnie H(mm) pośrodku? Nie, tabela ma układ: Q(kg) dla różnych C, a po prawej H(mm). Nie, H(mm) jest w kolumnie. Dla C=400, Q=1000 kg jest w wierszu, któremu odpowiada H=3600 mm? Nie, spójrzmy na tabelę. Kolumna 400: wartości rosną w dół: 400, 600, 700... 1000. Ostatni wiersz to 1000 kg. Obok w kolumnie H(mm) jest 3600. Ale czekaj, im niżej tym większy udźwig, a wysokość mniejsza. Dla 1000 kg wysokość to 3600 mm. Czy na pewno? Sprawdźmy inne opcje. A=5940 (dla 720 kg), B=7890 (dla 400 kg). Nasz ładunek ma 1000 kg. Przy C=400 mm, 1000 kg to max udźwig dla wysokości 3600 mm. Dlaczego klucz podaje A (5940)? Sprawdźmy C. Kierunek A to bok 800 mm? Nie, strzałka A pokazuje na bok 1400 mm! Rysunek jest mylący. Strzałka A celuje w dłuższy bok. Jeśli pobieramy wzdłuż A, to widły wchodzą prostopadle do boku 1400 mm, czyli długość ładunku na widłach to 800 mm. Wtedy C = 400 mm. Jeśli tak, to dla 1000 kg max wys. to 3600. Jeśli jednak strzałka A oznacza pobranie od strony krótszego boku (800 mm), to długość na widłach wynosi 1400 mm, a C = 700 mm. Sprawdźmy C=700. Kolumna 700: wartości 550, 700, 900, 1100... Dla 1000 kg musimy wziąć wiersz z 1100 kg (bo 900 za mało). Wiersz z 1100 kg (dla C=700) odpowiada wysokości 5940 mm. To pasuje do odpowiedzi A! Wniosek: Rysunek sugeruje, że A to pobranie "
-    od
-    czoła
-    " (wzdłuż długiego boku), co daje C=700 mm."
+    "explanation": "Ładunek 1000 kg. Kierunek A (800 mm) -> C = 400 mm. W tabeli kolumna 400 mm. Szukamy wartości 1000 kg. Znajdujemy ją w ostatnim wierszu tabeli. Odczytujemy wysokość przypisaną do tego wiersza (po lewej stronie tabeli, ale tu wysokości są w kolumnie H(mm) pośrodku? Nie, tabela ma układ: Q(kg) dla różnych C, a po prawej H(mm). Nie, H(mm) jest w kolumnie. Dla C=400, Q=1000 kg jest w wierszu, któremu odpowiada H=3600 mm? Nie, spójrzmy na tabelę. Kolumna 400: wartości rosną w dół: 400, 600, 700... 1000. Ostatni wiersz to 1000 kg. Obok w kolumnie H(mm) jest 3600. Ale czekaj, im niżej tym większy udźwig, a wysokość mniejsza. Dla 1000 kg wysokość to 3600 mm. Czy na pewno? Sprawdźmy inne opcje. A=5940 (dla 720 kg), B=7890 (dla 400 kg). Nasz ładunek ma 1000 kg. Przy C=400 mm, 1000 kg to max udźwig dla wysokości 3600 mm. Dlaczego klucz podaje A (5940)? Sprawdźmy C. Kierunek A to bok 800 mm? Nie, strzałka A pokazuje na bok 1400 mm! Rysunek jest mylący. Strzałka A celuje w dłuższy bok. Jeśli pobieramy wzdłuż A, to widły wchodzą prostopadle do boku 1400 mm, czyli długość ładunku na widłach to 800 mm. Wtedy C = 400 mm. Jeśli tak, to dla 1000 kg max wys. to 3600. Jeśli jednak strzałka A oznacza pobranie od strony krótszego boku (800 mm), to długość na widłach wynosi 1400 mm, a C = 700 mm. Sprawdźmy C=700. Kolumna 700: wartości 550, 700, 900, 1100... Dla 1000 kg musimy wziąć wiersz z 1100 kg (bo 900 za mało). Wiersz z 1100 kg (dla C=700) odpowiada wysokości 5940 mm. To pasuje do odpowiedzi A! Wniosek: Rysunek sugeruje, że A to pobranie \"od czoła\" (wzdłuż długiego boku), co daje C=700 mm."
   },
   {
     "id": "221",
@@ -2990,16 +2961,12 @@
       "D": "2300 kg"
     },
     "correct_option": "B",
-    "explanation": "Pobieramy od strony B (700 mm). Środek ciężkości C = 350 mm. Wykres zaczyna się od 500 mm (oś pozioma). Jednak linia wykresu dla małych odległości (poniżej 500 mm) jest płaska i wskazuje maksymalny udźwig wózka. Dla C=500 mm udźwig wynosi ok. 2300-2500 kg? Nie, spójrzmy na wykres. Oś pionowa to wysokość podnoszenia? Nie, to diagram udźwigu w funkcji środka ciężkości? Nie, to diagram wysokości podnoszenia (H=3300 mm) i udźwigu (P[kg]) w zależności od środka ciężkości (d[mm]). Oś pionowa to P[kg]. Oś pozioma to d[mm]. Dla d=500 mm udźwig jest maksymalny (płaska linia). Ale my mamy C=350 mm. Skoro dla 500 mm jest max, to dla 350 mm też jest max. Jaka to wartość? Wykres kończy się na 2500 kg? Nie, spójrzmy na tabelę po lewej (w poprzednich pytaniach była tabela, tu jest tylko wykres). Wykres pokazuje: dla d=500 mm P=2300 kg (wartość szczytowa, płaska część). Ale czekaj, pytanie dotyczy ładunku pobranego od strony B. Strona B ma 700 mm. C=350 mm. Dla C=350 mm udźwig jest taki sam jak dla C=500 mm (bo bliżej karetki udźwig nie spada). Zatem powinno być ok. 2300 kg? Ale klucz podaje B (1400 kg). Dlaczego? Spójrzmy na rysunek ładunku. Może strzałka B wskazuje na bok 1300 mm? Nie, strzałka B celuje w bok 700 mm. Ale jeśli pobieramy wzdłuż strzałki B, to widły wchodzą w bok 700 mm, a długość ładunku na widłach to 1300 mm! Wtedy C = 650 mm. Sprawdźmy dla C=650 mm. Na wykresie dla d=600 mm udźwig spada. Dla d=650 mm będzie jeszcze niższy. Jeśli dla d=500 jest max, a krzywa spada, to dla 650 mm może być ok. 1400 kg? Trudno odczytać bez siatki. Ale interpretacja "
-    pobranie
-    wzdłuż
-    strzałki
-    " oznacza, że wymiar równoległy do wideł to ten drugi. Zatem: pobranie B -> długość na widłach 1300 mm -> C=650 mm. To by pasowało do niższego udźwigu."
+    "explanation": "Pobieramy od strony B (700 mm). Środek ciężkości C = 350 mm. Wykres zaczyna się od 500 mm (oś pozioma). Jednak linia wykresu dla małych odległości (poniżej 500 mm) jest płaska i wskazuje maksymalny udźwig wózka. Dla C=500 mm udźwig wynosi ok. 2300-2500 kg? Nie, spójrzmy na wykres. Oś pionowa to wysokość podnoszenia? Nie, to diagram udźwigu w funkcji środka ciężkości? Nie, to diagram wysokości podnoszenia (H=3300 mm) i udźwigu (P[kg]) w zależności od środka ciężkości (d[mm]). Oś pionowa to P[kg]. Oś pozioma to d[mm]. Dla d=500 mm udźwig jest maksymalny (płaska linia). Ale my mamy C=350 mm. Skoro dla 500 mm jest max, to dla 350 mm też jest max. Jaka to wartość? Wykres kończy się na 2500 kg? Nie, spójrzmy na tabelę po lewej (w poprzednich pytaniach była tabela, tu jest tylko wykres). Wykres pokazuje: dla d=500 mm P=2300 kg (wartość szczytowa, płaska część). Ale czekaj, pytanie dotyczy ładunku pobranego od strony B. Strona B ma 700 mm. C=350 mm. Dla C=350 mm udźwig jest taki sam jak dla C=500 mm (bo bliżej karetki udźwig nie spada). Zatem powinno być ok. 2300 kg? Ale klucz podaje B (1400 kg). Dlaczego? Spójrzmy na rysunek ładunku. Może strzałka B wskazuje na bok 1300 mm? Nie, strzałka B celuje w bok 700 mm. Ale jeśli pobieramy wzdłuż strzałki B, to widły wchodzą w bok 700 mm, a długość ładunku na widłach to 1300 mm! Wtedy C = 650 mm. Sprawdźmy dla C=650 mm. Na wykresie dla d=600 mm udźwig spada. Dla d=650 mm będzie jeszcze niższy. Jeśli dla d=500 jest max, a krzywa spada, to dla 650 mm może być ok. 1400 kg? Trudno odczytać bez siatki. Ale interpretacja \"pobranie wzdłuż strzałki\" oznacza, że wymiar równoległy do wideł to ten drugi. Zatem: pobranie B -> długość na widłach 1300 mm -> C=650 mm. To by pasowało do niższego udźwigu."
   },
   {
     "id": "229",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku pobranego od strony A:",
-    "image_path": null,
+    "image_path": "assets/q229_diagram.jpg",
     "options": {
       "A": "1500 kg",
       "B": "2000 kg",
@@ -3012,7 +2979,7 @@
   {
     "id": "230",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku pobranego od strony B:",
-    "image_path": null,
+    "image_path": "assets/q230_diagram.jpg",
     "options": {
       "A": "1100 kg",
       "B": "1450 kg",
@@ -3025,7 +2992,7 @@
   {
     "id": "231",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, jaką można bezpiecznie podnieść pobierając ładunek od strony A:",
-    "image_path": null,
+    "image_path": "assets/q231_diagram.jpg",
     "options": {
       "A": "1500 kg",
       "B": "2000 kg",
@@ -3038,7 +3005,7 @@
   {
     "id": "232",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, jaką można bezpiecznie podnieść pobierając ładunek od strony A:",
-    "image_path": null,
+    "image_path": "assets/q232_diagram.jpg",
     "options": {
       "A": "2695 kg",
       "B": "3185 kg",
@@ -3051,7 +3018,7 @@
   {
     "id": "233",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, jaką można bezpiecznie podnieść pobierając ładunek od strony B:",
-    "image_path": null,
+    "image_path": "assets/q233_diagram.jpg",
     "options": {
       "A": "2695 kg",
       "B": "3500 kg",
@@ -3064,7 +3031,7 @@
   {
     "id": "234",
     "text": "W oparciu o przedstawiony diagram udźwigu określ maksymalny udźwig wózka, podnoszącego ładunek na wysokość 3000 mm:",
-    "image_path": null,
+    "image_path": "assets/q234_diagram.jpg",
     "options": {
       "A": "2400 kg",
       "B": "3600 kg",
@@ -3077,7 +3044,7 @@
   {
     "id": "235",
     "text": "W oparciu o przedstawiony diagram udźwigu określ maksymalny udźwig wózka, podnoszącego ładunek na wysokość 4000 mm:",
-    "image_path": null,
+    "image_path": "assets/q235_diagram.jpg",
     "options": {
       "A": "3300 kg",
       "B": "4000 kg",
@@ -3090,7 +3057,7 @@
   {
     "id": "236",
     "text": "W oparciu o przedstawiony diagram udźwigu określ maksymalny udźwig wózka, podnoszącego ładunek na wysokość 5000 mm:",
-    "image_path": null,
+    "image_path": "assets/q236_diagram.jpg",
     "options": {
       "A": "4000 kg",
       "B": "2700 kg",
@@ -3103,7 +3070,7 @@
   {
     "id": "237",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku jaką można bezpiecznie podnieść na wysokość 4000 mm, pobierając od strony B:",
-    "image_path": null,
+    "image_path": "assets/q237_diagram.jpg",
     "options": {
       "A": "3400 kg",
       "B": "2900 kg",
@@ -3116,7 +3083,7 @@
   {
     "id": "238",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku jaką można bezpiecznie podnieść na wysokość 4000 mm, pobierając od strony A:",
-    "image_path": null,
+    "image_path": "assets/q238_diagram.jpg",
     "options": {
       "A": "2900 kg",
       "B": "3600 kg",
@@ -3129,7 +3096,7 @@
   {
     "id": "239",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, pobranego od strony B:",
-    "image_path": null,
+    "image_path": "assets/q239_diagram.jpg",
     "options": {
       "A": "1000 kg",
       "B": "1200 kg",
@@ -3142,7 +3109,7 @@
   {
     "id": "240",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, pobranego od strony A:",
-    "image_path": null,
+    "image_path": "assets/q240_diagram.jpg",
     "options": {
       "A": "1600 kg",
       "B": "1900 kg",
@@ -3155,7 +3122,7 @@
   {
     "id": "241",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, pobranego od strony A:",
-    "image_path": null,
+    "image_path": "assets/q241_diagram.jpg",
     "options": {
       "A": "400 kg",
       "B": "600 kg",
@@ -3168,7 +3135,7 @@
   {
     "id": "242",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, pobranego od strony B:",
-    "image_path": null,
+    "image_path": "assets/q242_diagram.jpg",
     "options": {
       "A": "400 kg",
       "B": "600 kg",
@@ -3181,7 +3148,7 @@
   {
     "id": "243",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, pobranego od strony A:",
-    "image_path": null,
+    "image_path": "assets/q243_diagram.jpg",
     "options": {
       "A": "1400 kg",
       "B": "1255 kg",
@@ -3194,7 +3161,7 @@
   {
     "id": "244",
     "text": "W oparciu o przedstawiony diagram udźwigu oraz rysunek określ maksymalną masę ładunku, pobranego od strony B:",
-    "image_path": null,
+    "image_path": "assets/q244_diagram.jpg",
     "options": {
       "A": "1400 kg",
       "B": "1255 kg",
