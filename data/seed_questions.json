@@ -10,7 +10,8 @@
       "D": "deklaracji zgodności wystawionej przez wytwórcę"
     },
     "correct_option": "B",
-    "explanation": "Zgodnie z ustawą o dozorze technicznym, do eksploatacji urządzenia wymagana jest formalna decyzja wydana przez odpowiedni organ (np. UDT)."
+    "explanation": "Zgodnie z ustawą o dozorze technicznym, do eksploatacji urządzenia wymagana jest formalna decyzja wydana przez odpowiedni organ (np. UDT).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "2",
@@ -23,7 +24,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Operator (obsługujący) nie jest uprawniony do wykonywania napraw. Naprawy leżą w kompetencjach uprawnionego konserwatora."
+    "explanation": "Operator (obsługujący) nie jest uprawniony do wykonywania napraw. Naprawy leżą w kompetencjach uprawnionego konserwatora.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "3",
@@ -36,7 +38,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Podstawowym źródłem informacji o częstotliwości przeglądów jest instrukcja eksploatacji dostarczona przez producenta urządzenia."
+    "explanation": "Podstawowym źródłem informacji o częstotliwości przeglądów jest instrukcja eksploatacji dostarczona przez producenta urządzenia.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "4",
@@ -49,7 +52,8 @@
       "D": "UDT, WDT, TDT"
     },
     "correct_option": "A",
-    "explanation": "Jest to oficjalna definicja dozoru technicznego zawarta w Ustawie o dozorze technicznym."
+    "explanation": "Jest to oficjalna definicja dozoru technicznego zawarta w Ustawie o dozorze technicznym.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "5",
@@ -62,7 +66,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "W Polsce dozór sprawuje UDT oraz jednostki specjalistyczne, takie jak Transportowy Dozór Techniczny (TDT) czy Wojskowy Dozór Techniczny (WDT)."
+    "explanation": "W Polsce dozór sprawuje UDT oraz jednostki specjalistyczne, takie jak Transportowy Dozór Techniczny (TDT) czy Wojskowy Dozór Techniczny (WDT).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "6",
@@ -75,7 +80,8 @@
       "D": "wytworzenie nowego urządzenia"
     },
     "correct_option": "A",
-    "explanation": "Wszelkie zmiany wpływające na parametry lub konstrukcję (np. udźwig, zasięg) są definowane jako modernizacja, a nie naprawa."
+    "explanation": "Wszelkie zmiany wpływające na parametry lub konstrukcję (np. udźwig, zasięg) są definowane jako modernizacja, a nie naprawa.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "7",
@@ -88,7 +94,8 @@
       "D": "w niewielkim zakresie kompetentny operator"
     },
     "correct_option": "A",
-    "explanation": "Do wykonywania napraw i modernizacji wymagane są specjalne uprawnienia zakładu nadawane przez UDT."
+    "explanation": "Do wykonywania napraw i modernizacji wymagane są specjalne uprawnienia zakładu nadawane przez UDT.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "8",
@@ -101,7 +108,8 @@
       "D": "UDT, WDT, TDT"
     },
     "correct_option": "B",
-    "explanation": "Ustawa wyróżnia trzy formy dozoru: pełny, ograniczony oraz uproszczony."
+    "explanation": "Ustawa wyróżnia trzy formy dozoru: pełny, ograniczony oraz uproszczony.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "9",
@@ -114,7 +122,8 @@
       "D": "organ właściwej jednostki dozoru technicznego"
     },
     "correct_option": "D",
-    "explanation": "Wyłączną kompetencję do wydawania decyzji administracyjnej zezwalającej na eksploatację ma organ jednostki dozoru technicznego (np. inspektor UDT)."
+    "explanation": "Wyłączną kompetencję do wydawania decyzji administracyjnej zezwalającej na eksploatację ma organ jednostki dozoru technicznego (np. inspektor UDT).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "10",
@@ -127,7 +136,8 @@
       "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
     },
     "correct_option": "D",
-    "explanation": "Bezpieczna i legalna praca wymaga spełnienia wszystkich trzech warunków: sprawnego sprzętu (konserwacja), dopuszczenia urzędowego (decyzja) i uprawnień operatora."
+    "explanation": "Bezpieczna i legalna praca wymaga spełnienia wszystkich trzech warunków: sprawnego sprzętu (konserwacja), dopuszczenia urzędowego (decyzja) i uprawnień operatora.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "11",
@@ -140,7 +150,8 @@
       "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
     },
     "correct_option": "D",
-    "explanation": "Podobnie jak w poprzednim pytaniu, wymagane jest łączne spełnienie wymogów technicznych, formalnych i szkoleniowych."
+    "explanation": "Podobnie jak w poprzednim pytaniu, wymagane jest łączne spełnienie wymogów technicznych, formalnych i szkoleniowych.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "12",
@@ -153,7 +164,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "C",
-    "explanation": "Naruszenie przepisów ustawy o dozorze technicznym jest wykroczeniem lub przestępstwem zagrożonym grzywną lub ograniczeniem wolności."
+    "explanation": "Naruszenie przepisów ustawy o dozorze technicznym jest wykroczeniem lub przestępstwem zagrożonym grzywną lub ograniczeniem wolności.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "13",
@@ -166,7 +178,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Inspektor UDT ma obowiązek natychmiastowego wstrzymania eksploatacji urządzenia, jeśli stwierdzi, że stwarza ono bezpośrednie zagrożenie."
+    "explanation": "Inspektor UDT ma obowiązek natychmiastowego wstrzymania eksploatacji urządzenia, jeśli stwierdzi, że stwarza ono bezpośrednie zagrożenie.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "14",
@@ -179,7 +192,8 @@
       "D": "zgłasza urządzenie do wykonania naprawy"
     },
     "correct_option": "A",
-    "explanation": "Zgodnie z ustawą o dozorze technicznym, eksploatujący ma obowiązek niezwłocznego zgłoszenia do UDT każdego niebezpiecznego uszkodzenia lub wypadku."
+    "explanation": "Zgodnie z ustawą o dozorze technicznym, eksploatujący ma obowiązek niezwłocznego zgłoszenia do UDT każdego niebezpiecznego uszkodzenia lub wypadku.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "15",
@@ -192,7 +206,8 @@
       "D": "Państwową Inspekcję Pracy"
     },
     "correct_option": "A",
-    "explanation": "Tylko organ, który wydał uprawnienia (czyli jednostka dozoru technicznego, np. UDT), ma prawo je cofnąć."
+    "explanation": "Tylko organ, który wydał uprawnienia (czyli jednostka dozoru technicznego, np. UDT), ma prawo je cofnąć.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "16",
@@ -205,7 +220,8 @@
       "D": "zawiesia transportowe"
     },
     "correct_option": "D",
-    "explanation": "Zawiesia transportowe (np. pasy, liny, łańcuchy) nie podlegają pod dozór techniczny UDT jako urządzenia, choć muszą spełniać normy bezpieczeństwa."
+    "explanation": "Zawiesia transportowe (np. pasy, liny, łańcuchy) nie podlegają pod dozór techniczny UDT jako urządzenia, choć muszą spełniać normy bezpieczeństwa.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "17",
@@ -218,7 +234,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Wszystkie wymienione grupy urządzeń (transportu bliskiego) znajdują się na liście urządzeń podlegających dozorowi technicznemu."
+    "explanation": "Wszystkie wymienione grupy urządzeń (transportu bliskiego) znajdują się na liście urządzeń podlegających dozorowi technicznemu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "18",
@@ -231,7 +248,8 @@
       "D": "nieprzewidziane uszkodzenie, w wyniku którego urządzenie nie nadaje się do eksploatacji lub jego dalsza eksploatacja stanowi zagrożenie"
     },
     "correct_option": "D",
-    "explanation": "Definicja ta kładzie nacisk na brak możliwości dalszej bezpiecznej pracy urządzenia."
+    "explanation": "Definicja ta kładzie nacisk na brak możliwości dalszej bezpiecznej pracy urządzenia.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "19",
@@ -244,7 +262,8 @@
       "D": "każda usterka UTB spowodowana przyczyną losową"
     },
     "correct_option": "A",
-    "explanation": "Kluczowym elementem definicji nieszczęśliwego wypadku w kontekście dozoru jest skutek w postaci obrażeń ciała lub śmierci człowieka."
+    "explanation": "Kluczowym elementem definicji nieszczęśliwego wypadku w kontekście dozoru jest skutek w postaci obrażeń ciała lub śmierci człowieka.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "20",
@@ -257,7 +276,8 @@
       "D": "jest możliwe przy zachowaniu szczególnej ostrożności i pod nadzorem inspektora"
     },
     "correct_option": "A",
-    "explanation": "Jest to sytuacja wyjątkowa, która wymaga formalnej zgody i uzgodnienia warunków bezpieczeństwa z UDT."
+    "explanation": "Jest to sytuacja wyjątkowa, która wymaga formalnej zgody i uzgodnienia warunków bezpieczeństwa z UDT.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "21",
@@ -270,7 +290,8 @@
       "D": "inspektor UDT"
     },
     "correct_option": "A",
-    "explanation": "To właściciel/użytkownik (eksploatujący) ponosi pełną odpowiedzialność za stan techniczny i organizację pracy przy urządzeniu."
+    "explanation": "To właściciel/użytkownik (eksploatujący) ponosi pełną odpowiedzialność za stan techniczny i organizację pracy przy urządzeniu.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "22",
@@ -283,7 +304,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Przeglądy może wykonywać każda osoba posiadająca odpowiednie uprawnienia UDT do konserwacji, niezależnie czy jest to pracownik serwisu zewnętrznego czy wewnętrznego."
+    "explanation": "Przeglądy może wykonywać każda osoba posiadająca odpowiednie uprawnienia UDT do konserwacji, niezależnie czy jest to pracownik serwisu zewnętrznego czy wewnętrznego.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "23",
@@ -296,7 +318,8 @@
       "D": "konserwator urządzenia technicznego"
     },
     "correct_option": "D",
-    "explanation": "Obowiązkiem konserwatora jest odnotowywanie wszystkich przeglądów i napraw w dzienniku konserwacji."
+    "explanation": "Obowiązkiem konserwatora jest odnotowywanie wszystkich przeglądów i napraw w dzienniku konserwacji.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "24",
@@ -309,7 +332,8 @@
       "D": "po każdej zmianie eksploatującego"
     },
     "correct_option": "B",
-    "explanation": "Badanie odbiorcze to pierwsze badanie wykonywane przez UDT przed dopuszczeniem nowego (lub nowo zainstalowanego) urządzenia do użytku."
+    "explanation": "Badanie odbiorcze to pierwsze badanie wykonywane przez UDT przed dopuszczeniem nowego (lub nowo zainstalowanego) urządzenia do użytku.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "25",
@@ -322,7 +346,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "B",
-    "explanation": "Dozór pełny charakteryzuje się regularnymi badaniami okresowymi wykonywanymi przez inspektora UDT."
+    "explanation": "Dozór pełny charakteryzuje się regularnymi badaniami okresowymi wykonywanymi przez inspektora UDT.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "26",
@@ -335,7 +360,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Standardowo konserwator powinien być obecny przy badaniu. Jego nieobecność jest dopuszczalna tylko po wcześniejszym uzgodnieniu z inspektorem."
+    "explanation": "Standardowo konserwator powinien być obecny przy badaniu. Jego nieobecność jest dopuszczalna tylko po wcześniejszym uzgodnieniu z inspektorem.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "27",
@@ -348,7 +374,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Podstawowym wymogiem formalnym przystąpienia do egzaminu i obsługi jest pełnoletność."
+    "explanation": "Podstawowym wymogiem formalnym przystąpienia do egzaminu i obsługi jest pełnoletność.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "28",
@@ -361,7 +388,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Każda z wymienionych sytuacji (zły stan operatora, zagrożenie zewnętrzne, niesprawność sprzętu) jest bezwzględną przesłanką do przerwania pracy."
+    "explanation": "Każda z wymienionych sytuacji (zły stan operatora, zagrożenie zewnętrzne, niesprawność sprzętu) jest bezwzględną przesłanką do przerwania pracy.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "29",
@@ -374,7 +402,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Terminy wynikają z instrukcji producenta, a jeśli ich tam nie ma – z odpowiedniego rozporządzenia (nie z samej ustawy)."
+    "explanation": "Terminy wynikają z instrukcji producenta, a jeśli ich tam nie ma – z odpowiedniego rozporządzenia (nie z samej ustawy).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "30",
@@ -387,7 +416,8 @@
       "D": "w dzienniku konserwacji"
     },
     "correct_option": "B",
-    "explanation": "Częstotliwość badań urzędowych (UDT) jest ściśle określona w przepisach wykonawczych (rozporządzeniach) do ustawy."
+    "explanation": "Częstotliwość badań urzędowych (UDT) jest ściśle określona w przepisach wykonawczych (rozporządzeniach) do ustawy.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "31",
@@ -400,7 +430,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Operator (obsługujący) ma obowiązek stosować się do instrukcji w zakresie obsługi. Konserwacja i naprawy należą do obowiązków konserwatora."
+    "explanation": "Operator (obsługujący) ma obowiązek stosować się do instrukcji w zakresie obsługi. Konserwacja i naprawy należą do obowiązków konserwatora.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "32",
@@ -413,7 +444,8 @@
       "D": "pozytywnego protokołu z badania okresowego lub odbiorczego"
     },
     "correct_option": "C",
-    "explanation": "Jedynym dokumentem formalnie dopuszczającym urządzenie do ruchu jest decyzja administracyjna wydana przez UDT. Naklejka czy protokół są tylko potwierdzeniem wykonania czynności."
+    "explanation": "Jedynym dokumentem formalnie dopuszczającym urządzenie do ruchu jest decyzja administracyjna wydana przez UDT. Naklejka czy protokół są tylko potwierdzeniem wykonania czynności.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "33",
@@ -426,7 +458,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "B",
-    "explanation": "Efektem pracy inspektora jest zawsze protokół z badania, a w przypadku badań kończących się dopuszczeniem – również decyzja."
+    "explanation": "Efektem pracy inspektora jest zawsze protokół z badania, a w przypadku badań kończących się dopuszczeniem – również decyzja.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "34",
@@ -439,7 +472,8 @@
       "D": "eksploatujący"
     },
     "correct_option": "C",
-    "explanation": "Poważne ingerencje w urządzenie, takie jak naprawy główne czy modernizacje, mogą być wykonywane tylko przez zakłady posiadające specjalne uprawnienia nadane przez UDT."
+    "explanation": "Poważne ingerencje w urządzenie, takie jak naprawy główne czy modernizacje, mogą być wykonywane tylko przez zakłady posiadające specjalne uprawnienia nadane przez UDT.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "35",
@@ -452,7 +486,8 @@
       "D": "inspektor UDT"
     },
     "correct_option": "A",
-    "explanation": "W momencie pracy to operator (obsługujący) ma bezpośredni wpływ na bezpieczeństwo i ponosi za nie odpowiedzialność."
+    "explanation": "W momencie pracy to operator (obsługujący) ma bezpośredni wpływ na bezpieczeństwo i ponosi za nie odpowiedzialność.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "36",
@@ -465,7 +500,8 @@
       "D": "protokole z badania wykonanego przez inspektora UDT"
     },
     "correct_option": "A",
-    "explanation": "Instrukcja eksploatacji (DTR) jest podstawowym dokumentem opisującym, jak bezpiecznie używać konkretnego modelu urządzenia."
+    "explanation": "Instrukcja eksploatacji (DTR) jest podstawowym dokumentem opisującym, jak bezpiecznie używać konkretnego modelu urządzenia.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "37",
@@ -478,7 +514,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Codzienna obsługa (OTC) obejmuje oględziny zewnętrzne oraz sprawdzenie działania mechanizmów (próby ruchowe). Próby statyczne i dynamiczne wykonuje się podczas badań UDT."
+    "explanation": "Codzienna obsługa (OTC) obejmuje oględziny zewnętrzne oraz sprawdzenie działania mechanizmów (próby ruchowe). Próby statyczne i dynamiczne wykonuje się podczas badań UDT.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "38",
@@ -491,7 +528,8 @@
       "D": "organ właściwej jednostki dozoru technicznego"
     },
     "correct_option": "D",
-    "explanation": "Jedynym organem uprawnionym do wydawania państwowych uprawnień (zaświadczeń kwalifikacyjnych) jest UDT (lub TDT/WDT)."
+    "explanation": "Jedynym organem uprawnionym do wydawania państwowych uprawnień (zaświadczeń kwalifikacyjnych) jest UDT (lub TDT/WDT).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "39",
@@ -504,7 +542,8 @@
       "D": "jest dopuszczalne ale tylko do 110% udźwigu nominalnego"
     },
     "correct_option": "A",
-    "explanation": "Przeciążanie urządzenia jest surowo zabronione i stwarza ogromne ryzyko wypadku. Próby przeciążeniowe wykonuje się tylko w kontrolowanych warunkach podczas badań UDT."
+    "explanation": "Przeciążanie urządzenia jest surowo zabronione i stwarza ogromne ryzyko wypadku. Próby przeciążeniowe wykonuje się tylko w kontrolowanych warunkach podczas badań UDT.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "40",
@@ -517,7 +556,8 @@
       "D": "po wypadku na urządzeniu"
     },
     "correct_option": "B",
-    "explanation": "Wymiana istotnych elementów nośnych (jak cięgna, liny, łańcuchy) wymaga przeprowadzenia badania doraźnego przez UDT, aby potwierdzić poprawność montażu."
+    "explanation": "Wymiana istotnych elementów nośnych (jak cięgna, liny, łańcuchy) wymaga przeprowadzenia badania doraźnego przez UDT, aby potwierdzić poprawność montażu.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "41",
@@ -530,7 +570,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Szczegółowe obowiązki operatora dla danego typu wózka znajdują się w instrukcji eksploatacji dostarczonej przez producenta."
+    "explanation": "Szczegółowe obowiązki operatora dla danego typu wózka znajdują się w instrukcji eksploatacji dostarczonej przez producenta.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "42",
@@ -543,7 +584,8 @@
       "D": "operatora"
     },
     "correct_option": "B",
-    "explanation": "Badania okresowe to badania urzędowe, które może przeprowadzić wyłącznie inspektor UDT."
+    "explanation": "Badania okresowe to badania urzędowe, które może przeprowadzić wyłącznie inspektor UDT.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "43",
@@ -556,7 +598,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "W Polsce funkcjonują trzy jednostki dozoru: UDT (cywilny), WDT (wojskowy) i TDT (transportowy)."
+    "explanation": "W Polsce funkcjonują trzy jednostki dozoru: UDT (cywilny), WDT (wojskowy) i TDT (transportowy).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "44",
@@ -569,7 +612,8 @@
       "D": "krajów strefy Schengen"
     },
     "correct_option": "A",
-    "explanation": "Uprawnienia wydawane przez polski UDT są dokumentem państwowym ważnym na terenie Polski. W innych krajach mogą być honorowane, ale nie muszą."
+    "explanation": "Uprawnienia wydawane przez polski UDT są dokumentem państwowym ważnym na terenie Polski. W innych krajach mogą być honorowane, ale nie muszą.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "45",
@@ -582,7 +626,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Wymóg ten może wynikać z każdego z wymienionych źródeł: zaleceń producenta, ogólnych przepisów prawa pracy oraz regulaminów konkretnego zakładu."
+    "explanation": "Wymóg ten może wynikać z każdego z wymienionych źródeł: zaleceń producenta, ogólnych przepisów prawa pracy oraz regulaminów konkretnego zakładu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "46",
@@ -595,7 +640,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Wszystkie wymienione grupy urządzeń znajdują się w katalogu urządzeń objętych dozorem technicznym w Polsce."
+    "explanation": "Wszystkie wymienione grupy urządzeń znajdują się w katalogu urządzeń objętych dozorem technicznym w Polsce.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "47",
@@ -608,7 +654,8 @@
       "D": "informacji o sposobie obsługi urządzenia"
     },
     "correct_option": "C",
-    "explanation": "Terminy badań urzędowych (UDT) wynikają z przepisów prawa (rozporządzeń), a nie z instrukcji producenta, która jest dokumentem technicznym."
+    "explanation": "Terminy badań urzędowych (UDT) wynikają z przepisów prawa (rozporządzeń), a nie z instrukcji producenta, która jest dokumentem technicznym.",
+    "hint": null
   },
   {
     "id": "48",
@@ -621,7 +668,8 @@
       "D": "wykaz uprawnionych operatorów"
     },
     "correct_option": "A",
-    "explanation": "Księga rewizyjna służy do przechowywania dokumentacji związanej z dozorem technicznym, przede wszystkim protokołów z badań UDT i decyzji."
+    "explanation": "Księga rewizyjna służy do przechowywania dokumentacji związanej z dozorem technicznym, przede wszystkim protokołów z badań UDT i decyzji.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "49",
@@ -634,7 +682,8 @@
       "D": "każda odpowiedź jest niepoprawna"
     },
     "correct_option": "C",
-    "explanation": "Decyzja UDT jest decyzją administracyjną, od której przysługuje odwołanie zgodnie z Kodeksem Postępowania Administracyjnego."
+    "explanation": "Decyzja UDT jest decyzją administracyjną, od której przysługuje odwołanie zgodnie z Kodeksem Postępowania Administracyjnego.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "50",
@@ -647,7 +696,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Kandydat musi spełniać łącznie wymogi formalne (wniosek), wiekowe (pełnoletność) oraz zdrowotne."
+    "explanation": "Kandydat musi spełniać łącznie wymogi formalne (wniosek), wiekowe (pełnoletność) oraz zdrowotne.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "51",
@@ -660,7 +710,8 @@
       "D": "sporządza protokół z wykonanych czynności i wydaje decyzję administracyjną zezwalającą na eksploatację"
     },
     "correct_option": "D",
-    "explanation": "Formalnym zakończeniem badania jest protokół oraz decyzja administracyjna. Naklejka jest jedynie elementem informacyjnym."
+    "explanation": "Formalnym zakończeniem badania jest protokół oraz decyzja administracyjna. Naklejka jest jedynie elementem informacyjnym.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "52",
@@ -673,7 +724,8 @@
       "D": "są ważne przez okres 15 lat"
     },
     "correct_option": "C",
-    "explanation": "Obecnie uprawnienia UDT są terminowe (zazwyczaj 5 lub 10 lat), a okres ten wynika wprost z przepisów prawa (rozporządzenia)."
+    "explanation": "Obecnie uprawnienia UDT są terminowe (zazwyczaj 5 lub 10 lat), a okres ten wynika wprost z przepisów prawa (rozporządzenia).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "53",
@@ -686,7 +738,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "A",
-    "explanation": "Samowolna przeróbka urządzenia podlegającego dozorowi jest naruszeniem ustawy i grozi za to odpowiedzialność karna."
+    "explanation": "Samowolna przeróbka urządzenia podlegającego dozorowi jest naruszeniem ustawy i grozi za to odpowiedzialność karna.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "54",
@@ -699,7 +752,8 @@
       "D": "podlega karze więzienia"
     },
     "correct_option": "A",
-    "explanation": "Dopuszczenie do pracy urządzenia bez ważnej decyzji UDT jest przestępstwem lub wykroczeniem zagrożonym grzywną lub ograniczeniem wolności."
+    "explanation": "Dopuszczenie do pracy urządzenia bez ważnej decyzji UDT jest przestępstwem lub wykroczeniem zagrożonym grzywną lub ograniczeniem wolności.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "55",
@@ -712,7 +766,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Instrukcja eksploatacji (często zwana DTR) jest dokumentem dostarczanym przez wytwórcę urządzenia."
+    "explanation": "Instrukcja eksploatacji (często zwana DTR) jest dokumentem dostarczanym przez wytwórcę urządzenia.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "56",
@@ -725,7 +780,8 @@
       "D": "od osób po 60 roku życia"
     },
     "correct_option": "B",
-    "explanation": "Urządzenia z napędem ręcznym (np. ręczne wózki paletowe, wciągniki łańcuchowe ręczne) nie wymagają od operatora posiadania uprawnień UDT."
+    "explanation": "Urządzenia z napędem ręcznym (np. ręczne wózki paletowe, wciągniki łańcuchowe ręczne) nie wymagają od operatora posiadania uprawnień UDT.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "57",
@@ -738,7 +794,8 @@
       "D": "wszystkie UTB o udźwigu do 3,2 t"
     },
     "correct_option": "A",
-    "explanation": "Uprawnienia są ściśle przypisane do kategorii urządzenia (np. wózki widłowe, suwnice)."
+    "explanation": "Uprawnienia są ściśle przypisane do kategorii urządzenia (np. wózki widłowe, suwnice).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "58",
@@ -751,7 +808,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Operator musi przestrzegać instrukcji oraz dbać o legalność pracy – ma prawo i obowiązek odmówić pracy na urządzeniu niedopuszczonym do ruchu."
+    "explanation": "Operator musi przestrzegać instrukcji oraz dbać o legalność pracy – ma prawo i obowiązek odmówić pracy na urządzeniu niedopuszczonym do ruchu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "59",
@@ -764,7 +822,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "B",
-    "explanation": "Zaświadczenie jest dokumentem imiennym, ale nie zawiera zdjęcia (w starej formie) lub wymaga potwierdzenia tożsamości, dlatego jest ważne łącznie z dowodem osobistym."
+    "explanation": "Zaświadczenie jest dokumentem imiennym, ale nie zawiera zdjęcia (w starej formie) lub wymaga potwierdzenia tożsamości, dlatego jest ważne łącznie z dowodem osobistym.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "60",
@@ -777,7 +836,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Procedura powypadkowa wymaga ratowania życia, zabezpieczenia miejsca i informowania przełożonych."
+    "explanation": "Procedura powypadkowa wymaga ratowania życia, zabezpieczenia miejsca i informowania przełożonych.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "61",
@@ -790,7 +850,8 @@
       "D": "dokonywać oględzin zewnętrznych urządzenia"
     },
     "correct_option": "A",
-    "explanation": "Nieznajomość masy ładunku grozi przeciążeniem wózka i wypadkiem."
+    "explanation": "Nieznajomość masy ładunku grozi przeciążeniem wózka i wypadkiem.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "62",
@@ -803,7 +864,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Pytanie dotyczy form prawnych sprawowania dozoru, a nie rodzajów badań czy nazw instytucji."
+    "explanation": "Pytanie dotyczy form prawnych sprawowania dozoru, a nie rodzajów badań czy nazw instytucji.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "63",
@@ -816,7 +878,8 @@
       "D": "jest dopuszczalne jednorazowo na pisemne polecenie przełożonego"
     },
     "correct_option": "C",
-    "explanation": "Jest to sytuacja wyjątkowa. Standardowo jest to zabronione, ale przepisy dopuszczają odstępstwa po uzgodnieniu z UDT."
+    "explanation": "Jest to sytuacja wyjątkowa. Standardowo jest to zabronione, ale przepisy dopuszczają odstępstwa po uzgodnieniu z UDT.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "64",
@@ -829,7 +892,8 @@
       "D": "nie jest nigdy dopuszczalna"
     },
     "correct_option": "A",
-    "explanation": "Praca w tandemie jest skomplikowaną operacją i wymaga specjalnego planu oraz nadzoru, samo zsumowanie udźwigów nie wystarczy."
+    "explanation": "Praca w tandemie jest skomplikowaną operacją i wymaga specjalnego planu oraz nadzoru, samo zsumowanie udźwigów nie wystarczy.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "65",
@@ -842,7 +906,8 @@
       "D": "dozwolone jeżeli współczynnik bezpieczeństwa cięgien wynosi nie mniej niż 7"
     },
     "correct_option": "A",
-    "explanation": "Jest to jedna z podstawowych zasad BHP – zakaz przebywania pod wiszącym ładunkiem."
+    "explanation": "Jest to jedna z podstawowych zasad BHP – zakaz przebywania pod wiszącym ładunkiem.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "66",
@@ -855,7 +920,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "D",
-    "explanation": "Przenoszenie ładunków nad ludźmi jest zabronione. Należy wyznaczyć strefy niebezpieczne i usunąć z nich ludzi."
+    "explanation": "Przenoszenie ładunków nad ludźmi jest zabronione. Należy wyznaczyć strefy niebezpieczne i usunąć z nich ludzi.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "67",
@@ -868,7 +934,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "B",
-    "explanation": "Uprawnienia wydają jednostki dozoru technicznego."
+    "explanation": "Uprawnienia wydają jednostki dozoru technicznego.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "68",
@@ -881,7 +948,8 @@
       "D": "listem poleconym lub pocztą elektroniczną po upływie 30 dni roboczych od daty egzaminu"
     },
     "correct_option": "B",
-    "explanation": "Wynik egzaminu (części teoretycznej i praktycznej) jest ogłaszany od razu."
+    "explanation": "Wynik egzaminu (części teoretycznej i praktycznej) jest ogłaszany od razu.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "69",
@@ -894,7 +962,8 @@
       "D": "przez obsługującego"
     },
     "correct_option": "B",
-    "explanation": "Przepisy dopuszczają obie formy prowadzenia dokumentacji."
+    "explanation": "Przepisy dopuszczają obie formy prowadzenia dokumentacji.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "70",
@@ -907,7 +976,8 @@
       "D": "nie dotyczy operatorów urządzeń mobilnych"
     },
     "correct_option": "C",
-    "explanation": "Instrukcja stanowiskowa BHP jest dokumentem wewnątrzzakładowym opracowywanym przez pracodawcę."
+    "explanation": "Instrukcja stanowiskowa BHP jest dokumentem wewnątrzzakładowym opracowywanym przez pracodawcę.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "71",
@@ -920,7 +990,8 @@
       "D": "składa wniosek o przedłużenie terminu ważności zaświadczenia kwalifikacyjnego"
     },
     "correct_option": "C",
-    "explanation": "Brak ważnego dokumentu oznacza brak uprawnień do pracy. Należy je odnowić przed upływem terminu."
+    "explanation": "Brak ważnego dokumentu oznacza brak uprawnień do pracy. Należy je odnowić przed upływem terminu.",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "72",
@@ -933,7 +1004,8 @@
       "D": "po wcześniejszym zgłoszeniu telefonicznym"
     },
     "correct_option": "A",
-    "explanation": "Operator musi złożyć wniosek o przedłużenie (zazwyczaj na 3 miesiące przed upływem ważności)."
+    "explanation": "Operator musi złożyć wniosek o przedłużenie (zazwyczaj na 3 miesiące przed upływem ważności).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT."
   },
   {
     "id": "73",
@@ -946,7 +1018,8 @@
       "D": "iloczynem masy i objętości podnoszonego ładunku"
     },
     "correct_option": "C",
-    "explanation": "Udźwig nominalny to maksymalna masa, jaką urządzenie może bezpiecznie podnieść."
+    "explanation": "Udźwig nominalny to maksymalna masa, jaką urządzenie może bezpiecznie podnieść.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "74",
@@ -959,7 +1032,8 @@
       "D": "1100 kg"
     },
     "correct_option": "C",
-    "explanation": "Gęstość wody to ok. 1 kg/l , więc 1000 litrów to 1000 kg."
+    "explanation": "Gęstość wody to ok. 1 kg/l , więc 1000 litrów to 1000 kg.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "75",
@@ -972,7 +1046,8 @@
       "D": "900 kg"
     },
     "correct_option": "B",
-    "explanation": "40 * 25 kg = 1000 kg."
+    "explanation": "40 * 25 kg = 1000 kg.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "76",
@@ -985,7 +1060,8 @@
       "D": "1200 kg"
     },
     "correct_option": "D",
-    "explanation": "60 * 20 kg = 1200 kg."
+    "explanation": "60 * 20 kg = 1200 kg.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "77",
@@ -998,7 +1074,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Operator ma obowiązek znać masę ładunku i może użyć dowolnej wiarygodnej metody jej ustalenia."
+    "explanation": "Operator ma obowiązek znać masę ładunku i może użyć dowolnej wiarygodnej metody jej ustalenia.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "78",
@@ -1011,7 +1088,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Udźwig jest kluczowym parametrem i musi być widoczny na urządzeniu oraz opisany w dokumentacji."
+    "explanation": "Udźwig jest kluczowym parametrem i musi być widoczny na urządzeniu oraz opisany w dokumentacji.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "79",
@@ -1024,7 +1102,8 @@
       "D": "mm"
     },
     "correct_option": "A",
-    "explanation": "Udźwig wyrażamy w jednostkach masy, czyli kilogramach (kg) lub tonach (t)."
+    "explanation": "Udźwig wyrażamy w jednostkach masy, czyli kilogramach (kg) lub tonach (t).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "80",
@@ -1037,7 +1116,8 @@
       "D": "wszystkie odpowiedzi są nieprawidłowe"
     },
     "correct_option": "B",
-    "explanation": "Rozrusznik i silnik elektryczny to elementy układu elektrycznego/napędowego, a nie hydraulicznego."
+    "explanation": "Rozrusznik i silnik elektryczny to elementy układu elektrycznego/napędowego, a nie hydraulicznego.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "81",
@@ -1050,7 +1130,8 @@
       "D": "dzieleniem strumienia na poszczególne obwody układu hydraulicznego"
     },
     "correct_option": "B",
-    "explanation": "Zamek hydrauliczny (zawór zwrotny sterowany) blokuje wypływ oleju z siłownika w przypadku pęknięcia węża, zapobiegając opadnięciu ładunku."
+    "explanation": "Zamek hydrauliczny (zawór zwrotny sterowany) blokuje wypływ oleju z siłownika w przypadku pęknięcia węża, zapobiegając opadnięciu ładunku.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "82",
@@ -1063,7 +1144,8 @@
       "D": "zawór przelewowy"
     },
     "correct_option": "B",
-    "explanation": "Siłownik zamienia energię ciśnienia cieczy na ruch liniowy (podnoszenie/wysuwanie)."
+    "explanation": "Siłownik zamienia energię ciśnienia cieczy na ruch liniowy (podnoszenie/wysuwanie).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "83",
@@ -1076,7 +1158,8 @@
       "D": "sprężarka"
     },
     "correct_option": "B",
-    "explanation": "Pompa jest sercem układu hydraulicznego i odpowiada za przepływ i ciśnienie oleju."
+    "explanation": "Pompa jest sercem układu hydraulicznego i odpowiada za przepływ i ciśnienie oleju.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "84",
@@ -1089,7 +1172,8 @@
       "D": "zasilanie układu hydraulicznego"
     },
     "correct_option": "A",
-    "explanation": "Zawór przelewowy otwiera się po przekroczeniu zadanego ciśnienia, utrzymując je na bezpiecznym, maksymalnym poziomie (chroni pompę)."
+    "explanation": "Zawór przelewowy otwiera się po przekroczeniu zadanego ciśnienia, utrzymując je na bezpiecznym, maksymalnym poziomie (chroni pompę).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "85",
@@ -1102,7 +1186,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Doprowadzenie siłownika do skrajnego położenia przy pracującej pompie wymusza zadziałanie zaworu przelewowego (słychać charakterystyczny dźwięk)."
+    "explanation": "Doprowadzenie siłownika do skrajnego położenia przy pracującej pompie wymusza zadziałanie zaworu przelewowego (słychać charakterystyczny dźwięk).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "86",
@@ -1115,7 +1200,8 @@
       "D": "wszystkie odpowiedzi są nieprawidłowe"
     },
     "correct_option": "C",
-    "explanation": "Rozdzielacz służy do sterowania kierunkiem przepływu oleju, czyli decyduje, który siłownik ma zadziałać (np. podnoszenie lub przechylanie)."
+    "explanation": "Rozdzielacz służy do sterowania kierunkiem przepływu oleju, czyli decyduje, który siłownik ma zadziałać (np. podnoszenie lub przechylanie).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "87",
@@ -1128,7 +1214,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Zarówno siłowniki (ruch liniowy), jak i silniki hydrauliczne (ruch obrotowy) są elementami wykonawczymi."
+    "explanation": "Zarówno siłowniki (ruch liniowy), jak i silniki hydrauliczne (ruch obrotowy) są elementami wykonawczymi.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "88",
@@ -1141,7 +1228,8 @@
       "D": "zawór bezpieczeństwa"
     },
     "correct_option": "D",
-    "explanation": "Zawór bezpieczeństwa (często pełniący funkcję zaworu przelewowego) zapobiega uszkodzeniu układu przez zbyt wysokie ciśnienie."
+    "explanation": "Zawór bezpieczeństwa (często pełniący funkcję zaworu przelewowego) zapobiega uszkodzeniu układu przez zbyt wysokie ciśnienie.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "89",
@@ -1154,7 +1242,8 @@
       "D": "zablokowanie opuszczania siłownika podczas pęknięcia przewodu hydraulicznego"
     },
     "correct_option": "C",
-    "explanation": "Zawór ten ogranicza przepływ oleju w kierunku powrotnym, co zapobiega gwałtownemu opadnięciu wideł w razie awarii węża."
+    "explanation": "Zawór ten ogranicza przepływ oleju w kierunku powrotnym, co zapobiega gwałtownemu opadnięciu wideł w razie awarii węża.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "90",
@@ -1167,7 +1256,8 @@
       "D": "ogranicza prędkość opuszczania podniesionego ładunku, w przypadku pęknięcia węża hydraulicznego"
     },
     "correct_option": "C",
-    "explanation": "Główną funkcją zaworu bezpieczeństwa (przelewowego) jest ochrona pompy i całego układu przed zniszczeniem na skutek nadciśnienia."
+    "explanation": "Główną funkcją zaworu bezpieczeństwa (przelewowego) jest ochrona pompy i całego układu przed zniszczeniem na skutek nadciśnienia.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "91",
@@ -1180,7 +1270,8 @@
       "D": "do siłownika"
     },
     "correct_option": "A",
-    "explanation": "Zawór przelewowy kieruje nadmiar oleju z powrotem do zbiornika, zamykając obieg."
+    "explanation": "Zawór przelewowy kieruje nadmiar oleju z powrotem do zbiornika, zamykając obieg.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "92",
@@ -1193,7 +1284,8 @@
       "D": "inspektor UDT"
     },
     "correct_option": "A",
-    "explanation": "Procedury testowe są zawsze określane przez producenta w dokumentacji technicznej."
+    "explanation": "Procedury testowe są zawsze określane przez producenta w dokumentacji technicznej.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "93",
@@ -1206,7 +1298,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Bateria trakcyjna pełni podwójną rolę: zasila wózek energią oraz stanowi istotną część przeciwwagi (zapewnia stateczność)."
+    "explanation": "Bateria trakcyjna pełni podwójną rolę: zasila wózek energią oraz stanowi istotną część przeciwwagi (zapewnia stateczność).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "94",
@@ -1219,7 +1312,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Wszystkie te parametry są kluczowe dla doboru właściwej baterii do wózka i prostownika."
+    "explanation": "Wszystkie te parametry są kluczowe dla doboru właściwej baterii do wózka i prostownika.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "95",
@@ -1232,7 +1326,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Wyłącznik awaryjny musi być łatwo dostępny (blisko operatora) i wyraźnie oznaczony (czerwony grzybek na żółtym tle)."
+    "explanation": "Wyłącznik awaryjny musi być łatwo dostępny (blisko operatora) i wyraźnie oznaczony (czerwony grzybek na żółtym tle).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "96",
@@ -1245,7 +1340,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Wciśnięcie STOP odcina zasilanie wszystkich głównych obwodów roboczych (jazdy i podnoszenia)."
+    "explanation": "Wciśnięcie STOP odcina zasilanie wszystkich głównych obwodów roboczych (jazdy i podnoszenia).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "97",
@@ -1258,7 +1354,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "W zależności od przeznaczenia wózka (hala/teren) stosuje się różne typy opon."
+    "explanation": "W zależności od przeznaczenia wózka (hala/teren) stosuje się różne typy opon.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "98",
@@ -1271,7 +1368,8 @@
       "D": "inspektor UDT"
     },
     "correct_option": "C",
-    "explanation": "Tylko producent wózka może określić, jakie opony zapewniają wymaganą stateczność i parametry trakcyjne."
+    "explanation": "Tylko producent wózka może określić, jakie opony zapewniają wymaganą stateczność i parametry trakcyjne.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "99",
@@ -1284,7 +1382,8 @@
       "D": "minimalna wartość bieżnika 2 mm"
     },
     "correct_option": "B",
-    "explanation": "Opony pełne (superelastyczne) zużywają się inaczej niż pneumatyczne. Często mają specjalny pasek (wskaźnik) lub mierzy się ich grubość."
+    "explanation": "Opony pełne (superelastyczne) zużywają się inaczej niż pneumatyczne. Często mają specjalny pasek (wskaźnik) lub mierzy się ich grubość.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "100",
@@ -1297,7 +1396,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Zarówno uszkodzenia mechaniczne (pęknięcia), jak i nadmierne starcie dyskwalifikują oponę z użytku."
+    "explanation": "Zarówno uszkodzenia mechaniczne (pęknięcia), jak i nadmierne starcie dyskwalifikują oponę z użytku.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "101",
@@ -1310,7 +1410,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Kontrolka ta sygnalizuje problem ze smarowaniem silnika, co może wynikać z braku oleju lub awarii pompy oleju (niskie ciśnienie)."
+    "explanation": "Kontrolka ta sygnalizuje problem ze smarowaniem silnika, co może wynikać z braku oleju lub awarii pompy oleju (niskie ciśnienie).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "102",
@@ -1323,7 +1424,8 @@
       "D": "mechanizmu przesuwu karetki"
     },
     "correct_option": "A",
-    "explanation": "Piktogram przedstawia widły poruszające się pionowo (góra/dół), co odpowiada mechanizmowi podnoszenia."
+    "explanation": "Piktogram przedstawia widły poruszające się pionowo (góra/dół), co odpowiada mechanizmowi podnoszenia.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "103",
@@ -1336,7 +1438,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Jest to kontrolka niezapiętych pasów bezpieczeństwa. Operator ma obowiązek zapiąć pasy przed rozpoczęciem jazdy."
+    "explanation": "Jest to kontrolka niezapiętych pasów bezpieczeństwa. Operator ma obowiązek zapiąć pasy przed rozpoczęciem jazdy.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "104",
@@ -1349,7 +1452,8 @@
       "D": "przechył masztu \"od siebie\""
     },
     "correct_option": "A",
-    "explanation": "Standardowo w wózkach widłowych pchnięcie dźwigni podnoszenia do przodu powoduje opuszczanie wideł (zgodnie z grawitacją)."
+    "explanation": "Standardowo w wózkach widłowych pchnięcie dźwigni podnoszenia do przodu powoduje opuszczanie wideł (zgodnie z grawitacją).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "105",
@@ -1362,7 +1466,8 @@
       "D": "ruch mechanizmu przesuwu karetki"
     },
     "correct_option": "C",
-    "explanation": "Piktogram przedstawia maszt odchylający się od pionu, co symbolizuje funkcję przechyłu masztu."
+    "explanation": "Piktogram przedstawia maszt odchylający się od pionu, co symbolizuje funkcję przechyłu masztu.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "106",
@@ -1375,7 +1480,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Każdy wózek z operatorem siedzącym musi posiadać dwa niezależne układy hamulcowe: roboczy (zasadniczy) i postojowy."
+    "explanation": "Każdy wózek z operatorem siedzącym musi posiadać dwa niezależne układy hamulcowe: roboczy (zasadniczy) i postojowy.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "107",
@@ -1388,7 +1494,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "W wózkach prowadzonych (tzw. pieskach) hamowanie następuje automatycznie po puszczeniu manetki jazdy lub po ustawieniu dyszla w pozycji pionowej/poziomej."
+    "explanation": "W wózkach prowadzonych (tzw. pieskach) hamowanie następuje automatycznie po puszczeniu manetki jazdy lub po ustawieniu dyszla w pozycji pionowej/poziomej.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "108",
@@ -1401,7 +1508,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Układ podnoszenia to zespół elementów współpracujących ze sobą: siłowniki generują siłę, łańcuchy ją przenoszą, a karetka (płyta czołowa) porusza się w maszcie."
+    "explanation": "Układ podnoszenia to zespół elementów współpracujących ze sobą: siłowniki generują siłę, łańcuchy ją przenoszą, a karetka (płyta czołowa) porusza się w maszcie.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "109",
@@ -1414,7 +1522,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Wózki mogą mieć różne konstrukcje masztów w zależności od potrzeb: standard, duplex (dwuczęściowy) czy triplex (trzyczęściowy), często z funkcją wolnego skoku wideł."
+    "explanation": "Wózki mogą mieć różne konstrukcje masztów w zależności od potrzeb: standard, duplex (dwuczęściowy) czy triplex (trzyczęściowy), często z funkcją wolnego skoku wideł.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "110",
@@ -1427,7 +1536,8 @@
       "D": "przeciwwaga"
     },
     "correct_option": "B",
-    "explanation": "W razie wywrócenia wózka, solidna konstrukcja kabiny (ramy ochronnej) oraz zapięty pas bezpieczeństwa (trzymający operatora wewnątrz obrysu wózka) ratują życie."
+    "explanation": "W razie wywrócenia wózka, solidna konstrukcja kabiny (ramy ochronnej) oraz zapięty pas bezpieczeństwa (trzymający operatora wewnątrz obrysu wózka) ratują życie.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "111",
@@ -1440,7 +1550,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "C",
-    "explanation": "Nierównomiernie zużyte opony lub zbyt niskie ciśnienie w nich mogą drastycznie pogorszyć stabilność wózka, zwłaszcza z ładunkiem."
+    "explanation": "Nierównomiernie zużyte opony lub zbyt niskie ciśnienie w nich mogą drastycznie pogorszyć stabilność wózka, zwłaszcza z ładunkiem.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "112",
@@ -1453,7 +1564,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "A",
-    "explanation": "Butle do wózków widłowych (syfonowe) różnią się od tych domowych. Muszą posiadać kołnierz ochronny zaworu i pobierają fazę ciekłą gazu."
+    "explanation": "Butle do wózków widłowych (syfonowe) różnią się od tych domowych. Muszą posiadać kołnierz ochronny zaworu i pobierają fazę ciekłą gazu.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "113",
@@ -1466,7 +1578,8 @@
       "D": "żadnym z powyższych"
     },
     "correct_option": "A",
-    "explanation": "Łańcuch w wózku widłowym pełni funkcję cięgna nośnego – to na nim 'wisi' karetka z widłami i ładunkiem."
+    "explanation": "Łańcuch w wózku widłowym pełni funkcję cięgna nośnego – to na nim 'wisi' karetka z widłami i ładunkiem.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "114",
@@ -1479,7 +1592,8 @@
       "D": "lampkę kontrolną oświetlenia"
     },
     "correct_option": "A",
-    "explanation": "Symbol spirali jest powszechnie stosowanym oznaczeniem świec żarowych w silnikach Diesla."
+    "explanation": "Symbol spirali jest powszechnie stosowanym oznaczeniem świec żarowych w silnikach Diesla.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "115",
@@ -1492,7 +1606,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "C",
-    "explanation": "Symbol akumulatora z plusem i minusem to standardowa kontrolka ładowania. Jej zaświecenie podczas pracy silnika oznacza brak ładowania."
+    "explanation": "Symbol akumulatora z plusem i minusem to standardowa kontrolka ładowania. Jej zaświecenie podczas pracy silnika oznacza brak ładowania.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "116",
@@ -1505,7 +1620,8 @@
       "D": "lampkę kontrolna stopnia naładowania akumulatora"
     },
     "correct_option": "B",
-    "explanation": "Symbol termometru zanurzonego w cieczy oznacza wskaźnik lub kontrolkę temperatury płynu chłodzącego silnik."
+    "explanation": "Symbol termometru zanurzonego w cieczy oznacza wskaźnik lub kontrolkę temperatury płynu chłodzącego silnik.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "117",
@@ -1518,7 +1634,8 @@
       "D": "lampkę kontrolną - nadmierna prędkość obrotowa silnika"
     },
     "correct_option": "A",
-    "explanation": "Wykrzyknik w kółku (często w nawiasach przypominających szczęki hamulcowe) to uniwersalny symbol zaciągniętego hamulca ręcznego (postojowego) lub awarii układu hamulcowego."
+    "explanation": "Wykrzyknik w kółku (często w nawiasach przypominających szczęki hamulcowe) to uniwersalny symbol zaciągniętego hamulca ręcznego (postojowego) lub awarii układu hamulcowego.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "118",
@@ -1531,7 +1648,8 @@
       "D": "wszystkie odpowiedzi są nieprawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Symbol klucza płaskiego zazwyczaj sygnalizuje konieczność wykonania przeglądu serwisowego lub wykrycie błędu przez komputer pokładowy."
+    "explanation": "Symbol klucza płaskiego zazwyczaj sygnalizuje konieczność wykonania przeglądu serwisowego lub wykrycie błędu przez komputer pokładowy.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "119",
@@ -1544,7 +1662,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Montaż osprzętu zmienia parametry wózka, dlatego operator musi znać instrukcje obu urządzeń i stosować się do zaktualizowanego diagramu udźwigu."
+    "explanation": "Montaż osprzętu zmienia parametry wózka, dlatego operator musi znać instrukcje obu urządzeń i stosować się do zaktualizowanego diagramu udźwigu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "120",
@@ -1557,7 +1676,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Każda z wymienionych osób może zamontować osprzęt, pod warunkiem posiadania odpowiedniej wiedzy i umiejętności (operator – jeśli instrukcja na to pozwala)."
+    "explanation": "Każda z wymienionych osób może zamontować osprzęt, pod warunkiem posiadania odpowiedniej wiedzy i umiejętności (operator – jeśli instrukcja na to pozwala).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "121",
@@ -1570,7 +1690,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "B",
-    "explanation": "Osprzęt ma swoją masę i przesuwa środek ciężkości ładunku do przodu, co zawsze skutkuje redukcją (zmniejszeniem) dostępnego udźwigu nominalnego wózka."
+    "explanation": "Osprzęt ma swoją masę i przesuwa środek ciężkości ładunku do przodu, co zawsze skutkuje redukcją (zmniejszeniem) dostępnego udźwigu nominalnego wózka.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "122",
@@ -1583,7 +1704,8 @@
       "D": "operator dokonuje wpisu w dzienniku konserwacji"
     },
     "correct_option": "B",
-    "explanation": "Jeśli osprzęt jest przewidziany przez producenta i nie wymaga ingerencji w układ hydrauliczny/konstrukcję (wymagającej dozoru), nie trzeba zgłaszać tego do UDT."
+    "explanation": "Jeśli osprzęt jest przewidziany przez producenta i nie wymaga ingerencji w układ hydrauliczny/konstrukcję (wymagającej dozoru), nie trzeba zgłaszać tego do UDT.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "123",
@@ -1596,7 +1718,8 @@
       "D": "wszystkie odpowiedzi są nieprawidłowe"
     },
     "correct_option": "C",
-    "explanation": "Strzałki poziome skierowane w lewo i w prawo oznaczają funkcję przesuwu bocznego wideł (karetki)."
+    "explanation": "Strzałki poziome skierowane w lewo i w prawo oznaczają funkcję przesuwu bocznego wideł (karetki).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "124",
@@ -1609,7 +1732,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Użycie przedłużek zmienia parametry wózka, więc wymagana jest zgoda producenta, poprawny montaż i zaktualizowany diagram udźwigu."
+    "explanation": "Użycie przedłużek zmienia parametry wózka, więc wymagana jest zgoda producenta, poprawny montaż i zaktualizowany diagram udźwigu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "125",
@@ -1622,7 +1746,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "B",
-    "explanation": "Łącznik brzuszny (bezpieczeństwa) chroni operatora przed przygnieceniem przez wózek podczas cofania – po naciśnięciu ciałem wózek odjeżdża w przeciwnym kierunku."
+    "explanation": "Łącznik brzuszny (bezpieczeństwa) chroni operatora przed przygnieceniem przez wózek podczas cofania – po naciśnięciu ciałem wózek odjeżdża w przeciwnym kierunku.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "126",
@@ -1635,7 +1760,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Zarówno kluczyk w stacyjce, jak i kod PIN (klawiatura) służą do autoryzacji dostępu i zapobiegają użyciu wózka przez osoby nieuprawnione."
+    "explanation": "Zarówno kluczyk w stacyjce, jak i kod PIN (klawiatura) służą do autoryzacji dostępu i zapobiegają użyciu wózka przez osoby nieuprawnione.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "127",
@@ -1648,7 +1774,8 @@
       "D": "symbol kontroli jakości"
     },
     "correct_option": "A",
-    "explanation": "Oznaczenie na widle dotyczy pojedynczej sztuki. 1500 to udźwig w kg, a 500 to środek ciężkości w mm."
+    "explanation": "Oznaczenie na widle dotyczy pojedynczej sztuki. 1500 to udźwig w kg, a 500 to środek ciężkości w mm.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "128",
@@ -1661,7 +1788,8 @@
       "D": "12,0 t"
     },
     "correct_option": "C",
-    "explanation": "Skoro jedna widła ma udźwig 2500 kg (2,5 t), to para wideł może teoretycznie przenieść 5000 kg (5,0 t), o ile pozwala na to udźwig samego wózka."
+    "explanation": "Skoro jedna widła ma udźwig 2500 kg (2,5 t), to para wideł może teoretycznie przenieść 5000 kg (5,0 t), o ile pozwala na to udźwig samego wózka.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "129",
@@ -1674,7 +1802,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Brak oleju powoduje zasysanie powietrza przez pompę (hałas), nierówną pracę siłowników (skoki) lub całkowity brak reakcji."
+    "explanation": "Brak oleju powoduje zasysanie powietrza przez pompę (hałas), nierówną pracę siłowników (skoki) lub całkowity brak reakcji.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "130",
@@ -1687,7 +1816,8 @@
       "D": "uszkodzonym przewodem hydraulicznym zasilającym siłownik podnoszenia"
     },
     "correct_option": "A",
-    "explanation": "Najczęstszą przyczyną szarpania (skoków) przy podnoszeniu jest zapowietrzenie układu wynikające ze zbyt niskiego poziomu oleju."
+    "explanation": "Najczęstszą przyczyną szarpania (skoków) przy podnoszeniu jest zapowietrzenie układu wynikające ze zbyt niskiego poziomu oleju.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "131",
@@ -1700,7 +1830,8 @@
       "D": "odpowiedz a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Nieszczelność to zarówno widoczne wycieki oleju, jak i spadek ciśnienia powodujący samoczynne opadanie wideł."
+    "explanation": "Nieszczelność to zarówno widoczne wycieki oleju, jak i spadek ciśnienia powodujący samoczynne opadanie wideł.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "132",
@@ -1713,7 +1844,8 @@
       "D": "pozostaje bez zmian"
     },
     "correct_option": "B",
-    "explanation": "W niskich temperaturach olej gęstnieje (jego lepkość i gęstość wzrastają), co może utrudniać pracę układu hydraulicznego."
+    "explanation": "W niskich temperaturach olej gęstnieje (jego lepkość i gęstość wzrastają), co może utrudniać pracę układu hydraulicznego.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "133",
@@ -1726,7 +1858,8 @@
       "D": "zgodnie z zaleceniami zawartymi w protokole z badań okresowych"
     },
     "correct_option": "C",
-    "explanation": "Procedura sprawdzania płynów eksploatacyjnych jest ściśle określona przez producenta w instrukcji (DTR)."
+    "explanation": "Procedura sprawdzania płynów eksploatacyjnych jest ściśle określona przez producenta w instrukcji (DTR).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "134",
@@ -1739,7 +1872,8 @@
       "D": "brak ustalonych wytycznych"
     },
     "correct_option": "B",
-    "explanation": "Jest to norma określająca dopuszczalną nieszczelność wewnętrzną rozdzielacza/siłowników przechyłu (5 stopni w ciągu 10 minut)."
+    "explanation": "Jest to norma określająca dopuszczalną nieszczelność wewnętrzną rozdzielacza/siłowników przechyłu (5 stopni w ciągu 10 minut).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "135",
@@ -1752,7 +1886,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "A",
-    "explanation": "Dla wózków o udźwigu do 10 ton dopuszczalne opadanie wideł wynosi 100 mm w czasie 10 minut (norma szczelności)."
+    "explanation": "Dla wózków o udźwigu do 10 ton dopuszczalne opadanie wideł wynosi 100 mm w czasie 10 minut (norma szczelności).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "136",
@@ -1765,7 +1900,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": "Dla cięższych wózków (powyżej 10 ton) norma jest łagodniejsza i wynosi 200 mm w ciągu 10 minut."
+    "explanation": "Dla cięższych wózków (powyżej 10 ton) norma jest łagodniejsza i wynosi 200 mm w ciągu 10 minut.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "137",
@@ -1778,7 +1914,8 @@
       "D": "125% obciążenia nominalnego"
     },
     "correct_option": "B",
-    "explanation": "Próbę szczelności wykonuje się pod pełnym obciążeniem nominalnym (100%), aby sprawdzić, czy układ \"trzyma\" parametry."
+    "explanation": "Próbę szczelności wykonuje się pod pełnym obciążeniem nominalnym (100%), aby sprawdzić, czy układ \"trzyma\" parametry.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "138",
@@ -1791,7 +1928,8 @@
       "D": "próby nie wykonuje się"
     },
     "correct_option": "C",
-    "explanation": "Aby precyzyjnie zmierzyć kąt odchylenia masztu, należy podnieść ładunek na znaczną wysokość, standardowo przyjmuje się 2500 mm (dla masztów, które tyle osiągają)."
+    "explanation": "Aby precyzyjnie zmierzyć kąt odchylenia masztu, należy podnieść ładunek na znaczną wysokość, standardowo przyjmuje się 2500 mm (dla masztów, które tyle osiągają).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "139",
@@ -1804,7 +1942,8 @@
       "D": "z obciążeniem 125% nominalnego"
     },
     "correct_option": "C",
-    "explanation": "Bezpieczne sprawdzenie polega na wychyleniu dźwigni do oporu bez ładunku. Wtedy siłownik osiąga skrajne położenie i zawór musi zadziałać, co słychać."
+    "explanation": "Bezpieczne sprawdzenie polega na wychyleniu dźwigni do oporu bez ładunku. Wtedy siłownik osiąga skrajne położenie i zawór musi zadziałać, co słychać.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "140",
@@ -1817,7 +1956,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Kompleksowa kontrola układu hydraulicznego wymaga sprawdzenia wszystkich tych aspektów: wycieków (zewnętrznych), trzymania ciśnienia (wewnętrznych) i zabezpieczeń (zawór)."
+    "explanation": "Kompleksowa kontrola układu hydraulicznego wymaga sprawdzenia wszystkich tych aspektów: wycieków (zewnętrznych), trzymania ciśnienia (wewnętrznych) i zabezpieczeń (zawór).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "141",
@@ -1830,7 +1970,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Prawidłowa kontrola układu sterowania (OTC) wymaga sprawdzenia wszystkich funkcji na sucho (bez ładunku), w pełnym zakresie ruchów i weryfikacji zgodności z piktogramami."
+    "explanation": "Prawidłowa kontrola układu sterowania (OTC) wymaga sprawdzenia wszystkich funkcji na sucho (bez ładunku), w pełnym zakresie ruchów i weryfikacji zgodności z piktogramami.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "142",
@@ -1843,7 +1984,8 @@
       "D": "próbę z obciążeniem 125%"
     },
     "correct_option": "A",
-    "explanation": "Jeśli wózek ma dodatkowy osprzęt (np. chwytak, obrotnicę), staje się on integralną częścią układu hydraulicznego i musi być sprawdzony tak samo jak widły czy maszt."
+    "explanation": "Jeśli wózek ma dodatkowy osprzęt (np. chwytak, obrotnicę), staje się on integralną częścią układu hydraulicznego i musi być sprawdzony tak samo jak widły czy maszt.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "143",
@@ -1856,7 +1998,8 @@
       "D": "wyłącznie w pomieszczeniach ogrzewanych"
     },
     "correct_option": "C",
-    "explanation": "Ładowanie akumulatorów kwasowych wiąże się z wydzielaniem wybuchowego wodoru, dlatego musi odbywać się w wyznaczonym, wentylowanym miejscu (ładowalni)."
+    "explanation": "Ładowanie akumulatorów kwasowych wiąże się z wydzielaniem wybuchowego wodoru, dlatego musi odbywać się w wyznaczonym, wentylowanym miejscu (ładowalni).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "144",
@@ -1869,7 +2012,8 @@
       "D": "brak jednoznacznych wytycznych"
     },
     "correct_option": "C",
-    "explanation": "Kluczowym wymogiem bezpieczeństwa jest sprawna wentylacja, aby odprowadzić gazy powstające podczas ładowania i zapobiec wybuchowi."
+    "explanation": "Kluczowym wymogiem bezpieczeństwa jest sprawna wentylacja, aby odprowadzić gazy powstające podczas ładowania i zapobiec wybuchowi.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "145",
@@ -1882,7 +2026,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Codzienna obsługa (OTC) wózka elektrycznego obejmuje kompleksową kontrolę baterii: jej stanu naładowania, poziomu płynów oraz stabilności montażu."
+    "explanation": "Codzienna obsługa (OTC) wózka elektrycznego obejmuje kompleksową kontrolę baterii: jej stanu naładowania, poziomu płynów oraz stabilności montażu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "146",
@@ -1895,7 +2040,8 @@
       "D": "posiadać zaświadczenie kwalifikacyjne do obsługi wózków"
     },
     "correct_option": "B",
-    "explanation": "Wymiana baterii jest czynnością eksploatacyjną opisaną w instrukcji obsługi. Nie wymaga uprawnień SEP ani konserwatorskich, ale wymaga ścisłego przestrzegania procedur bezpieczeństwa."
+    "explanation": "Wymiana baterii jest czynnością eksploatacyjną opisaną w instrukcji obsługi. Nie wymaga uprawnień SEP ani konserwatorskich, ale wymaga ścisłego przestrzegania procedur bezpieczeństwa.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "147",
@@ -1908,7 +2054,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "A",
-    "explanation": "Przycisk STOP (grzybek) służy wyłącznie do natychmiastowego odcięcia zasilania w sytuacjach zagrożenia, a nie do normalnego gaszenia wózka."
+    "explanation": "Przycisk STOP (grzybek) służy wyłącznie do natychmiastowego odcięcia zasilania w sytuacjach zagrożenia, a nie do normalnego gaszenia wózka.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "148",
@@ -1921,7 +2068,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "W sytuacji zagrożenia priorytetem jest zatrzymanie maszyny i zabezpieczenie ładunku (opuszczenie go), aby zminimalizować ryzyko."
+    "explanation": "W sytuacji zagrożenia priorytetem jest zatrzymanie maszyny i zabezpieczenie ładunku (opuszczenie go), aby zminimalizować ryzyko.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "149",
@@ -1934,7 +2082,8 @@
       "D": "nie ma konieczności sprawdzania poprawności działania"
     },
     "correct_option": "C",
-    "explanation": "Test wyłącznika awaryjnego jest obowiązkowym elementem codziennej kontroli wózka przed rozpoczęciem zmiany."
+    "explanation": "Test wyłącznika awaryjnego jest obowiązkowym elementem codziennej kontroli wózka przed rozpoczęciem zmiany.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "150",
@@ -1947,7 +2096,8 @@
       "D": "dyrektywa maszynowa"
     },
     "correct_option": "B",
-    "explanation": "Producent wózka określa w instrukcji (DTR), kiedy opony kwalifikują się do wymiany (np. minimalna głębokość bieżnika lub linia zużycia)."
+    "explanation": "Producent wózka określa w instrukcji (DTR), kiedy opony kwalifikują się do wymiany (np. minimalna głębokość bieżnika lub linia zużycia).",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "151",
@@ -1960,7 +2110,8 @@
       "D": "wymagań właściciela terenu"
     },
     "correct_option": "A",
-    "explanation": "Właściwe ciśnienie jest kluczowe dla stateczności wózka i jest ściśle określone przez producenta w dokumentacji technicznej."
+    "explanation": "Właściwe ciśnienie jest kluczowe dla stateczności wózka i jest ściśle określone przez producenta w dokumentacji technicznej.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "152",
@@ -1973,7 +2124,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "B",
-    "explanation": "Różnica ciśnień powoduje przechył wózka, co drastycznie obniża jego stabilność i może doprowadzić do przewrócenia się maszyny z ładunkiem."
+    "explanation": "Różnica ciśnień powoduje przechył wózka, co drastycznie obniża jego stabilność i może doprowadzić do przewrócenia się maszyny z ładunkiem.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "153",
@@ -1986,7 +2138,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Wszystkie wymienione czynniki (styl jazdy, zaniedbania serwisowe, specyfika pracy) negatywnie wpływają na żywotność opon."
+    "explanation": "Wszystkie wymienione czynniki (styl jazdy, zaniedbania serwisowe, specyfika pracy) negatywnie wpływają na żywotność opon.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "154",
@@ -1999,7 +2152,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": "Podobnie jak przy różnicy ciśnień, różna średnica kół (wynikająca ze zużycia) powoduje przechył i utratę stabilności."
+    "explanation": "Podobnie jak przy różnicy ciśnień, różna średnica kół (wynikająca ze zużycia) powoduje przechył i utratę stabilności.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "155",
@@ -2012,7 +2166,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Każda z tych osób ma obowiązek kontrolować stan opon w ramach swoich kompetencji i terminów przeglądów."
+    "explanation": "Każda z tych osób ma obowiązek kontrolować stan opon w ramach swoich kompetencji i terminów przeglądów.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "156",
@@ -2025,7 +2180,8 @@
       "D": "kontynuuje pracę zmniejszając prędkość poruszania się"
     },
     "correct_option": "B",
-    "explanation": "Uszkodzona opona to bezpośrednie zagrożenie wypadkiem. Jedyną właściwą reakcją jest natychmiastowe przerwanie pracy."
+    "explanation": "Uszkodzona opona to bezpośrednie zagrożenie wypadkiem. Jedyną właściwą reakcją jest natychmiastowe przerwanie pracy.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "157",
@@ -2038,7 +2194,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "A",
-    "explanation": "Brak ciśnienia oleju grozi zatarciem silnika. Należy natychmiast, ale bezpiecznie, zatrzymać maszynę i wyłączyć napęd."
+    "explanation": "Brak ciśnienia oleju grozi zatarciem silnika. Należy natychmiast, ale bezpiecznie, zatrzymać maszynę i wyłączyć napęd.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "158",
@@ -2051,7 +2208,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Prawidłowe zakończenie pracy (parkowanie) wymaga zabezpieczenia wózka przed stoczeniem (hamulec) i opuszczenia wideł na podłoże."
+    "explanation": "Prawidłowe zakończenie pracy (parkowanie) wymaga zabezpieczenia wózka przed stoczeniem (hamulec) i opuszczenia wideł na podłoże.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "159",
@@ -2064,7 +2222,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Dźwignie muszą być \"samopowrotne\" (dla bezpieczeństwa) i działać zgodnie z piktogramami (dla przewidywalności)."
+    "explanation": "Dźwignie muszą być \"samopowrotne\" (dla bezpieczeństwa) i działać zgodnie z piktogramami (dla przewidywalności).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "160",
@@ -2077,7 +2236,8 @@
       "D": "wewnętrzne przepisy zakładowe"
     },
     "correct_option": "A",
-    "explanation": "Sposób testowania hamulców jest specyficzny dla danego modelu wózka i znajduje się w instrukcji producenta."
+    "explanation": "Sposób testowania hamulców jest specyficzny dla danego modelu wózka i znajduje się w instrukcji producenta.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "161",
@@ -2090,7 +2250,8 @@
       "D": "wytycznych inspektora BHP"
     },
     "correct_option": "B",
-    "explanation": "Podobnie jak w przypadku hamulca zasadniczego, procedura testowa hamulca pomocniczego (ręcznego) jest opisana w DTR."
+    "explanation": "Podobnie jak w przypadku hamulca zasadniczego, procedura testowa hamulca pomocniczego (ręcznego) jest opisana w DTR.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "162",
@@ -2103,7 +2264,8 @@
       "D": "pionowej"
     },
     "correct_option": "B",
-    "explanation": "Przechylenie masztu \"na siebie\" zwiększa stabilność ładunku podczas gwałtownego hamowania testowego."
+    "explanation": "Przechylenie masztu \"na siebie\" zwiększa stabilność ładunku podczas gwałtownego hamowania testowego.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "163",
@@ -2116,7 +2278,8 @@
       "D": "bez ładunku a następnie z ładunkiem nominalnym"
     },
     "correct_option": "D",
-    "explanation": "Pełna procedura sprawdzenia hamulców obejmuje test na pusto (czy w ogóle działają) oraz z pełnym obciążeniem (czy są skuteczne)."
+    "explanation": "Pełna procedura sprawdzenia hamulców obejmuje test na pusto (czy w ogóle działają) oraz z pełnym obciążeniem (czy są skuteczne).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "164",
@@ -2129,7 +2292,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Niesprawny hamulec postojowy dyskwalifikuje wózek z pracy. Należy go odstawić i zgłosić usterkę."
+    "explanation": "Niesprawny hamulec postojowy dyskwalifikuje wózek z pracy. Należy go odstawić i zgłosić usterkę.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "165",
@@ -2142,7 +2306,8 @@
       "D": "kontynuować pracę z zachowaniem szczególnej ostrożności"
     },
     "correct_option": "B",
-    "explanation": "Niesprawny układ hamulcowy to usterka krytyczna. Operator nie może naprawiać wózka (chyba że jest konserwatorem), a dalsza jazda jest zabroniona."
+    "explanation": "Niesprawny układ hamulcowy to usterka krytyczna. Operator nie może naprawiać wózka (chyba że jest konserwatorem), a dalsza jazda jest zabroniona.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "166",
@@ -2155,7 +2320,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "B",
-    "explanation": "Wyciek płynu oznacza nieszczelność i ryzyko całkowitej utraty hamulców. Należy natychmiast przerwać pracę i zgłosić problem przełożonemu."
+    "explanation": "Wyciek płynu oznacza nieszczelność i ryzyko całkowitej utraty hamulców. Należy natychmiast przerwać pracę i zgłosić problem przełożonemu.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "167",
@@ -2168,7 +2334,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "C",
-    "explanation": "Hamulec pomocniczy (postojowy) jest niezbędny do bezpiecznego parkowania. Jego niesprawność wyklucza wózek z eksploatacji."
+    "explanation": "Hamulec pomocniczy (postojowy) jest niezbędny do bezpiecznego parkowania. Jego niesprawność wyklucza wózek z eksploatacji.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "168",
@@ -2181,7 +2348,8 @@
       "D": "hamulec sprawdza tylko konserwator"
     },
     "correct_option": "C",
-    "explanation": "Skuteczność hamowania musi być potwierdzona niezależnie od kierunku jazdy."
+    "explanation": "Skuteczność hamowania musi być potwierdzona niezależnie od kierunku jazdy.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "169",
@@ -2194,7 +2362,8 @@
       "D": "zawsze przed rozpoczęciem pracy"
     },
     "correct_option": "D",
-    "explanation": "Sprawdzenie hamulców jest kluczowym elementem codziennej obsługi (OTC) przed rozpoczęciem zmiany."
+    "explanation": "Sprawdzenie hamulców jest kluczowym elementem codziennej obsługi (OTC) przed rozpoczęciem zmiany.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "170",
@@ -2207,7 +2376,8 @@
       "D": "przechylić maszt w pozycję \"na siebie\""
     },
     "correct_option": "A",
-    "explanation": "Opuszczenie stanowiska pracy wymaga zabezpieczenia wózka przed niekontrolowanym przemieszczeniem się, czyli zaciągnięcia hamulca ręcznego."
+    "explanation": "Opuszczenie stanowiska pracy wymaga zabezpieczenia wózka przed niekontrolowanym przemieszczeniem się, czyli zaciągnięcia hamulca ręcznego.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "171",
@@ -2220,7 +2390,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Operator musi wizualnie ocenić stan konstrukcji masztu (pęknięcia, rolki) oraz sprawdzić działanie zabezpieczeń (ograniczniki)."
+    "explanation": "Operator musi wizualnie ocenić stan konstrukcji masztu (pęknięcia, rolki) oraz sprawdzić działanie zabezpieczeń (ograniczniki).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "172",
@@ -2233,7 +2404,8 @@
       "D": "manipulować pochyłem masztu w zależności od prędkości poruszania się"
     },
     "correct_option": "B",
-    "explanation": "Przechylenie masztu \"na siebie\" (w stronę operatora) stabilizuje ładunek na widłach i zapobiega jego zsunięciu się podczas hamowania."
+    "explanation": "Przechylenie masztu \"na siebie\" (w stronę operatora) stabilizuje ładunek na widłach i zapobiega jego zsunięciu się podczas hamowania.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "173",
@@ -2246,7 +2418,8 @@
       "D": "na wysokości ok 90 cm"
     },
     "correct_option": "B",
-    "explanation": "Jest to tzw. wysokość transportowa. Zapewnia niski środek ciężkości (stabilność) i chroni widły przed uderzeniem w przeszkody."
+    "explanation": "Jest to tzw. wysokość transportowa. Zapewnia niski środek ciężkości (stabilność) i chroni widły przed uderzeniem w przeszkody.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "174",
@@ -2259,7 +2432,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Zjeżdżając z ładunkiem, należy jechać tyłem, aby ładunek nie zsunął się z wideł. Dodatkowo zawsze obowiązuje szczególna ostrożność."
+    "explanation": "Zjeżdżając z ładunkiem, należy jechać tyłem, aby ładunek nie zsunął się z wideł. Dodatkowo zawsze obowiązuje szczególna ostrożność.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "175",
@@ -2272,7 +2446,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Wjeżdżając pod górę z ładunkiem, jedziemy przodem (aby ładunek nie spadł). Jeśli ładunek zasłania widok, niezbędna jest pomoc pilota (sygnalisty)."
+    "explanation": "Wjeżdżając pod górę z ładunkiem, jedziemy przodem (aby ładunek nie spadł). Jeśli ładunek zasłania widok, niezbędna jest pomoc pilota (sygnalisty).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "176",
@@ -2285,7 +2460,8 @@
       "D": "dopuszczalne pod warunkiem obciążenia wózka ładunkiem uniesionym na minimalną wysokość"
     },
     "correct_option": "A",
-    "explanation": "Jazda w poprzek pochyłości grozi natychmiastowym wywróceniem się wózka na bok. Jest to surowo zabronione."
+    "explanation": "Jazda w poprzek pochyłości grozi natychmiastowym wywróceniem się wózka na bok. Jest to surowo zabronione.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "177",
@@ -2298,7 +2474,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Podstawową zasadą jest jazda tyłem. Jeśli to niemożliwe lub trudne, można jechać przodem z pilotem. Zawsze należy dostosować prędkość."
+    "explanation": "Podstawową zasadą jest jazda tyłem. Jeśli to niemożliwe lub trudne, można jechać przodem z pilotem. Zawsze należy dostosować prędkość.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "178",
@@ -2311,7 +2488,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Wszystkie wymienione zasady są kluczowe dla zachowania stateczności wózka i bezpieczeństwa ładunku."
+    "explanation": "Wszystkie wymienione zasady są kluczowe dla zachowania stateczności wózka i bezpieczeństwa ładunku.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "179",
@@ -2324,7 +2502,8 @@
       "D": "pozycja nie ma znaczenia"
     },
     "correct_option": "A",
-    "explanation": "W butlach syfonowych do wózków widłowych zawór i rurka syfonowa są tak skonstruowane, że przy montażu poziomym wylot zaworu (lub specjalne wycięcie w kołnierzu) musi być skierowany w dół, aby pobierać fazę ciekłą."
+    "explanation": "W butlach syfonowych do wózków widłowych zawór i rurka syfonowa są tak skonstruowane, że przy montażu poziomym wylot zaworu (lub specjalne wycięcie w kołnierzu) musi być skierowany w dół, aby pobierać fazę ciekłą.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "180",
@@ -2337,7 +2516,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Każda z tych metod jest skuteczna: detektor elektroniczny, dedykowany spray (tester szczelności) lub domowy sposób z wodą mydlaną (bąbelkowanie)."
+    "explanation": "Każda z tych metod jest skuteczna: detektor elektroniczny, dedykowany spray (tester szczelności) lub domowy sposób z wodą mydlaną (bąbelkowanie).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "181",
@@ -2350,7 +2530,8 @@
       "D": "jest zabroniona z uwagi na zmianę parametrów technicznych oleju hydraulicznego"
     },
     "correct_option": "B",
-    "explanation": "To producent wózka określa zakres temperatur pracy w instrukcji (DTR). Jeśli wózek jest przystosowany (np. chłodniczy), może pracować w mrozie."
+    "explanation": "To producent wózka określa zakres temperatur pracy w instrukcji (DTR). Jeśli wózek jest przystosowany (np. chłodniczy), może pracować w mrozie.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "182",
@@ -2363,7 +2544,8 @@
       "D": "jest dozwolona jeśli instrukcja eksploatacji na to zezwala"
     },
     "correct_option": "D",
-    "explanation": "Podobnie jak w przypadku niskich temperatur, górna granica temperatury pracy zależy od specyfikacji technicznej producenta zawartej w DTR."
+    "explanation": "Podobnie jak w przypadku niskich temperatur, górna granica temperatury pracy zależy od specyfikacji technicznej producenta zawartej w DTR.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "183",
@@ -2376,7 +2558,8 @@
       "D": "2200 kg"
     },
     "correct_option": "D",
-    "explanation": "Tabela podaje wartość Qmax równomiernie rozłożone na poziom: 2200 kg. To jest maksymalne obciążenie jednego gniazda (poziomu)."
+    "explanation": "Tabela podaje wartość Qmax równomiernie rozłożone na poziom: 2200 kg. To jest maksymalne obciążenie jednego gniazda (poziomu).",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "184",
@@ -2389,7 +2572,8 @@
       "D": "gniazdo 4"
     },
     "correct_option": "C",
-    "explanation": "Wysokość podnoszenia 2100 mm pozwala obsłużyć gniazdo 1 (poziom 0) oraz gniazdo 2 (wysokość a = 650 mm). Gniazdo 3 wymagałoby podniesienia na wysokość a+a (ok. 1300 mm), co też jest możliwe, ale pytanie jest podchwytliwe. Patrząc na rysunek: gniazdo 1 jest na ziemi. Gniazdo 2 jest na wysokości 'a' (650mm). Gniazdo 3 jest wyżej. Kluczowe jest to, że 2100 mm jest mniejsze niż 'b' (2700 mm), więc nie sięgniemy najwyższego poziomu, ale sięgniemy poziomy pośrednie. Jednak w kluczu odpowiedzi dla pytania 184 jest 'C'. Oznacza to, że wózek sięgnie gniazda 3."
+    "explanation": "Wysokość podnoszenia 2100 mm pozwala obsłużyć gniazdo 1 (poziom 0) oraz gniazdo 2 (wysokość a = 650 mm). Gniazdo 3 wymagałoby podniesienia na wysokość a+a (ok. 1300 mm), co też jest możliwe, ale pytanie jest podchwytliwe. Patrząc na rysunek: gniazdo 1 jest na ziemi. Gniazdo 2 jest na wysokości 'a' (650mm). Gniazdo 3 jest wyżej. Kluczowe jest to, że 2100 mm jest mniejsze niż 'b' (2700 mm), więc nie sięgniemy najwyższego poziomu, ale sięgniemy poziomy pośrednie. Jednak w kluczu odpowiedzi dla pytania 184 jest 'C'. Oznacza to, że wózek sięgnie gniazda 3.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "185",
@@ -2402,7 +2586,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Operator musi wiedzieć, czy regał wytrzyma ciężar (masa vs nośność) oraz czy ładunek fizycznie zmieści się w gnieździe (wymiary)."
+    "explanation": "Operator musi wiedzieć, czy regał wytrzyma ciężar (masa vs nośność) oraz czy ładunek fizycznie zmieści się w gnieździe (wymiary).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "186",
@@ -2415,7 +2600,8 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Jeśli ładunek zasłania widoczność, należy jechać tyłem. Jeśli jazda tyłem jest niemożliwa, można jechać przodem, ale tylko z pomocą pilota (sygnalisty)."
+    "explanation": "Jeśli ładunek zasłania widoczność, należy jechać tyłem. Jeśli jazda tyłem jest niemożliwa, można jechać przodem, ale tylko z pomocą pilota (sygnalisty).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "187",
@@ -2428,7 +2614,8 @@
       "D": "odpowiedzi a i b są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Masa jest kluczowa dla bezpiecznego podnoszenia i stateczności wózka, wymiary dla dopasowania do komory, a pojemność dla zgodności z instalacją elektryczną."
+    "explanation": "Masa jest kluczowa dla bezpiecznego podnoszenia i stateczności wózka, wymiary dla dopasowania do komory, a pojemność dla zgodności z instalacją elektryczną.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "188",
@@ -2441,7 +2628,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Wszystkie wymienione czynniki (stan techniczny, błędy w technice jazdy) drastycznie przesuwają środek ciężkości i mogą doprowadzić do wywrotki."
+    "explanation": "Wszystkie wymienione czynniki (stan techniczny, błędy w technice jazdy) drastycznie przesuwają środek ciężkości i mogą doprowadzić do wywrotki.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "189",
@@ -2454,7 +2642,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "D",
-    "explanation": "Maksymalna prędkość konstrukcyjna jest określona przez producenta w instrukcji obsługi (DTR), a ograniczenia w zakładzie pracy ustalają przepisy wewnątrzzakładowe."
+    "explanation": "Maksymalna prędkość konstrukcyjna jest określona przez producenta w instrukcji obsługi (DTR), a ograniczenia w zakładzie pracy ustalają przepisy wewnątrzzakładowe.",
+    "hint": "📖 Pytają o parametry? Odpowiedź to zawsze: Instrukcja (DTR)."
   },
   {
     "id": "190",
@@ -2467,7 +2656,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Codzienna obsługa (OTC) wymaga sprawdzenia wszystkich kluczowych układów bezpieczeństwa przed rozpoczęciem jazdy."
+    "explanation": "Codzienna obsługa (OTC) wymaga sprawdzenia wszystkich kluczowych układów bezpieczeństwa przed rozpoczęciem jazdy.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "191",
@@ -2480,7 +2670,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Montaż osprzętu zmienia parametry udźwigu (zmniejsza go), dlatego operator musi bezwzględnie zapoznać się z nowym wykresem udźwigu dla danej konfiguracji."
+    "explanation": "Montaż osprzętu zmienia parametry udźwigu (zmniejsza go), dlatego operator musi bezwzględnie zapoznać się z nowym wykresem udźwigu dla danej konfiguracji.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "192",
@@ -2493,7 +2684,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Wjazd na rampę (np. samochodu ciężarowego) wymaga pewności, że rampa wytrzyma ciężar wózka z ładunkiem i że wózek podjedzie pod dany kąt."
+    "explanation": "Wjazd na rampę (np. samochodu ciężarowego) wymaga pewności, że rampa wytrzyma ciężar wózka z ładunkiem i że wózek podjedzie pod dany kąt.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "193",
@@ -2506,7 +2698,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Bezpieczna praca wymaga łączenia wiedzy z instrukcji, ogólnych zasad BHP oraz specyficznych reguł panujących w danym magazynie (oznakowanie)."
+    "explanation": "Bezpieczna praca wymaga łączenia wiedzy z instrukcji, ogólnych zasad BHP oraz specyficznych reguł panujących w danym magazynie (oznakowanie).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "194",
@@ -2519,7 +2712,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Informacja o udźwigu jest tak ważna, że musi być dostępna w każdym z tych miejsc."
+    "explanation": "Informacja o udźwigu jest tak ważna, że musi być dostępna w każdym z tych miejsc.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "195",
@@ -2532,7 +2726,8 @@
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Dobre przygotowanie do pracy (rozpoznanie zadania, ładunku i sprzętu) jest podstawą bezpieczeństwa."
+    "explanation": "Dobre przygotowanie do pracy (rozpoznanie zadania, ładunku i sprzętu) jest podstawą bezpieczeństwa.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "196",
@@ -2545,7 +2740,8 @@
       "D": "jest dozwolona za zgodą właściciela zakładu bez dodatkowych wymagań"
     },
     "correct_option": "A",
-    "explanation": "Podnoszenie ludzi wózkiem widłowym jest co do zasady zabronione. Wyjątkiem jest sytuacja, gdy uzgodniono to z UDT i spełniono rygorystyczne wymogi bezpieczeństwa."
+    "explanation": "Podnoszenie ludzi wózkiem widłowym jest co do zasady zabronione. Wyjątkiem jest sytuacja, gdy uzgodniono to z UDT i spełniono rygorystyczne wymogi bezpieczeństwa.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "197",
@@ -2558,7 +2754,8 @@
       "D": "odpowiedź b i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Najważniejsza zasada przy wywrotce: NIE wyskakiwać. Należy zostać w fotelu, zaprzeć się nogami i mocno trzymać kierownicy, aby nie wypaść i nie zostać przygniecionym przez klatkę bezpieczeństwa."
+    "explanation": "Najważniejsza zasada przy wywrotce: NIE wyskakiwać. Należy zostać w fotelu, zaprzeć się nogami i mocno trzymać kierownicy, aby nie wypaść i nie zostać przygniecionym przez klatkę bezpieczeństwa.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "198",
@@ -2571,7 +2768,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "D",
-    "explanation": "Żadna z tych reakcji nie jest prawidłowa. Wyskakiwanie to śmierć, hamowanie czy skręcanie w trakcie wywrotki jest już nieskuteczne. Należy przyjąć pozycję bezpieczną w kabinie."
+    "explanation": "Żadna z tych reakcji nie jest prawidłowa. Wyskakiwanie to śmierć, hamowanie czy skręcanie w trakcie wywrotki jest już nieskuteczne. Należy przyjąć pozycję bezpieczną w kabinie.",
+    "hint": "🛑 Coś nie gra? STOP i zgłoś przełożonemu. Nigdy nie naprawiaj sam."
   },
   {
     "id": "199",
@@ -2584,7 +2782,8 @@
       "D": "wszystkie powyżej są prawidłowe"
     },
     "correct_option": "D",
-    "explanation": "Przeciążenie, dynamika jazdy i praca na pochyłościach to główne przyczyny utraty stabilności."
+    "explanation": "Przeciążenie, dynamika jazdy i praca na pochyłościach to główne przyczyny utraty stabilności.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "200",
@@ -2597,7 +2796,8 @@
       "D": "10%"
     },
     "correct_option": "C",
-    "explanation": "Standardowa granica bezpiecznego wyciągnięcia się łańcucha to 3% jego długości nominalnej (chyba że producent podaje inaczej)."
+    "explanation": "Standardowa granica bezpiecznego wyciągnięcia się łańcucha to 3% jego długości nominalnej (chyba że producent podaje inaczej).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "201",
@@ -2610,7 +2810,8 @@
       "D": "0"
     },
     "correct_option": "D",
-    "explanation": "Łańcuch nośny nie może mieć żadnych pęknięć. Nawet jedna pęknięta płytka kwalifikuje łańcuch do natychmiastowej wymiany."
+    "explanation": "Łańcuch nośny nie może mieć żadnych pęknięć. Nawet jedna pęknięta płytka kwalifikuje łańcuch do natychmiastowej wymiany.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "202",
@@ -2623,7 +2824,8 @@
       "D": "zawsze wynosi 50% grubości nominalnej wideł"
     },
     "correct_option": "C",
-    "explanation": "Dopuszczalne zużycie wideł to max. 10% grubości nominalnej. Dla 40 mm, 10% to 4 mm. Zatem minimalna grubość to 40 - 4 = 36 mm."
+    "explanation": "Dopuszczalne zużycie wideł to max. 10% grubości nominalnej. Dla 40 mm, 10% to 4 mm. Zatem minimalna grubość to 40 - 4 = 36 mm.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "203",
@@ -2636,7 +2838,8 @@
       "D": "zawsze wynosi 50% grubości nominalnej wideł"
     },
     "correct_option": "A",
-    "explanation": "Zasada 10% zużycia: 10% z 30 mm to 3 mm. 30 mm - 3 mm = 27 mm."
+    "explanation": "Zasada 10% zużycia: 10% z 30 mm to 3 mm. 30 mm - 3 mm = 27 mm.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "204",
@@ -2649,7 +2852,8 @@
       "D": "zawsze wynosi 50% grubości nominalnej wideł"
     },
     "correct_option": "B",
-    "explanation": "Zasada 10% zużycia: 10% z 60 mm to 6 mm. 60 mm - 6 mm = 54 mm. W odpowiedziach najbliższa bezpieczna (lub błędnie zaokrąglona w pytaniu) to 55 mm, ale zgodnie z kluczem poprawna jest odpowiedź B."
+    "explanation": "Zasada 10% zużycia: 10% z 60 mm to 6 mm. 60 mm - 6 mm = 54 mm. W odpowiedziach najbliższa bezpieczna (lub błędnie zaokrąglona w pytaniu) to 55 mm, ale zgodnie z kluczem poprawna jest odpowiedź B.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "205",
@@ -2662,7 +2866,8 @@
       "D": "zawsze wynosi 50% grubości nominalnej wideł"
     },
     "correct_option": "B",
-    "explanation": "Zasada 10% zużycia: 10% z 50 mm to 5 mm. 50 mm - 5 mm = 45 mm."
+    "explanation": "Zasada 10% zużycia: 10% z 50 mm to 5 mm. 50 mm - 5 mm = 45 mm.",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "206",
@@ -2675,7 +2880,8 @@
       "D": "0 stopni"
     },
     "correct_option": "C",
-    "explanation": "Kąt rozwarcia wideł nie może zwiększyć się o więcej niż 3 stopnie w stosunku do oryginału (czyli zazwyczaj max 93 stopnie)."
+    "explanation": "Kąt rozwarcia wideł nie może zwiększyć się o więcej niż 3 stopnie w stosunku do oryginału (czyli zazwyczaj max 93 stopnie).",
+    "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać."
   },
   {
     "id": "207",
@@ -2688,7 +2894,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "A",
-    "explanation": "Ładunek ma masę 400 kg. Pobierając od strony A, środek ciężkości (C) wypada w połowie długości boku 800 mm, czyli C = 400 mm. Patrzymy na tabelę: dla C=500 mm (najbliższa wyższa lub równa wartość w tabeli to kolumna 500, ale tu mamy mniej, więc patrzymy na kolumnę 500 jako bezpieczną granicę, lub zauważamy, że 400 kg mieści się w każdym przedziale). W tabeli dla C=500 mm udźwigi to 1200, 950, 700 kg. Nasz ładunek 400 kg jest lżejszy od wszystkich tych wartości, więc możemy go podnieść na najwyższą dostępną wysokość, czyli 4836 mm."
+    "explanation": "Ładunek ma masę 400 kg. Pobierając od strony A, środek ciężkości (C) wypada w połowie długości boku 800 mm, czyli C = 400 mm. Patrzymy na tabelę: dla C=500 mm (najbliższa wyższa lub równa wartość w tabeli to kolumna 500, ale tu mamy mniej, więc patrzymy na kolumnę 500 jako bezpieczną granicę, lub zauważamy, że 400 kg mieści się w każdym przedziale). W tabeli dla C=500 mm udźwigi to 1200, 950, 700 kg. Nasz ładunek 400 kg jest lżejszy od wszystkich tych wartości, więc możemy go podnieść na najwyższą dostępną wysokość, czyli 4836 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "208",
@@ -2701,7 +2908,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": "Ładunek 400 kg. Pobieramy od strony B (długość 1300 mm). Środek ciężkości C = 1300 / 2 = 650 mm. W tabeli szukamy kolumny dla 650 mm -> musimy przyjąć wartość wyższą, czyli 700 mm (dla bezpieczeństwa). W kolumnie 700 mm mamy udźwigi: 650 kg (dla 3100 mm), 450 kg (dla 4030 mm) i 200 kg (dla 4836 mm). Nasz ładunek waży 400 kg. 400 kg jest mniejsze od 450 kg, ale większe od 200 kg. Zatem możemy podnieść na wysokość przypisaną do 450 kg, czyli 4030 mm."
+    "explanation": "Ładunek 400 kg. Pobieramy od strony B (długość 1300 mm). Środek ciężkości C = 1300 / 2 = 650 mm. W tabeli szukamy kolumny dla 650 mm -> musimy przyjąć wartość wyższą, czyli 700 mm (dla bezpieczeństwa). W kolumnie 700 mm mamy udźwigi: 650 kg (dla 3100 mm), 450 kg (dla 4030 mm) i 200 kg (dla 4836 mm). Nasz ładunek waży 400 kg. 400 kg jest mniejsze od 450 kg, ale większe od 200 kg. Zatem możemy podnieść na wysokość przypisaną do 450 kg, czyli 4030 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "209",
@@ -2714,7 +2922,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "A",
-    "explanation": "Ładunek 1100 kg. Strona A (800 mm). Środek ciężkości C = 400 mm. W tabeli nie ma 400, bierzemy pierwszą dostępną kolumnę: 500 mm. W kolumnie 500 mm udźwigi to: 1400, 1150, 900. Nasz ładunek (1100 kg) jest mniejszy od 1150 kg (wysokość 3510 mm), ale większy od 900 kg (wysokość 4212 mm). Maksymalna bezpieczna wysokość to 3510 mm."
+    "explanation": "Ładunek 1100 kg. Strona A (800 mm). Środek ciężkości C = 400 mm. W tabeli nie ma 400, bierzemy pierwszą dostępną kolumnę: 500 mm. W kolumnie 500 mm udźwigi to: 1400, 1150, 900. Nasz ładunek (1100 kg) jest mniejszy od 1150 kg (wysokość 3510 mm), ale większy od 900 kg (wysokość 4212 mm). Maksymalna bezpieczna wysokość to 3510 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "210",
@@ -2727,7 +2936,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "D",
-    "explanation": "Ładunek 1100 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. Patrzymy na kolumnę 650 mm (jest wprost w tabeli). Wartości: 1250, 950, 650. Nasz ładunek 1100 kg jest mniejszy od 1250 kg (dla wys. 2700 mm), ale większy od 950 kg (dla wys. 3510 mm). Zatem możemy podnieść tylko na 2700 mm. W opcjach jest 2700 mm (odpowiedź B), ale klucz wskazuje D. Dlaczego? Sprawdźmy dokładnie. Opcja B to 2700 mm. Jeśli klucz mówi D, to może być błąd w kluczu lub podchwytliwość. Jednak logicznie: 1100 kg przy C=650 mm mieści się w limicie 1250 kg dla wysokości 2700 mm. Korekta: W pytaniu 210 klucz podaje D. Spójrzmy na opcje: a) 4212, b) 2700, c) 3520. Skoro 2700 jest poprawną wysokością, a jest w opcji B, to odpowiedź D (\"wszystkie niepoprawne\") sugeruje, że 2700 jest błędne? Nie, 1100 kg < 1250 kg. Może chodzi o to, że 1100 kg to masa samej paczki, a widły też ważą? Nie, diagramy uwzględniają standardowe widły. Wg zasad interpretacji diagramów odpowiedź powinna być 2700 mm. Jeśli klucz mówi D, to jest to błąd w oficjalnych testach lub specyficzna interpretacja, której tu nie widać. Uwaga: W oficjalnych bazach pytań UDT często zdarzają się błędy w kluczach lub pytaniach. Tutaj trzymamy się klucza (D), choć logicznie pasuje B."
+    "explanation": "Ładunek 1100 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. Patrzymy na kolumnę 650 mm (jest wprost w tabeli). Wartości: 1250, 950, 650. Nasz ładunek 1100 kg jest mniejszy od 1250 kg (dla wys. 2700 mm), ale większy od 950 kg (dla wys. 3510 mm). Zatem możemy podnieść tylko na 2700 mm. W opcjach jest 2700 mm (odpowiedź B), ale klucz wskazuje D. Dlaczego? Sprawdźmy dokładnie. Opcja B to 2700 mm. Jeśli klucz mówi D, to może być błąd w kluczu lub podchwytliwość. Jednak logicznie: 1100 kg przy C=650 mm mieści się w limicie 1250 kg dla wysokości 2700 mm. Korekta: W pytaniu 210 klucz podaje D. Spójrzmy na opcje: a) 4212, b) 2700, c) 3520. Skoro 2700 jest poprawną wysokością, a jest w opcji B, to odpowiedź D (\"wszystkie niepoprawne\") sugeruje, że 2700 jest błędne? Nie, 1100 kg < 1250 kg. Może chodzi o to, że 1100 kg to masa samej paczki, a widły też ważą? Nie, diagramy uwzględniają standardowe widły. Wg zasad interpretacji diagramów odpowiedź powinna być 2700 mm. Jeśli klucz mówi D, to jest to błąd w oficjalnych testach lub specyficzna interpretacja, której tu nie widać. Uwaga: W oficjalnych bazach pytań UDT często zdarzają się błędy w kluczach lub pytaniach. Tutaj trzymamy się klucza (D), choć logicznie pasuje B.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "211",
@@ -2740,7 +2950,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": "Ładunek 900 kg. Strona A (800 mm). Środek ciężkości C = 400 mm. Przyjmujemy kolumnę 500 mm. Wartości: 1500, 1250, 1000. Nasz ładunek 900 kg jest lżejszy od najmniejszej wartości w tabeli (1000 kg dla najwyższej wysokości). Zatem możemy podnieść na maksymalną wysokość: 4056 mm."
+    "explanation": "Ładunek 900 kg. Strona A (800 mm). Środek ciężkości C = 400 mm. Przyjmujemy kolumnę 500 mm. Wartości: 1500, 1250, 1000. Nasz ładunek 900 kg jest lżejszy od najmniejszej wartości w tabeli (1000 kg dla najwyższej wysokości). Zatem możemy podnieść na maksymalną wysokość: 4056 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "212",
@@ -2753,7 +2964,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "B",
-    "explanation": "Ładunek 900 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. W tabeli nie ma 650, bierzemy 750 mm (dla bezpieczeństwa). W kolumnie 750 mm: 1050, 1050, 750. Nasz ładunek 900 kg mieści się w 1050 kg (dla 3380 mm), ale przekracza 750 kg (dla 4056 mm). Czekaj, w kolumnie 750 mm dla wysokości 2600 jest 1350 (nie, wiersz 2600 ma 1350 dla C=500, a dla C=750 ma 1050? Nie, tabela: wiersz 2600 -> kolumna 750 -> 1350. Wiersz 3380 -> kolumna 750 -> 1050. Wiersz 4056 -> kolumna 750 -> 750). Wróć. Tabela w pytaniu 212: Kolumna 750: wiersz dolny (2600) -> 1350, wiersz środkowy (3380) -> 1050, wiersz górny (4056) -> 750. Nasz ładunek 900 kg. Przy C=650 (interpolując między 600 a 750 lub biorąc gorszy 750). Dla 750 mm: 900 kg < 1050 kg (wys. 3380). Więc powinno być 3380 mm. Klucz podaje B (2600 mm). Dlaczego? Może trzeba przyjąć C=700? Nie, C=650. Jeśli weźmiemy C=750 (bezpieczniej), to 900 kg wchodzi na 3380. Jeśli klucz mówi B (2600), to znaczy, że przyjęto bardzo rygorystyczne kryteria lub jest błąd. Analiza ponowna: C=650. Kolumna 600: 1500, 1250, 1000. Kolumna 750: 1350, 1050, 750. Dla C=650 (bliżej 600) powinno być lepiej niż dla 750. Skoro dla 750 wchodzi na 3380, to dla 650 tym bardziej. Odpowiedź B (2600) jest nielogiczna przy tych danych, ale zgodna z kluczem."
+    "explanation": "Ładunek 900 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. W tabeli nie ma 650, bierzemy 750 mm (dla bezpieczeństwa). W kolumnie 750 mm: 1050, 1050, 750. Nasz ładunek 900 kg mieści się w 1050 kg (dla 3380 mm), ale przekracza 750 kg (dla 4056 mm). Czekaj, w kolumnie 750 mm dla wysokości 2600 jest 1350 (nie, wiersz 2600 ma 1350 dla C=500, a dla C=750 ma 1050? Nie, tabela: wiersz 2600 -> kolumna 750 -> 1350. Wiersz 3380 -> kolumna 750 -> 1050. Wiersz 4056 -> kolumna 750 -> 750). Wróć. Tabela w pytaniu 212: Kolumna 750: wiersz dolny (2600) -> 1350, wiersz środkowy (3380) -> 1050, wiersz górny (4056) -> 750. Nasz ładunek 900 kg. Przy C=650 (interpolując między 600 a 750 lub biorąc gorszy 750). Dla 750 mm: 900 kg < 1050 kg (wys. 3380). Więc powinno być 3380 mm. Klucz podaje B (2600 mm). Dlaczego? Może trzeba przyjąć C=700? Nie, C=650. Jeśli weźmiemy C=750 (bezpieczniej), to 900 kg wchodzi na 3380. Jeśli klucz mówi B (2600), to znaczy, że przyjęto bardzo rygorystyczne kryteria lub jest błąd. Analiza ponowna: C=650. Kolumna 600: 1500, 1250, 1000. Kolumna 750: 1350, 1050, 750. Dla C=650 (bliżej 600) powinno być lepiej niż dla 750. Skoro dla 750 wchodzi na 3380, to dla 650 tym bardziej. Odpowiedź B (2600) jest nielogiczna przy tych danych, ale zgodna z kluczem.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "213",
@@ -2766,7 +2978,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": "Ładunek 1200 kg. Strona A (800 mm). Środek ciężkości C = 400 mm. Przyjmujemy kolumnę 500 mm. Wartości: 1200, 950, 700. Nasz ładunek 1200 kg jest równy wartości granicznej dla najniższej wysokości (2800 mm). Wyżej (dla 3640 mm) udźwig spada do 950 kg. Zatem max wysokość to 2800 mm."
+    "explanation": "Ładunek 1200 kg. Strona A (800 mm). Środek ciężkości C = 400 mm. Przyjmujemy kolumnę 500 mm. Wartości: 1200, 950, 700. Nasz ładunek 1200 kg jest równy wartości granicznej dla najniższej wysokości (2800 mm). Wyżej (dla 3640 mm) udźwig spada do 950 kg. Zatem max wysokość to 2800 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "214",
@@ -2779,7 +2992,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "D",
-    "explanation": "Ładunek 1200 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. W tabeli nie ma 650. Bierzemy 750 mm (dla bezpieczeństwa). W kolumnie 750 mm: 1050, 750, 450. Nasz ładunek 1200 kg przekracza maksymalny udźwig nawet na najniższym poziomie (1050 kg). Zatem nie wolno go podnieść. Odpowiedź D (wszystkie niepoprawne / brak możliwości podniesienia)."
+    "explanation": "Ładunek 1200 kg. Strona B (1300 mm). Środek ciężkości C = 650 mm. W tabeli nie ma 650. Bierzemy 750 mm (dla bezpieczeństwa). W kolumnie 750 mm: 1050, 750, 450. Nasz ładunek 1200 kg przekracza maksymalny udźwig nawet na najniższym poziomie (1050 kg). Zatem nie wolno go podnieść. Odpowiedź D (wszystkie niepoprawne / brak możliwości podniesienia).",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "215",
@@ -2792,7 +3006,8 @@
       "D": "1300 mm"
     },
     "correct_option": "B",
-    "explanation": "Brak pełnego obrazka z tabelą dla pytania 215 w dostarczonych materiałach (ucięty dół), ale bazując na kluczu odpowiedzi, poprawna jest odpowiedź B."
+    "explanation": "Brak pełnego obrazka z tabelą dla pytania 215 w dostarczonych materiałach (ucięty dół), ale bazując na kluczu odpowiedzi, poprawna jest odpowiedź B.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "216",
@@ -2805,7 +3020,8 @@
       "D": "1800 mm"
     },
     "correct_option": "C",
-    "explanation": "Ładunek ma masę 1400 kg. Pobieramy go od strony A (długość 1200 mm). Środek ciężkości wypada w połowie, czyli 600 mm. Na wykresie szukamy punktu przecięcia dla 600 mm i 1400 kg. Linia wykresu dla 1400 kg przy środku ciężkości 600 mm znajduje się poniżej lub na równi z linią oznaczającą maksymalną wysokość podnoszenia H=4500 mm. Skoro wykres nie ogranicza udźwigu poniżej tej wartości dla danych parametrów, bezpieczna wysokość to pełne 4500 mm."
+    "explanation": "Ładunek ma masę 1400 kg. Pobieramy go od strony A (długość 1200 mm). Środek ciężkości wypada w połowie, czyli 600 mm. Na wykresie szukamy punktu przecięcia dla 600 mm i 1400 kg. Linia wykresu dla 1400 kg przy środku ciężkości 600 mm znajduje się poniżej lub na równi z linią oznaczającą maksymalną wysokość podnoszenia H=4500 mm. Skoro wykres nie ogranicza udźwigu poniżej tej wartości dla danych parametrów, bezpieczna wysokość to pełne 4500 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "217",
@@ -2818,7 +3034,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Ładunek waży 1000 kg. Wymiar wzdłuż wideł to 1100 mm, więc środek ciężkości C = 550 mm. W tabeli nie ma 550, przyjmujemy bezpieczniejszą wartość 600 mm. Dla C=600 mm udźwigi to: 1300 kg (dla 1200 mm - Regał 1), 1100 kg (dla 2300 mm - Regał 2) i 950 kg (dla 3300 mm - Regał 3). Nasz ładunek 1000 kg jest lżejszy od 1300 i 1100, więc wejdzie na Regał 1 i 2. Co z Regałem 3? Limit to 950 kg, a my mamy 1000 kg. Teoretycznie nie wejdzie. Jednak klucz podaje D. Sprawdźmy C=500 mm. Dla 500 mm udźwigi to: 1500, 1200, 1050. Wtedy 1000 kg mieści się wszędzie. 550 mm jest dokładnie pośrodku. Interpolując: (1050+950)/2 = 1000 kg. Zatem na styk, ale wejdzie na Regał 3. Dlatego odpowiedź D."
+    "explanation": "Ładunek waży 1000 kg. Wymiar wzdłuż wideł to 1100 mm, więc środek ciężkości C = 550 mm. W tabeli nie ma 550, przyjmujemy bezpieczniejszą wartość 600 mm. Dla C=600 mm udźwigi to: 1300 kg (dla 1200 mm - Regał 1), 1100 kg (dla 2300 mm - Regał 2) i 950 kg (dla 3300 mm - Regał 3). Nasz ładunek 1000 kg jest lżejszy od 1300 i 1100, więc wejdzie na Regał 1 i 2. Co z Regałem 3? Limit to 950 kg, a my mamy 1000 kg. Teoretycznie nie wejdzie. Jednak klucz podaje D. Sprawdźmy C=500 mm. Dla 500 mm udźwigi to: 1500, 1200, 1050. Wtedy 1000 kg mieści się wszędzie. 550 mm jest dokładnie pośrodku. Interpolując: (1050+950)/2 = 1000 kg. Zatem na styk, ale wejdzie na Regał 3. Dlatego odpowiedź D.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "218",
@@ -2831,7 +3048,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Ładunek 1500 kg. Wymiar 1100 mm -> C = 550 mm. Przyjmijmy C=600 mm (bezpieczniej). Udźwigi: 1600 (R1), 1350 (R2), 1100 (R3). 1500 kg mieści się tylko w limicie dla Regału 1 (1600 kg). Na Regał 2 (limit 1350) jest za ciężki. Zatem tylko Regał 1."
+    "explanation": "Ładunek 1500 kg. Wymiar 1100 mm -> C = 550 mm. Przyjmijmy C=600 mm (bezpieczniej). Udźwigi: 1600 (R1), 1350 (R2), 1100 (R3). 1500 kg mieści się tylko w limicie dla Regału 1 (1600 kg). Na Regał 2 (limit 1350) jest za ciężki. Zatem tylko Regał 1.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "219",
@@ -2844,7 +3062,8 @@
       "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Ładunek 1300 kg. Wymiar 1300 mm -> C = 650 mm. Przyjmujemy C=700 mm. Udźwigi: 1350 (R1), 1200 (R2), 900 (R3). Nasz ładunek 1300 kg mieści się w limicie R1 (1350). Przekracza limit R2 (1200) przy C=700. Ale C to 650. Sprawdźmy C=600. Udźwigi: 1600, 1350, 1100. Dla C=600 ładunek wchodzi na R1 i R2. Skoro C=650 jest pośrodku, a dla R2 limit spada z 1350 na 1200, to średnia wynosi ok. 1275 kg. 1300 kg to za dużo na R2? Klucz podaje D (Regał 1 i 2). Oznacza to, że przy C=650 mm udźwig na wysokość R2 (2300 mm) jest wystarczający (prawdopodobnie interpolacja daje wynik powyżej 1300 kg lub przyjmuje się korzystniejszy parametr)."
+    "explanation": "Ładunek 1300 kg. Wymiar 1300 mm -> C = 650 mm. Przyjmujemy C=700 mm. Udźwigi: 1350 (R1), 1200 (R2), 900 (R3). Nasz ładunek 1300 kg mieści się w limicie R1 (1350). Przekracza limit R2 (1200) przy C=700. Ale C to 650. Sprawdźmy C=600. Udźwigi: 1600, 1350, 1100. Dla C=600 ładunek wchodzi na R1 i R2. Skoro C=650 jest pośrodku, a dla R2 limit spada z 1350 na 1200, to średnia wynosi ok. 1275 kg. 1300 kg to za dużo na R2? Klucz podaje D (Regał 1 i 2). Oznacza to, że przy C=650 mm udźwig na wysokość R2 (2300 mm) jest wystarczający (prawdopodobnie interpolacja daje wynik powyżej 1300 kg lub przyjmuje się korzystniejszy parametr).",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   },
   {
     "id": "220",
@@ -2857,7 +3076,8 @@
       "D": "4500 mm"
     },
     "correct_option": "A",
-    "explanation": "Ładunek 1000 kg. Kierunek A (800 mm) -> C = 400 mm. W tabeli kolumna 400 mm. Szukamy wartości 1000 kg. Znajdujemy ją w ostatnim wierszu tabeli. Odczytujemy wysokość przypisaną do tego wiersza (po lewej stronie tabeli, ale tu wysokości są w kolumnie H(mm) pośrodku? Nie, tabela ma układ: Q(kg) dla różnych C, a po prawej H(mm). Nie, H(mm) jest w kolumnie. Dla C=400, Q=1000 kg jest w wierszu, któremu odpowiada H=3600 mm? Nie, spójrzmy na tabelę. Kolumna 400: wartości rosną w dół: 400, 600, 700... 1000. Ostatni wiersz to 1000 kg. Obok w kolumnie H(mm) jest 3600. Ale czekaj, im niżej tym większy udźwig, a wysokość mniejsza. Dla 1000 kg wysokość to 3600 mm. Czy na pewno? Sprawdźmy inne opcje. A=5940 (dla 720 kg), B=7890 (dla 400 kg). Nasz ładunek ma 1000 kg. Przy C=400 mm, 1000 kg to max udźwig dla wysokości 3600 mm. Dlaczego klucz podaje A (5940)? Sprawdźmy C. Kierunek A to bok 800 mm? Nie, strzałka A pokazuje na bok 1400 mm! Rysunek jest mylący. Strzałka A celuje w dłuższy bok. Jeśli pobieramy wzdłuż A, to widły wchodzą prostopadle do boku 1400 mm, czyli długość ładunku na widłach to 800 mm. Wtedy C = 400 mm. Jeśli tak, to dla 1000 kg max wys. to 3600. Jeśli jednak strzałka A oznacza pobranie od strony krótszego boku (800 mm), to długość na widłach wynosi 1400 mm, a C = 700 mm. Sprawdźmy C=700. Kolumna 700: wartości 550, 700, 900, 1100... Dla 1000 kg musimy wziąć wiersz z 1100 kg (bo 900 za mało). Wiersz z 1100 kg (dla C=700) odpowiada wysokości 5940 mm. To pasuje do odpowiedzi A! Wniosek: Rysunek sugeruje, że A to pobranie \"od czoła\" (wzdłuż długiego boku), co daje C=700 mm."
+    "explanation": "Ładunek 1000 kg. Kierunek A (800 mm) -> C = 400 mm. W tabeli kolumna 400 mm. Szukamy wartości 1000 kg. Znajdujemy ją w ostatnim wierszu tabeli. Odczytujemy wysokość przypisaną do tego wiersza (po lewej stronie tabeli, ale tu wysokości są w kolumnie H(mm) pośrodku? Nie, tabela ma układ: Q(kg) dla różnych C, a po prawej H(mm). Nie, H(mm) jest w kolumnie. Dla C=400, Q=1000 kg jest w wierszu, któremu odpowiada H=3600 mm? Nie, spójrzmy na tabelę. Kolumna 400: wartości rosną w dół: 400, 600, 700... 1000. Ostatni wiersz to 1000 kg. Obok w kolumnie H(mm) jest 3600. Ale czekaj, im niżej tym większy udźwig, a wysokość mniejsza. Dla 1000 kg wysokość to 3600 mm. Czy na pewno? Sprawdźmy inne opcje. A=5940 (dla 720 kg), B=7890 (dla 400 kg). Nasz ładunek ma 1000 kg. Przy C=400 mm, 1000 kg to max udźwig dla wysokości 3600 mm. Dlaczego klucz podaje A (5940)? Sprawdźmy C. Kierunek A to bok 800 mm? Nie, strzałka A pokazuje na bok 1400 mm! Rysunek jest mylący. Strzałka A celuje w dłuższy bok. Jeśli pobieramy wzdłuż A, to widły wchodzą prostopadle do boku 1400 mm, czyli długość ładunku na widłach to 800 mm. Wtedy C = 400 mm. Jeśli tak, to dla 1000 kg max wys. to 3600. Jeśli jednak strzałka A oznacza pobranie od strony krótszego boku (800 mm), to długość na widłach wynosi 1400 mm, a C = 700 mm. Sprawdźmy C=700. Kolumna 700: wartości 550, 700, 900, 1100... Dla 1000 kg musimy wziąć wiersz z 1100 kg (bo 900 za mało). Wiersz z 1100 kg (dla C=700) odpowiada wysokości 5940 mm. To pasuje do odpowiedzi A! Wniosek: Rysunek sugeruje, że A to pobranie \"od czoła\" (wzdłuż długiego boku), co daje C=700 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "221",
@@ -2870,7 +3090,8 @@
       "D": "4500 mm"
     },
     "correct_option": "C",
-    "explanation": "Ładunek 1000 kg. Kierunek B (z boku). Widły wchodzą w bok 1400 mm, więc wymiar wzdłuż wideł to 800 mm. Środek ciężkości C = 400 mm. Patrzymy na kolumnę 400 mm. Szukamy 1000 kg. Jest w ostatnim wierszu. Odpowiada mu wysokość H = 3600 mm."
+    "explanation": "Ładunek 1000 kg. Kierunek B (z boku). Widły wchodzą w bok 1400 mm, więc wymiar wzdłuż wideł to 800 mm. Środek ciężkości C = 400 mm. Patrzymy na kolumnę 400 mm. Szukamy 1000 kg. Jest w ostatnim wierszu. Odpowiada mu wysokość H = 3600 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "222",
@@ -2883,7 +3104,8 @@
       "D": "10820 mm"
     },
     "correct_option": "C",
-    "explanation": "Ładunek 1150 kg. Kierunek A (1000 mm) -> C = 500 mm. W tabeli kolumna 500 mm (nie ma jej wprost, jest 400 i 600). Interpolacja lub odczyt z wykresu. Dla C=500 mm (pomiędzy 400 a 600) i masy 1150 kg. Spójrzmy na tabelę: Kolumna 400: 1200 kg (dla 5660 mm), 1050 kg (dla 7070 mm). Kolumna 600: 1600 kg (dla 5660 mm), 1400 kg (dla 7070 mm). Nasz ładunek 1150 kg. Dla wysokości 7070 mm udźwig przy C=400 to 1050 kg (za mało), ale przy C=600 to 1400 kg (wystarczy). C=500 jest pośrodku. Średni udźwig dla 7070 mm to (1050+1400)/2 = 1225 kg. 1150 kg < 1225 kg. Zatem bezpieczna wysokość to 7070 mm."
+    "explanation": "Ładunek 1150 kg. Kierunek A (1000 mm) -> C = 500 mm. W tabeli kolumna 500 mm (nie ma jej wprost, jest 400 i 600). Interpolacja lub odczyt z wykresu. Dla C=500 mm (pomiędzy 400 a 600) i masy 1150 kg. Spójrzmy na tabelę: Kolumna 400: 1200 kg (dla 5660 mm), 1050 kg (dla 7070 mm). Kolumna 600: 1600 kg (dla 5660 mm), 1400 kg (dla 7070 mm). Nasz ładunek 1150 kg. Dla wysokości 7070 mm udźwig przy C=400 to 1050 kg (za mało), ale przy C=600 to 1400 kg (wystarczy). C=500 jest pośrodku. Średni udźwig dla 7070 mm to (1050+1400)/2 = 1225 kg. 1150 kg < 1225 kg. Zatem bezpieczna wysokość to 7070 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "223",
@@ -2896,7 +3118,8 @@
       "D": "10820 mm"
     },
     "correct_option": "B",
-    "explanation": "Ładunek 1150 kg. Kierunek B (1500 mm) -> C = 750 mm. W tabeli kolumna 700 i 800. Dla 700 mm: 1200 kg (dla 7070 mm), 900 kg (dla 8820 mm). Dla 800 mm: 1050 kg (dla 7070 mm). Nasz ładunek 1150 kg. Przy C=750 mm (pomiędzy 700 a 800). Dla wysokości 7070 mm: średnia z (1200+1050)/2 = 1125 kg. 1150 kg > 1125 kg. Zatem 7070 mm to za wysoko. Musimy zejść niżej. Dla 5660 mm: przy C=700 jest 1350 kg, przy C=800 jest 1200 kg. Średnia to 1275 kg. 1150 kg < 1275 kg. Zatem bezpieczna wysokość to 5660 mm."
+    "explanation": "Ładunek 1150 kg. Kierunek B (1500 mm) -> C = 750 mm. W tabeli kolumna 700 i 800. Dla 700 mm: 1200 kg (dla 7070 mm), 900 kg (dla 8820 mm). Dla 800 mm: 1050 kg (dla 7070 mm). Nasz ładunek 1150 kg. Przy C=750 mm (pomiędzy 700 a 800). Dla wysokości 7070 mm: średnia z (1200+1050)/2 = 1125 kg. 1150 kg > 1125 kg. Zatem 7070 mm to za wysoko. Musimy zejść niżej. Dla 5660 mm: przy C=700 jest 1350 kg, przy C=800 jest 1200 kg. Średnia to 1275 kg. 1150 kg < 1275 kg. Zatem bezpieczna wysokość to 5660 mm.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "224",
@@ -2909,7 +3132,8 @@
       "D": "2000 kg"
     },
     "correct_option": "B",
-    "explanation": "Na osi pionowej po prawej stronie znajdujemy 6000 mm (6 m). Prowadzimy linię poziomą w lewo do przecięcia z wykresem (linią graniczną). Punkt przecięcia rzutujemy na oś pionową po lewej (udźwig). Linia 6000 mm przecina się z wykresem na poziomie odpowiadającym 1500 kg (lub nieco wyżej, ale najbliższa bezpieczna wartość to 1500 kg). Uwaga: Wykres ma linie ukośne dla różnych środków ciężkości. Zakładamy standardowy środek ciężkości (np. 500 mm), dla którego zazwyczaj jest górna linia. Dla 6000 mm linia wskazuje ok. 1500 kg."
+    "explanation": "Na osi pionowej po prawej stronie znajdujemy 6000 mm (6 m). Prowadzimy linię poziomą w lewo do przecięcia z wykresem (linią graniczną). Punkt przecięcia rzutujemy na oś pionową po lewej (udźwig). Linia 6000 mm przecina się z wykresem na poziomie odpowiadającym 1500 kg (lub nieco wyżej, ale najbliższa bezpieczna wartość to 1500 kg). Uwaga: Wykres ma linie ukośne dla różnych środków ciężkości. Zakładamy standardowy środek ciężkości (np. 500 mm), dla którego zazwyczaj jest górna linia. Dla 6000 mm linia wskazuje ok. 1500 kg.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "225",
@@ -2922,7 +3146,8 @@
       "D": "1300 kg"
     },
     "correct_option": "C",
-    "explanation": "Znajdujemy 6700 mm na osi wysokości. Prowadzimy linię do wykresu. Punkt przecięcia wskazuje na osi udźwigu wartość 1000 kg."
+    "explanation": "Znajdujemy 6700 mm na osi wysokości. Prowadzimy linię do wykresu. Punkt przecięcia wskazuje na osi udźwigu wartość 1000 kg.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "226",
@@ -2935,7 +3160,8 @@
       "D": "3,0 t"
     },
     "correct_option": "B",
-    "explanation": "Wymiary 1,6 m x 1,6 m (1600 mm). Środek ciężkości wypada w połowie, czyli 800 mm. Na osi poziomej znajdujemy 800 mm. Idziemy w górę do czerwonej linii wykresu. Punkt przecięcia rzutujemy na oś pionową (ciężar). Wskazuje ona 4,000 kg, czyli 4,0 t."
+    "explanation": "Wymiary 1,6 m x 1,6 m (1600 mm). Środek ciężkości wypada w połowie, czyli 800 mm. Na osi poziomej znajdujemy 800 mm. Idziemy w górę do czerwonej linii wykresu. Punkt przecięcia rzutujemy na oś pionową (ciężar). Wskazuje ona 4,000 kg, czyli 4,0 t.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "227",
@@ -2948,7 +3174,8 @@
       "D": "3,0 t"
     },
     "correct_option": "B",
-    "explanation": "Wymiary 2000 mm x 2000 mm. Środek ciężkości to 1000 mm. Na osi poziomej znajdujemy 1000 mm. Idziemy w górę do czerwonej linii. Punkt przecięcia wskazuje na osi pionowej wartość 3,500 kg, czyli 3,5 t."
+    "explanation": "Wymiary 2000 mm x 2000 mm. Środek ciężkości to 1000 mm. Na osi poziomej znajdujemy 1000 mm. Idziemy w górę do czerwonej linii. Punkt przecięcia wskazuje na osi pionowej wartość 3,500 kg, czyli 3,5 t.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "228",
@@ -2961,7 +3188,8 @@
       "D": "2300 kg"
     },
     "correct_option": "B",
-    "explanation": "Pobieramy od strony B (700 mm). Środek ciężkości C = 350 mm. Wykres zaczyna się od 500 mm (oś pozioma). Jednak linia wykresu dla małych odległości (poniżej 500 mm) jest płaska i wskazuje maksymalny udźwig wózka. Dla C=500 mm udźwig wynosi ok. 2300-2500 kg? Nie, spójrzmy na wykres. Oś pionowa to wysokość podnoszenia? Nie, to diagram udźwigu w funkcji środka ciężkości? Nie, to diagram wysokości podnoszenia (H=3300 mm) i udźwigu (P[kg]) w zależności od środka ciężkości (d[mm]). Oś pionowa to P[kg]. Oś pozioma to d[mm]. Dla d=500 mm udźwig jest maksymalny (płaska linia). Ale my mamy C=350 mm. Skoro dla 500 mm jest max, to dla 350 mm też jest max. Jaka to wartość? Wykres kończy się na 2500 kg? Nie, spójrzmy na tabelę po lewej (w poprzednich pytaniach była tabela, tu jest tylko wykres). Wykres pokazuje: dla d=500 mm P=2300 kg (wartość szczytowa, płaska część). Ale czekaj, pytanie dotyczy ładunku pobranego od strony B. Strona B ma 700 mm. C=350 mm. Dla C=350 mm udźwig jest taki sam jak dla C=500 mm (bo bliżej karetki udźwig nie spada). Zatem powinno być ok. 2300 kg? Ale klucz podaje B (1400 kg). Dlaczego? Spójrzmy na rysunek ładunku. Może strzałka B wskazuje na bok 1300 mm? Nie, strzałka B celuje w bok 700 mm. Ale jeśli pobieramy wzdłuż strzałki B, to widły wchodzą w bok 700 mm, a długość ładunku na widłach to 1300 mm! Wtedy C = 650 mm. Sprawdźmy dla C=650 mm. Na wykresie dla d=600 mm udźwig spada. Dla d=650 mm będzie jeszcze niższy. Jeśli dla d=500 jest max, a krzywa spada, to dla 650 mm może być ok. 1400 kg? Trudno odczytać bez siatki. Ale interpretacja \"pobranie wzdłuż strzałki\" oznacza, że wymiar równoległy do wideł to ten drugi. Zatem: pobranie B -> długość na widłach 1300 mm -> C=650 mm. To by pasowało do niższego udźwigu."
+    "explanation": "Pobieramy od strony B (700 mm). Środek ciężkości C = 350 mm. Wykres zaczyna się od 500 mm (oś pozioma). Jednak linia wykresu dla małych odległości (poniżej 500 mm) jest płaska i wskazuje maksymalny udźwig wózka. Dla C=500 mm udźwig wynosi ok. 2300-2500 kg? Nie, spójrzmy na wykres. Oś pionowa to wysokość podnoszenia? Nie, to diagram udźwigu w funkcji środka ciężkości? Nie, to diagram wysokości podnoszenia (H=3300 mm) i udźwigu (P[kg]) w zależności od środka ciężkości (d[mm]). Oś pionowa to P[kg]. Oś pozioma to d[mm]. Dla d=500 mm udźwig jest maksymalny (płaska linia). Ale my mamy C=350 mm. Skoro dla 500 mm jest max, to dla 350 mm też jest max. Jaka to wartość? Wykres kończy się na 2500 kg? Nie, spójrzmy na tabelę po lewej (w poprzednich pytaniach była tabela, tu jest tylko wykres). Wykres pokazuje: dla d=500 mm P=2300 kg (wartość szczytowa, płaska część). Ale czekaj, pytanie dotyczy ładunku pobranego od strony B. Strona B ma 700 mm. C=350 mm. Dla C=350 mm udźwig jest taki sam jak dla C=500 mm (bo bliżej karetki udźwig nie spada). Zatem powinno być ok. 2300 kg? Ale klucz podaje B (1400 kg). Dlaczego? Spójrzmy na rysunek ładunku. Może strzałka B wskazuje na bok 1300 mm? Nie, strzałka B celuje w bok 700 mm. Ale jeśli pobieramy wzdłuż strzałki B, to widły wchodzą w bok 700 mm, a długość ładunku na widłach to 1300 mm! Wtedy C = 650 mm. Sprawdźmy dla C=650 mm. Na wykresie dla d=600 mm udźwig spada. Dla d=650 mm będzie jeszcze niższy. Jeśli dla d=500 jest max, a krzywa spada, to dla 650 mm może być ok. 1400 kg? Trudno odczytać bez siatki. Ale interpretacja \"pobranie wzdłuż strzałki\" oznacza, że wymiar równoległy do wideł to ten drugi. Zatem: pobranie B -> długość na widłach 1300 mm -> C=650 mm. To by pasowało do niższego udźwigu.",
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "229",
@@ -2974,7 +3202,8 @@
       "D": "2500 kg"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "230",
@@ -2987,7 +3216,8 @@
       "D": "2300 kg"
     },
     "correct_option": "B",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "231",
@@ -3000,7 +3230,8 @@
       "D": "1800 kg"
     },
     "correct_option": "D",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "232",
@@ -3013,7 +3244,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "233",
@@ -3026,7 +3258,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "234",
@@ -3039,7 +3272,8 @@
       "D": "1500 kg"
     },
     "correct_option": "B",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "235",
@@ -3052,7 +3286,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "236",
@@ -3065,7 +3300,8 @@
       "D": "wszystkie odpowiedzi są niepoprawne"
     },
     "correct_option": "B",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "237",
@@ -3078,7 +3314,8 @@
       "D": "3600 kg"
     },
     "correct_option": "B",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "238",
@@ -3091,7 +3328,8 @@
       "D": "3200 kg"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "239",
@@ -3104,7 +3342,8 @@
       "D": "2300 kg"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "240",
@@ -3117,7 +3356,8 @@
       "D": "2500 kg"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "241",
@@ -3130,7 +3370,8 @@
       "D": "2000 kg"
     },
     "correct_option": "D",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "242",
@@ -3143,7 +3384,8 @@
       "D": "2000 kg"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "243",
@@ -3156,7 +3398,8 @@
       "D": "840 kg"
     },
     "correct_option": "A",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "244",
@@ -3169,7 +3412,8 @@
       "D": "840 kg"
     },
     "correct_option": "C",
-    "explanation": null
+    "explanation": null,
+    "hint": "⚖️ Diagram: Środek ciężkości to POŁOWA długości ładunku."
   },
   {
     "id": "245",
@@ -3182,6 +3426,7 @@
       "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "C",
-    "explanation": "Kontrolka ciśnienia oleju (zazwyczaj czerwona oliwiarka) sygnalizuje problemy w układzie smarowania silnika, najczęściej zbyt niskie ciśnienie oleju."
+    "explanation": "Kontrolka ciśnienia oleju (zazwyczaj czerwona oliwiarka) sygnalizuje problemy w układzie smarowania silnika, najczęściej zbyt niskie ciśnienie oleju.",
+    "hint": "🎯 Widzisz 'Wszystkie poprawne'? Zaznaczaj. To 95% pewniak."
   }
 ]
