@@ -44,8 +44,8 @@ def update_questions_with_categories(seed_file_path, mapping_file_path, output_f
 
 if __name__ == "__main__":
     # Define your file paths here
-    SEED_FILE = 'data/seed_questions.json'
+    SEED_FILE = 'seed_questions.json'
     MAPPING_FILE = 'category_mapping.json'
-    OUTPUT_FILE = 'data/seed_questions_v2.json'
+    OUTPUT_FILE = 'seed_questions_categories.json'
 
     update_questions_with_categories(SEED_FILE, MAPPING_FILE, OUTPUT_FILE)
