@@ -3662,7 +3662,7 @@
   {
     "id": "245",
     "text": "Świecąca się kontrolka ciśnienia oleju może świadczyć o:",
-    "image_path": null,
+    "image_path": "assets/q245_icon.jpg",
     "options": {
       "A": "zbyt niskim poziomie płyny w układzie hamulcowym",
       "B": "podwyższonej temperaturze silnika",
