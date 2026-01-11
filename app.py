@@ -60,7 +60,7 @@ try:
     vm = get_viewmodel()
     vm.ensure_state_initialized()
 except Exception as e:
-    logger.critical(f"🔥 System Crash: {e}")
+`    logger.critical(f"🔥 System Crash: {e}", exc_info=True)
     st.error(f"System Error: {e}")
     st.stop()
 
@@ -171,6 +171,7 @@ if not vm.questions:
     if "Powtórka" in ui_mode:
         logger.info("ℹ️ STATE: Review mode empty (User has 0 incorrect answers).")
         st.info("🎉 Brak błędów do poprawy!")
+        st.button("Wróć do Nauki", on_click=switch_to_standard, type="primary")
     elif "Sprint" in ui_mode:
         logger.info("ℹ️ STATE: Sprint mode empty (Goal met).")
         st.balloons()
@@ -202,8 +203,7 @@ elif vm.is_complete and st.session_state.answer_submitted:
         else:
             st.balloons()
             st.success("🎉 Gratulacje! Wyczyściłeś wszystkie błędy!")
-            st.button("Wróć do Nauki", on_click=on_settings_change)
-
+            st.button("Wróć do Nauki", on_click=switch_to_standard, type="primary")
     else:
         # Standard behavior for other modes
         st.balloons()
@@ -248,8 +248,6 @@ else:
                 st.success(fb['msg'])
             else:
                 st.error(fb['msg'])
-
-            # FIX: Use .get() to safely check if explanation exists
             if fb.get('explanation'):
                 st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
 
