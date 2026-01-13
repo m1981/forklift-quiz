@@ -16,6 +16,8 @@ class Question(BaseModel):
     options: Dict[OptionKey, str]
     correct_option: OptionKey
     explanation: Optional[str] = Field(None, description="Explanation for the correct answer")
+    hint: Optional[str] = Field(None, description="A helpful clue for the user")
+    category: str = Field("Ogólne", description="The topic/domain of the question")
 
 class QuizSessionState(BaseModel):
     """Tracks the transient state of the UI"""

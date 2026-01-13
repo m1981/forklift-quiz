@@ -198,6 +198,13 @@ else:
     st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path)
+
+    # --- UPDATE 2: Add Hint Expander ---
+    # Only show if a hint exists in the data
+    if q.hint:
+        with st.expander("💡 Potrzebujesz wskazówki?"):
+            st.info(q.hint)
+
     st.write("")
 
     if not st.session_state.answer_submitted:
