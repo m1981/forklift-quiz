@@ -1,18 +1,23 @@
 import streamlit as st
 import logging
 from typing import Optional, List
-from src.models import Question, OptionKey, UserProfile
+from src.models import Question, OptionKey, UserProfile, QuizSessionState, QuizFeedback
 from src.service import QuizService
 from src.fsm import QuizStateMachine, QuizState, QuizAction
 
 logger = logging.getLogger(__name__)
 
+
 class QuizViewModel:
     def __init__(self, service: QuizService):
         self.service = service
-        # Restore FSM state from session or default to IDLE
+        # Restore FSM state
         saved_state = st.session_state.get('fsm_state', QuizState.IDLE)
         self.fsm = QuizStateMachine(initial_state=saved_state)
+
+        # Initialize Typed State Container if missing
+        if 'quiz_state' not in st.session_state:
+            st.session_state.quiz_state = QuizSessionState()
 
     def _persist_state(self):
         """Save FSM state to Streamlit session so it survives reruns"""
@@ -20,23 +25,21 @@ class QuizViewModel:
 
     def ensure_state_initialized(self):
         """Initialize data containers"""
-        defaults = {
-            'quiz_questions': [],
-            'current_index': 0,
-            'score': 0,
-            'last_feedback': None,
-            'user_profile': None,
-            'last_selected_option': None,
-            'fsm_state': QuizState.IDLE
-        }
-        for key, val in defaults.items():
-            if key not in st.session_state:
-                st.session_state[key] = val
+        if 'quiz_questions' not in st.session_state:
+            st.session_state.quiz_questions = []
+        if 'user_profile' not in st.session_state:
+            st.session_state.user_profile = None
+        # Note: quiz_state is initialized in __init__
 
-    # --- Properties ---
+    # --- Properties (Typed Accessors) ---
     @property
     def state(self) -> QuizState:
         return self.fsm.current_state
+
+    @property
+    def session_state(self) -> QuizSessionState:
+        """Access the Typed Pydantic Container"""
+        return st.session_state.quiz_state
 
     @property
     def questions(self) -> List[Question]:
@@ -45,7 +48,7 @@ class QuizViewModel:
     @property
     def current_question(self) -> Optional[Question]:
         qs = self.questions
-        idx = st.session_state.get('current_index', 0)
+        idx = self.session_state.current_q_index
         if qs and 0 <= idx < len(qs):
             return qs[idx]
         return None
@@ -54,23 +57,45 @@ class QuizViewModel:
     def user_profile(self) -> Optional[UserProfile]:
         return st.session_state.get('user_profile', None)
 
+    @property
+    def dashboard_config(self):
+        """
+        Strategy-Driven UI Configuration.
+        The View asks 'What should I look like?' and the Strategy answers.
+        """
+        # We need the current mode to ask the right strategy.
+        # Ideally, mode is stored in session_state, but for now we can infer or pass it.
+        # To keep it clean, let's assume the UI passes the mode or we store it.
+        # For this refactor, we will rely on the UI passing the mode to the render function,
+        # OR we store 'current_mode' in session state. Let's store it.
+        mode = st.session_state.get('current_mode', "Daily Sprint")
+        user_id = st.session_state.get('last_user_id', "Unknown")
+
+        return self.service.get_dashboard_config(
+            mode,
+            self.session_state,
+            user_id,
+            len(self.questions)
+        )
+
     # --- Actions ---
 
     def start_quiz(self, mode: str, user_id: str):
         """Action: IDLE -> LOADING -> (ACTIVE or EMPTY)"""
         self.fsm.transition(QuizAction.START)
-
         logger.info(f"🎮 VM: Loading Quiz Mode='{mode}'")
+
+        st.session_state.current_mode = mode  # Store mode for Strategy lookups
+
         qs = self.service.get_quiz_questions(mode, user_id)
         profile = self.service.get_user_profile(user_id)
 
-        # 2. Update Data State
+        # 2. Update Data State (Reset Typed Container)
         st.session_state.quiz_questions = qs
         st.session_state.user_profile = profile
-        st.session_state.current_index = 0
-        st.session_state.score = 0
-        st.session_state.last_feedback = None
-        st.session_state.last_selected_option = None
+
+        # Reset Pydantic State
+        st.session_state.quiz_state = QuizSessionState()
 
         # 3. Trigger Resulting Transition
         if qs:
@@ -85,20 +110,24 @@ class QuizViewModel:
         q = self.current_question
         if not q: return
 
-        # 1. Side Effect: DB Update
+        # 1. Side Effect: DB Update via Service
         is_correct = self.service.submit_answer(user_id, q, selected_key)
 
-        # 2. Update UI Data
-        st.session_state.last_selected_option = selected_key
+        # 2. Update Typed State
+        self.session_state.last_selected_option = selected_key
+
         if is_correct:
-            st.session_state.score += 1
-            st.session_state.last_feedback = {"type": "success", "msg": "✅ Dobrze!"}
+            self.session_state.score += 1
+            self.session_state.last_feedback = QuizFeedback(
+                type="success",
+                message="✅ Dobrze!"
+            )
         else:
-            st.session_state.last_feedback = {
-                "type": "error",
-                "msg": f"❌ Źle. Poprawna: {q.correct_option.value}.",
-                "explanation": q.explanation
-            }
+            self.session_state.last_feedback = QuizFeedback(
+                type="error",
+                message=f"❌ Źle. Poprawna: {q.correct_option.value}.",
+                explanation=q.explanation
+            )
 
         # Refresh profile to show updated stats immediately
         st.session_state.user_profile = self.service.get_user_profile(user_id)
@@ -109,14 +138,22 @@ class QuizViewModel:
 
     def next_step(self):
         """Action: FEEDBACK -> (ACTIVE or SUMMARY)"""
-        is_last_question = st.session_state.current_index >= len(self.questions) - 1
+        mode = st.session_state.get('current_mode', "Daily Sprint")
 
-        if is_last_question:
+        # Ask Service/Strategy if we are done
+        is_complete = self.service.is_quiz_complete(
+            mode,
+            self.session_state,
+            len(self.questions)
+        )
+
+        if is_complete:
+            self.session_state.is_complete = True
             self.fsm.transition(QuizAction.FINISH_QUIZ)
         else:
-            st.session_state.current_index += 1
-            st.session_state.last_selected_option = None
-            st.session_state.last_feedback = None
+            self.session_state.current_q_index += 1
+            self.session_state.last_selected_option = None
+            self.session_state.last_feedback = None
             self.fsm.transition(QuizAction.NEXT_QUESTION)
 
         self._persist_state()
@@ -128,7 +165,7 @@ class QuizViewModel:
 
         # Clear Data
         st.session_state.quiz_questions = []
-        st.session_state.current_index = 0
+        st.session_state.quiz_state = QuizSessionState()  # Reset Pydantic
 
         self.fsm.transition(QuizAction.RESET)
         self._persist_state()

@@ -14,13 +14,12 @@ logging.basicConfig(
     force=True
 )
 logger = logging.getLogger(__name__)
-
-# 🔇 Silence Noise
 logging.getLogger("PIL").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 # --- Configuration ---
 st.set_page_config(page_title="Warehouse Certification Quiz", layout="centered")
+
 
 # --- Dependency Injection ---
 @st.cache_resource
@@ -33,9 +32,11 @@ def get_quiz_service():
         service.initialize_db_from_file(seed_file)
     return service
 
+
 def get_viewmodel():
     service = get_quiz_service()
     return QuizViewModel(service)
+
 
 try:
     vm = get_viewmodel()
@@ -44,6 +45,7 @@ except Exception as e:
     logger.critical(f"🔥 System Crash: {e}", exc_info=True)
     st.error(f"System Error: {e}")
     st.stop()
+
 
 # --- Custom CSS ---
 def apply_custom_styling():
@@ -57,26 +59,33 @@ def apply_custom_styling():
         </style>
     """, unsafe_allow_html=True)
 
+
 apply_custom_styling()
 
 # --- Sidebar ---
 st.sidebar.header("Ustawienia")
-user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"])
 
-# Initialize last_ui_mode if missing
 if "last_ui_mode" not in st.session_state:
     st.session_state.last_ui_mode = "Codzienny Sprint (10 pytań)"
+if "last_user_id" not in st.session_state:
+    st.session_state.last_user_id = "Daniel"
 
-# Sidebar Radio
+user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"])
+
+if user_id != st.session_state.last_user_id:
+    logger.info(f"👤 UI: User changed. Resetting App.")
+    st.session_state.last_user_id = user_id
+    vm.reset_quiz()
+    st.rerun()
+
 ui_mode = st.sidebar.radio(
     "Tryb",
     ["Codzienny Sprint (10 pytań)", "Powtórka (Błędy)"],
     key="quiz_mode_selector"
 )
 
-# 3. Reactive Logic: If mode changed, reset FSM to IDLE
 if ui_mode != st.session_state.last_ui_mode:
-    logger.info(f"🔀 UI: Mode changed from '{st.session_state.last_ui_mode}' to '{ui_mode}'. Resetting to IDLE.")
+    logger.info(f"🔀 UI: Mode changed. Resetting to IDLE.")
     st.session_state.last_ui_mode = ui_mode
     vm.reset_quiz()
     st.rerun()
@@ -91,75 +100,65 @@ if st.sidebar.button("Zeruj postęp"):
     st.sidebar.success("Postęp wyzerowany.")
     st.rerun()
 
-# --- NEW: DEBUG SECTION IN SIDEBAR ---
+# --- Debugger ---
 st.sidebar.markdown("---")
 with st.sidebar.expander("🕵️‍♂️ Debugger Danych"):
     if st.button("Odśwież dane"):
         st.rerun()
-
-    # Fetch raw stats directly from repo
     repo = vm.service.repo
     stats = repo.debug_get_user_stats(user_id)
-
     st.write(f"**User:** {user_id}")
     st.write(f"**Total Records:** {stats['total_attempts']}")
     st.write(f"**Correct (1):** {stats['correct_count']}")
     st.write(f"**Incorrect (0):** {stats['incorrect_count']}")
-    st.write("**Incorrect IDs:**")
-    st.code(str(stats['incorrect_ids']))
-
     st.write("**Current FSM State:**")
     st.code(str(vm.state))
 
-    st.write("**Session Questions:**")
-    st.write(len(vm.questions))
 
-# -------------------------------------
+# --- UI Helpers (Refactored for OCP) ---
 
-# --- UI Helpers ---
-def render_dashboard(vm, user_id, ui_mode):
+def render_dashboard(vm):
     """
-    Renders different dashboards based on the mode.
+    Renders dashboard based on the Configuration provided by the Strategy.
+    No 'if mode == ...' logic here!
     """
+    config = vm.dashboard_config
     profile = vm.user_profile
     if not profile: return
 
-    # 🔴 REVIEW MODE DASHBOARD (Distinct Style)
-    if "Powtórka" in ui_mode:
-        # Calculate progress within this specific error set
-        total_errors = len(vm.questions)
-        current_q_num = st.session_state.current_index + 1
-        remaining = total_errors - st.session_state.current_index
-
+    # 1. Render Context Message (e.g., "3 errors remaining")
+    if config.context_message:
         st.markdown(f"""
-        <div style="padding: 15px; background-color: #fff0f0; border-left: 5px solid #ff4b4b; border-radius: 5px; margin-bottom: 20px;">
-            <h4 style="margin:0; color: #ff4b4b;">🛠️ Tryb Poprawy Błędów</h4>
-            <p style="margin:0;">Pozostało do naprawienia: <strong>{remaining}</strong> (z {total_errors})</p>
+        <div style="padding: 15px; background-color: {config.context_color}; border-left: 5px solid {config.header_color}; border-radius: 5px; margin-bottom: 20px;">
+            <h4 style="margin:0; color: {config.header_color};">{config.title}</h4>
+            <p style="margin:0;">{config.context_message}</p>
         </div>
         """, unsafe_allow_html=True)
-        if total_errors > 0:
-            st.progress(st.session_state.current_index / total_errors)
-    else:
+
+    # 2. Render Standard Stats if enabled
+    if config.show_streak or config.show_daily_goal:
         col1, col2 = st.columns(2)
-        col1.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
-        col2.markdown(f'<div class="stat-box">🎯 Cel: {profile.daily_progress}/{profile.daily_goal}</div>',
-                      unsafe_allow_html=True)
-        st.progress(min(profile.daily_progress / profile.daily_goal, 1.0))
+        if config.show_streak:
+            col1.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
+        if config.show_daily_goal:
+            col2.markdown(f'<div class="stat-box">🎯 {config.progress_text}</div>', unsafe_allow_html=True)
+
+    # 3. Render Progress Bar
+    st.progress(config.progress_value)
 
 
-def render_question_header(vm, q, ui_mode):
+def render_question_header(vm, q):
+    # Use the config to style the header if needed, or keep generic
+    config = vm.dashboard_config
     category = getattr(q, 'category', 'Ogólne')
 
-    # 🔴 REVIEW HEADER
-    if "Powtórka" in ui_mode:
-        # No standard caption, use a distinct label
+    # Dynamic Header based on Config Title if not using Context Message
+    if not config.context_message:
+        st.caption(
+            f"{config.title} | Pytanie {vm.session_state.current_q_index + 1} z {len(vm.questions)} | 📂 {category}")
+    else:
         st.markdown(f"**📂 Kategoria:** {category}")
 
-    # 🔵 SPRINT HEADER
-    else:
-        st.caption(f"Pytanie {st.session_state.current_index + 1} z {len(vm.questions)} | 📂 {category}")
-
-    # Question Text
     st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
 
     if q.image_path and os.path.exists(q.image_path):
@@ -170,8 +169,9 @@ def render_question_header(vm, q, ui_mode):
         with st.expander("💡 Wskazówka"):
             st.info(hint)
 
+
 def render_frozen_options(vm, q):
-    user_selection = st.session_state.get('last_selected_option')
+    user_selection = vm.session_state.last_selected_option
     st.markdown("### Twoja odpowiedź:")
     for key, text in q.options.items():
         prefix = "⚪"
@@ -190,31 +190,15 @@ def render_frozen_options(vm, q):
 
 # --- MAIN FSM ROUTER ---
 
-logger.debug(f"🚦 ROUTER: Matching State '{vm.state}'")
-
 match vm.state:
 
     case QuizState.IDLE:
         st.title("🎓 Warehouse Quiz")
-
-        # --- DEBUG INFO ON SCREEN ---
-        st.warning(f"DEBUG: App is IDLE. Mode: {ui_mode}")
-        if "Powtórka" in ui_mode:
-             repo = vm.service.repo
-             errs = repo.get_incorrect_question_ids(user_id)
-             if not errs:
-                 st.success("🎉 Brak błędów do poprawy! Przełącz na Sprint.")
-             else:
-                 st.warning(f"⚠️ Masz {len(errs)} błędów do poprawy.")
-        # ----------------------------
-
         st.info(f"Witaj, {user_id}! Wybierz tryb i kliknij Start.")
         st.markdown(f"**Wybrany tryb:** {ui_mode}")
 
         if st.button("🚀 Rozpocznij Quiz", type="primary"):
-            # CRITICAL: Use the current ui_mode from the widget, not a cached variable
             current_mode_str = MODE_MAP[ui_mode]
-            logger.info(f"🚀 UI: User clicked Start. Mode='{ui_mode}' -> '{current_mode_str}'")
             vm.start_quiz(current_mode_str, user_id)
             st.rerun()
 
@@ -224,47 +208,51 @@ match vm.state:
 
     case QuizState.EMPTY_STATE:
         st.warning("📭 Brak pytań w tym trybie.")
-        if "Powtórka" in ui_mode:
-            st.success("🎉 Brak błędów do poprawy!")
-
         if st.button("🔙 Wróć do Menu"):
             vm.reset_quiz()
             st.rerun()
 
     case QuizState.QUESTION_ACTIVE:
-        # Pass ui_mode here
-        render_dashboard(vm, user_id, ui_mode)
+        render_dashboard(vm)
         q = vm.current_question
-        render_question_header(vm, q, ui_mode)
 
-        st.write("")
-        for key, text in q.options.items():
-            st.button(
-                f"{key.value}) {text}",
-                key=f"btn_{q.id}_{key}",
-                on_click=vm.submit_answer,
-                args=(user_id, key)
-            )
+        # --- DEFENSIVE CHECK ---
+        if q is None:
+            logger.error(f"🚨 UI ERROR: State is ACTIVE but Question is None. Index={vm.session_state.current_q_index}")
+            st.error("Wystąpił błąd ładowania pytania. Powrót do menu...")
+            if st.button("Reset"):
+                vm.reset_quiz()
+                st.rerun()
+        else:
+            render_question_header(vm, q)
+            st.write("")
+            for key, text in q.options.items():
+                st.button(
+                    f"{key.value}) {text}",
+                    key=f"btn_{q.id}_{key}",
+                    on_click=vm.submit_answer,
+                    args=(user_id, key)
+                )
 
     case QuizState.FEEDBACK_VIEW:
-        # Pass ui_mode here
-        render_dashboard(vm, user_id, ui_mode)
+        render_dashboard(vm)
         q = vm.current_question
-        render_question_header(vm, q, ui_mode)
-        render_frozen_options(vm, q)
 
-        st.divider()
-        fb = st.session_state.last_feedback
-        if fb:
-            if fb['type'] == 'success':
-                st.success(fb['msg'])
-            else:
-                st.error(fb['msg'])
-                if fb.get('explanation'):
-                    st.info(f"ℹ️ {fb['explanation']}")
+        # --- DEFENSIVE CHECK ---
+        if q is None:
+             # Same error handling as above
+             st.error("Błąd wyświetlania odpowiedzi.")
+             if st.button("Reset"):
+                vm.reset_quiz()
+                st.rerun()
+        else:
+            render_question_header(vm, q)
+            render_frozen_options(vm, q)
 
         # Logic for Next vs Finish button
-        is_last = st.session_state.current_index >= len(vm.questions) - 1
+        # We ask the service if we are effectively done (e.g. last question)
+        # But for button label, we can check if it's the last index
+        is_last = vm.session_state.current_q_index >= len(vm.questions) - 1
         btn_label = "Podsumowanie 🏁" if is_last else "Następne ➡️"
 
         st.button(btn_label, on_click=vm.next_step, type="primary")
@@ -272,14 +260,7 @@ match vm.state:
     case QuizState.SUMMARY:
         st.balloons()
         st.title("🏁 Podsumowanie")
-        st.markdown(f"### Wynik: {st.session_state.score} / {len(vm.questions)}")
-
-        if "Powtórka" in ui_mode:
-            remaining = len(vm.service.repo.get_incorrect_question_ids(user_id))
-            if remaining > 0:
-                st.warning(f"⚠️ Pozostało {remaining} błędów.")
-            else:
-                st.success("🎉 Wszystkie błędy poprawione!")
+        st.markdown(f"### Wynik: {vm.session_state.score} / {len(vm.questions)}")
 
         if st.button("🔄 Wróć do Menu"):
             vm.reset_quiz()
