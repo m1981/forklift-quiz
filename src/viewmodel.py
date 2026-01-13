@@ -20,11 +20,53 @@ class QuizViewModel:
     def _persist_state(self):
         st.session_state.fsm_state = self.fsm.current_state
 
-    def ensure_state_initialized(self):
-        if 'quiz_questions' not in st.session_state:
-            st.session_state.quiz_questions = []
-        if 'user_profile' not in st.session_state:
-            st.session_state.user_profile = None
+    # --- 🛡️ FORENSIC STATE MUTATOR ---
+    def _mutate_state(self, action: str, **payload):
+        """
+        Centralized state modification.
+        Every change to the session state passes through here for logging.
+        """
+        state = self.session_state
+
+        # 1. Log Intent
+        logger.info(f"⚡ MUTATION REQUEST: {action} | Payload: {payload}")
+
+        # 2. Apply Changes
+        if action == "REGISTER_CORRECT":
+            state.score += 1
+            q_id = payload.get('q_id')
+            # Logic: If in correction, remove from error list
+            if state.internal_phase == "Correction" and q_id in state.session_error_ids:
+                state.session_error_ids.remove(q_id)
+                logger.debug(f"   -> Removed Q{q_id} from error list. Remaining: {len(state.session_error_ids)}")
+
+        elif action == "REGISTER_ERROR":
+            q_id = payload.get('q_id')
+            if q_id and q_id not in state.session_error_ids:
+                state.session_error_ids.append(q_id)
+                logger.debug(f"   -> Added Q{q_id} to error list. Total: {len(state.session_error_ids)}")
+
+        elif action == "SET_PHASE":
+            new_phase = payload.get('phase')
+            state.internal_phase = new_phase
+            logger.info(f"   -> Phase transition: {new_phase}")
+
+        elif action == "RESET_SESSION":
+            # We replace the whole object
+            st.session_state.quiz_state = QuizSessionState()
+            st.session_state.quiz_state.internal_phase = payload.get('phase', 'Sprint')
+
+        elif action == "NEXT_INDEX":
+            state.current_q_index += 1
+            state.last_selected_option = None
+            state.last_feedback = None
+
+        elif action == "SET_FEEDBACK":
+            state.last_feedback = payload.get('feedback')
+            state.last_selected_option = payload.get('selected_option')
+
+        # 3. (Optional) Log Resulting State Snapshot for deep debugging
+        # logger.debug(f"   -> New State Score: {state.score}")
 
     # --- Properties ---
     @property
@@ -55,13 +97,7 @@ class QuizViewModel:
     def dashboard_config(self):
         mode = st.session_state.get('current_mode', "Daily Sprint")
         user_id = st.session_state.get('last_user_id', "Unknown")
-
-        return self.service.get_dashboard_config(
-            mode,
-            self.session_state,
-            user_id,
-            len(self.questions)
-        )
+        return self.service.get_dashboard_config(mode, self.session_state, user_id, len(self.questions))
 
     # --- Actions ---
 
@@ -77,9 +113,8 @@ class QuizViewModel:
         st.session_state.quiz_questions = qs
         st.session_state.user_profile = profile
 
-        # Reset State & Session Errors
-        st.session_state.quiz_state = QuizSessionState()
-        st.session_state.quiz_state.internal_phase = "Sprint"  # Default start
+        # USE MUTATOR
+        self._mutate_state("RESET_SESSION", phase="Sprint")
 
         if qs:
             self.fsm.transition(QuizAction.LOAD_SUCCESS)
@@ -94,23 +129,22 @@ class QuizViewModel:
 
         is_correct = self.service.submit_answer(user_id, q, selected_key)
 
-        self.session_state.last_selected_option = selected_key
-
         if is_correct:
-            self.session_state.score += 1
-            self.session_state.last_feedback = QuizFeedback(type="success", message="✅ Dobrze!")
-        else:
-            # TRACK ERROR FOR IMMEDIATE REVIEW
-            if q.id not in self.session_state.session_error_ids:
-                self.session_state.session_error_ids.append(q.id)
-                logger.info(
-                    f"📝 VM: Added Q{q.id} to session error list. Total errors: {len(self.session_state.session_error_ids)}")
+            # USE MUTATOR
+            self._mutate_state("REGISTER_CORRECT", q_id=q.id)
 
-            self.session_state.last_feedback = QuizFeedback(
+            fb = QuizFeedback(type="success", message="✅ Dobrze!")
+            self._mutate_state("SET_FEEDBACK", feedback=fb, selected_option=selected_key)
+        else:
+            # USE MUTATOR
+            self._mutate_state("REGISTER_ERROR", q_id=q.id)
+
+            fb = QuizFeedback(
                 type="error",
                 message=f"❌ Źle. Poprawna: {q.correct_option.value}.",
                 explanation=q.explanation
             )
+            self._mutate_state("SET_FEEDBACK", feedback=fb, selected_option=selected_key)
 
         st.session_state.user_profile = self.service.get_user_profile(user_id)
         self.fsm.transition(QuizAction.SUBMIT_ANSWER)
@@ -119,7 +153,6 @@ class QuizViewModel:
     def next_step(self):
         mode = st.session_state.get('current_mode', "Daily Sprint")
 
-        # 1. Check if current list of questions is done
         is_list_complete = self.service.is_quiz_complete(
             mode,
             self.session_state,
@@ -127,43 +160,59 @@ class QuizViewModel:
         )
 
         if is_list_complete:
-            # 2. ROUTING LOGIC (The "Daily Loop")
-
-            # If we are in Sprint Mode and have errors -> Force Correction
-            if self.session_state.internal_phase == "Sprint" and self.session_state.session_error_ids:
+            if self.session_state.session_error_ids:
+                logger.info(
+                    f"🔄 VM: Errors detected ({len(self.session_state.session_error_ids)}). Looping Correction Phase.")
                 self._transition_to_correction_phase()
-
             else:
-                # Victory! (Either Sprint was perfect, or Correction is done)
                 user_id = st.session_state.get('last_user_id', "Unknown")
                 self.service.finalize_session(user_id)
                 self.session_state.is_complete = True
                 self.fsm.transition(QuizAction.FINISH_QUIZ)
         else:
-            self.session_state.current_q_index += 1
-            self.session_state.last_selected_option = None
-            self.session_state.last_feedback = None
+            # USE MUTATOR
+            self._mutate_state("NEXT_INDEX")
             self.fsm.transition(QuizAction.NEXT_QUESTION)
 
         self._persist_state()
 
     def _transition_to_correction_phase(self):
-        """
-        Swaps the question set to the ones missed.
-        """
         logger.info("🔄 VM: Switching to Correction Phase")
 
         error_ids = self.session_state.session_error_ids
         review_questions = self.service.repo.get_questions_by_ids(error_ids)
 
-        # Update State
+        # Update Questions (Data)
         st.session_state.quiz_questions = review_questions
+
+        # Reset Index/Score via Mutator logic (Manual reset here for clarity as it involves multiple fields)
+        # Ideally, we'd have a "START_PHASE" mutator.
         self.session_state.current_q_index = 0
         self.session_state.score = 0
-        self.session_state.internal_phase = "Correction"
         self.session_state.last_selected_option = None
         self.session_state.last_feedback = None
 
-        st.toast(f"🚨 Czas na poprawę! Masz {len(review_questions)} błędów do naprawienia.", icon="🛠️")
+        if self.session_state.internal_phase != "Correction":
+            st.toast(f"🚨 Czas na poprawę! Masz {len(review_questions)} błędów do naprawienia.", icon="🛠️")
+
+        # USE MUTATOR
+        self._mutate_state("SET_PHASE", phase="Correction")
 
         self.fsm.transition(QuizAction.NEXT_QUESTION)
+
+    def reset_quiz(self, user_id: str = None):
+        if user_id:
+            self.service.repo.reset_user_progress(user_id)
+
+        st.session_state.quiz_questions = []
+        # USE MUTATOR
+        self._mutate_state("RESET_SESSION")
+
+        self.fsm.transition(QuizAction.RESET)
+        self._persist_state()
+
+    def ensure_state_initialized(self):
+        if 'quiz_questions' not in st.session_state:
+            st.session_state.quiz_questions = []
+        if 'user_profile' not in st.session_state:
+            st.session_state.user_profile = None

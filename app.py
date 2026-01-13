@@ -155,7 +155,7 @@ def render_question_header(vm, q):
     # Dynamic Header based on Config Title if not using Context Message
     if not config.context_message:
         st.caption(
-            f"{config.title} | Pytanie {vm.session_state.current_q_index + 1} z {len(vm.questions)} | 📂 {category}")
+            f"{config.title} | Pytanie {vm.session_state.current_q_index + 1} z {len(vm.questions)}")
     else:
         st.markdown(f"**📂 Kategoria:** {category}")
 

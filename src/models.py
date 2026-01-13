@@ -57,6 +57,23 @@ class QuizSessionState(BaseModel):
     # Tracks the phase: "Sprint" (Initial) or "Correction" (Forced Review)
     internal_phase: str = "Sprint"
 
+    def record_correct_answer(self):
+        """Mutator: Handles correct answer logic"""
+        self.score += 1
+
+    def record_error(self, question_id: str):
+        """Mutator: Adds to error list if unique"""
+        if question_id not in self.session_error_ids:
+            self.session_error_ids.append(question_id)
+
+    def resolve_error(self, question_id: str):
+        """Mutator: Removes from error list"""
+        if question_id in self.session_error_ids:
+            self.session_error_ids.remove(question_id)
+
+    def set_phase(self, phase: str):
+        """Mutator: Transitions phase"""
+        self.internal_phase = phase
 
 class DashboardConfig(BaseModel):
     title: str
