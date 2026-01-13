@@ -33,28 +33,27 @@ class QuizViewModel:
 
         # 2. Apply Changes
         if action == "REGISTER_CORRECT":
-            state.score += 1
+            state.record_correct_answer()
             q_id = payload.get('q_id')
             # Logic: If in correction, remove from error list
-            if state.internal_phase == "Correction" and q_id in state.session_error_ids:
-                state.session_error_ids.remove(q_id)
-                logger.debug(f"   -> Removed Q{q_id} from error list. Remaining: {len(state.session_error_ids)}")
+            if state.internal_phase == "Correction" and q_id:
+                state.resolve_error(q_id)
+                logger.debug(f"   -> Resolved error for Q{q_id}. Remaining: {len(state.session_error_ids)}")
 
         elif action == "REGISTER_ERROR":
             q_id = payload.get('q_id')
-            if q_id and q_id not in state.session_error_ids:
-                state.session_error_ids.append(q_id)
-                logger.debug(f"   -> Added Q{q_id} to error list. Total: {len(state.session_error_ids)}")
+            if q_id:
+                state.record_error(q_id)
+                logger.debug(f"   -> Recorded error for Q{q_id}. Total: {len(state.session_error_ids)}")
 
         elif action == "SET_PHASE":
             new_phase = payload.get('phase')
-            state.internal_phase = new_phase
+            state.set_phase(new_phase)
             logger.info(f"   -> Phase transition: {new_phase}")
 
         elif action == "RESET_SESSION":
-            # We replace the whole object
             st.session_state.quiz_state = QuizSessionState()
-            st.session_state.quiz_state.internal_phase = payload.get('phase', 'Sprint')
+            st.session_state.quiz_state.set_phase(payload.get('phase', 'Sprint'))
 
         elif action == "NEXT_INDEX":
             state.current_q_index += 1
@@ -64,9 +63,6 @@ class QuizViewModel:
         elif action == "SET_FEEDBACK":
             state.last_feedback = payload.get('feedback')
             state.last_selected_option = payload.get('selected_option')
-
-        # 3. (Optional) Log Resulting State Snapshot for deep debugging
-        # logger.debug(f"   -> New State Score: {state.score}")
 
     # --- Properties ---
     @property
@@ -130,13 +126,10 @@ class QuizViewModel:
         is_correct = self.service.submit_answer(user_id, q, selected_key)
 
         if is_correct:
-            # USE MUTATOR
             self._mutate_state("REGISTER_CORRECT", q_id=q.id)
-
             fb = QuizFeedback(type="success", message="✅ Dobrze!")
             self._mutate_state("SET_FEEDBACK", feedback=fb, selected_option=selected_key)
         else:
-            # USE MUTATOR
             self._mutate_state("REGISTER_ERROR", q_id=q.id)
 
             fb = QuizFeedback(
@@ -170,7 +163,6 @@ class QuizViewModel:
                 self.session_state.is_complete = True
                 self.fsm.transition(QuizAction.FINISH_QUIZ)
         else:
-            # USE MUTATOR
             self._mutate_state("NEXT_INDEX")
             self.fsm.transition(QuizAction.NEXT_QUESTION)
 
@@ -182,11 +174,9 @@ class QuizViewModel:
         error_ids = self.session_state.session_error_ids
         review_questions = self.service.repo.get_questions_by_ids(error_ids)
 
-        # Update Questions (Data)
         st.session_state.quiz_questions = review_questions
 
-        # Reset Index/Score via Mutator logic (Manual reset here for clarity as it involves multiple fields)
-        # Ideally, we'd have a "START_PHASE" mutator.
+        # Manual reset of index/score for new phase
         self.session_state.current_q_index = 0
         self.session_state.score = 0
         self.session_state.last_selected_option = None
@@ -195,7 +185,6 @@ class QuizViewModel:
         if self.session_state.internal_phase != "Correction":
             st.toast(f"🚨 Czas na poprawę! Masz {len(review_questions)} błędów do naprawienia.", icon="🛠️")
 
-        # USE MUTATOR
         self._mutate_state("SET_PHASE", phase="Correction")
 
         self.fsm.transition(QuizAction.NEXT_QUESTION)
@@ -205,7 +194,6 @@ class QuizViewModel:
             self.service.repo.reset_user_progress(user_id)
 
         st.session_state.quiz_questions = []
-        # USE MUTATOR
         self._mutate_state("RESET_SESSION")
 
         self.fsm.transition(QuizAction.RESET)
