@@ -75,14 +75,25 @@ class QuizViewModel:
 
         is_correct = self.service.submit_answer(user_id, q, selected_key)
 
+        # --- NEW: Store what the user clicked ---
+        st.session_state.last_selected_option = selected_key
+        # ----------------------------------------
+
         if is_correct:
             st.session_state.score += 1
-            feedback = {"type": "success", "msg": "✅ Dobrze!", "explanation": None}
+            feedback = {"type": "success", "msg": "✅ Dobrze!"}
             logger.debug("✅ VM: Answer validated as CORRECT.")
         else:
             feedback = {"type": "error", "msg": f"❌ Poprawna: {q.correct_option.value}.",
                         "explanation": q.explanation}
             logger.debug("❌ VM: Answer validated as INCORRECT.")
+
+        st.session_state.last_feedback = feedback
+        st.session_state.answer_submitted = True
+        st.session_state.user_profile = self.service.get_user_profile(user_id)
+
+        if st.session_state.current_index >= len(st.session_state.quiz_questions) - 1:
+            st.session_state.quiz_complete = True
 
         st.session_state.last_feedback = feedback
         st.session_state.answer_submitted = True

@@ -216,6 +216,34 @@ else:
                 args=(user_id, key)
             )
     else:
+        # STATE B: "Frozen" Result View (The Digest)
+        # We render the options as text, coloring them based on results
+        st.markdown("### Twoja odpowiedź:")
+
+        user_selection = st.session_state.get('last_selected_option')
+
+        for key, text in q.options.items():
+            # Default style
+            prefix = "⚪"
+            style_start = ""
+            style_end = ""
+
+            # Logic for highlighting
+            if key == q.correct_option:
+                prefix = "✅" # Always mark the correct one
+                style_start = ":green[**"
+                style_end = "**]"
+            elif key == user_selection:
+                prefix = "❌" # Mark the user's wrong choice
+                style_start = ":red[**"
+                style_end = "**]"
+
+            # Render the line
+            st.markdown(f"{prefix} {style_start}{key.value}) {text}{style_end}")
+
+        st.divider()
+
+        # Feedback Section
         fb = st.session_state.last_feedback
         if fb:
             if fb['type'] == 'success':

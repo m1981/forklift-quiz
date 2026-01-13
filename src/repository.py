@@ -55,9 +55,22 @@ class SQLiteQuizRepository:
                 )
             """)
 
-    # --- FIX: Check for duplicates today ---
-    def was_question_answered_today(self, user_id: str, question_id: str) -> bool:
+    # --- FORENSIC LOGGING: TIME CHECK ---
+    def _check_db_time(self):
+        """Debug tool to see what time SQLite thinks it is vs Python."""
         with self._get_connection() as conn:
+            db_now = conn.execute("SELECT datetime('now')").fetchone()[0]
+            py_now = datetime.now()
+            logger.debug(f"⏰ TIME CHECK: DB says '{db_now}' | Python says '{py_now}'")
+    # ------------------------------------
+
+    def was_question_answered_today(self, user_id: str, question_id: str) -> bool:
+        self._check_db_time() # Log time on every check
+
+        with self._get_connection() as conn:
+            # We log the exact query parameters
+            logger.debug(f"🕵️‍♂️ DUPLICATE CHECK: User='{user_id}', QID='{question_id}'")
+
             cursor = conn.execute("""
                 SELECT count(*) FROM user_progress 
                 WHERE user_id = ? AND question_id = ? AND date(timestamp) = date('now')
@@ -66,9 +79,9 @@ class SQLiteQuizRepository:
             is_duplicate = count > 0
 
             if is_duplicate:
-                logger.debug(f"🕵️‍♂️ DB CHECK: User {user_id} already answered {question_id} today.")
+                logger.warning(f"🔁 REPETITION FOUND: Count={count}. This question was already answered today.")
             else:
-                logger.debug(f"🆕 DB CHECK: First time answering {question_id} today.")
+                logger.info(f"🆕 FRESH ATTEMPT: Count={count}. This is the first time today.")
 
             return is_duplicate
 
@@ -115,7 +128,8 @@ class SQLiteQuizRepository:
             logger.error(f"Failed to seed questions: {e}")
 
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool):
-        logger.info(f"💾 DB: Saving Attempt -> User={user_id}, Q={question_id}, Correct={is_correct}")
+        # Log explicitly that we are about to write
+        logger.debug(f"💾 DB WRITE: Inserting/Updating attempt for {user_id} on {question_id}")
         with self._get_connection() as conn:
             conn.execute("""
                 INSERT INTO user_progress (user_id, question_id, is_correct)
@@ -156,7 +170,7 @@ class SQLiteQuizRepository:
             today = date.today()
 
             if not row:
-                logger.info(f"👤 DB: No profile found for {user_id}. Creating new.")
+                logger.info(f"👤 DB: Creating NEW profile for {user_id}")
                 profile = UserProfile(user_id=user_id)
                 conn.execute("""
                     INSERT INTO user_profiles (user_id, streak_days, last_login, daily_goal, daily_progress, last_daily_reset)
@@ -176,7 +190,7 @@ class SQLiteQuizRepository:
             last_reset = datetime.strptime(last_reset_str, "%Y-%m-%d").date() if last_reset_str else today
 
             if last_reset < today:
-                logger.warning(f"📅 DB: New Day Detected! Resetting daily progress for {user_id}. (Last: {last_reset}, Today: {today})")
+                logger.warning(f"📅 DATE ROLLOVER: Resetting progress. Last Reset: {last_reset}, Today: {today}")
                 daily_progress = 0
                 last_reset = today
                 conn.execute("""
@@ -200,6 +214,8 @@ class SQLiteQuizRepository:
         profile = self.get_or_create_profile(user_id)
         today = date.today()
 
+        logger.debug(f"📊 STATS BEFORE: User={user_id}, Progress={profile.daily_progress}, IncrementFlag={increment_progress}")
+
         new_streak = profile.streak_days
         if profile.last_login == today - timedelta(days=1):
             new_streak += 1
@@ -214,11 +230,10 @@ class SQLiteQuizRepository:
         # --- LOGIC FIX: Only increment if told to do so ---
         if increment_progress:
             new_progress = profile.daily_progress + 1
-            logger.info(f"📈 DB: Incrementing Daily Progress for {user_id} -> {new_progress}")
+            logger.info(f"➕ MATH: {profile.daily_progress} + 1 = {new_progress}")
         else:
             new_progress = profile.daily_progress
-            logger.info(f"🛑 DB: Daily Progress NOT incremented (Duplicate or skipped). Stays at {new_progress}")
-        # --------------------------------------------------
+            logger.warning(f"🛑 MATH: {profile.daily_progress} + 0 = {new_progress} (Duplicate/Skipped)")
 
         with self._get_connection() as conn:
             conn.execute("""
@@ -226,6 +241,7 @@ class SQLiteQuizRepository:
                 SET streak_days = ?, last_login = ?, daily_progress = ?
                 WHERE user_id = ?
             """, (new_streak, today, new_progress, user_id))
+        logger.info(f"✅ DB COMMIT: Profile updated. New Progress: {new_progress}")
 
     def debug_dump_user_state(self, user_id: str):
         """
