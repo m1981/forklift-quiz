@@ -27,7 +27,7 @@ packages = ["src"]
 pythonpath = "."
 testpaths = ["tests"]
 # Automatically run coverage, show missing lines, and set strict markers
-addopts = "--cov=src --cov-report=term-missing --cov-report=html"
+addopts = "--cov=src/quiz --cov-report=term-missing --cov-report=html"
 [tool.coverage.run]
 source = ["."]
 branch = true
@@ -44,5 +44,14 @@ exclude_lines = [
     "def __repr__",
     "if __name__ == .__main__.:",
     "raise NotImplementedError",
-    "if TYPE_CHECKING:"
+    "if TYPE_CHECKING:",
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "@abstractmethod"
 ]
