@@ -29,10 +29,7 @@ class QuizService:
         strategy = StrategyFactory.get_strategy(mode)
         return strategy.generate(user_id, self.repo)
 
-    # --- New Strategy Delegation Methods ---
-
-    def get_dashboard_config(self, mode: str, state: QuizSessionState, user_id: str,
-                             total_questions: int) -> DashboardConfig:
+    def get_dashboard_config(self, mode: str, state: QuizSessionState, user_id: str, total_questions: int) -> DashboardConfig:
         strategy = StrategyFactory.get_strategy(mode)
         profile = self.get_user_profile(user_id)
         return strategy.get_dashboard_config(state, profile, total_questions)
@@ -44,6 +41,10 @@ class QuizService:
     # --- Core Business Logic ---
 
     def submit_answer(self, user_id: str, question: Question, selected_option: OptionKey) -> bool:
+        """
+        Records the answer.
+        NOTE: Does NOT increment daily progress yet. That happens in finalize_session.
+        """
         # 1. Check Duplicate (Idempotency)
         already_answered_today = self.repo.was_question_answered_today(user_id, question.id)
 
@@ -51,16 +52,20 @@ class QuizService:
         is_correct = (selected_option == question.correct_option)
         self.repo.save_attempt(user_id, question.id, is_correct)
 
-        # 3. Calculate & Update Profile Stats (Business Logic)
-        should_increment = not already_answered_today
-
-        if should_increment:
-            logger.info(f"✅ SERVICE: First daily attempt for Q{question.id}. Counting towards Daily Goal.")
-            self._update_user_stats(user_id)
+        if is_correct:
+            logger.info(f"✅ SERVICE: Answer Correct for Q{question.id}.")
         else:
-            logger.info(f"🚫 SERVICE: Duplicate daily attempt for Q{question.id}. Stats not updated.")
+            logger.info(f"❌ SERVICE: Answer Incorrect for Q{question.id}.")
 
         return is_correct
+
+    def finalize_session(self, user_id: str):
+        """
+        Called when the user successfully completes the loop (Sprint + Corrections).
+        This is the 'Reward' phase.
+        """
+        logger.info(f"🏆 SERVICE: Finalizing session for {user_id}. Incrementing stats.")
+        self._update_user_stats(user_id)
 
     def _update_user_stats(self, user_id: str):
         """
@@ -71,14 +76,10 @@ class QuizService:
 
         # Calculate Streak
         new_streak = profile.streak_days
-
-        # If last login was yesterday, increment streak
         if profile.last_login == today - timedelta(days=1):
             new_streak += 1
-        # If last login was older than yesterday, reset streak (unless it's 0)
         elif profile.last_login < today - timedelta(days=1):
             new_streak = 1
-        # If last login is today, keep streak (already handled, but safe to set)
         elif profile.last_login == today:
             if new_streak == 0: new_streak = 1
 
@@ -92,4 +93,3 @@ class QuizService:
 
         # Persist
         self.repo.save_profile(profile)
-        logger.info(f"📊 STATS UPDATED: Streak={new_streak}, Progress={new_progress}")

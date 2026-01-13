@@ -11,17 +11,15 @@ logger = logging.getLogger(__name__)
 class QuestionStrategy(ABC):
     @abstractmethod
     def generate(self, user_id: str, repo: SQLiteQuizRepository) -> List[Question]:
-        """Generates the list of questions for the session."""
         pass
 
     @abstractmethod
     def is_quiz_complete(self, state: QuizSessionState, total_questions: int) -> bool:
-        """Determines if the quiz should end based on current state."""
         pass
 
     @abstractmethod
-    def get_dashboard_config(self, state: QuizSessionState, profile: UserProfile, total_questions: int) -> DashboardConfig:
-        """Returns the UI configuration (colors, titles, progress) for this mode."""
+    def get_dashboard_config(self, state: QuizSessionState, profile: UserProfile,
+                             total_questions: int) -> DashboardConfig:
         pass
 
 
@@ -31,21 +29,18 @@ class ReviewStrategy(QuestionStrategy):
         all_questions = repo.get_all_questions()
         incorrect_ids_list = repo.get_incorrect_question_ids(user_id)
         incorrect_ids_set = set(incorrect_ids_list)
-
         filtered = [q for q in all_questions if q.id in incorrect_ids_set]
-        logger.info(f"🧠 STRATEGY: Final Review Set: {len(filtered)} questions")
         return filtered
 
     def is_quiz_complete(self, state: QuizSessionState, total_questions: int) -> bool:
-        # FIX: We are done if we are at the last index (total - 1)
         return state.current_q_index >= total_questions - 1
 
-    def get_dashboard_config(self, state: QuizSessionState, profile: UserProfile, total_questions: int) -> DashboardConfig:
+    def get_dashboard_config(self, state: QuizSessionState, profile: UserProfile,
+                             total_questions: int) -> DashboardConfig:
         remaining = total_questions - state.current_q_index
-
         return DashboardConfig(
             title="🛠️ Tryb Poprawy Błędów",
-            header_color="#ff4b4b",  # Red theme
+            header_color="#ff4b4b",
             progress_value=state.current_q_index / total_questions if total_questions > 0 else 1.0,
             progress_text=f"Naprawiono: {state.current_q_index}/{total_questions}",
             show_streak=False,
@@ -60,14 +55,11 @@ class DailySprintStrategy(QuestionStrategy):
         logger.info(f"🧠 STRATEGY: Starting Sprint generation for {user_id}")
         all_questions = repo.get_all_questions()
         profile = repo.get_or_create_profile(user_id)
-
         needed = profile.daily_goal - profile.daily_progress
-        if needed <= 0:
-            needed = 5  # Bonus round
+        if needed <= 0: needed = 5
 
         incorrect_ids = set(repo.get_incorrect_question_ids(user_id))
         attempted_ids = set(repo.get_all_attempted_ids(user_id))
-
         sprint_questions = []
 
         # 1. Priority: Struggling (30%)
@@ -82,7 +74,7 @@ class DailySprintStrategy(QuestionStrategy):
         random.shuffle(new_candidates)
         sprint_questions.extend(new_candidates[:remaining_slots])
 
-        # 3. Priority: Mastered (Backfill)
+        # 3. Priority: Mastered
         if len(sprint_questions) < needed:
             remaining_slots = needed - len(sprint_questions)
             mastered_candidates = [q for q in all_questions if q.id in attempted_ids and q.id not in incorrect_ids]
@@ -92,15 +84,28 @@ class DailySprintStrategy(QuestionStrategy):
         return sprint_questions
 
     def is_quiz_complete(self, state: QuizSessionState, total_questions: int) -> bool:
-        # FIX: We are done if we are at the last index (total - 1)
         return state.current_q_index >= total_questions - 1
 
-    def get_dashboard_config(self, state: QuizSessionState, profile: UserProfile, total_questions: int) -> DashboardConfig:
-        goal_progress = min(profile.daily_progress / profile.daily_goal, 1.0) if profile.daily_goal > 0 else 1.0
+    def get_dashboard_config(self, state: QuizSessionState, profile: UserProfile,
+                             total_questions: int) -> DashboardConfig:
+        # DYNAMIC CONFIG BASED ON PHASE
+        if state.internal_phase == "Correction":
+            return DashboardConfig(
+                title="🚨 Poprawa Błędów (Wymagana)",
+                header_color="#ff9800",  # Orange for warning
+                progress_value=state.current_q_index / total_questions if total_questions > 0 else 1.0,
+                progress_text=f"Poprawa: {state.current_q_index + 1}/{total_questions}",
+                show_streak=False,
+                show_daily_goal=False,
+                context_message="Musisz poprawić błędy, aby zaliczyć dzień.",
+                context_color="#fff3e0"
+            )
 
+        # Normal Sprint
+        goal_progress = min(profile.daily_progress / profile.daily_goal, 1.0) if profile.daily_goal > 0 else 1.0
         return DashboardConfig(
             title="🚀 Codzienny Sprint",
-            header_color="#31333F",  # Standard theme
+            header_color="#31333F",
             progress_value=goal_progress,
             progress_text=f"Cel Dzienny: {profile.daily_progress}/{profile.daily_goal}",
             show_streak=True,
