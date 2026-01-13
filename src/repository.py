@@ -100,9 +100,21 @@ class SQLiteQuizRepository:
         try:
             with self._get_connection() as conn:
                 logger.debug("🔍 DB: Fetching ALL questions from 'questions' table.")
-                cursor = conn.execute("SELECT json_data FROM questions")
+                cursor = conn.execute("SELECT id, json_data FROM questions") # Fetch ID explicitly too
                 rows = cursor.fetchall()
-                questions = [Question.model_validate_json(row[0]) for row in rows]
+
+                questions = []
+                for r in rows:
+                    q_id_db = r[0]
+                    q_obj = Question.model_validate_json(r[1])
+
+                    # --- DEEP TYPE INSPECTION (ONCE) ---
+                    if len(questions) == 0:
+                         logger.debug(f"🕵️‍♂️ TYPE CHECK (JSON): Loaded QID '{q_obj.id}' (Type: {type(q_obj.id)}) vs DB Column '{q_id_db}' (Type: {type(q_id_db)})")
+                    # -----------------------------------
+
+                    questions.append(q_obj)
+
                 logger.debug(f"🔍 DB: Successfully deserialized {len(questions)} questions.")
                 return questions
         except Exception as e:
@@ -139,6 +151,50 @@ class SQLiteQuizRepository:
             """, (user_id, question_id, is_correct))
             conn.commit()
         logger.debug("💾 DB: Save committed.")
+
+    def get_incorrect_question_ids(self, user_id: str) -> List[str]:
+        with self._get_connection() as conn:
+            logger.debug(f"🔍 DB: Querying incorrect answers for {user_id}")
+
+            cursor = conn.execute(
+                "SELECT question_id FROM user_progress WHERE user_id = ? AND is_correct = 0",
+                (user_id,)
+            )
+            rows = cursor.fetchall()
+            ids = [row[0] for row in rows]
+
+            # --- DEEP TYPE INSPECTION ---
+            if ids:
+                sample_id = ids[0]
+                logger.debug(f"🕵️‍♂️ TYPE CHECK (DB): Found {len(ids)} IDs. Sample: '{sample_id}' (Type: {type(sample_id)})")
+            else:
+                logger.debug("🕵️‍♂️ TYPE CHECK (DB): No IDs found.")
+            # ----------------------------
+
+            return ids
+
+    def debug_get_user_stats(self, user_id: str) -> dict:
+        """
+        Returns raw statistics for debugging UI.
+        """
+        with self._get_connection() as conn:
+            total = conn.execute("SELECT count(*) FROM user_progress WHERE user_id = ?", (user_id,)).fetchone()[0]
+            correct = conn.execute("SELECT count(*) FROM user_progress WHERE user_id = ? AND is_correct = 1",
+                                   (user_id,)).fetchone()[0]
+            incorrect = conn.execute("SELECT count(*) FROM user_progress WHERE user_id = ? AND is_correct = 0",
+                                     (user_id,)).fetchone()[0]
+
+            # Get actual IDs of incorrect questions
+            incorrect_ids = [row[0] for row in
+                             conn.execute("SELECT question_id FROM user_progress WHERE user_id = ? AND is_correct = 0",
+                                          (user_id,)).fetchall()]
+
+            return {
+                "total_attempts": total,
+                "correct_count": correct,
+                "incorrect_count": incorrect,
+                "incorrect_ids": incorrect_ids
+            }
 
     def get_incorrect_question_ids(self, user_id: str) -> List[str]:
         with self._get_connection() as conn:

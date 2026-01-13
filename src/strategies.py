@@ -17,14 +17,32 @@ class QuestionStrategy(ABC):
 class ReviewStrategy(QuestionStrategy):
     def generate(self, user_id: str, repo: SQLiteQuizRepository) -> List[Question]:
         logger.info(f"🧠 STRATEGY: Starting Review generation for {user_id}")
+
+        # 1. Get All Questions
         all_questions = repo.get_all_questions()
-        incorrect_ids = set(repo.get_incorrect_question_ids(user_id))
 
-        logger.debug(f"🧠 STRATEGY: Total Questions in DB: {len(all_questions)}")
-        logger.debug(f"🧠 STRATEGY: Incorrect IDs found: {incorrect_ids}")
+        # 2. Get Incorrect IDs
+        incorrect_ids_list = repo.get_incorrect_question_ids(user_id)
+        incorrect_ids_set = set(incorrect_ids_list)
 
-        filtered = [q for q in all_questions if q.id in incorrect_ids]
-        logger.info(f"🧠 STRATEGY: Final Review Set: {len(filtered)} questions.")
+        # --- DEEP DEBUG LOGGING ---
+        logger.debug(f"🧠 DEBUG: DB returned {len(incorrect_ids_list)} incorrect IDs: {incorrect_ids_list}")
+
+        # Check for matches manually to log failures
+        match_count = 0
+        for q in all_questions:
+            if q.id in incorrect_ids_set:
+                match_count += 1
+            # Log the first failure to see mismatch
+            elif q.id == '108' or q.id == 108:  # Hardcoded check for your specific case
+                logger.warning(f"⚠️ MISMATCH FOUND: Question 108 exists in DB but 'in' check failed!")
+                logger.warning(f"   -> Question ID in Memory: '{q.id}' ({type(q.id)})")
+                logger.warning(f"   -> Incorrect Set contains: {incorrect_ids_set}")
+        # --------------------------
+
+        filtered = [q for q in all_questions if q.id in incorrect_ids_set]
+
+        logger.info(f"🧠 STRATEGY: Final Review Set: {len(filtered)} questions (Expected: {len(incorrect_ids_set)})")
         return filtered
 
 

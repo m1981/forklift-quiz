@@ -4,6 +4,7 @@ import logging
 from src.repository import SQLiteQuizRepository
 from src.service import QuizService
 from src.viewmodel import QuizViewModel
+from src.fsm import QuizState
 
 # --- Logging Configuration ---
 logging.basicConfig(
@@ -14,20 +15,35 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 🔇 SILENCE THIRD-PARTY NOISE
+# 🔇 Silence Noise
 logging.getLogger("PIL").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
-logging.getLogger("fsevents").setLevel(logging.WARNING)
 
 # --- Configuration ---
 st.set_page_config(page_title="Warehouse Certification Quiz", layout="centered")
 
-# CHANGED: Removed Standard, promoted Sprint to top
-MODE_MAPPING = {
-    "Codzienny Sprint (10 pytań)": "Daily Sprint",
-    "Powtórka (Błędy)": "Review (Struggling Only)"
-}
+# --- Dependency Injection ---
+@st.cache_resource
+def get_quiz_service():
+    logger.info("🔌 Bootstrapping Service & Repository...")
+    repo = SQLiteQuizRepository(db_path="data/quiz.db")
+    service = QuizService(repo)
+    seed_file = "data/seed_questions.json"
+    if os.path.exists(seed_file):
+        service.initialize_db_from_file(seed_file)
+    return service
 
+def get_viewmodel():
+    service = get_quiz_service()
+    return QuizViewModel(service)
+
+try:
+    vm = get_viewmodel()
+    vm.ensure_state_initialized()
+except Exception as e:
+    logger.critical(f"🔥 System Crash: {e}", exc_info=True)
+    st.error(f"System Error: {e}")
+    st.stop()
 
 # --- Custom CSS ---
 def apply_custom_styling():
@@ -41,173 +57,187 @@ def apply_custom_styling():
         </style>
     """, unsafe_allow_html=True)
 
-
-# --- Dependency Injection ---
-@st.cache_resource
-def get_viewmodel():
-    logger.info("🔌 Bootstrapping Application (Service & Repository)...")
-    repo = SQLiteQuizRepository(db_path="data/quiz.db")
-    service = QuizService(repo)
-    seed_file = "data/seed_questions.json"
-    if os.path.exists(seed_file):
-        service.initialize_db_from_file(seed_file)
-    return QuizViewModel(service)
-
-
-try:
-    vm = get_viewmodel()
-    vm.ensure_state_initialized()
-except Exception as e:
-    logger.critical(f"🔥 System Crash: {e}", exc_info=True)
-    st.error(f"System Error: {e}")
-    st.stop()
-
 apply_custom_styling()
 
-
-# --- Sidebar Logic ---
-
-def on_settings_change():
-    """
-    Callback: Wipes the current quiz session when User or Mode changes.
-    """
-    logger.info("🔄 STATE RESET: User changed settings. Clearing 'quiz_questions' to force reload.")
-    st.session_state.quiz_questions = []
-    st.session_state.current_index = 0
-    st.session_state.score = 0
-    st.session_state.answer_submitted = False
-    st.session_state.quiz_complete = False
-
-
-def switch_to_sprint():
-    """
-    NEW CALLBACK: Forces the UI Mode widget to switch to Sprint (Default).
-    """
-    logger.info("🔀 SWITCH: User clicked 'Return to Learning'. Switching to Sprint Mode.")
-    # Must match the key in MODE_MAPPING exactly
-    st.session_state["ui_mode_selection"] = "Codzienny Sprint (10 pytań)"
-    on_settings_change()
-
-
+# --- Sidebar ---
 st.sidebar.header("Ustawienia")
+user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"])
 
-user_id = st.sidebar.selectbox("Użytkownik", ["Daniel", "Michał"], key="user_id_selection",
-                               on_change=on_settings_change)
+# Initialize last_ui_mode if missing
+if "last_ui_mode" not in st.session_state:
+    st.session_state.last_ui_mode = "Codzienny Sprint (10 pytań)"
 
-ui_mode = st.sidebar.radio("Tryb", list(MODE_MAPPING.keys()), key="ui_mode_selection", on_change=on_settings_change)
+# Sidebar Radio
+ui_mode = st.sidebar.radio(
+    "Tryb",
+    ["Codzienny Sprint (10 pytań)", "Powtórka (Błędy)"],
+    key="quiz_mode_selector"
+)
+
+# 3. Reactive Logic: If mode changed, reset FSM to IDLE
+if ui_mode != st.session_state.last_ui_mode:
+    logger.info(f"🔀 UI: Mode changed from '{st.session_state.last_ui_mode}' to '{ui_mode}'. Resetting to IDLE.")
+    st.session_state.last_ui_mode = ui_mode
+    vm.reset_quiz()
+    st.rerun()
+
+MODE_MAP = {
+    "Codzienny Sprint (10 pytań)": "Daily Sprint",
+    "Powtórka (Błędy)": "Review (Struggling Only)"
+}
 
 if st.sidebar.button("Zeruj postęp"):
-    logger.warning(f"🗑️ RESET: Manual progress reset triggered for {user_id}")
-    vm.reset_progress(user_id)
+    vm.reset_quiz(user_id)
     st.sidebar.success("Postęp wyzerowany.")
     st.rerun()
 
-# --- Main Flow ---
+# --- NEW: DEBUG SECTION IN SIDEBAR ---
+st.sidebar.markdown("---")
+with st.sidebar.expander("🕵️‍♂️ Debugger Danych"):
+    if st.button("Odśwież dane"):
+        st.rerun()
 
-# 1. Auto-Load Logic
-if not vm.questions:
-    service_mode = MODE_MAPPING.get(ui_mode, "Daily Sprint")  # Default to Sprint
-    logger.info(f"📥 LOAD QUIZ: Mode='{service_mode}' | User='{user_id}'")
-    vm.load_quiz(service_mode, user_id)
-    logger.info(f"✅ LOADED: {len(vm.questions)} questions into session state.")
+    # Fetch raw stats directly from repo
+    repo = vm.service.repo
+    stats = repo.debug_get_user_stats(user_id)
 
-# 2. Dashboard Rendering
-current_service_mode = MODE_MAPPING.get(ui_mode, "Daily Sprint")
+    st.write(f"**User:** {user_id}")
+    st.write(f"**Total Records:** {stats['total_attempts']}")
+    st.write(f"**Correct (1):** {stats['correct_count']}")
+    st.write(f"**Incorrect (0):** {stats['incorrect_count']}")
+    st.write("**Incorrect IDs:**")
+    st.code(str(stats['incorrect_ids']))
 
-if current_service_mode == "Daily Sprint":
+    st.write("**Current FSM State:**")
+    st.code(str(vm.state))
+
+    st.write("**Session Questions:**")
+    st.write(len(vm.questions))
+
+# -------------------------------------
+
+# --- UI Helpers ---
+def render_dashboard(vm, user_id, ui_mode):
+    """
+    Renders different dashboards based on the mode.
+    """
     profile = vm.user_profile
+    if not profile: return
 
-    if profile:
-        logger.info(
-            f"📊 DASHBOARD: Rendering for {user_id}. DB says: Progress={profile.daily_progress} / Goal={profile.daily_goal}")
+    # 🔴 REVIEW MODE DASHBOARD (Distinct Style)
+    if "Powtórka" in ui_mode:
+        # Calculate progress within this specific error set
+        total_errors = len(vm.questions)
+        current_q_num = st.session_state.current_index + 1
+        remaining = total_errors - st.session_state.current_index
+
+        st.markdown(f"""
+        <div style="padding: 15px; background-color: #fff0f0; border-left: 5px solid #ff4b4b; border-radius: 5px; margin-bottom: 20px;">
+            <h4 style="margin:0; color: #ff4b4b;">🛠️ Tryb Poprawy Błędów</h4>
+            <p style="margin:0;">Pozostało do naprawienia: <strong>{remaining}</strong> (z {total_errors})</p>
+        </div>
+        """, unsafe_allow_html=True)
+        if total_errors > 0:
+            st.progress(st.session_state.current_index / total_errors)
     else:
-        logger.warning(f"📊 DASHBOARD: Profile is None for {user_id}!")
-
-    if profile:
         col1, col2 = st.columns(2)
-        with col1:
-            st.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown(f'<div class="stat-box">🎯 Cel Dzienny: {profile.daily_progress}/{profile.daily_goal}</div>',
-                        unsafe_allow_html=True)
+        col1.markdown(f'<div class="stat-box">🔥 Seria: {profile.streak_days} dni</div>', unsafe_allow_html=True)
+        col2.markdown(f'<div class="stat-box">🎯 Cel: {profile.daily_progress}/{profile.daily_goal}</div>',
+                      unsafe_allow_html=True)
+        st.progress(min(profile.daily_progress / profile.daily_goal, 1.0))
 
-        daily_pct = min(profile.daily_progress / profile.daily_goal, 1.0)
-        st.progress(daily_pct)
 
-        if profile.daily_progress >= profile.daily_goal:
-            st.success("🎉 Cel dzienny osiągnięty! Wszystko co robisz teraz to Twój dodatkowy sukces!")
-            st.divider()
-else:
-    st.caption("🛠️ Tryb Poprawy Błędów")
-    st.divider()
+def render_question_header(vm, q, ui_mode):
+    category = getattr(q, 'category', 'Ogólne')
 
-# 3. Content Rendering
-if not vm.questions:
+    # 🔴 REVIEW HEADER
     if "Powtórka" in ui_mode:
-        logger.info("ℹ️ STATE: Review mode empty (User has 0 incorrect answers).")
-        st.info("🎉 Brak błędów do poprawy!")
-        st.button("Wróć do Nauki", on_click=switch_to_sprint, type="primary")
-    elif "Sprint" in ui_mode:
-        logger.info("ℹ️ STATE: Sprint mode empty.")
-        st.balloons()
-        st.success("🎉 Cel dzienny już zrealizowany!")
+        # No standard caption, use a distinct label
+        st.markdown(f"**📂 Kategoria:** {category}")
+
+    # 🔵 SPRINT HEADER
     else:
-        st.error("Brak pytań w bazie.")
+        st.caption(f"Pytanie {st.session_state.current_index + 1} z {len(vm.questions)} | 📂 {category}")
 
-elif vm.is_complete and st.session_state.answer_submitted:
-    # --- SUMMARY SCREEN ---
-    logger.info(f"🏁 END SCREEN: Score={st.session_state.score}/{len(vm.questions)}")
-
-    fb = st.session_state.last_feedback
-    if fb:
-        if fb['type'] == 'success':
-            st.success(fb['msg'])
-        else:
-            st.error(fb['msg'])
-        if fb['explanation']: st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
-
-    st.markdown("---")
-
-    if "Powtórka" in ui_mode:
-        remaining_errors = len(vm.service.repo.get_incorrect_question_ids(user_id))
-        if remaining_errors > 0:
-            st.warning(f"⚠️ Pozostało jeszcze {remaining_errors} błędów do poprawy.")
-            st.button(f"Poprawiaj dalej ({remaining_errors}) ➡️", on_click=on_settings_change, type="primary")
-        else:
-            st.balloons()
-            st.success("🎉 Gratulacje! Wyczyściłeś wszystkie błędy!")
-            st.button("Wróć do Nauki", on_click=switch_to_sprint, type="primary")
-    else:
-        st.balloons()
-        st.success(f"✨ Sesja zakończona! Wynik: {st.session_state.score}/{len(vm.questions)}")
-        st.button("Nowy start", on_click=on_settings_change, type="primary")
-
-else:
-    # --- QUIZ SCREEN ---
-    q = vm.current_question
-    logger.info(f"👀 RENDER: QID={q.id} | Index={st.session_state.current_index + 1}/{len(vm.questions)}")
-
-    total_q = len(vm.questions)
-    current_q = st.session_state.current_index + 1
-
-    if "Powtórka" in ui_mode:
-        st.caption(f"📝 Do poprawy: {current_q} z {total_q} błędów")
-    elif "Sprint" in ui_mode:
-        st.caption(f"🏃 Sprint: Pytanie {current_q} z {total_q}")
-
+    # Question Text
     st.markdown(f'<div class="question-text">{q.id}: {q.text}</div>', unsafe_allow_html=True)
+
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path)
 
-    # --- UPDATE 2: Add Hint Expander ---
-    # Only show if a hint exists in the data
-    if q.hint:
-        with st.expander("💡 Potrzebujesz wskazówki?"):
-            st.info(q.hint)
+    hint = getattr(q, 'hint', None)
+    if hint:
+        with st.expander("💡 Wskazówka"):
+            st.info(hint)
 
-    st.write("")
+def render_frozen_options(vm, q):
+    user_selection = st.session_state.get('last_selected_option')
+    st.markdown("### Twoja odpowiedź:")
+    for key, text in q.options.items():
+        prefix = "⚪"
+        style_start = ""
+        style_end = ""
+        if key == q.correct_option:
+            prefix = "✅"
+            style_start = ":green[**"
+            style_end = "**]"
+        elif key == user_selection:
+            prefix = "❌"
+            style_start = ":red[**"
+            style_end = "**]"
+        st.markdown(f"{prefix} {style_start}{key.value}) {text}{style_end}")
 
-    if not st.session_state.answer_submitted:
+
+# --- MAIN FSM ROUTER ---
+
+logger.debug(f"🚦 ROUTER: Matching State '{vm.state}'")
+
+match vm.state:
+
+    case QuizState.IDLE:
+        st.title("🎓 Warehouse Quiz")
+
+        # --- DEBUG INFO ON SCREEN ---
+        st.warning(f"DEBUG: App is IDLE. Mode: {ui_mode}")
+        if "Powtórka" in ui_mode:
+             repo = vm.service.repo
+             errs = repo.get_incorrect_question_ids(user_id)
+             if not errs:
+                 st.success("🎉 Brak błędów do poprawy! Przełącz na Sprint.")
+             else:
+                 st.warning(f"⚠️ Masz {len(errs)} błędów do poprawy.")
+        # ----------------------------
+
+        st.info(f"Witaj, {user_id}! Wybierz tryb i kliknij Start.")
+        st.markdown(f"**Wybrany tryb:** {ui_mode}")
+
+        if st.button("🚀 Rozpocznij Quiz", type="primary"):
+            # CRITICAL: Use the current ui_mode from the widget, not a cached variable
+            current_mode_str = MODE_MAP[ui_mode]
+            logger.info(f"🚀 UI: User clicked Start. Mode='{ui_mode}' -> '{current_mode_str}'")
+            vm.start_quiz(current_mode_str, user_id)
+            st.rerun()
+
+    case QuizState.LOADING:
+        with st.spinner("Pobieranie pytań..."):
+            pass
+
+    case QuizState.EMPTY_STATE:
+        st.warning("📭 Brak pytań w tym trybie.")
+        if "Powtórka" in ui_mode:
+            st.success("🎉 Brak błędów do poprawy!")
+
+        if st.button("🔙 Wróć do Menu"):
+            vm.reset_quiz()
+            st.rerun()
+
+    case QuizState.QUESTION_ACTIVE:
+        # Pass ui_mode here
+        render_dashboard(vm, user_id, ui_mode)
+        q = vm.current_question
+        render_question_header(vm, q, ui_mode)
+
+        st.write("")
         for key, text in q.options.items():
             st.button(
                 f"{key.value}) {text}",
@@ -215,46 +245,42 @@ else:
                 on_click=vm.submit_answer,
                 args=(user_id, key)
             )
-    else:
-        # STATE B: "Frozen" Result View (The Digest)
-        # We render the options as text, coloring them based on results
-        st.markdown("### Twoja odpowiedź:")
 
-        user_selection = st.session_state.get('last_selected_option')
-
-        for key, text in q.options.items():
-            # Default style
-            prefix = "⚪"
-            style_start = ""
-            style_end = ""
-
-            # Logic for highlighting
-            if key == q.correct_option:
-                prefix = "✅" # Always mark the correct one
-                style_start = ":green[**"
-                style_end = "**]"
-            elif key == user_selection:
-                prefix = "❌" # Mark the user's wrong choice
-                style_start = ":red[**"
-                style_end = "**]"
-
-            # Render the line
-            st.markdown(f"{prefix} {style_start}{key.value}) {text}{style_end}")
+    case QuizState.FEEDBACK_VIEW:
+        # Pass ui_mode here
+        render_dashboard(vm, user_id, ui_mode)
+        q = vm.current_question
+        render_question_header(vm, q, ui_mode)
+        render_frozen_options(vm, q)
 
         st.divider()
-
-        # Feedback Section
         fb = st.session_state.last_feedback
         if fb:
             if fb['type'] == 'success':
                 st.success(fb['msg'])
             else:
                 st.error(fb['msg'])
-            if fb.get('explanation'):
-                st.info(f"ℹ️ **Wyjaśnienie:** {fb['explanation']}")
+                if fb.get('explanation'):
+                    st.info(f"ℹ️ {fb['explanation']}")
 
-        if st.session_state.current_index < len(vm.questions) - 1:
-            st.button("Następne ➡️", on_click=vm.next_question, type="primary")
-        else:
-            logger.info("🏁 UI: Showing 'Podsumowanie' button (Last Question).")
-            st.button("Podsumowanie 🏁", on_click=lambda: None, type="primary")
+        # Logic for Next vs Finish button
+        is_last = st.session_state.current_index >= len(vm.questions) - 1
+        btn_label = "Podsumowanie 🏁" if is_last else "Następne ➡️"
+
+        st.button(btn_label, on_click=vm.next_step, type="primary")
+
+    case QuizState.SUMMARY:
+        st.balloons()
+        st.title("🏁 Podsumowanie")
+        st.markdown(f"### Wynik: {st.session_state.score} / {len(vm.questions)}")
+
+        if "Powtórka" in ui_mode:
+            remaining = len(vm.service.repo.get_incorrect_question_ids(user_id))
+            if remaining > 0:
+                st.warning(f"⚠️ Pozostało {remaining} błędów.")
+            else:
+                st.success("🎉 Wszystkie błędy poprawione!")
+
+        if st.button("🔄 Wróć do Menu"):
+            vm.reset_quiz()
+            st.rerun()
