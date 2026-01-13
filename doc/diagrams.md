@@ -1,179 +1,175 @@
-System Startup & Data Seeding
-This flow runs immediately when `get_service()` is called. It handles database initialization and the "Smart Seed" logic to ensure data integrity.
 
 ```mermaid
-sequenceDiagram
-    participant App as 🖥️ Streamlit UI
-    participant Service as ⚙️ QuizService
-    participant Repo as 🗄️ Repository
-    participant DB as 💾 SQLite DB
-    participant File as 📄 JSON File
+stateDiagram-v2
+    [*] --> IDLE
+    IDLE --> SPRINT : Start Daily
+    
+    state SPRINT {
+        [*] --> Q_Active
+        Q_Active --> Feedback
+        Feedback --> Q_Active : Next
+    }
 
-    Note over App, DB: Application Startup (get_service)
+    SPRINT --> CHECK_ERRORS : Sprint Finished
+
+    state c1 <<choice>>
+    CHECK_ERRORS --> c1
     
-    App->>Service: Initialize Service
-    Service->>Repo: Initialize Repository
-    Repo->>DB: CREATE TABLE IF NOT EXISTS (questions, user_progress)
-    
-    App->>Service: initialize_db_from_file("seed.json")
-    Service->>File: Load JSON Data
-    File-->>Service: Return List[Question]
-    
-    Service->>Repo: seed_questions(New_Questions)
-    
-    rect rgb(240, 248, 255)
-        Note right of Repo: 🧠 Smart Seeding Logic
-        Repo->>DB: SELECT * FROM questions
-        DB-->>Repo: Return Existing_Map
-        
-        loop For Each New Question
-            Repo->>Repo: Compare NewQ vs OldQ
-            
-            alt Answer Key Changed (Critical)
-                Repo->>DB: DELETE FROM user_progress WHERE question_id = ID
-                Note right of DB: Invalidate history for this Q
-            end
-            
-            Repo->>DB: INSERT OR REPLACE INTO questions
-        end
-    end
-    
-    DB-->>Repo: Commit
-    Repo-->>Service: Success
-    Service-->>App: Ready
+    c1 --> REVIEW_PHASE : Has Errors (Mistakes > 0)
+    c1 --> VICTORY : No Errors (Perfect Score)
+
+    state REVIEW_PHASE {
+        [*] --> R_Active
+        R_Active --> R_Feedback
+        R_Feedback --> R_Active : Next (Still has errors)
+        R_Feedback --> VICTORY : All Errors Fixed
+    }
+
+    VICTORY --> IDLE : Finish Day
 ```
 
----
-
-### 2. The Learning Flow (Standard Quiz)
-Reflects **Use Case 1**. Note the translation from "Nauka" to "Standard".
-
 ```mermaid
-sequenceDiagram
-    actor User as 👤 Learner
-    participant App as 🖥️ Streamlit UI
-    participant Service as ⚙️ QuizService
-    participant Repo as 🗄️ Repository
-    participant DB as 💾 SQLite DB
+classDiagram
+    %% ============================================================
+    %% LAYER 1: DOMAIN (Entities & Business Rules)
+    %% Pure Python. No dependencies on UI or DB.
+    %% ============================================================
+    namespace Domain {
+        class Question {
+            +String id
+            +String text
+            +Dict options
+            +OptionKey correct_option
+            +String category
+        }
 
-    Note over User, DB: Mode: Nauka (Standard)
-    
-    User->>App: Selects "Nauka" & "Daniel"
-    
-    Note right of App: Translation Layer
-    App->>App: MODE_MAPPING["Nauka"] -> "Standard"
-    
-    App->>Service: get_quiz_questions("Standard", "Daniel")
-    Service->>Repo: get_all_questions()
-    Repo->>DB: SELECT * FROM questions
-    DB-->>Repo: Return JSON Data
-    Repo-->>Service: Return List[Question]
-    Service-->>App: Return Full Question List
+        class UserProfile {
+            +String user_id
+            +int streak_days
+            +int daily_progress
+            +int daily_goal
+        }
 
-    App->>User: Display Question Q184 + Options
+        class QuizSessionState {
+            +int current_q_index
+            +int score
+            +List~String~ session_error_ids
+            +record_correct_answer()
+            +record_error(id)
+        }
+    }
 
-    User->>App: Clicks Answer Button "B"
-    Note right of User: Triggers handle_answer() callback
-    
-    App->>Service: submit_answer("Daniel", Q184, "B")
-    
-    rect rgb(240, 255, 240)
-        Note right of Service: Validation
-        Service->>Service: Check if "B" == correct_option
-    end
+    %% ============================================================
+    %% LAYER 2: APPLICATION (Use Cases & Contracts)
+    %% Orchestrates data flow. Defines Interfaces (Ports).
+    %% ============================================================
+    namespace Application {
+        class IQuizRepository {
+            <<Interface>>
+            +get_all_questions() List~Question~
+            +get_questions_by_ids(ids) List~Question~
+            +save_attempt(user_id, q_id, is_correct)
+            +get_or_create_profile(user_id) UserProfile
+            +save_profile(profile)
+        }
 
-    Service->>Repo: save_attempt("Daniel", Q184, is_correct=True)
-    Repo->>DB: UPSERT into user_progress
-    
-    Service-->>App: Return True (Correct)
-    
-    App->>User: Show "✅ Dobrze!" Feedback
-    App->>User: Show "Następne ➡️" Button
-```
+        class IQuestionStrategy {
+            <<Interface>>
+            +generate(user_id, repo) List~Question~
+            +is_quiz_complete(state, total) bool
+            +get_dashboard_config(state, profile) DashboardConfig
+        }
 
----
+        class QuizService {
+            -IQuizRepository repo
+            +initialize_session(mode, user_id)
+            +submit_answer(user_id, question, option) bool
+            +finalize_session(user_id)
+            +get_dashboard_config(...)
+        }
+    }
 
-### 3. The Repeating Flow (Smart Review)
-Reflects **Use Case 2**. Note the translation from "Powtórka" and the filtering logic.
+    %% ============================================================
+    %% LAYER 3: PRESENTATION / ADAPTERS
+    %% Converts data for the UI.
+    %% ============================================================
+    namespace Presentation {
+        class IStateProvider {
+            <<Interface>>
+            +get(key, default)
+            +set(key, value)
+        }
 
-```mermaid
-sequenceDiagram
-    actor User as 👤 Learner
-    participant App as 🖥️ Streamlit UI
-    participant Service as ⚙️ QuizService
-    participant Repo as 🗄️ Repository
-    participant DB as 💾 SQLite DB
+        class QuizViewModel {
+            -QuizService service
+            -IStateProvider state_provider
+            -QuizStateMachine fsm
+            +start_quiz(mode, user_id)
+            +submit_answer(key)
+            +next_step()
+            +current_question() Question
+        }
 
-    Note over User, DB: Mode: Powtórka (Review)
+        class DashboardConfig {
+            <<DTO>>
+            +String title
+            +String header_color
+            +float progress_value
+        }
+    }
 
-    User->>App: Selects "Powtórka"
-    
-    Note right of App: Translation Layer
-    App->>App: MODE_MAPPING["Powtórka"] -> "Review (Struggling Only)"
-    
-    App->>Service: get_quiz_questions("Review...", "Daniel")
-    
-    rect rgb(255, 240, 240)
-        Note right of Service: Filtering Logic
-        Service->>Repo: get_all_questions()
-        Repo-->>Service: [Q1...Q250]
+    %% ============================================================
+    %% LAYER 4: INFRASTRUCTURE (Frameworks & Drivers)
+    %% The dirty details. Points inward.
+    %% ============================================================
+    namespace Infrastructure {
+        class SQLiteQuizRepository {
+            -Connection conn
+            +execute_raw_sql()
+        }
+
+        class StreamlitStateProvider {
+            +get()
+            +set()
+        }
+
+        class DailySprintStrategy {
+            +generate()
+        }
+
+        class ReviewStrategy {
+            +generate()
+        }
         
-        Service->>Repo: get_incorrect_question_ids("Daniel")
-        Repo->>DB: SELECT question_id FROM user_progress WHERE is_correct=0
-        DB-->>Repo: Return ["184", "205"]
-        
-        Service->>Service: Filter List -> Only [Q184, Q205]
-    end
-    
-    Service-->>App: Return Filtered List
-    
-    App->>User: Display Q184 (Struggling Question)
-    
-    User->>App: Clicks Correct Answer
-    App->>Service: submit_answer("Daniel", Q184, Correct)
-    Service->>Repo: save_attempt("Daniel", Q184, True)
-    Repo->>DB: UPDATE user_progress SET is_correct=1
-    
-    Note over DB: Q184 is now 'Correct'.<br/>Removed from next Review.
-    
-    Service-->>App: Return Success
-    App->>User: Show Feedback
-```
+        class StreamlitApp {
+            +render_sidebar()
+            +render_question()
+        }
+    }
 
----
+    %% ============================================================
+    %% RELATIONSHIPS
+    %% ============================================================
 
-### 4. Mode Switching & State Reset
-This visualizes the critical bug fix using the `on_change` callback.
+    %% Realization (Implements Interface)
+    SQLiteQuizRepository ..|> IQuizRepository
+    StreamlitStateProvider ..|> IStateProvider
+    DailySprintStrategy ..|> IQuestionStrategy
+    ReviewStrategy ..|> IQuestionStrategy
 
-```mermaid
-sequenceDiagram
-    actor User
-    participant UI as 🖥️ Streamlit UI
-    participant State as 🧠 Session State
-    participant Service as ⚙️ QuizService
+    %% Composition / Association
+    QuizService --> IQuizRepository : Uses
+    QuizService ..> IQuestionStrategy : Uses (via Factory)
+    
+    QuizViewModel --> QuizService : Delegates Logic
+    QuizViewModel --> IStateProvider : Manages State
+    QuizViewModel ..> DashboardConfig : Creates/Exposes
 
-    Note over User, UI: User is in "Nauka" Mode
+    StreamlitApp --> QuizViewModel : Binds Data
+    StreamlitApp ..> StreamlitStateProvider : Injects
 
-    User->>UI: Clicks Radio Button: "Powtórka"
-    
-    Note right of UI: ⚡ Trigger on_change=reset_quiz_state
-    
-    UI->>State: reset_quiz_state()
-    State-->>State: quiz_questions = []
-    State-->>State: current_index = 0
-    State-->>State: score = 0
-    
-    Note right of UI: 🔄 Streamlit Reruns Script
-    
-    UI->>State: Check if quiz_questions is empty?
-    State-->>UI: Yes (Empty)
-    
-    Note right of UI: Auto-Start Logic
-    UI->>UI: Translate "Powtórka" -> "Review..."
-    UI->>Service: get_quiz_questions("Review...", "Daniel")
-    Service-->>UI: Return [Struggling Questions]
-    
-    UI->>State: quiz_questions = [Struggling Questions]
-    
-    UI->>User: Render First Struggling Question
+    %% Domain Usage
+    QuizService ..> UserProfile : Manipulates
+    QuizService ..> Question : Retrieves
+    QuizViewModel ..> QuizSessionState : Tracks
 ```
