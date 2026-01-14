@@ -1,23 +1,23 @@
 import sqlite3
-import logging
 import os
+import json
 from datetime import date, datetime
-from typing import List, Optional
+from typing import List
 
 from src.quiz.domain.models import Question, UserProfile
 from src.quiz.domain.ports import IQuizRepository
-
-logger = logging.getLogger(__name__)
-
+from src.shared.telemetry import Telemetry, measure_time
 
 class SQLiteQuizRepository(IQuizRepository):
     def __init__(self, db_path: str = "data/quiz.db"):
+        self.telemetry = Telemetry("SQLiteRepository")
         self.db_path = db_path
         self._shared_connection = None
         self._ensure_db_exists()
         if self.db_path == ":memory:":
             self._shared_connection = sqlite3.connect(":memory:", check_same_thread=False)
         self._init_schema()
+        self._seed_if_empty()
 
     def _ensure_db_exists(self):
         if self.db_path == ":memory:":
@@ -36,6 +36,7 @@ class SQLiteQuizRepository(IQuizRepository):
         if self._shared_connection:
             self._shared_connection.close()
 
+    @measure_time("db_init_schema")
     def _init_schema(self):
         # Note: We don't use 'with' here for the connection itself if it's shared,
         # because we don't want to close it. But sqlite3 context manager
@@ -71,17 +72,49 @@ class SQLiteQuizRepository(IQuizRepository):
             """)
             conn.commit()
         except Exception as e:
-            logger.error(f"Schema Init Error: {e}")
+            self.telemetry.log_error("Schema Init Failed", e)
 
-    # --- Implementation of Interface ---
+    def _seed_if_empty(self):
+        """Auto-populates DB if empty."""
+        try:
+            conn = self._get_connection()
+            cursor = conn.execute("SELECT count(*) FROM questions")
+            count = cursor.fetchone()[0]
 
+            self.telemetry.log_info(f"Current Question Count: {count}")
+
+            if count == 0:
+                self.telemetry.log_info("DB is empty. Attempting to seed...")
+
+                # Check file existence
+                seed_file = "data/seed_questions.json"
+                abs_path = os.path.abspath(seed_file)
+
+                if os.path.exists(seed_file):
+                    self.telemetry.log_info(f"Found seed file at: {abs_path}")
+                    with open(seed_file, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                        questions = [Question(**q) for q in data]
+                        self.seed_questions(questions)
+                        self.telemetry.log_info(f"✅ Successfully seeded {len(questions)} questions.")
+                else:
+                    self.telemetry.log_error("Seed file NOT found", Exception(f"Missing: {abs_path}"))
+        except Exception as e:
+            self.telemetry.log_error("Auto-seeding failed", e)
+
+    # --- Implementation ---
+
+    @measure_time("db_get_all_questions")
     def get_all_questions(self) -> List[Question]:
         try:
             conn = self._get_connection()
             cursor = conn.execute("SELECT json_data FROM questions")
-            return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+            results = [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+
+            self.telemetry.log_info(f"Fetched {len(results)} questions from DB")
+            return results
         except Exception as e:
-            logger.error(f"DB Error: {e}")
+            self.telemetry.log_error("get_all_questions failed", e)
             return []
 
     def get_questions_by_ids(self, question_ids: List[str]) -> List[Question]:
@@ -92,7 +125,7 @@ class SQLiteQuizRepository(IQuizRepository):
             cursor = conn.execute(f"SELECT json_data FROM questions WHERE id IN ({placeholders})", question_ids)
             return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
         except Exception as e:
-            logger.error(f"DB Error: {e}")
+            self.telemetry.log_error("get_questions_by_ids failed", e)
             return []
 
     def seed_questions(self, questions: List[Question]):
@@ -106,7 +139,7 @@ class SQLiteQuizRepository(IQuizRepository):
                 )
             conn.commit()
         except sqlite3.Error as e:
-            logger.error(f"Failed to seed questions: {e}")
+            self.telemetry.log_error("seed_questions failed", e)
 
     def get_or_create_profile(self, user_id: str) -> UserProfile:
         conn = self._get_connection()
@@ -115,6 +148,7 @@ class SQLiteQuizRepository(IQuizRepository):
         today = date.today()
 
         if not row:
+            self.telemetry.log_info(f"Creating new profile for {user_id}")
             profile = UserProfile(user_id=user_id)
             conn.execute("""
                 INSERT INTO user_profiles (user_id, streak_days, last_login, daily_goal, daily_progress, last_daily_reset, has_completed_onboarding)

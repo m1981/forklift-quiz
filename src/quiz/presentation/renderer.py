@@ -1,12 +1,15 @@
 import streamlit as st
 from src.game.core import UIModel
-from src.quiz.presentation.views import components, question_view, summary_view
+from src.quiz.presentation.views import question_view, summary_view
+from src.shared.telemetry import Telemetry  # <--- NEW IMPORT
 
 
 class StreamlitRenderer:
     """
     Translates Engine DTOs (UIModel) into Streamlit Widgets.
     """
+    def __init__(self):
+        self.telemetry = Telemetry("StreamlitRenderer") # <--- TELEMETRY
 
     def render(self, ui_model: UIModel, callback_handler):
         """
@@ -14,11 +17,15 @@ class StreamlitRenderer:
         :param callback_handler: Function to call when user clicks buttons.
         """
         if not ui_model:
+            self.telemetry.log_info("UI Model is None, showing spinner")
             st.spinner("Loading...")
             return
 
         step_type = ui_model.type
         payload = ui_model.payload
+
+        # <--- LOGGING THE STATE
+        self.telemetry.log_info(f"Rendering Step: {step_type}", payload_keys=list(payload.__dict__.keys()) if hasattr(payload, '__dict__') else "dict")
 
         if step_type == "TEXT":
             self._render_text_step(payload, callback_handler)
@@ -29,15 +36,25 @@ class StreamlitRenderer:
         elif step_type == "SUMMARY":
             summary_view.render(payload, callback_handler)
         elif step_type == "EMPTY":
-            st.info("Flow Complete. Select a mode to start.")
+            # --- IMPROVED EMPTY STATE ---
+            st.title("Gotowy do pracy?")
+            st.markdown("### Co chcesz teraz zrobić?")
 
-        # --- FIX START: Add Handler for LOADING ---
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("🚀 Rozpocznij Codzienny Sprint", type="primary", use_container_width=True):
+                    callback_handler("START_SPRINT_MANUAL", None)
+            with col2:
+                if st.button("🎓 Powtórz Szkolenie (Onboarding)", type="secondary", use_container_width=True):
+                    callback_handler("START_ONBOARDING_MANUAL", None)
+
+        # <--- FIX: HANDLE LOADING STATE
         elif step_type == "LOADING":
-            # This state happens when the app first loads but no flow is selected yet.
-            st.info("👋 Witaj! Wybierz tryb z menu po lewej stronie, aby rozpocząć.")
-        # --- FIX END ---
+            with st.spinner("Wczytywanie gry..."):
+                pass
 
         else:
+            self.telemetry.log_error(f"Unknown Step Type: {step_type}", Exception("Renderer Error"))
             st.error(f"Unknown Step Type: {step_type}")
 
     def _render_text_step(self, payload, callback):

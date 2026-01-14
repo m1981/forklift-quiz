@@ -1,4 +1,15 @@
 import streamlit as st
+import logging
+import sys
+
+# --- 1. Configure Global Logging to Console ---
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+    handlers=[logging.StreamHandler(sys.stdout)],
+    force=True # Force override of any existing config
+)
+
 from src.quiz.presentation.viewmodel import GameViewModel
 from src.quiz.presentation.renderer import StreamlitRenderer
 
@@ -16,6 +27,4 @@ if st.sidebar.button("Start Onboarding"):
 
 # Main Render Loop
 ui_data = vm.ui_model
-
-# We pass 'vm.handle_ui_action' as the callback to the renderer
 renderer.render(ui_data, vm.handle_ui_action)

@@ -11,9 +11,11 @@ class GameViewModel:
             user_id = "User1"
             context = GameContext(user_id=user_id, repo=repo)
             st.session_state.game_director = GameDirector(context)
+
+            # Assign self.director BEFORE calling _check_auto_start
             self.director: GameDirector = st.session_state.game_director
 
-            # Now it is safe to call this
+            # Auto-Start Logic
             self._check_auto_start(context)
 
         self.director: GameDirector = st.session_state.game_director
@@ -22,9 +24,10 @@ class GameViewModel:
         profile = context.repo.get_or_create_profile(context.user_id)
         if not profile.has_completed_onboarding:
             self.director.start_flow(OnboardingFlow())
-        else:
-            # User is experienced -> Force Daily Sprint
-            self.director.start_flow(DailySprintFlow())
+        # Note: We REMOVED the auto-start for Daily Sprint here.
+        # Why? Because if the user refreshes the page after finishing a sprint,
+        # we don't want to force them into a new one immediately.
+        # We let them see the "Empty" state (Dashboard) instead.
 
     @property
     def ui_model(self):
@@ -39,5 +42,13 @@ class GameViewModel:
         st.rerun()
 
     def handle_ui_action(self, action: str, payload=None):
+        # <--- NEW HANDLERS
+        if action == "START_SPRINT_MANUAL":
+            self.start_daily_sprint()
+            return
+        if action == "START_ONBOARDING_MANUAL":
+            self.start_onboarding()
+            return
+
         self.director.handle_action(action, payload)
         st.rerun()

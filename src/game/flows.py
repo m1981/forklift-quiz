@@ -3,6 +3,7 @@ from src.game.core import GameFlow, GameStep, GameContext
 from src.game.steps import TextStep, QuestionLoopStep, SummaryStep
 from src.quiz.domain.models import Question, OptionKey
 from src.config import GameConfig
+from src.shared.telemetry import Telemetry # <--- NEW IMPORT
 
 class DailySprintFlow(GameFlow):
     """
@@ -13,6 +14,8 @@ class DailySprintFlow(GameFlow):
     """
 
     def build_steps(self, context: GameContext) -> List[GameStep]:
+        telemetry = Telemetry("DailySprintFlow") # <--- INIT TELEMETRY
+
         context.data['score'] = 0
         context.data['errors'] = []
 
@@ -36,10 +39,14 @@ class DailySprintFlow(GameFlow):
         # or use the existing strategy logic if we kept it.
         # Let's simulate a clean fetch for the engine:
         all_qs = context.repo.get_all_questions()
-        # (Simplified selection logic for brevity - in prod, use the Strategy class here)
+
+        # <--- LOGGING THE CRITICAL DATA POINT
+        telemetry.log_info(f"Questions available in DB: {len(all_qs)}")
+
         questions = all_qs[:limit]
 
         if not questions:
+            telemetry.log_error("No questions found!", Exception("DB returned 0 questions"))
             return [TextStep("Brak Pytań", "Wróć jutro!", "Menu")]
 
         context.data['total_questions'] = len(questions)
@@ -74,5 +81,5 @@ class OnboardingFlow(GameFlow):
             TextStep("👋 Witaj w Magazynie!", "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.", "Dalej"),
             TextStep("Zasady Gry", "Codziennie otrzymasz 15 pytań. Buduj serię (Streak) logując się codziennie.", "Rozumiem"),
             QuestionLoopStep([tutorial_q]),
-            TextStep("Szkolenie Zakończone", "Jesteś gotowy do pracy! Kliknij poniżej, aby przejść do menu głównego.", "Zakończ")
+            TextStep("Szkolenie Zakończone", "Jesteś gotowy do pracy! Kliknij poniżej, aby rozpocząć pierwszy sprint.", "Rozpocznij Sprint 🚀")
         ]

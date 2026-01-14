@@ -1,3 +1,6 @@
+[server]
+headless = true
+
 [project]
 name = "warehouse-quiz-app"
 version = "1.0.1"
