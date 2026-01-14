@@ -1,36 +1,34 @@
 import streamlit as st
+from src.config import GameConfig
 
 def render(payload, callback):
-    """
-    :param payload: SummaryPayload
-    """
-    st.balloons()
-
     score = payload.score
     total = payload.total
-    percent = (score / total * 100) if total > 0 else 0
+
+    # <--- NEW: Check Passing Score
+    is_passed = score >= GameConfig.PASSING_SCORE
+
+    if is_passed:
+        st.balloons() # Only show balloons if passed
 
     st.title("🏁 Podsumowanie")
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Wynik", f"{score} / {total}")
+
+    percent = (score / total * 100) if total > 0 else 0
     col2.metric("Skuteczność", f"{int(percent)}%")
 
-    if percent == 100:
-        st.success("Perfekcyjnie! Mistrz magazynu! 🏆")
-        col3.metric("Ocena", "⭐⭐⭐")
-    elif percent >= 80:
-        st.info("Bardzo dobry wynik! 👍")
-        col3.metric("Ocena", "⭐⭐")
+    if is_passed:
+        st.success("Zaliczone! Gratulacje! 🏆")
+        col3.metric("Ocena", "POZYTYWNA")
     else:
-        st.warning("Warto jeszcze poćwiczyć. 📚")
-        col3.metric("Ocena", "⭐")
+        st.error(f"Niezaliczone. Wymagane: {GameConfig.PASSING_SCORE} pkt.")
+        col3.metric("Ocena", "NEGATYWNA")
 
     st.markdown("---")
 
-    # --- NEW BUTTON LOGIC ---
     col_a, col_b = st.columns(2)
-
     with col_a:
         if st.button("🔄 Menu Główne", type="secondary", use_container_width=True):
             callback("FINISH", None)

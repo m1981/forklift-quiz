@@ -2,8 +2,6 @@ from enum import Enum
 from typing import Dict, Optional, List
 from datetime import date
 from pydantic import BaseModel, Field
-
-# --- IMPORT CONFIG HERE ---
 from src.config import GameConfig
 
 # --- Enums ---
@@ -30,7 +28,9 @@ class UserProfile(BaseModel):
     last_login: date = Field(default_factory=date.today)
     daily_progress: int = 0
     last_daily_reset: date = Field(default_factory=date.today)
+
     daily_goal: int = GameConfig.DAILY_GOAL
+    has_completed_onboarding: bool = False  # <--- NEW FIELD
 
     def is_bonus_mode(self) -> bool:
         return self.daily_progress >= self.daily_goal

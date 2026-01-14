@@ -18,19 +18,16 @@ class DailySprintFlow(GameFlow):
 
         # 1. Fetch User Profile to determine mode
         profile = context.repo.get_or_create_profile(context.user_id)
-
-        # Use Config for logic
-        is_bonus = profile.daily_progress >= profile.daily_goal # Uses DB goal (which should match config)
+        is_bonus = profile.daily_progress >= profile.daily_goal
 
         if is_bonus:
             intro_title = "🔥 Runda Bonusowa"
             intro_msg = "Już wykonałeś cel dzienny! To są nadgodziny dla ambitnych."
-            limit = GameConfig.BONUS_QUESTIONS # <--- Use Config
+            limit = GameConfig.BONUS_QUESTIONS
         else:
             intro_title = "🚀 Codzienny Sprint"
-            # Use Config for the message
             intro_msg = f"Cel na dziś: {profile.daily_progress}/{profile.daily_goal}. Zaczynamy?"
-            limit = GameConfig.SPRINT_QUESTIONS # <--- Use Config
+            limit = GameConfig.SPRINT_QUESTIONS
 
 
         # 3. Fetch Questions (Using Repo)
@@ -43,11 +40,8 @@ class DailySprintFlow(GameFlow):
         questions = all_qs[:limit]
 
         if not questions:
-            return [
-                TextStep("Brak Pytań", "Wróć jutro!", "Menu")
-            ]
+            return [TextStep("Brak Pytań", "Wróć jutro!", "Menu")]
 
-        # Pre-calculation for SummaryStep
         context.data['total_questions'] = len(questions)
 
         return [
@@ -56,17 +50,8 @@ class DailySprintFlow(GameFlow):
             SummaryStep()
         ]
 
-
-# --- 2. The Onboarding Scenario (New Requirement) ---
-
 class OnboardingFlow(GameFlow):
-    """
-    A fixed tutorial flow for new users.
-    Intro -> 1 Fixed Question -> Outro.
-    """
-
     def build_steps(self, context: GameContext) -> List[GameStep]:
-        # Hardcoded tutorial question
         tutorial_q = Question(
             id="TUT-01",
             text="To jest pytanie treningowe. Gdzie składować materiały łatwopalne?",
@@ -79,22 +64,15 @@ class OnboardingFlow(GameFlow):
             category="Tutorial"
         )
 
+        # Mark as onboarded
+        profile = context.repo.get_or_create_profile(context.user_id)
+        profile.has_completed_onboarding = True
+        context.repo.save_profile(profile)
+
         context.data['total_questions'] = 1
         return [
-            TextStep(
-                title="👋 Witaj w Magazynie!",
-                content="Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.",
-                button_text="Dalej"
-            ),
-            TextStep(
-                title="Zasady Gry",
-                content="Codziennie otrzymasz 10 pytań. Buduj serię (Streak) logując się codziennie.",
-                button_text="Rozumiem"
-            ),
+            TextStep("👋 Witaj w Magazynie!", "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.", "Dalej"),
+            TextStep("Zasady Gry", "Codziennie otrzymasz 15 pytań. Buduj serię (Streak) logując się codziennie.", "Rozumiem"),
             QuestionLoopStep([tutorial_q]),
-            TextStep(
-                title="Szkolenie Zakończone",
-                content="Jesteś gotowy do pracy! Kliknij poniżej, aby przejść do menu głównego.",
-                button_text="Zakończ"
-            )
+            TextStep("Szkolenie Zakończone", "Jesteś gotowy do pracy! Kliknij poniżej, aby przejść do menu głównego.", "Zakończ")
         ]

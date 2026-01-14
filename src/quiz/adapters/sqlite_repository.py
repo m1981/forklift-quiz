@@ -13,14 +13,10 @@ logger = logging.getLogger(__name__)
 class SQLiteQuizRepository(IQuizRepository):
     def __init__(self, db_path: str = "data/quiz.db"):
         self.db_path = db_path
-        self._shared_connection = None  # <--- FIX 1: Holder for memory connection
-
+        self._shared_connection = None
         self._ensure_db_exists()
-
-        # <--- FIX 2: Initialize shared connection if in memory
         if self.db_path == ":memory:":
             self._shared_connection = sqlite3.connect(":memory:", check_same_thread=False)
-
         self._init_schema()
 
     def _ensure_db_exists(self):
@@ -31,7 +27,6 @@ class SQLiteQuizRepository(IQuizRepository):
             os.makedirs(dir_name, exist_ok=True)
 
     def _get_connection(self):
-        # <--- FIX 3: Return the existing connection if available
         if self._shared_connection:
             return self._shared_connection
         return sqlite3.connect(self.db_path)
@@ -48,67 +43,35 @@ class SQLiteQuizRepository(IQuizRepository):
         conn = self._get_connection()
         try:
             conn.execute("""
-                         CREATE TABLE IF NOT EXISTS questions
-                         (
-                             id
-                             TEXT
-                             PRIMARY
-                             KEY,
-                             json_data
-                             TEXT
-                         )
-                         """)
+                CREATE TABLE IF NOT EXISTS questions (
+                    id TEXT PRIMARY KEY,
+                    json_data TEXT
+                )
+            """)
             conn.execute("""
-                         CREATE TABLE IF NOT EXISTS user_progress
-                         (
-                             user_id
-                             TEXT,
-                             question_id
-                             TEXT,
-                             is_correct
-                             BOOLEAN,
-                             timestamp
-                             DATETIME
-                             DEFAULT
-                             CURRENT_TIMESTAMP,
-                             PRIMARY
-                             KEY
-                         (
-                             user_id,
-                             question_id
-                         )
-                             )
-                         """)
+                CREATE TABLE IF NOT EXISTS user_progress (
+                    user_id TEXT,
+                    question_id TEXT,
+                    is_correct BOOLEAN,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (user_id, question_id)
+                )
+            """)
+            # Updated Schema with has_completed_onboarding
             conn.execute("""
-                         CREATE TABLE IF NOT EXISTS user_profiles
-                         (
-                             user_id
-                             TEXT
-                             PRIMARY
-                             KEY,
-                             streak_days
-                             INTEGER
-                             DEFAULT
-                             0,
-                             last_login
-                             DATE,
-                             daily_goal
-                             INTEGER
-                             DEFAULT
-                             3,
-                             daily_progress
-                             INTEGER
-                             DEFAULT
-                             0,
-                             last_daily_reset
-                             DATE
-                         )
-                         """)
+                CREATE TABLE IF NOT EXISTS user_profiles (
+                    user_id TEXT PRIMARY KEY,
+                    streak_days INTEGER DEFAULT 0,
+                    last_login DATE,
+                    daily_goal INTEGER DEFAULT 3,
+                    daily_progress INTEGER DEFAULT 0,
+                    last_daily_reset DATE,
+                    has_completed_onboarding BOOLEAN DEFAULT 0
+                )
+            """)
             conn.commit()
         except Exception as e:
             logger.error(f"Schema Init Error: {e}")
-            # If it's a file db, we might want to close.
-            # If it's memory, we keep it open.
 
     # --- Implementation of Interface ---
 
@@ -154,12 +117,16 @@ class SQLiteQuizRepository(IQuizRepository):
         if not row:
             profile = UserProfile(user_id=user_id)
             conn.execute("""
-                         INSERT INTO user_profiles (user_id, streak_days, last_login, daily_goal, daily_progress,
-                                                    last_daily_reset)
-                         VALUES (?, ?, ?, ?, ?, ?)
-                         """, (profile.user_id, profile.streak_days, today, profile.daily_goal, 0, today))
+                INSERT INTO user_profiles (user_id, streak_days, last_login, daily_goal, daily_progress, last_daily_reset, has_completed_onboarding)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (profile.user_id, profile.streak_days, today, profile.daily_goal, 0, today, False))
             conn.commit()
             return profile
+
+        # Handle potential schema mismatch if column was added later
+        has_onboarding = False
+        if len(row) > 6:
+            has_onboarding = bool(row[6])
 
         return UserProfile(
             user_id=row[0],
@@ -167,49 +134,44 @@ class SQLiteQuizRepository(IQuizRepository):
             last_login=datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today,
             daily_goal=row[3],
             daily_progress=row[4],
-            last_daily_reset=datetime.strptime(row[5], "%Y-%m-%d").date() if row[5] else today
+            last_daily_reset=datetime.strptime(row[5], "%Y-%m-%d").date() if row[5] else today,
+            has_completed_onboarding=has_onboarding
         )
 
     def save_profile(self, profile: UserProfile):
         conn = self._get_connection()
         conn.execute("""
-                     UPDATE user_profiles
-                     SET streak_days      = ?,
-                         last_login       = ?,
-                         daily_goal       = ?,
-                         daily_progress   = ?,
-                         last_daily_reset = ?
-                     WHERE user_id = ?
-                     """, (
-                         profile.streak_days,
-                         profile.last_login,
-                         profile.daily_goal,
-                         profile.daily_progress,
-                         profile.last_daily_reset,
-                         profile.user_id
-                     ))
+            UPDATE user_profiles 
+            SET streak_days = ?, last_login = ?, daily_goal = ?, daily_progress = ?, last_daily_reset = ?, has_completed_onboarding = ?
+            WHERE user_id = ?
+        """, (
+            profile.streak_days,
+            profile.last_login,
+            profile.daily_goal,
+            profile.daily_progress,
+            profile.last_daily_reset,
+            profile.has_completed_onboarding,
+            profile.user_id
+        ))
         conn.commit()
 
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool):
         conn = self._get_connection()
         conn.execute("""
-                     INSERT INTO user_progress (user_id, question_id, is_correct)
-                     VALUES (?, ?, ?) ON CONFLICT(user_id, question_id) 
-            DO
-                     UPDATE SET is_correct=excluded.is_correct, timestamp = CURRENT_TIMESTAMP
-                     """, (user_id, question_id, is_correct))
+            INSERT INTO user_progress (user_id, question_id, is_correct)
+            VALUES (?, ?, ?)
+            ON CONFLICT(user_id, question_id) 
+            DO UPDATE SET is_correct=excluded.is_correct, timestamp=CURRENT_TIMESTAMP
+        """, (user_id, question_id, is_correct))
         conn.commit()
 
     def was_question_answered_on_date(self, user_id: str, question_id: str, check_date: date) -> bool:
         date_str = check_date.strftime("%Y-%m-%d")
         conn = self._get_connection()
         cursor = conn.execute("""
-                              SELECT count(*)
-                              FROM user_progress
-                              WHERE user_id = ?
-                                AND question_id = ?
-                                AND date (timestamp) = ?
-                              """, (user_id, question_id, date_str))
+            SELECT count(*) FROM user_progress 
+            WHERE user_id = ? AND question_id = ? AND date(timestamp) = ?
+        """, (user_id, question_id, date_str))
         return cursor.fetchone()[0] > 0
 
     def get_incorrect_question_ids(self, user_id: str) -> List[str]:
@@ -225,5 +187,5 @@ class SQLiteQuizRepository(IQuizRepository):
     def reset_user_progress(self, user_id: str):
         conn = self._get_connection()
         conn.execute("DELETE FROM user_progress WHERE user_id = ?", (user_id,))
-        conn.execute("UPDATE user_profiles SET streak_days=0, daily_progress=0 WHERE user_id = ?", (user_id,))
+        conn.execute("UPDATE user_profiles SET streak_days=0, daily_progress=0, has_completed_onboarding=0 WHERE user_id = ?", (user_id,))
         conn.commit()
