@@ -43,7 +43,11 @@ classDiagram
     namespace Shared {
         class Telemetry {
             +start_trace()
-            +measure_time()
+            +log_info()
+            +log_error()
+        }
+        class measure_time {
+            <<Decorator>>
         }
     }
 
@@ -51,51 +55,97 @@ classDiagram
     %% DOMAIN (Entities)
     %% ============================================================
     namespace Domain {
-        class Question { +id, +text, +options }
-        class UserProfile { +user_id, +streak }
+        class Question {
+            +id
+            +text
+            +options
+            +correct_option
+        }
+        class UserProfile {
+            +user_id
+            +streak_days
+            +daily_progress
+            +is_bonus_mode()
+        }
+        class OptionKey {
+            <<Enum>>
+            A, B, C, D
+        }
     }
 
     %% ============================================================
-    %% APPLICATION (Game Engine & Logic)
+    %% GAME ENGINE (Application Layer)
     %% ============================================================
-    namespace Application {
-        class IQuizRepository { <<Interface>> }
-
-        %% --- THE NEW ENGINE ---
+    namespace GameEngine {
         class GameContext {
-            +String user_id
-            +Dict data
-            +IQuizRepository repo
+            +user_id
+            +repo : IQuizRepository
+            +data : Dict
+        }
+
+        class UIModel {
+            <<DTO>>
+            +type : str
+            +payload : Any
         }
 
         class GameDirector {
-            -List~GameStep~ _queue
-            -GameStep _current_step
-            +start_flow(GameFlow)
+            -context : GameContext
+            -queue : List~GameStep~
+            -current_step : GameStep
+            +start_flow(flow)
             +handle_action(action, payload)
             +get_ui_model() UIModel
         }
 
         class GameFlow {
-            <<Interface>>
+            <<Abstract>>
             +build_steps(context) List~GameStep~
         }
 
         class GameStep {
-            <<Interface>>
+            <<Abstract>>
             +enter(context)
             +get_ui_model() UIModel
-            +handle_action(action, payload, context) Result
+            +handle_action(action, payload, context)
         }
 
         %% Concrete Flows
-        class DailySprintFlow { +build_steps() }
-        class OnboardingFlow { +build_steps() }
+        class DailySprintFlow {
+            +build_steps()
+        }
+        class OnboardingFlow {
+            +build_steps()
+        }
 
         %% Concrete Steps
-        class TextStep { +get_ui_model() }
-        class QuestionLoopStep { +get_ui_model() }
-        class SummaryStep { +get_ui_model() }
+        class TextStep {
+            +payload : TextStepPayload
+        }
+        class QuestionLoopStep {
+            +questions : List~Question~
+        }
+        class SummaryStep {
+            +payload : SummaryPayload
+        }
+    }
+
+    %% ============================================================
+    %% ADAPTERS (Infrastructure)
+    %% ============================================================
+    namespace Adapters {
+        class IQuizRepository {
+            <<Interface>>
+            +get_all_questions()
+            +save_attempt()
+            +get_or_create_profile()
+        }
+
+        class SQLiteQuizRepository {
+            -db_path
+            +get_all_questions()
+            +save_attempt()
+        }
     }
 
     %% ============================================================
@@ -103,41 +153,61 @@ classDiagram
     %% ============================================================
     namespace Presentation {
         class GameViewModel {
-            -GameDirector director
+            -director : GameDirector
+            +ui_model()
             +start_daily_sprint()
             +start_onboarding()
             +handle_ui_action()
         }
-        
+
         class StreamlitRenderer {
             +render(ui_model, callback)
+            -_render_text_step()
         }
-        
-        class UIModel {
-            <<DTO>>
-            +str type
-            +Any payload
+
+        class ViewComponents {
+            <<Module>>
+            +render_sidebar()
+            +apply_styles()
+        }
+
+        class QuestionView {
+            <<Module>>
+            +render_active()
+            +render_feedback()
+        }
+
+        class SummaryView {
+            <<Module>>
+            +render()
         }
     }
 
     %% ============================================================
     %% RELATIONSHIPS
     %% ============================================================
-    
-    GameDirector --> GameContext
+
+    %% Inheritance
+    SQLiteQuizRepository ..|> IQuizRepository
+    DailySprintFlow --|> GameFlow
+    OnboardingFlow --|> GameFlow
+    TextStep --|> GameStep
+    QuestionLoopStep --|> GameStep
+    SummaryStep --|> GameStep
+
+    %% Composition & Usage
+    GameDirector *-- GameContext
     GameDirector o-- GameStep
-    GameDirector ..> GameFlow : Builds
+    GameDirector ..> GameFlow : Uses
     GameDirector ..> UIModel : Produces
-    
-    DailySprintFlow ..|> GameFlow
-    OnboardingFlow ..|> GameFlow
-    
-    TextStep ..|> GameStep
-    QuestionLoopStep ..|> GameStep
-    SummaryStep ..|> GameStep
-    
+
     GameViewModel --> GameDirector : Wraps
     StreamlitRenderer ..> UIModel : Consumes
     
-    DailySprintFlow ..> IQuizRepository : Fetches Data
+    %% View Delegation
+    StreamlitRenderer ..> QuestionView : Calls
+    StreamlitRenderer ..> SummaryView : Calls
+    
+    %% Data Access
+    GameContext --> IQuizRepository
 ```
