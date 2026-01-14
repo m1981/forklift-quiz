@@ -1,176 +1,143 @@
 
 ```mermaid
-stateDiagram-v2
-    [*] --> IDLE
-    IDLE --> LOADING : Start Quiz
-    LOADING --> QUESTION_ACTIVE : Load Success
-    LOADING --> EMPTY_STATE : Load Empty
+sequenceDiagram
+    autonumber
+    actor User
+    participant View as StreamlitRenderer
+    participant Director as GameDirector
+    participant Step as Current GameStep
+    participant Context as GameContext
 
-    state SPRINT_LOOP {
-        [*] --> QUESTION_ACTIVE
-        QUESTION_ACTIVE --> FEEDBACK_VIEW : Submit Answer
-        FEEDBACK_VIEW --> QUESTION_ACTIVE : Next Question
-    }
+    Note over Director: 1. Initialization
+    Director->>Director: start_flow(DailySprintFlow)
+    Director->>Director: _queue = [TextStep, QuestionLoopStep, SummaryStep]
+    Director->>Step: enter(context)
 
-    SPRINT_LOOP --> CHECK_COMPLETION : List Exhausted
-
-    state c1 <<choice>>
-    CHECK_COMPLETION --> c1
-    
-    c1 --> CORRECTION_PHASE : Has Errors
-    c1 --> SUMMARY : No Errors / All Fixed
-
-    state CORRECTION_PHASE {
-        [*] --> QUESTION_ACTIVE_R
-        QUESTION_ACTIVE_R --> FEEDBACK_VIEW_R : Submit Answer
-        FEEDBACK_VIEW_R --> QUESTION_ACTIVE_R : Next Question
-    }
-    
-    CORRECTION_PHASE --> CHECK_COMPLETION : List Exhausted
-
-    SUMMARY --> IDLE : Finish / Reset
-    EMPTY_STATE --> IDLE : Return
+    Note over Director: 2. The Game Loop
+    loop While Queue is not Empty
+        Director->>Step: get_ui_model()
+        Step-->>Director: UIModel (DTO)
+        Director-->>View: Render(UIModel)
+        
+        User->>View: Click Button / Submit
+        View->>Director: handle_action("NEXT" or "SUBMIT")
+        Director->>Step: handle_action()
+        
+        alt Step returns "NEXT"
+            Director->>Director: Pop next step from Queue
+            Director->>Step: enter(context)
+        else Step returns None
+            Director->>Director: Stay on current step
+        else Step returns NewStep
+            Director->>Director: Insert NewStep at front of Queue
+            Director->>Step: enter(context)
+        end
+    end
 ```
 
 ```mermaid
 classDiagram
     %% ============================================================
-    %% SHARED KERNEL (Cross-Cutting)
+    %% SHARED KERNEL
     %% ============================================================
     namespace Shared {
         class Telemetry {
             +start_trace()
-            +log_info()
             +measure_time()
         }
     }
 
     %% ============================================================
-    %% LAYER 1: DOMAIN (Entities)
+    %% DOMAIN (Entities)
     %% ============================================================
     namespace Domain {
-        class Question {
-            +String id
-            +String text
-            +Dict options
-        }
-        class UserProfile {
-            +String user_id
-            +int streak_days
-        }
-        class QuizSessionState {
-            +int current_q_index
-            +List~String~ session_error_ids
-            +internal_phase
-        }
+        class Question { +id, +text, +options }
+        class UserProfile { +user_id, +streak }
     }
 
     %% ============================================================
-    %% LAYER 2: APPLICATION (Business Logic)
+    %% APPLICATION (Game Engine & Logic)
     %% ============================================================
     namespace Application {
-        class IQuizRepository {
+        class IQuizRepository { <<Interface>> }
+
+        %% --- THE NEW ENGINE ---
+        class GameContext {
+            +String user_id
+            +Dict data
+            +IQuizRepository repo
+        }
+
+        class GameDirector {
+            -List~GameStep~ _queue
+            -GameStep _current_step
+            +start_flow(GameFlow)
+            +handle_action(action, payload)
+            +get_ui_model() UIModel
+        }
+
+        class GameFlow {
             <<Interface>>
-            +get_all_questions()
-            +save_attempt()
+            +build_steps(context) List~GameStep~
         }
 
-        class IQuestionStrategy {
+        class GameStep {
             <<Interface>>
-            +generate()
-            +get_dashboard_config()
+            +enter(context)
+            +get_ui_model() UIModel
+            +handle_action(action, payload, context) Result
         }
 
-        class DailySprintStrategy {
-            +generate()
-        }
-        class ReviewStrategy {
-            +generate()
-        }
+        %% Concrete Flows
+        class DailySprintFlow { +build_steps() }
+        class OnboardingFlow { +build_steps() }
 
-        class StrategyRegistry {
-            +register(name, strategy)
-            +get(name)
-        }
-
-        class QuizService {
-            -IQuizRepository repo
-            -Telemetry telemetry
-            +submit_answer()
-            +finalize_session()
-        }
+        %% Concrete Steps
+        class TextStep { +get_ui_model() }
+        class QuestionLoopStep { +get_ui_model() }
+        class SummaryStep { +get_ui_model() }
     }
 
     %% ============================================================
-    %% LAYER 3: PRESENTATION (UI Logic & Views)
+    %% PRESENTATION (UI)
     %% ============================================================
     namespace Presentation {
-        class IStateProvider {
-            <<Interface>>
-            +get()
-            +set()
+        class GameViewModel {
+            -GameDirector director
+            +start_daily_sprint()
+            +start_onboarding()
+            +handle_ui_action()
         }
-
-        class QuizViewModel {
-            -QuizService service
-            -IStateProvider state
-            -Telemetry telemetry
-            +start_quiz()
-            +submit_answer()
+        
+        class StreamlitRenderer {
+            +render(ui_model, callback)
         }
-
-        class QuestionView {
-            +render_active(vm)
-            +render_feedback(vm)
-        }
-        class SummaryView {
-            +render(vm)
-        }
-    }
-
-    %% ============================================================
-    %% LAYER 4: INFRASTRUCTURE (Frameworks)
-    %% ============================================================
-    namespace Infrastructure {
-        class SQLiteQuizRepository {
-            +execute_sql()
-        }
-        class StreamlitStateProvider {
-            +session_state
-        }
-        class App {
-            <<Composition Root>>
-            +main()
+        
+        class UIModel {
+            <<DTO>>
+            +str type
+            +Any payload
         }
     }
 
     %% ============================================================
     %% RELATIONSHIPS
     %% ============================================================
-
-    %% Realization
-    SQLiteQuizRepository ..|> IQuizRepository
-    StreamlitStateProvider ..|> IStateProvider
-    DailySprintStrategy ..|> IQuestionStrategy
-    ReviewStrategy ..|> IQuestionStrategy
-
-    %% Application Wiring
-    QuizService --> IQuizRepository
-    QuizService --> StrategyRegistry
-    StrategyRegistry --> IQuestionStrategy
     
-    %% Presentation Wiring
-    QuizViewModel --> QuizService
-    QuizViewModel --> IStateProvider
+    GameDirector --> GameContext
+    GameDirector o-- GameStep
+    GameDirector ..> GameFlow : Builds
+    GameDirector ..> UIModel : Produces
     
-    %% View Delegation
-    App --> QuizViewModel
-    App ..> QuestionView : Calls
-    App ..> SummaryView : Calls
-    QuestionView ..> QuizViewModel : Reads Data
+    DailySprintFlow ..|> GameFlow
+    OnboardingFlow ..|> GameFlow
     
-    %% Telemetry Usage
-    QuizService ..> Telemetry
-    QuizViewModel ..> Telemetry
-    DailySprintStrategy ..> Telemetry
+    TextStep ..|> GameStep
+    QuestionLoopStep ..|> GameStep
+    SummaryStep ..|> GameStep
+    
+    GameViewModel --> GameDirector : Wraps
+    StreamlitRenderer ..> UIModel : Consumes
+    
+    DailySprintFlow ..> IQuizRepository : Fetches Data
 ```

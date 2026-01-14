@@ -1,25 +1,21 @@
 import streamlit as st
-from src.quiz.presentation.viewmodel import QuizViewModel
 
-
-def render(vm: QuizViewModel):
+def render(payload, callback):
+    """
+    :param payload: SummaryPayload
+    """
     st.balloons()
 
-    # Retrieve final stats from session
-    score = vm.session.score
-    total = len(vm.questions)
-
-    # Calculate percentage
+    score = payload.score
+    total = payload.total
     percent = (score / total * 100) if total > 0 else 0
 
     st.title("🏁 Podsumowanie")
 
-    # --- Score Card ---
     col1, col2, col3 = st.columns(3)
     col1.metric("Wynik", f"{score} / {total}")
     col2.metric("Skuteczność", f"{int(percent)}%")
 
-    # --- Contextual Feedback ---
     if percent == 100:
         st.success("Perfekcyjnie! Mistrz magazynu! 🏆")
         col3.metric("Ocena", "⭐⭐⭐")
@@ -32,7 +28,5 @@ def render(vm: QuizViewModel):
 
     st.markdown("---")
 
-    # --- Action ---
     if st.button("🔄 Wróć do Menu Głównego", type="primary", use_container_width=True):
-        vm.reset()
-        st.rerun()
+        callback("FINISH", None)

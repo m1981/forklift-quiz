@@ -35,7 +35,7 @@ packages = ["src"]
 pythonpath = "."
 testpaths = ["tests"]
 # Automatically run coverage, show missing lines, and set strict markers
-addopts = "--cov=src/quiz --cov-report=term-missing --cov-report=html"
+addopts = "--cov=src --cov-report=term-missing --cov-report=html"
 [tool.coverage.run]
 source = ["."]
 branch = true
