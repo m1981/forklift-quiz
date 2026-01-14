@@ -9,7 +9,7 @@ from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
 
 class SQLiteQuizRepository(IQuizRepository):
-    def __init__(self, db_path: str = "data/quiz.db"):
+    def __init__(self, db_path: str = "data/quiz.db", auto_seed: bool = True): # <--- NEW PARAM
         self.telemetry = Telemetry("SQLiteRepository")
         self.db_path = db_path
         self._shared_connection = None
@@ -17,7 +17,8 @@ class SQLiteQuizRepository(IQuizRepository):
         if self.db_path == ":memory:":
             self._shared_connection = sqlite3.connect(":memory:", check_same_thread=False)
         self._init_schema()
-        self._seed_if_empty()
+        if auto_seed:
+            self._seed_if_empty()
 
     def _ensure_db_exists(self):
         if self.db_path == ":memory:":
