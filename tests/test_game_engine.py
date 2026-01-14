@@ -4,7 +4,7 @@ from src.game.core import GameContext, GameFlow, GameStep, UIModel
 from src.game.director import GameDirector
 from src.game.steps import TextStep, QuestionLoopStep
 from src.quiz.domain.models import Question, OptionKey
-
+from src.game.steps import TextStep, QuestionLoopStep, SummaryStep
 
 # --- Mocks & Fixtures ---
 
@@ -177,3 +177,62 @@ class TestQuestionLoopStep:
 
         # Assert
         assert result == "NEXT"  # Signal to Director to leave this step
+
+
+class TestSummaryStep:
+
+    def test_ui_model_calculates_stats(self, game_context):
+        # Arrange
+        step = SummaryStep()
+        game_context.data['score'] = 8
+        game_context.data['total_questions'] = 10
+        game_context.data['errors'] = ['Q1', 'Q2']
+
+        step.enter(game_context)
+
+        # Act
+        model = step.get_ui_model()
+
+        # Assert
+        assert model.type == "SUMMARY"
+        assert model.payload.score == 8
+        assert model.payload.total == 10
+        assert model.payload.has_errors is True
+
+    def test_finish_action_returns_next(self, game_context):
+        step = SummaryStep()
+        step.enter(game_context)
+        result = step.handle_action("FINISH", None, game_context)
+        assert result == "NEXT"
+
+    def test_review_mistakes_creates_new_loop(self, game_context):
+        # Arrange
+        step = SummaryStep()
+        game_context.data['errors'] = ['Q1']
+
+        # Mock repo to return a question object
+        mock_q = Mock(spec=Question)
+        game_context.repo.get_questions_by_ids.return_value = [mock_q]
+
+        step.enter(game_context)
+
+        # Act
+        result = step.handle_action("REVIEW_MISTAKES", None, game_context)
+
+        # Assert
+        assert isinstance(result, QuestionLoopStep)
+        assert result.questions == [mock_q]
+        # Verify errors were cleared to prevent infinite loop
+        assert game_context.data['errors'] == []
+
+    def test_review_mistakes_skips_if_no_errors(self, game_context):
+        # Arrange
+        step = SummaryStep()
+        game_context.data['errors'] = []  # No errors
+        step.enter(game_context)
+
+        # Act
+        result = step.handle_action("REVIEW_MISTAKES", None, game_context)
+
+        # Assert
+        assert result == "NEXT"
