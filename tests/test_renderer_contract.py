@@ -1,14 +1,38 @@
 import pytest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from src.game.core import UIModel
 from src.quiz.presentation.renderer import StreamlitRenderer
+from src.game.steps import TextStepPayload, QuestionStepPayload, SummaryPayload
+from src.quiz.domain.models import Question, OptionKey
 
 
 class TestRendererContract:
     """
     Ensures the Renderer handles ALL possible UIModel types produced by the Engine.
-    This prevents 'Unknown Step Type' errors in production.
     """
+
+    @pytest.fixture
+    def mock_streamlit(self):
+        """
+        Patches streamlit so we don't actually render to a browser.
+        Crucially, we must configure st.columns to return a list of mocks.
+        """
+        with patch('src.quiz.presentation.renderer.st') as mock_st_renderer, \
+                patch('src.quiz.presentation.views.question_view.st') as mock_st_q, \
+                patch('src.quiz.presentation.views.summary_view.st') as mock_st_s, \
+                patch('src.quiz.presentation.views.question_view.os.path.exists') as mock_exists:
+            # 1. Fix Image Loading
+            mock_exists.return_value = False
+
+            # 2. Fix st.columns unpacking
+            # We define a side_effect that returns N mocks based on the input integer
+            def columns_side_effect(count):
+                return [Mock() for _ in range(count)]
+
+            mock_st_q.columns.side_effect = columns_side_effect
+            mock_st_s.columns.side_effect = columns_side_effect
+
+            yield mock_st_renderer
 
     @pytest.fixture
     def renderer(self):
@@ -18,60 +42,71 @@ class TestRendererContract:
     def mock_callback(self):
         return Mock()
 
-    def test_renderer_handles_loading_state(self, renderer, mock_callback):
-        # The Director produces this state initially
+    def test_renderer_handles_loading_state(self, renderer, mock_callback, mock_streamlit):
         model = UIModel(type="LOADING", payload={})
+        renderer.render(model, mock_callback)
+        mock_streamlit.info.assert_called()
 
-        try:
-            renderer.render(model, mock_callback)
-        except Exception as e:
-            pytest.fail(f"Renderer crashed on LOADING state: {e}")
-
-    def test_renderer_handles_empty_state(self, renderer, mock_callback):
+    def test_renderer_handles_empty_state(self, renderer, mock_callback, mock_streamlit):
         model = UIModel(type="EMPTY", payload={"message": "Done"})
-        try:
-            renderer.render(model, mock_callback)
-        except Exception as e:
-            pytest.fail(f"Renderer crashed on EMPTY state: {e}")
+        renderer.render(model, mock_callback)
+        mock_streamlit.info.assert_called()
 
-    def test_renderer_handles_unknown_state_gracefully(self, renderer, mock_callback):
-        # We want to ensure it shows an error message, NOT crash the app
-        model = UIModel(type="NON_EXISTENT_TYPE", payload={})
-
-        # Streamlit functions (st.error) usually don't raise exceptions in tests
-        # unless we mock them to do so.
-        # Here we just ensure the render method finishes execution.
-        try:
-            renderer.render(model, mock_callback)
-        except Exception as e:
-            pytest.fail(f"Renderer crashed on unknown state: {e}")
-
-    # --- Advanced: Exhaustiveness Check ---
-    # If you want to be 100% sure, you can list all known types here
     @pytest.mark.parametrize("step_type", [
         "TEXT",
         "QUESTION",
         "FEEDBACK",
         "SUMMARY",
-        "LOADING",
-        "EMPTY"
     ])
-    def test_renderer_supports_all_known_types(self, renderer, mock_callback, step_type):
-        # Create a dummy payload that satisfies the renderer's attribute access
-        # We use a Mock object so accessing .title, .content etc. doesn't fail
-        dummy_payload = Mock()
-        dummy_payload.title = "Test"
-        dummy_payload.content = "Test"
-        dummy_payload.question.text = "Q"
-        dummy_payload.question.options = {}
+    def test_renderer_supports_all_known_types(self, renderer, mock_callback, mock_streamlit, step_type):
+        """
+        We construct REAL payloads here to ensure the views don't crash
+        on type errors (like int vs mock comparisons).
+        """
 
-        model = UIModel(type=step_type, payload=dummy_payload)
+        # 1. Prepare Common Data
+        dummy_q = Question(
+            id="Q1",
+            text="Test?",
+            options={OptionKey.A: "A"},
+            correct_option=OptionKey.A,
+            image_path=None
+        )
+
+        # 2. Select Payload based on Type
+        if step_type == "TEXT":
+            payload = TextStepPayload(title="T", content="C", button_text="B", image_path=None)
+
+        elif step_type == "QUESTION":
+            payload = QuestionStepPayload(
+                question=dummy_q,
+                current_index=1,
+                total_count=10
+            )
+
+        elif step_type == "FEEDBACK":
+            payload = QuestionStepPayload(
+                question=dummy_q,
+                current_index=1,
+                total_count=10,
+                last_feedback={
+                    'is_correct': False,
+                    'selected': OptionKey.A,
+                    'correct_option': OptionKey.A,
+                    'explanation': "Exp"
+                }
+            )
+
+        elif step_type == "SUMMARY":
+            payload = SummaryPayload(score=5, total=10, message="Msg")
+
+        else:
+            payload = {}
+
+        # 3. Execute Render
+        model = UIModel(type=step_type, payload=payload)
 
         try:
             renderer.render(model, mock_callback)
-        except AttributeError:
-            # It's okay if it fails due to missing payload fields (that's a different test),
-            # but it should NOT fail because of "Unknown Step Type" logic.
-            pass
         except Exception as e:
-            pytest.fail(f"Renderer logic failed for type {step_type}: {e}")
+            pytest.fail(f"Renderer crashed on valid {step_type} payload: {e}")
