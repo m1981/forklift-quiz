@@ -28,5 +28,15 @@ def render(payload, callback):
 
     st.markdown("---")
 
-    if st.button("🔄 Wróć do Menu Głównego", type="primary", use_container_width=True):
-        callback("FINISH", None)
+    # --- NEW BUTTON LOGIC ---
+    col_a, col_b = st.columns(2)
+
+    with col_a:
+        if st.button("🔄 Menu Główne", type="secondary", use_container_width=True):
+            callback("FINISH", None)
+
+    with col_b:
+        # Only show Review button if there were errors
+        if payload.has_errors:
+            if st.button("🛠️ Popraw Błędy", type="primary", use_container_width=True):
+                callback("REVIEW_MISTAKES", None)

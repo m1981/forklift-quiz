@@ -2,9 +2,7 @@ from typing import List
 from src.game.core import GameFlow, GameStep, GameContext
 from src.game.steps import TextStep, QuestionLoopStep, SummaryStep
 from src.quiz.domain.models import Question, OptionKey
-
-
-# --- 1. The Daily Sprint Scenario ---
+from src.config import GameConfig
 
 class DailySprintFlow(GameFlow):
     """
@@ -15,24 +13,25 @@ class DailySprintFlow(GameFlow):
     """
 
     def build_steps(self, context: GameContext) -> List[GameStep]:
+        context.data['score'] = 0
+        context.data['errors'] = []
+
         # 1. Fetch User Profile to determine mode
         profile = context.repo.get_or_create_profile(context.user_id)
 
-        # 2. Determine Logic (Bonus vs Standard)
-        # Note: We are migrating logic from the old 'Strategies' here.
-        # In a pure refactor, we might inject a 'QuestionProvider' service,
-        # but for now, we'll keep the logic explicit to show the flow.
-
-        is_bonus = profile.daily_progress >= profile.daily_goal
+        # Use Config for logic
+        is_bonus = profile.daily_progress >= profile.daily_goal # Uses DB goal (which should match config)
 
         if is_bonus:
             intro_title = "🔥 Runda Bonusowa"
             intro_msg = "Już wykonałeś cel dzienny! To są nadgodziny dla ambitnych."
-            limit = 5
+            limit = GameConfig.BONUS_QUESTIONS # <--- Use Config
         else:
             intro_title = "🚀 Codzienny Sprint"
+            # Use Config for the message
             intro_msg = f"Cel na dziś: {profile.daily_progress}/{profile.daily_goal}. Zaczynamy?"
-            limit = 10
+            limit = GameConfig.SPRINT_QUESTIONS # <--- Use Config
+
 
         # 3. Fetch Questions (Using Repo)
         # We reuse the repo logic. Ideally, repo methods should be granular.
