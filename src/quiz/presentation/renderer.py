@@ -9,16 +9,12 @@ class StreamlitRenderer:
     Translates Engine DTOs (UIModel) into Streamlit Widgets.
     """
     def __init__(self):
-        self.telemetry = Telemetry("StreamlitRenderer") # <--- TELEMETRY
+        self.telemetry = Telemetry("StreamlitRenderer")
 
     def render(self, ui_model: UIModel, callback_handler):
-        """
-        :param ui_model: Data from the engine.
-        :param callback_handler: Function to call when user clicks buttons.
-        """
         if not ui_model:
-            self.telemetry.log_info("UI Model is None, showing spinner")
-            st.spinner("Loading...")
+            self.telemetry.log_info("UI Model is None. Rendering fallback.")
+            st.warning("Inicjalizacja widoku...")
             return
 
         step_type = ui_model.type
@@ -50,9 +46,7 @@ class StreamlitRenderer:
 
         # <--- FIX: HANDLE LOADING STATE
         elif step_type == "LOADING":
-            with st.spinner("Wczytywanie gry..."):
-                pass
-
+            st.info("Wczytywanie...") # Use st.info instead of spinner for visibility
         else:
             self.telemetry.log_error(f"Unknown Step Type: {step_type}", Exception("Renderer Error"))
             st.error(f"Unknown Step Type: {step_type}")

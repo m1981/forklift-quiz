@@ -64,7 +64,11 @@ class Telemetry:
 
     def __init__(self, component_name: str):
         self.component = component_name
-        self.logger = logging.getLogger(component_name)
+        self._setup_logger()
+
+    def _setup_logger(self):
+        """Initializes the logger. Safe to call multiple times."""
+        self.logger = logging.getLogger(self.component)
 
         # Ensure we output to console if not configured
         if not self.logger.handlers:
@@ -73,6 +77,18 @@ class Telemetry:
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
             self.logger.setLevel(logging.INFO)
+
+    def __getstate__(self):
+        """Pickling: Save everything EXCEPT the logger."""
+        state = self.__dict__.copy()
+        if 'logger' in state:
+            del state['logger']
+        return state
+
+    def __setstate__(self, state):
+        """Unpickling: Restore state and re-create logger."""
+        self.__dict__.update(state)
+        self._setup_logger()
 
     @staticmethod
     def start_trace() -> str:
@@ -86,7 +102,6 @@ class Telemetry:
 
     def log_info(self, event: str, **kwargs):
         trace_id = self.get_trace_id()
-        # Format for readability in console
         msg = f"[{trace_id}] {event} | {kwargs}"
         self.logger.info(msg)
 
