@@ -22,13 +22,15 @@ class GameViewModel:
 
     def start_daily_sprint(self):
         self.director.start_flow(DailySprintFlow())
+        st.rerun()
 
     def start_onboarding(self):
         self.director.start_flow(OnboardingFlow())
+        st.rerun()
 
     def handle_ui_action(self, action: str, payload=None):
         """
         Called by the View when a button is clicked.
         """
         self.director.handle_action(action, payload)
-        # No need to manually persist; director state is in st.session_state
+        st.rerun()
