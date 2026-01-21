@@ -3025,7 +3025,7 @@
       "D": "zawsze wynosi 50% grubości nominalnej wideł"
     },
     "correct_option": "C",
-    "explanation": "Dopuszczalne zużycie wideł to max. 10% grubości nominalnej. Dla 40 mm, 10% to 4 mm. Zatem minimalna grubość to 40 - 4 = 36 mm.",
+    "explanation": "Dopuszczalne zużycie wideł to max. 10% grubości nominalnej ale nie więceje niż 5mm. Dla 40 mm, 10% to 4 mm. Zatem minimalna grubość to 40 - 4 = 36 mm. Natomiast dla widły 60 mm 10% to 6mm więc przyjmujemy odgórne maksimum jakim jest 5mm zatem minimalna grubość to 55 mm",
     "hint": "🧠 Tego nie wymyślisz. Tę liczbę musisz po prostu zapamiętać.",
     "category": "Budowa i Parametry Techniczne"
   },
