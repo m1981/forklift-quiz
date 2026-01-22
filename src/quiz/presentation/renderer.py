@@ -34,14 +34,14 @@ class StreamlitRenderer:
         elif step_type == "EMPTY":
             # --- IMPROVED EMPTY STATE ---
             st.title("Gotowy do pracy?")
-            st.markdown("### Co chcesz teraz zrobić?")
+            # st.markdown("### Co chcesz teraz zrobić?")
 
             col1, col2 = st.columns(2)
             with col1:
-                if st.button("🚀 Rozpocznij Codzienny Sprint", type="primary", use_container_width=True):
+                if st.button("Rozpocznij Naukę", type="primary", use_container_width=True):
                     callback_handler("START_SPRINT_MANUAL", None)
             with col2:
-                if st.button("🎓 Powtórz Szkolenie (Onboarding)", type="secondary", use_container_width=True):
+                if st.button("🎓 Powtórz Wprowadzenie", type="secondary", use_container_width=True):
                     callback_handler("START_ONBOARDING_MANUAL", None)
 
         # <--- FIX: HANDLE LOADING STATE
