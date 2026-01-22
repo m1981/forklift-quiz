@@ -20,9 +20,9 @@ renderer = StreamlitRenderer()
 
 # Sidebar (Simplified)
 st.sidebar.header("Menu")
-if st.sidebar.button("Start Daily Sprint"):
+if st.sidebar.button("Zacznij Naukę"):
     vm.start_daily_sprint()
-if st.sidebar.button("Start Onboarding"):
+if st.sidebar.button("Wprowadzenie"):
     vm.start_onboarding()
 
 # Main Render Loop
