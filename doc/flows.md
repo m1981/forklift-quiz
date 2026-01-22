@@ -1,3 +1,48 @@
+To understand the **User Flows** completely—from the moment a user clicks a button to how the application decides which screen to show next—you should examine these **4 specific files** in this order.
+
+They represent the **Definition**, **Execution**, **Logic**, and **Trigger** of your flows.
+
+### 1. The Blueprint (Flow Definition)
+**File:** `src/game/flows.py`
+*   **Why:** This is the "Map". It defines the linear sequence of screens for a specific scenario.
+*   **What to look for:**
+    *   The `build_steps` method in `DailySprintFlow`.
+    *   You will see the high-level structure: `TextStep` (Intro) $\rightarrow$ `QuestionLoopStep` (Game) $\rightarrow$ `SummaryStep` (Results).
+    *   It also contains the logic for **Conditional Flows** (e.g., checking `is_bonus` to decide if the user gets 5 or 15 questions).
+
+### 2. The Logic (Branching & Micro-Flows)
+**File:** `src/game/steps.py`
+*   **Why:** This handles the internal state machine of a specific screen and **Dynamic Branching**.
+*   **What to look for:**
+    *   **`QuestionLoopStep.handle_action`**: This defines the "Micro-Flow" of the quiz: *Question $\rightarrow$ Submit $\rightarrow$ Feedback $\rightarrow$ Next*.
+    *   **`SummaryStep.handle_action`**: This is where the **Dynamic Branching** happens (as seen in your Sequence Diagram). Look specifically at the `REVIEW_MISTAKES` block where it returns a *new instance* of `QuestionLoopStep` instead of just a string signal.
+
+### 3. The Engine (State Transitions)
+**File:** `src/game/director.py`
+*   **Why:** This is the "Traffic Controller". It executes the flow defined in #1 and handles the branching returned by #2.
+*   **What to look for:**
+    *   **`_advance()`**: How it pops the next step from the queue.
+    *   **`handle_action()`**: Specifically the `elif isinstance(result, GameStep):` block. This is the exact line of code that enables the "Review Mistakes" feature to inject a new loop into the middle of an existing session.
+
+### 4. The Trigger (Entry Point)
+**File:** `src/quiz/presentation/viewmodel.py`
+*   **Why:** This connects the UI to the Engine. It shows how a user click translates into a Flow start.
+*   **What to look for:**
+    *   `start_daily_sprint()`: Calls `director.start_flow(DailySprintFlow())`.
+    *   `_check_auto_start()`: Shows how the app decides to force the `OnboardingFlow` for new users.
+
+### Summary of the "Review Mistakes" Flow
+To trace the specific complex flow you diagrammed:
+
+1.  **Start:** `viewmodel.py` (User clicks button)
+2.  **Setup:** `flows.py` (Defines the initial list of steps)
+3.  **Execution:** `director.py` (Iterates through steps)
+4.  **Branching:** `steps.py` (`SummaryStep` creates a new `QuestionLoopStep` with error IDs)
+5.  **Injection:** `director.py` (Inserts that new step into `self._queue`)
+
+
+
+
 Based on the four files provided (`viewmodel.py`, `flows.py`, `director.py`, `steps.py`), here are the detailed Mermaid diagrams capturing the architecture and user flows.
 
 ### 1. High-Level State Machine (User Navigation)
