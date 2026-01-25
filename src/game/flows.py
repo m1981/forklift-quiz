@@ -1,74 +1,113 @@
-from typing import List
-from src.game.core import GameFlow, GameStep, GameContext
-from src.game.steps import TextStep, QuestionLoopStep, SummaryStep
-from src.quiz.domain.models import Question, OptionKey
 from src.config import GameConfig
-from src.shared.telemetry import Telemetry # <--- NEW IMPORT
+from src.game.core import GameContext, GameFlow, GameStep
+from src.game.steps import QuestionLoopStep, SummaryStep, TextStep
+from src.quiz.domain.models import OptionKey, Question
+from src.shared.telemetry import Telemetry
+
 
 class DailySprintFlow(GameFlow):
     """
-    The standard daily workflow:
-    1. Fetch questions based on logic (Sprint vs Bonus).
-    2. Run the Question Loop.
-    3. Show Summary.
+    The 'Smart' Daily Sprint.
+    Uses the Repository's 'Brain' to mix new and review questions.
     """
 
-    def build_steps(self, context: GameContext) -> List[GameStep]:
-        telemetry = Telemetry("DailySprintFlow") # <--- INIT TELEMETRY
+    def build_steps(self, context: GameContext) -> list[GameStep]:
+        telemetry = Telemetry("DailySprintFlow")
+        context.data["score"] = 0
+        context.data["errors"] = []
 
-        context.data['score'] = 0
-        context.data['errors'] = []
+        # 1. Check Bonus Mode (Streak based)
+        # We call this to ensure profile exists, but we don't use the return value yet.
+        _ = context.repo.get_or_create_profile(context.user_id)
 
-        # 1. Fetch User Profile to determine mode
-        profile = context.repo.get_or_create_profile(context.user_id)
-        is_bonus = profile.daily_progress >= profile.daily_goal
+        # Logic: If streak > 3 days, we might give them a "Bonus" or just standard.
+        # For now, let's keep the standard limit.
+        limit = GameConfig.SPRINT_QUESTIONS
 
-        if is_bonus:
-            intro_title = "🔥 Runda Bonusowa"
-            intro_msg = "Już wykonałeś cel dzienny! To są nadgodziny dla ambitnych."
-            limit = GameConfig.BONUS_QUESTIONS
-        else:
-            intro_title = "🚀 Codzienny Sprint"
-            intro_msg = f"Cel na dziś: {profile.daily_progress}/{profile.daily_goal}. Zaczynamy?"
-            limit = GameConfig.SPRINT_QUESTIONS
+        # 2. Fetch Smart Mix (The new Logic)
+        questions = context.repo.get_smart_mix(context.user_id, limit)
 
-
-        # 3. Fetch Questions (Using Repo)
-        # We reuse the repo logic. Ideally, repo methods should be granular.
-        # For this implementation, let's assume we fetch all and filter,
-        # or use the existing strategy logic if we kept it.
-        # Let's simulate a clean fetch for the engine:
-        all_qs = context.repo.get_all_questions()
-
-        # <--- LOGGING THE CRITICAL DATA POINT
-        telemetry.log_info(f"Questions available in DB: {len(all_qs)}")
-
-        questions = all_qs[:limit]
+        telemetry.log_info(f"Smart Mix fetched: {len(questions)} questions")
 
         if not questions:
-            telemetry.log_error("No questions found!", Exception("DB returned 0 questions"))
-            return [TextStep("Brak Pytań", "Wróć jutro!", "Menu")]
+            # This happens if the user has MASTERED 100% of the DB!
+            return [
+                TextStep(
+                    "Gratulacje! 🏆",
+                    "Opanowałeś cały materiał! Wróć później na powtórkę.",
+                    "Menu",
+                )
+            ]
 
-        context.data['total_questions'] = len(questions)
+        context.data["total_questions"] = len(questions)
 
         return [
-            TextStep(intro_title, intro_msg, "Start"),
+            TextStep(
+                "Codzienny Sprint 🚀",
+                f"Wybraliśmy dla Ciebie {len(questions)} pytań. Powodzenia!",
+                "Start",
+            ),
             QuestionLoopStep(questions),
-            SummaryStep()
+            SummaryStep(),
         ]
 
+
+class CategorySprintFlow(GameFlow):
+    """
+    Focused learning on a specific topic.
+    """
+
+    def __init__(self, category: str):
+        self.category = category
+
+    def build_steps(self, context: GameContext) -> list[GameStep]:
+        telemetry = Telemetry("CategorySprintFlow")
+        context.data["score"] = 0
+        context.data["errors"] = []
+
+        limit = GameConfig.SPRINT_QUESTIONS
+
+        # Fetch by Category
+        questions = context.repo.get_questions_by_category(
+            self.category, context.user_id, limit
+        )
+
+        telemetry.log_info(
+            f"Category '{self.category}' fetched: {len(questions)} questions"
+        )
+
+        if not questions:
+            return [
+                TextStep("Pusto", f"Brak pytań w kategorii: {self.category}", "Menu")
+            ]
+
+        context.data["total_questions"] = len(questions)
+
+        return [
+            TextStep(
+                f"Temat: {self.category}",
+                "Skupiamy się na jednym temacie. Do dzieła!",
+                "Start",
+            ),
+            QuestionLoopStep(questions),
+            SummaryStep(),
+        ]
+
+
 class OnboardingFlow(GameFlow):
-    def build_steps(self, context: GameContext) -> List[GameStep]:
+    def build_steps(self, context: GameContext) -> list[GameStep]:
         tutorial_q = Question(
             id="TUT-01",
             text="To jest pytanie treningowe. Gdzie składować materiały łatwopalne?",
             options={
                 OptionKey.A: "W strefie bezpiecznej (Zielona)",
-                OptionKey.B: "Przy piecu"
+                OptionKey.B: "Przy piecu",
             },
             correct_option=OptionKey.A,
-            explanation="Materiały łatwopalne muszą być w strefie wyznaczonej przepisami PPOŻ.",
-            category="Tutorial"
+            explanation=(
+                "Materiały łatwopalne muszą być w strefie wyznaczonej przepisami PPOŻ."
+            ),
+            category="Tutorial",
         )
 
         # Mark as onboarded
@@ -76,10 +115,28 @@ class OnboardingFlow(GameFlow):
         profile.has_completed_onboarding = True
         context.repo.save_profile(profile)
 
-        context.data['total_questions'] = 1
+        context.data["total_questions"] = 1
         return [
-            TextStep("👋 Witaj w Magazynie!", "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.", "Dalej"),
-            TextStep("Zasady Gry", "Codziennie otrzymasz 15 pytań. Buduj serię (Streak) logując się codziennie.", "Rozumiem"),
+            TextStep(
+                "👋 Witaj w Magazynie!",
+                "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.",
+                "Dalej",
+            ),
+            TextStep(
+                "Zasady Gry",
+                (
+                    "Codziennie otrzymasz 15 pytań. "
+                    "Buduj serię (Streak) logując się codziennie."
+                ),
+                "Rozumiem",
+            ),
             QuestionLoopStep([tutorial_q]),
-            TextStep("Szkolenie Zakończone", "Jesteś gotowy do pracy! Kliknij poniżej, aby rozpocząć pierwszy sprint.", "Rozpocznij Sprint 🚀")
+            TextStep(
+                "Szkolenie Zakończone",
+                (
+                    "Jesteś gotowy do pracy! "
+                    "Kliknij poniżej, aby rozpocząć pierwszy sprint."
+                ),
+                "Rozpocznij Sprint 🚀",
+            ),
         ]

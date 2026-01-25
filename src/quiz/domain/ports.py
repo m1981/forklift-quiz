@@ -33,10 +33,6 @@ class IQuizRepository(ABC):
     def was_question_answered_on_date(
         self, user_id: str, question_id: str, check_date: date
     ) -> bool:
-        """
-        Checks if a question was answered on a specific date.
-        Passing the date explicitly makes this testable (no hidden 'now()' calls).
-        """
         pass
 
     @abstractmethod
@@ -49,4 +45,15 @@ class IQuizRepository(ABC):
 
     @abstractmethod
     def reset_user_progress(self, user_id: str) -> None:
+        pass
+
+    # --- NEW METHODS FOR MASTERY & CATEGORIES ---
+    @abstractmethod
+    def get_smart_mix(self, user_id: str, limit: int = 15) -> list[Question]:
+        pass
+
+    @abstractmethod
+    def get_questions_by_category(
+        self, category: str, user_id: str, limit: int = 15
+    ) -> list[Question]:
         pass
