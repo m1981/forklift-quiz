@@ -1,5 +1,5 @@
 from src.game.director import GameDirector
-from src.game.core import GameContext
+
 
 class GameDriver:
     def __init__(self, director: GameDirector):
@@ -18,7 +18,7 @@ class GameDriver:
         assert self.current_screen_type == screen_type
         if title_contains:
             # Assuming payload has a title field for TEXT/SUMMARY steps
-            assert title_contains in getattr(self.current_payload, 'title', '')
+            assert title_contains in getattr(self.current_payload, "title", "")
         return self
 
     def click_next(self):

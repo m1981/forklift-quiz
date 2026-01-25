@@ -1,7 +1,12 @@
+from collections.abc import Callable
+from typing import Any
+
 import streamlit as st
+
 from src.config import GameConfig
 
-def render(payload, callback):
+
+def render(payload: Any, callback: Callable[[str, Any], None]) -> None:
     score = payload.score
     total = payload.total
 
@@ -9,7 +14,7 @@ def render(payload, callback):
     is_passed = score >= GameConfig.PASSING_SCORE
 
     if is_passed:
-        st.balloons() # Only show balloons if passed
+        st.balloons()  # Only show balloons if passed
 
     st.title("🏁 Podsumowanie")
 

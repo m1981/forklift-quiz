@@ -1,5 +1,4 @@
-from datetime import date
-from src.quiz.domain.models import UserProfile, QuizSessionState
+from src.quiz.domain.models import QuizSessionState, UserProfile
 
 
 def test_user_profile_bonus_mode_logic():

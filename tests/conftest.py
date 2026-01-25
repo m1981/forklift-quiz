@@ -1,10 +1,10 @@
 import pytest
-import json
-from datetime import date, timedelta
-from src.quiz.domain.models import Question, UserProfile, OptionKey
+
 from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
+from src.quiz.domain.models import OptionKey, Question
 
 # --- Fixtures for Domain Objects ---
+
 
 @pytest.fixture
 def sample_question():
@@ -15,17 +15,20 @@ def sample_question():
             OptionKey.A: "Liquid",
             OptionKey.B: "Gas",
             OptionKey.C: "Architecture",
-            OptionKey.D: "Plasma"
+            OptionKey.D: "Plasma",
         },
         correct_option=OptionKey.C,
-        category="Architecture"
+        category="Architecture",
     )
+
 
 @pytest.fixture
 def sample_user_id():
     return "TestUser"
 
+
 # --- Fixtures for Infrastructure ---
+
 
 @pytest.fixture
 def in_memory_repo():
@@ -36,6 +39,7 @@ def in_memory_repo():
     # <--- CRITICAL: auto_seed=False
     repo = SQLiteQuizRepository(db_path=":memory:", auto_seed=False)
     return repo
+
 
 @pytest.fixture
 def populated_repo(in_memory_repo, sample_question):

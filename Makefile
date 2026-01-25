@@ -18,9 +18,13 @@ help: ## Display this help
 install: ## Install dependencies via uv
 	uv sync
 
-.PHONY: run
-run: ## Run the Streamlit application
+.PHONY: dev
+dev: ## Run the Streamlit application
 	uv run streamlit run app.py --server.headless true
+
+.PHONY: lint
+lint: ## Run linters tests
+	uv run pre-commit run --all-files
 
 .PHONY: mut
 mut: ## Run mutation tests

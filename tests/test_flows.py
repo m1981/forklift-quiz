@@ -1,20 +1,22 @@
+from unittest.mock import Mock
+
 import pytest
-from unittest.mock import Mock, MagicMock
+
 from src.game.core import GameContext
 from src.game.flows import DailySprintFlow, OnboardingFlow
-from src.game.steps import TextStep, QuestionLoopStep, SummaryStep
-from src.quiz.domain.models import UserProfile, Question, OptionKey
-
+from src.game.steps import QuestionLoopStep, SummaryStep, TextStep
+from src.quiz.domain.models import OptionKey, Question, UserProfile
 
 # --- Fixtures ---
+
 
 @pytest.fixture
 def mock_repo():
     repo = Mock()
     # Default behavior: Return some dummy questions
     repo.get_all_questions.return_value = [
-                                              Question(id="Q1", text="T", options={}, correct_option=OptionKey.A)
-                                          ] * 10
+        Question(id="Q1", text="T", options={}, correct_option=OptionKey.A)
+    ] * 10
     return repo
 
 
@@ -25,8 +27,8 @@ def context(mock_repo):
 
 # --- Tests ---
 
-class TestDailySprintFlow:
 
+class TestDailySprintFlow:
     def test_builds_standard_flow_when_goal_not_met(self, context, mock_repo):
         # Arrange
         # User has 0/3 progress
@@ -44,7 +46,7 @@ class TestDailySprintFlow:
 
         # Step 1: Intro Text
         assert isinstance(steps[0], TextStep)
-        assert steps[0].payload.title == "🚀 Codzienny Sprint"
+        assert steps[0].payload.title == "Codzienny Sprint 🚀"
 
         # Step 2: Quiz Loop
         assert isinstance(steps[1], QuestionLoopStep)
@@ -77,7 +79,9 @@ class TestDailySprintFlow:
     def test_handles_no_questions_available(self, context, mock_repo):
         # Arrange
         mock_repo.get_all_questions.return_value = []  # Empty DB
-        mock_repo.get_or_create_profile.return_value = UserProfile(user_id="U", daily_progress=0)
+        mock_repo.get_or_create_profile.return_value = UserProfile(
+            user_id="U", daily_progress=0
+        )
 
         flow = DailySprintFlow()
 
@@ -91,7 +95,6 @@ class TestDailySprintFlow:
 
 
 class TestOnboardingFlow:
-
     def test_builds_fixed_tutorial_sequence(self, context):
         # Arrange
         flow = OnboardingFlow()

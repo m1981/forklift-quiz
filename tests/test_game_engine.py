@@ -1,12 +1,14 @@
+from unittest.mock import Mock
+
 import pytest
-from unittest.mock import Mock, ANY
+
 from src.game.core import GameContext, GameFlow, GameStep, UIModel
 from src.game.director import GameDirector
-from src.game.steps import TextStep, QuestionLoopStep
-from src.quiz.domain.models import Question, OptionKey
-from src.game.steps import TextStep, QuestionLoopStep, SummaryStep
+from src.game.steps import QuestionLoopStep, SummaryStep, TextStep
+from src.quiz.domain.models import OptionKey, Question
 
 # --- Mocks & Fixtures ---
+
 
 @pytest.fixture
 def mock_repo():
@@ -29,14 +31,14 @@ def sample_question():
         id="Q1",
         text="Test?",
         options={OptionKey.A: "Yes", OptionKey.B: "No"},
-        correct_option=OptionKey.A
+        correct_option=OptionKey.A,
     )
 
 
 # --- 1. Testing the Director (Core Engine) ---
 
-class TestGameDirector:
 
+class TestGameDirector:
     def test_start_flow_initializes_first_step(self, director):
         # Arrange
         step1 = Mock(spec=GameStep)
@@ -97,6 +99,7 @@ class TestGameDirector:
 
 # --- 2. Testing Concrete Steps (Logic Blocks) ---
 
+
 class TestTextStep:
     def test_text_step_returns_correct_ui_model(self):
         step = TextStep("Title", "Content", "Btn")
@@ -113,7 +116,6 @@ class TestTextStep:
 
 
 class TestQuestionLoopStep:
-
     def test_submit_correct_answer_updates_score(self, game_context, sample_question):
         # Arrange
         step = QuestionLoopStep([sample_question])
@@ -124,13 +126,13 @@ class TestQuestionLoopStep:
         result = step.handle_action("SUBMIT_ANSWER", OptionKey.A, game_context)
 
         # Assert
-        assert game_context.data['score'] == 1
+        assert game_context.data["score"] == 1
         assert result is None  # Should stay on step to show feedback
 
         # Check UI Model is in Feedback Mode
         model = step.get_ui_model()
         assert model.type == "FEEDBACK"
-        assert model.payload.last_feedback['is_correct'] is True
+        assert model.payload.last_feedback["is_correct"] is True
 
     def test_submit_incorrect_answer_tracks_error(self, game_context, sample_question):
         # Arrange
@@ -142,8 +144,8 @@ class TestQuestionLoopStep:
         step.handle_action("SUBMIT_ANSWER", OptionKey.B, game_context)
 
         # Assert
-        assert game_context.data['score'] == 0
-        assert "Q1" in game_context.data['errors']
+        assert game_context.data["score"] == 0
+        assert "Q1" in game_context.data["errors"]
 
         # Verify Repo was called to save attempt
         game_context.repo.save_attempt.assert_called_with("TestUser", "Q1", False)
@@ -163,7 +165,9 @@ class TestQuestionLoopStep:
         # Assert
         assert result is None  # Stay on step because Q2 exists
         assert step.index == 1  # Moved to second question
-        assert step.get_ui_model().type == "QUESTION"  # Back to Question mode (not feedback)
+        assert (
+            step.get_ui_model().type == "QUESTION"
+        )  # Back to Question mode (not feedback)
 
     def test_loop_finishes_after_last_question(self, game_context, sample_question):
         # Arrange
@@ -180,13 +184,12 @@ class TestQuestionLoopStep:
 
 
 class TestSummaryStep:
-
     def test_ui_model_calculates_stats(self, game_context):
         # Arrange
         step = SummaryStep()
-        game_context.data['score'] = 8
-        game_context.data['total_questions'] = 10
-        game_context.data['errors'] = ['Q1', 'Q2']
+        game_context.data["score"] = 8
+        game_context.data["total_questions"] = 10
+        game_context.data["errors"] = ["Q1", "Q2"]
 
         step.enter(game_context)
 
@@ -208,7 +211,7 @@ class TestSummaryStep:
     def test_review_mistakes_creates_new_loop(self, game_context):
         # Arrange
         step = SummaryStep()
-        game_context.data['errors'] = ['Q1']
+        game_context.data["errors"] = ["Q1"]
 
         # Mock repo to return a question object
         mock_q = Mock(spec=Question)
@@ -223,12 +226,12 @@ class TestSummaryStep:
         assert isinstance(result, QuestionLoopStep)
         assert result.questions == [mock_q]
         # Verify errors were cleared to prevent infinite loop
-        assert game_context.data['errors'] == []
+        assert game_context.data["errors"] == []
 
     def test_review_mistakes_skips_if_no_errors(self, game_context):
         # Arrange
         step = SummaryStep()
-        game_context.data['errors'] = []  # No errors
+        game_context.data["errors"] = []  # No errors
         step.enter(game_context)
 
         # Act
