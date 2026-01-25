@@ -43,7 +43,7 @@ from opentelemetry.exporter.otlp.proto.grpc._log_exporter import OTLPLogExporter
 def configure_observability():
     # 1. Define Resource (Service Name)
     resource = Resource.create({"service.name": "warehouse-quiz-app"})
-    
+
     # --- TRACING SETUP (Keep this) ---
     trace_provider = TracerProvider(resource=resource)
     otlp_trace_exporter = OTLPSpanExporter(
@@ -56,13 +56,13 @@ def configure_observability():
     # --- LOGGING SETUP (New) ---
     # 1. Create the Logger Provider
     logger_provider = LoggerProvider(resource=resource)
-    
+
     # 2. Configure the Exporter (Sends logs to Grafana Loki via OTLP)
     otlp_log_exporter = OTLPLogExporter(
         endpoint=os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT"),
         headers=os.getenv("OTEL_EXPORTER_OTLP_HEADERS")
     )
-    
+
     # 3. Add Processor (Batches logs for performance)
     logger_provider.add_log_record_processor(BatchLogRecordProcessor(otlp_log_exporter))
     set_logger_provider(logger_provider)
