@@ -37,11 +37,11 @@ sequenceDiagram
         Director->>Step: get_ui_model()
         Step-->>Director: UIModel (DTO)
         Director-->>View: Render(UIModel)
-        
+
         User->>View: Click Button / Submit
         View->>Director: handle_action("NEXT" or "SUBMIT")
         Director->>Step: handle_action()
-        
+
         alt Step returns "NEXT"
             Director->>Director: Pop next step from Queue
             Director->>Step: enter(context)
@@ -132,11 +132,11 @@ classDiagram
             +start_onboarding()
             +handle_ui_action()
         }
-        
+
         class StreamlitRenderer {
             +render(ui_model, callback)
         }
-        
+
         class UIModel {
             <<DTO>>
             +str type
@@ -147,22 +147,22 @@ classDiagram
     %% ============================================================
     %% RELATIONSHIPS
     %% ============================================================
-    
+
     GameDirector --> GameContext
     GameDirector o-- GameStep
     GameDirector ..> GameFlow : Builds
     GameDirector ..> UIModel : Produces
-    
+
     DailySprintFlow ..|> GameFlow
     OnboardingFlow ..|> GameFlow
-    
+
     TextStep ..|> GameStep
     QuestionLoopStep ..|> GameStep
     SummaryStep ..|> GameStep
-    
+
     GameViewModel --> GameDirector : Wraps
     StreamlitRenderer ..> UIModel : Consumes
-    
+
     DailySprintFlow ..> IQuizRepository : Fetches Data
 ```
 

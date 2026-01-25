@@ -65,7 +65,7 @@ stateDiagram-v2
     state DailySprintFlow {
         [*] --> IntroStep : flows.DailySprintFlow.build_steps
         IntroStep --> QuestionLoop : Action NEXT
-        
+
         state QuestionLoop {
             [*] --> AwaitingAnswer
             AwaitingAnswer --> Feedback : Action SUBMIT_ANSWER
@@ -74,7 +74,7 @@ stateDiagram-v2
         }
 
         QuestionLoop --> SummaryStep
-        
+
         state SummaryStep {
             [*] --> ShowResults
             ShowResults --> ReviewBranch : Action REVIEW_MISTAKES
@@ -84,7 +84,7 @@ stateDiagram-v2
         state ReviewBranch {
             [*] --> ReviewLoop
             note right of ReviewLoop
-                Created dynamically in 
+                Created dynamically in
                 steps.SummaryStep
             end note
             ReviewLoop --> SummaryStep : Loop Finished
@@ -110,22 +110,22 @@ sequenceDiagram
     Note over User, VM: User is on the Summary Screen
     User->>VM: Click Popraw Błędy
     VM->>Director: handle_action REVIEW_MISTAKES
-    
+
     Director->>Summary: handle_action REVIEW_MISTAKES, context
-    
+
     activate Summary
     Summary->>Context: context.data.get errors
     Context-->>Summary: Returns ID_1, ID_5
-    
+
     Summary->>Context: repo.get_questions_by_ids ID_1, ID_5
     Context-->>Summary: Returns QuestionObj1, QuestionObj5
-    
+
     Summary->>Context: Clear errors in data
-    
+
     Note right of Summary: CRITICAL - Creating new Step instance
     create participant NewLoop as QuestionLoopStep - New Instance
     Summary->>NewLoop: init with QuestionObj1, QuestionObj5
-    
+
     Summary-->>Director: Returns NewLoop - GameStep Instance
     deactivate Summary
 
@@ -133,7 +133,7 @@ sequenceDiagram
     Director->>Director: isinstance result, GameStep is True
     Director->>Director: _queue.insert 0, result
     Director->>Director: _advance
-    
+
     Director->>NewLoop: enter context
     Director-->>VM: Flow Updated
     VM-->>User: Renders Question View - Review Mode
@@ -155,10 +155,10 @@ sequenceDiagram
     User->>VM: Select Option A
     VM->>Director: handle_action SUBMIT_ANSWER, A
     Director->>QLoop: handle_action SUBMIT_ANSWER, A
-    
+
     activate QLoop
     QLoop->>QLoop: Check correctness
-    
+
     alt Answer is Correct
         QLoop->>Context: data score += 1
         QLoop->>Context: repo.save_attempt correct=True
@@ -166,21 +166,21 @@ sequenceDiagram
         QLoop->>Context: data errors append id
         QLoop->>Context: repo.save_attempt correct=False
     end
-    
+
     QLoop->>QLoop: Set feedback_mode = True
     QLoop-->>Director: Return None - Stay on Step
     deactivate QLoop
-    
+
     Director-->>VM: UI Model Type FEEDBACK
     VM-->>User: Show Green/Red Feedback
 
     User->>VM: Click Next Question
     VM->>Director: handle_action NEXT_QUESTION
     Director->>QLoop: handle_action NEXT_QUESTION
-    
+
     activate QLoop
     QLoop->>QLoop: index += 1
-    
+
     alt Has More Questions
         QLoop->>QLoop: feedback_mode = False
         QLoop-->>Director: Return None - Stay

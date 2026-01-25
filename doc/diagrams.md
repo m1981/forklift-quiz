@@ -18,11 +18,11 @@ sequenceDiagram
         Director->>Step: get_ui_model()
         Step-->>Director: UIModel (DTO)
         Director-->>View: Render(UIModel)
-        
+
         User->>View: Click Button / Submit
         View->>Director: handle_action("NEXT" or "SUBMIT")
         Director->>Step: handle_action()
-        
+
         alt Step returns "NEXT"
             Director->>Director: Pop next step from Queue
             Director->>Step: enter(context)
@@ -203,11 +203,11 @@ classDiagram
 
     GameViewModel --> GameDirector : Wraps
     StreamlitRenderer ..> UIModel : Consumes
-    
+
     %% View Delegation
     StreamlitRenderer ..> QuestionView : Calls
     StreamlitRenderer ..> SummaryView : Calls
-    
+
     %% Data Access
     GameContext --> IQuizRepository
 ```

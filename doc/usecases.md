@@ -136,4 +136,3 @@ As a Streamlit expert, here is how I would map these use cases to code structure
 3.  **UI Layout:**
     *   Use `st.radio` for the options.
     *   Use `st.form` and `st.form_submit_button` to prevent the app from reloading immediately when a user clicks a radio button (this is a common Streamlit pitfall; we want them to click "Submit" explicitly).
-

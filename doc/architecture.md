@@ -1,99 +1,185 @@
-Here is the comprehensive summary of the architectural patterns, principles, and best practices applied throughout our development process.
+```mermaid
+flowchart TD
+    Start([Start Daily Sprint]) --> Fetch[Fetch All Questions]
 
-# 🏗️ Commercial-Grade Architecture Summary
+    subgraph Brain["Filtering Logic (The Brain)"]
+        Fetch --> Exclude[Exclude: Answered Correctly < 3 Days ago]
+        Exclude --> Buckets
 
-This project was refactored from a monolithic script into a **Clean Architecture** application, adhering to the principles of **Robert C. Martin (Uncle Bob)** and **Martin Fowler**.
+        subgraph Buckets[Question Buckets]
+            direction TB
+            B1[Bucket 1: Recent Mistakes]
+            B2[Bucket 2: Oldest Unseen Questions]
+            B3[Bucket 3: Random Review - Older than 3 days]
+        end
 
----
+        B1 -- Priority 1 --> Selection
+        B2 -- Priority 2 --> Selection
+        B3 -- Priority 3 --> Selection
+    end
 
-## 1. Core Principles Applied
+    Selection{Count >= 15?}
+    Selection -- No --> Fill[Fill from Bucket 3]
+    Fill --> Selection
+    Selection -- Yes --> Final[Final Quiz Set]
 
-### 🛡️ SOLID Principles
-*   **SRP (Single Responsibility Principle):**
-    *   *Application:* Separated `app.py` (UI wiring) from `service.py` (Business Logic) and `repository.py` (Data Access).
-    *   *Benefit:* Changing the UI doesn't break business rules; changing the database doesn't break the UI.
-*   **OCP (Open/Closed Principle):**
-    *   *Application:* Implemented `StrategyRegistry` for Quiz Modes.
-    *   *Benefit:* New quiz modes (e.g., "Weekly Marathon") can be added by creating a new class without modifying existing Service logic.
-*   **DIP (Dependency Inversion Principle):**
-    *   *Application:* `QuizService` depends on `IQuizRepository` (Interface), not `SQLiteQuizRepository` (Implementation).
-    *   *Benefit:* We can swap SQLite for PostgreSQL or a Mock for testing without touching the Service layer.
-*   **ISP (Interface Segregation Principle):**
-    *   *Application:* `IStateProvider` exposes only `get/set` methods needed by the ViewModel, hiding the complexity of Streamlit's session state.
+    Final --> User[Present to User]
+```
 
-### 🧹 Clean Code Practices
-*   **Screaming Architecture:** The folder structure (`src/quiz/domain`, `src/quiz/application`) reveals the business intent, not just the framework.
-*   **Tell, Don't Ask:** The `QuizSessionState` object manages its own internal logic (e.g., `record_error()`) rather than the Service manipulating its list directly.
-*   **Boy Scout Rule:** We incrementally improved the code structure, moving from a "God File" to modular components.
+```mermaid
+stateDiagram-v2
+    [*] --> Dash
 
----
+    state "Dashboard" as Dash {
+        [*] --> CheckStreak
+        CheckStreak --> NormalMode : Streak < 3
+        CheckStreak --> BonusMode : Streak >= 3
+    }
 
-## 2. Architectural Patterns Used
+    Dash --> Sprint : Click "Start"
 
-### 🏛️ Clean Architecture (Ports & Adapters)
-*   **Concept:** The application is divided into concentric layers where dependencies only point inward.
-*   **Implementation:**
-    *   **Domain (Inner):** `Question`, `UserProfile` (Pure Python objects).
-    *   **Application (Middle):** `QuizService`, `IQuizRepository` (Business Rules).
-    *   **Infrastructure (Outer):** `SQLiteQuizRepository`, `StreamlitApp` (Frameworks).
-*   **Benefit:** Total isolation of business logic. The app can be tested without a UI or Database.
+    state "Daily Sprint" as Sprint {
+        [*] --> QuestionLoop
+        QuestionLoop --> Summary
 
-### 🏭 Strategy Pattern
-*   **Concept:** Define a family of algorithms, encapsulate each one, and make them interchangeable.
-*   **Implementation:** `DailySprintStrategy` and `ReviewStrategy` handle question generation logic.
-*   **Benefit:** Eliminates complex `if/else` chains in the Service layer when handling different quiz modes.
+        state "Summary" as Summary {
+            [*] --> CalculateScore
+            CalculateScore --> Passed : Score >= 80%
+            CalculateScore --> Failed : Score < 80%
+        }
+    }
 
-### 🔌 Registry Pattern
-*   **Concept:** A well-known object that other objects can use to find common objects and services.
-*   **Implementation:** `StrategyRegistry` allows dynamic lookup of strategies by name.
-*   **Benefit:** Decouples the creation of strategies from their usage.
+    Sprint --> Review : Click "Review Mistakes" (If Failed)
+    Sprint --> Dash : Click "Finish"
 
-### 🎭 Model-View-ViewModel (MVVM)
-*   **Concept:** Separation of the GUI (View) from the business logic (Model) via a mediator (ViewModel).
-*   **Implementation:** `QuizViewModel` holds the state and exposes commands (`submit_answer`) that the `StreamlitApp` calls.
-*   **Benefit:** The UI logic is unit-testable without launching a browser.
+    state "Review Mode" as Review {
+        [*] --> ReplayErrors
+        ReplayErrors --> [*]
+    }
 
-### 🚦 Finite State Machine (FSM)
-*   **Concept:** The system can be in exactly one of a finite number of states at any given time.
-*   **Implementation:** `QuizStateMachine` manages transitions (e.g., `IDLE` -> `LOADING` -> `ACTIVE`).
-*   **Benefit:** Prevents invalid flows (e.g., trying to submit an answer when the quiz hasn't started).
+    note right of Review
+        Only contains the specific
+        questions failed in this session.
+    end note
 
----
+    Review --> Dash : Done
 
-## 3. Observability & Reliability
+    Sprint --> UpdateStats : Complete
 
-### 🔭 The Three Pillars of Observability
-*   **Logs:** Structured JSON logs via `Telemetry.log_info`.
-*   **Metrics:** Execution time tracking via `@measure_time` decorator (Prometheus-compatible).
-*   **Tracing:** `Correlation ID` generation (`uuid`) passed through `ContextVar` to link all logs in a single user request.
+    state "Update Stats" as UpdateStats {
+        [*] --> CheckResult
+        CheckResult --> IncrementStreak : Passed (+1 Streak)
+        CheckResult --> HandleFailed : Failed
+        HandleFailed --> ResetStreak : Strict Mode
+        HandleFailed --> KeepStreak : Forgiving Mode
+        IncrementStreak --> [*]
+        ResetStreak --> [*]
+        KeepStreak --> [*]
+    }
 
-### 🛡️ Defensive Coding
-*   **Get-or-Create Pattern:** Used in `telemetry.py` to handle Streamlit's hot-reloading without crashing on duplicate metric registration.
-*   **Idempotency:** The Service checks `was_question_answered_on_date` to prevent double-submission of answers.
+    UpdateStats --> Dash
+```
 
----
+```mermaid
+flowchart TD
+    Start([User Starts Quiz]) --> Choice{Mode Selection}
 
-## 4. Testing Strategy (TDD)
+    subgraph FlowA["Flow A: Daily Sprint - Smart Mix"]
+        FetchAll[Fetch Candidates from ALL Categories]
+        FetchAll --> FilterMastered["Exclude 'Mastered' Questions"]
+        FilterMastered --> Priority{Priority Check}
 
-### 🧪 FIRST Principles
-*   **Fast:** Tests run in milliseconds because we mock the database.
-*   **Independent:** Each test sets up its own fresh fixtures.
-*   **Repeatable:** We inject specific dates (e.g., `date.today()`) into methods to ensure tests pass regardless of when they run.
-*   **Self-Validating:** Assertions provide clear pass/fail results.
-*   **Timely:** Tests were written alongside the refactoring.
+        Priority -- "1. High Priority" --> BucketLearning["Learning Bucket<br/>(Wrong Answers / In Progress)"]
+        Priority -- "2. Medium Priority" --> BucketUnseen["Unseen Bucket<br/>(New Content)"]
 
-### 🎭 Mocking
-*   **Technique:** We mocked `IQuizRepository` to test `QuizService`.
-*   **Benefit:** We verified complex business rules (like Streak Calculation) without needing a real SQLite database file.
+        BucketLearning --> Mix["Mix: 40% Review / 60% New"]
+        BucketUnseen --> Mix
+        Mix --> FinalSprint[Final 15 Questions]
+    end
 
----
+    subgraph FlowB["Flow B: Category Focus - Chapter Mode"]
+        UserPick["User Picks: 'Diagramy Udzwigu'"]
+        UserPick --> FetchCat["Fetch Questions for 'Diagramy'"]
+        FetchCat --> Sort[Sort: Unseen First]
+        Sort --> FinalCat["Final 15 Questions<br/>(Focused on New Content)"]
+    end
 
-## 5. General Benefits of This Approach
+    Choice -- "Daily Sprint" --> FetchAll
+    Choice -- "Select Category" --> UserPick
 
-| Feature | Benefit |
-| :--- | :--- |
-| **Maintainability** | Code is organized by feature. A bug in "Billing" doesn't require searching through "UI" code. |
-| **Testability** | Business logic has zero dependencies on the UI or DB, allowing for 100% unit test coverage. |
-| **Scalability** | New features (Strategies, DBs) can be added via plugins/adapters without rewriting core logic. |
-| **Debuggability** | Correlation IDs allow tracing a specific user error through the entire stack. |
-| **Professionalism** | The code is readable, robust, and follows industry standards, making it easier for new developers to join. |
+    FinalSprint --> QuizUI[Render Quiz UI]
+    FinalCat --> QuizUI
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Dashboard
+
+    state "Dashboard" as Dashboard {
+        Smart : Smart Button
+        Grid : Category Grid
+    }
+
+    note right of Dashboard
+        Shows Progress Bars
+        - Prawo: 40%
+        - Diagramy: 100% (Mastered)
+    end note
+
+    Dashboard --> DailySprintFlow : Click Start Daily Sprint
+    Dashboard --> CategoryFlow : Click specific Category Card
+
+    state "Daily Sprint Flow" as DailySprintFlow {
+        [*] --> AlgoMix
+        AlgoMix --> QuestionLoop
+        QuestionLoop --> SprintSummary
+        SprintSummary --> [*]
+    }
+
+    state "Category Flow" as CategoryFlow {
+        [*] --> FilterByCategory
+        FilterByCategory --> QuestionLoopCat
+        QuestionLoopCat --> CatSummary
+        CatSummary --> [*]
+    }
+
+    DailySprintFlow --> UpdateMastery : Quiz Finished
+    CategoryFlow --> UpdateMastery : Quiz Finished
+
+    state "Update Mastery" as UpdateMastery {
+        [*] --> CheckResult
+        CheckResult --> SaveDB
+        SaveDB --> [*]
+    }
+
+    note right of UpdateMastery
+        Logic:
+        If Correct then Streak +1
+        If Streak == 3 then Mark MASTERED
+        If Wrong then Streak = 0 (Back to Learning)
+    end note
+
+    UpdateMastery --> Dashboard : Return to Menu
+```
+
+```mermaid
+sequenceDiagram
+    participant Flow as DailySprintFlow
+    participant Repo as SQLiteRepository
+    participant DB as SQLite DB
+
+    Note over Flow: User starts Daily Sprint
+
+    Flow->>Repo: get_smart_mix(user_id, limit=15)
+
+    Note over Repo: The "Brain" Logic moves here
+    Repo->>DB: 1. Fetch 'Learning' (Wrong < 3 times)
+    Repo->>DB: 2. Fetch 'Unseen' (Never answered)
+    Repo->>DB: 3. Exclude 'Mastered' (Correct >= 3 times)
+
+    DB-->>Repo: Raw Rows
+    Repo->>Repo: Shuffle & Mix (60% New / 40% Review)
+    Repo-->>Flow: List[Question]
+
+    Flow->>Flow: Create QuestionLoopStep
+```

@@ -43,7 +43,7 @@ classDiagram
             +process()
             +refund()
         }
-        
+
         class FraudChecker {
             +validate(payment)
         }
@@ -62,12 +62,12 @@ classDiagram
             +save(payment)
             +find_by_id(id)
         }
-        
+
         class IBankGateway {
             <<Interface>>
             +charge_credit_card(token, amount)
         }
-        
+
         class INotificationService {
             <<Interface>>
             +send_receipt(email, amount)
@@ -112,7 +112,7 @@ classDiagram
     %% ============================================================
     %% RELATIONSHIPS (Pointing Inward)
     %% ============================================================
-    
+
     %% Realization (Adapters implement Ports)
     PaymentService ..|> IPaymentUseCase
     PostgresRepository ..|> IPaymentRepository
@@ -217,16 +217,16 @@ from src.core.ports import ProcessPaymentCommand
 app = Flask(__name__)
 
 # Injected via Dependency Injection container
-payment_service = ... 
+payment_service = ...
 
 @app.route("/pay", methods=["POST"])
 def pay():
     data = request.json
     cmd = ProcessPaymentCommand(**data)
-    
+
     # The Controller translates HTTP to Domain Command
     payment_service.process_payment(cmd)
-    
+
     return {"status": "accepted"}, 202
 ```
 

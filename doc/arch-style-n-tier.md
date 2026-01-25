@@ -61,7 +61,7 @@ classDiagram
             +borrow_book(user_id, book_id)
             +calculate_overdue_fines(loan_id)
         }
-        
+
         class LoanModel {
             +int id
             +date due_date
@@ -78,7 +78,7 @@ classDiagram
             +create_loan(loan: LoanModel)
             +find_active_loans_by_user(user_id)
         }
-        
+
         class InventoryRepository {
             +decrement_stock(book_id)
             +get_stock_count(book_id)
@@ -100,14 +100,14 @@ classDiagram
     %% ============================================================
     %% DEPENDENCIES (Pointing Downwards)
     %% ============================================================
-    
+
     BookController --> LendingService : Calls
     BookController ..> BorrowRequestDTO : Uses
-    
+
     LendingService --> LendingRepository : Calls
     LendingService --> InventoryRepository : Calls
     LendingService ..> LoanModel : Manipulates
-    
+
     LendingRepository --> SQL_Tables : Queries
     InventoryRepository --> SQL_Tables : Queries
 ```
@@ -165,10 +165,10 @@ class LendingService:
 
         # 3. Perform Action (Atomic Transaction)
         loan = LoanModel(user_id=user_id, book_id=book_id, due_date=date.today() + days(14))
-        
+
         self.inventory_repo.decrement_stock(book_id)
         self.lending_repo.create_loan(loan)
-        
+
         return loan
 ```
 
