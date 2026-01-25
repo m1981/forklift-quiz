@@ -26,6 +26,10 @@ dev: ## Run the Streamlit application
 lint: ## Run linters tests
 	uv run pre-commit run --all-files
 
+.PHONY: sum
+sum: ## Generate summary of the project
+	lsproj > lsproj > sum.txt && lsproj | pysum >> sum.txt
+
 .PHONY: mut
 mut: ## Run mutation tests
 	rm -rf mutants && uv run mutmut run --paths-to-mutate=services/repository.py
