@@ -1,17 +1,18 @@
 import logging
-from typing import List, Optional, Any
+from typing import Any
+
 from src.game.core import GameContext, GameFlow, GameStep, UIModel
-from src.shared.telemetry import measure_time, Telemetry
+from src.shared.telemetry import Telemetry, measure_time
 
 logger = logging.getLogger(__name__)
 
 
 class GameDirector:
-    def __init__(self, context: GameContext):
+    def __init__(self, context: GameContext) -> None:
         self.context = context
-        self._queue: List[GameStep] = []
-        self._current_step: Optional[GameStep] = None
-        self._is_complete = False
+        self._queue: list[GameStep] = []
+        self._current_step: GameStep | None = None
+        self._is_complete: bool = False
         self.telemetry = Telemetry("GameDirector")
 
     @property
@@ -19,7 +20,7 @@ class GameDirector:
         return self._is_complete
 
     @measure_time("director_start_flow")
-    def start_flow(self, flow: GameFlow):
+    def start_flow(self, flow: GameFlow) -> None:
         """Initializes a new scenario."""
         flow_name = flow.__class__.__name__
         self.telemetry.log_info(f"🎬 Starting Flow: {flow_name}")
@@ -27,7 +28,7 @@ class GameDirector:
         self._is_complete = False
         self._advance()
 
-    def get_ui_model(self) -> Optional[UIModel]:
+    def get_ui_model(self) -> UIModel | None:
         """Returns the data for the View to render."""
 
         # 1. Active Step
@@ -35,19 +36,22 @@ class GameDirector:
             return self._current_step.get_ui_model()
 
         # 2. No Active Step (Idle or Finished)
-        # <--- FIX: Return EMPTY (Dashboard) instead of LOADING
         self.telemetry.log_info("No active step. Returning EMPTY state (Dashboard).")
         return UIModel(type="EMPTY", payload={"message": "Ready"})
 
     @measure_time("director_handle_action")
-    def handle_action(self, action: str, payload: Any = None):
+    def handle_action(self, action: str, payload: Any = None) -> None:
         """Central input handler."""
         if not self._current_step:
-            self.telemetry.log_error("Action received but no active step", Exception("No Active Step"))
+            self.telemetry.log_error(
+                "Action received but no active step", Exception("No Active Step")
+            )
             return
 
         step_name = self._current_step.__class__.__name__
-        self.telemetry.log_info(f"🎮 Action: {action}", step=step_name, payload=str(payload))
+        self.telemetry.log_info(
+            f"🎮 Action: {action}", step=step_name, payload=str(payload)
+        )
 
         # Delegate logic to the specific step
         result = self._current_step.handle_action(action, payload, self.context)
@@ -60,7 +64,7 @@ class GameDirector:
             self._queue.insert(0, result)
             self._advance()
 
-    def _advance(self):
+    def _advance(self) -> None:
         """Moves to the next step in the queue."""
         if self._queue:
             self._current_step = self._queue.pop(0)
