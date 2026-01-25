@@ -25,9 +25,8 @@ repos:
     hooks:
       - id: mypy
         name: mypy
-        entry: mypy
+        entry: uv run mypy
         language: system
         types: [python]
         require_serial: true
-        # Exclude tests from strict type checking if desired
         exclude: ^tests/
