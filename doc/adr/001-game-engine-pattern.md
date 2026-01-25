@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-The initial application used a rigid Finite State Machine (FSM) combined with a Service layer. 
+The initial application used a rigid Finite State Machine (FSM) combined with a Service layer.
 Adding new scenarios (like Onboarding or Bonus Rounds) required modifying the core FSM and adding complex `if/else` logic to the Service.
 
 ## Decision
