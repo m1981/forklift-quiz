@@ -3,6 +3,7 @@ import os
 import random
 import sqlite3
 from datetime import date, datetime
+from typing import Any
 
 from src.config import GameConfig
 from src.quiz.domain.models import Question, UserProfile
@@ -152,6 +153,39 @@ class SQLiteQuizRepository(IQuizRepository):
         except Exception as e:
             self.telemetry.log_error("get_all_questions failed", e)
             return []
+
+    def get_category_stats(self, user_id: str) -> list[dict[str, int | str]]:
+        """
+        Returns a list of dicts:
+        [{'category': 'Power', 'total': 50, 'mastered': 10}, ...]
+        """
+        conn = self._get_connection()
+
+        sql = """
+          SELECT q.category,
+                 COUNT(q.id) as total,
+                 SUM(CASE
+                     WHEN COALESCE(up.consecutive_correct, 0) >= 3
+                     THEN 1
+                     ELSE 0
+                 END) as mastered
+          FROM questions q
+          LEFT JOIN user_progress up
+              ON q.id = up.question_id AND up.user_id = ?
+          GROUP BY q.category
+          """
+        cursor = conn.execute(sql, (user_id,))
+
+        stats = []
+        for row in cursor.fetchall():
+            stats.append(
+                {
+                    "category": row[0],
+                    "total": row[1],
+                    "mastered": row[2] if row[2] else 0,
+                }
+            )
+        return stats
 
     def get_questions_by_ids(self, question_ids: list[str]) -> list[Question]:
         if not question_ids:
@@ -322,15 +356,33 @@ class SQLiteQuizRepository(IQuizRepository):
     @measure_time("db_get_smart_mix")
     def get_smart_mix(self, user_id: str, limit: int = 15) -> list[Question]:
         conn = self._get_connection()
+
+        # We fetch:
+        # 1. Questions never seen (streak IS NULL)
+        # 2. Questions seen but NOT mastered (streak < 3)
+        # 3. Questions mastered BUT older than 3 days (Spaced Repetition)
         query = """
             SELECT q.json_data,
                    COALESCE(up.consecutive_correct, 0) as streak,
-                   up.question_id IS NOT NULL          as seen
+                   up.question_id IS NOT NULL as seen
             FROM questions q
             LEFT JOIN user_progress up
                 ON q.id = up.question_id AND up.user_id = ?
+            WHERE
+                -- Case A: Never seen
+                up.question_id IS NULL
+                OR
+                -- Case B: Seen, but not mastered yet
+                up.consecutive_correct < ?
+                OR
+                -- Case C: Mastered, but answered > 3 days ago (Review time)
+                (up.consecutive_correct >= ? AND up.timestamp < date('now', '-3 days'))
         """
-        cursor = conn.execute(query, (user_id,))
+
+        # Pass threshold twice (once for Case B, once for Case C)
+        cursor = conn.execute(
+            query, (user_id, GameConfig.MASTERY_THRESHOLD, GameConfig.MASTERY_THRESHOLD)
+        )
         rows = cursor.fetchall()
 
         learning_pool = []
@@ -388,3 +440,21 @@ class SQLiteQuizRepository(IQuizRepository):
         """
         cursor = conn.execute(query, (user_id, category, limit))
         return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+
+    def debug_dump_user_progress(self, user_id: str) -> list[dict[str, Any]]:
+        """
+        Returns raw rows from user_progress for debugging.
+        """
+        conn = self._get_connection()
+        cursor = conn.execute(
+            """
+            SELECT question_id, is_correct, consecutive_correct, timestamp
+            FROM user_progress
+            WHERE user_id = ?
+            ORDER BY timestamp DESC
+            LIMIT 20
+            """,
+            (user_id,),
+        )
+        columns = [desc[0] for desc in cursor.description]
+        return [dict(zip(columns, row, strict=False)) for row in cursor.fetchall()]
