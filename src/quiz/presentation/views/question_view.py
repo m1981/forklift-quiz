@@ -4,114 +4,69 @@ from typing import Any
 
 import streamlit as st
 
+from src.components.mobile_suite import mobile_header, mobile_option
 
-def _render_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    """Helper to render the breadcrumbs and category progress."""
 
-    # 1. Define the Breadcrumb Logic
-    # We want: "🏠 Pulpit / Flow Title [/ Category Name]"
+def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
+    """
+    Renders the V2 Mobile Header.
+    Merges: Home Button + Question Counter + Category Name + Progress Bar
+    into a single 40px high row.
+    """
+    # 1. Prepare Context Text (e.g. "1/15 • Hydraulika...")
+    cat_name = payload.category_name
+    # Truncate long category names to fit on mobile screens
+    if len(cat_name) > 40:
+        cat_name = cat_name[:40] + "..."
 
-    col1, col2 = st.columns([3, 1])
+    context_text = f"{payload.current_index}/{payload.total_count} • {cat_name}"
 
-    with col1:
-        # We use columns inside to make the "Home" button sit inline with text
-        # But Streamlit buttons are block elements.
-        # A cleaner way is to use a small button for Home, then text.
-
-        if st.button(
-            "🏠 Pulpit",
-            type="secondary",
-            key="breadcrumb_home",
-            help="Wróć do menu głównego",
-        ):
-            callback("NAVIGATE_HOME", None)
-            return  # Stop rendering to prevent glitches during rerun
-
-        # Construct the text path
-        path_text = f"**{payload.flow_title}**"
-
-        # Only append category if it's different from the flow title (ignoring emojis)
-        # e.g. Flow="Daily Sprint", Cat="Hydraulics" -> Show both
-        # e.g. Flow="Hydraulics", Cat="Hydraulics" -> Show only Flow
-        clean_flow_title = (
-            payload.flow_title.replace("📚 ", "").replace("🚀 ", "").strip()
-        )
-
-        if clean_flow_title != payload.category_name:
-            path_text += f"  /  *{payload.category_name}*"
-
-        st.markdown(path_text)
-
-    with col2:
-        # 2. Category Mastery Progress (Compact)
-        pct = int(payload.category_mastery * 100)
-        st.caption(f"Opanowanie: {pct}%")
-        st.progress(payload.category_mastery)
-
-    st.write("---")  # Separator
+    # 2. Render Component
+    # If the user clicks the Home icon inside the component, it returns True
+    if mobile_header(
+        context=context_text, progress=payload.category_mastery, key="mob_header"
+    ):
+        callback("NAVIGATE_HOME", None)
 
 
 def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    # --- NEW HEADER ---
-    _render_header(payload, callback)
-    # ------------------
+    """
+    Renders the active question screen using optimized mobile components.
+    """
+    # 1. Header (Zero vertical waste)
+    _render_compact_header(payload, callback)
 
     q = payload.question
 
-    # --- CSS FIX: Left Align & Text Wrap ---
     st.markdown(
-        """
-        <style>
-            /* 1. Force the button to align its flex content to the start (left) */
-            div[data-testid="stButton"] > button {
-                width: 100% !important;
-                justify-content: flex-start !important;
-                text-align: left !important;
-                height: auto !important;
-                padding-top: 12px !important;
-                padding-bottom: 12px !important;
-            }
-
-            /* 2. Force the inner text (paragraph) to align left */
-            div[data-testid="stButton"] > button p {
-                text-align: left !important;
-                font-size: 1rem !important;
-                white-space: normal !important; /* Ensure text wraps */
-                word-wrap: break-word !important;
-            }
-
-            /* 3. Ensure the inner container takes full width */
-            div[data-testid="stButton"] > button > div {
-                width: 100% !important;
-                justify-content: flex-start !important;
-            }
-        </style>
-    """,
+        f"""
+        <div style="
+            font-size: 1rem;
+            font-weight: 400;
+            color: #31333F;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            line-height: 1.4;">
+            {q.text}
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
-    # --- Header ---
-    st.markdown(f"### Pytanie {payload.current_index}/{payload.total_count}")
-    st.markdown(f"**{q.text}**")
-
-    # --- Image ---
+    # 3. Image (Optional)
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
 
-    # --- Options (Vertical Stack for correct order) ---
-    st.write("---")
+    # 4. Options (The Interactive V2 Components)
+    # These replace st.button. They are tighter and touch-optimized.
+    for key, text in q.options.items():
+        # mobile_option returns the key_char (e.g. 'A') if clicked
+        clicked_key = mobile_option(key.value, text, key=f"opt_{q.id}_{key}")
 
-    options = list(q.options.items())
-
-    # FIX: Removed 'enumerate' since 'idx' was unused
-    for key, text in options:
-        # Use full width container so it looks like a list
-        if st.button(
-            f"{key.value}) {text}", key=f"btn_{q.id}_{key}", use_container_width=True
-        ):
+        if clicked_key:
             callback("SUBMIT_ANSWER", key)
 
-    # --- Hint ---
+    # 5. Hint (Bottom)
     if q.hint:
         with st.expander("💡 Wskazówka"):
             st.info(q.hint)
@@ -119,33 +74,33 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
 
 def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
     """
-    Renders the feedback screen with FROZEN options and color coding.
+    Renders the feedback screen using the new Gentle Result Rows.
     """
-    _render_header(payload, callback)
+    # 1. Header
+    _render_compact_header(payload, callback)
+
     q = payload.question
     fb = payload.last_feedback
 
-    # 1. Header
-    st.markdown(f"### Pytanie {payload.current_index}/{payload.total_count}")
+    # 2. Question Text (Repeated for context)
     st.markdown(f"**{q.text}**")
 
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
 
-    # 2. Status Message
+    # 3. Status Message (Compact)
     if fb["is_correct"]:
-        st.success("✅ Dobra odpowiedź!")
+        st.success("✅ Dobrze!")
+    else:
+        st.error("❌ Źle")
 
-    # 3. FROZEN OPTIONS VISUALIZATION
-    st.write("---")
-
+    # 4. Frozen Options (Visualizing the result)
+    # We use standard Markdown here to distinguish "Result" from "Input"
     for key, text in q.options.items():
-        # Default styling
         prefix = "⚪"
         style_start = ""
         style_end = ""
 
-        # Logic for coloring
         if key == fb["correct_option"]:
             prefix = "✅"
             style_start = ":green[**"
@@ -155,17 +110,13 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
             style_start = ":red[**"
             style_end = "**]"
 
-        # Render as Markdown text (not buttons) so it's "frozen"
         st.markdown(f"{prefix} {style_start}{key.value}) {text}{style_end}")
 
-    # 4. Explanation & Navigation
-    st.write("")
-    st.write("")
-
+    # 5. Explanation
     if fb.get("explanation"):
-        st.markdown(f"> **Wyjaśnienie:** {fb['explanation']}")
-        st.write("")  # Spacer
+        st.info(f"{fb['explanation']}")
 
-    # 5. Navigation Button
+    # 6. Next Button
+    # We keep this as a standard primary button as it's the main flow action
     if st.button("Dalej ➡️", type="primary", use_container_width=True):
         callback("NEXT_QUESTION", None)
