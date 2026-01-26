@@ -5,7 +5,7 @@ from typing import Any
 
 import streamlit as st
 
-from src.components.mobile_suite import mobile_dashboard
+from src.components.mobile_suite import mobile_dashboard, mobile_hero
 from src.config import Category
 from src.game.core import UIModel
 from src.quiz.presentation.views import question_view, summary_view
@@ -75,27 +75,28 @@ class StreamlitRenderer:
         user_id = director.context.user_id
         stats = repo.get_category_stats(user_id)
 
-        # 2. Calculate Global Stats (Keep the Hero section, it's good)
+        # 2. Calculate Global Stats
         total_q = sum(s["total"] for s in stats)
         total_mastered = sum(s["mastered"] for s in stats)
         remaining = total_q - total_mastered
         days_left = math.ceil(remaining / 15) if remaining > 0 else 0
         finish_date = date.today() + timedelta(days=days_left)
 
-        # --- HERO SECTION (Keep this standard Streamlit for now, it's okay) ---
-        st.title("👋 Centrum Dowodzenia")
-        progress = total_mastered / total_q if total_q > 0 else 0
-        st.progress(progress, text=f"Globalne Opanowanie: {int(progress * 100)}%")
+        # Calculate progress float (0.0 - 1.0)
+        global_progress = total_mastered / total_q if total_q > 0 else 0
 
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Opanowane", f"{total_mastered} / {total_q}")
-        with col2:
-            st.metric("Koniec", finish_date.strftime("%d %b"), f"za {days_left} dni")
+        # --- 3. RENDER HERO (New Custom Component) ---
+        # This replaces st.title, st.progress, and st.columns/st.metric
+        mobile_hero(
+            progress=global_progress,
+            mastered_count=total_mastered,
+            total_count=total_q,
+            finish_date_str=finish_date.strftime("%d %b"),
+            days_left=days_left,
+            key="hero_stats",
+        )
 
-        st.write("")  # Spacer
-
-        # --- NEW MOBILE DASHBOARD COMPONENT ---
+        # --- 4. RENDER DASHBOARD GRID ---
         # Prepare data for the component
         cat_data = []
         for stat in stats:
@@ -120,5 +121,4 @@ class StreamlitRenderer:
                 st.session_state["selected_category_manual"] = action["payload"]
                 callback("START_CATEGORY_MANUAL", action["payload"])
 
-            # Force rerun to ensure UI updates immediately
             st.rerun()

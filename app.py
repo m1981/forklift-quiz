@@ -10,6 +10,7 @@ from src.config import GameConfig
 from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 from src.quiz.presentation.renderer import StreamlitRenderer
 from src.quiz.presentation.viewmodel import GameViewModel
+from src.quiz.presentation.views.components import apply_styles
 
 # --- 1. Configure Global Logging to Console ---
 # Note: We configure this after imports to ensure all modules use this config,
@@ -22,7 +23,8 @@ logging.basicConfig(
 )
 
 # Setup
-st.set_page_config(page_title="Warehouse Game", layout="centered")
+st.set_page_config(page_title="Kurs 2 WJO", layout="centered")
+apply_styles()
 vm = GameViewModel()
 renderer = StreamlitRenderer()
 
