@@ -40,6 +40,10 @@ class IQuizRepository(ABC):
         pass
 
     @abstractmethod
+    def get_mastery_percentage(self, user_id: str, category: str) -> float:
+        pass
+
+    @abstractmethod
     def get_all_attempted_ids(self, user_id: str) -> list[str]:
         pass
 

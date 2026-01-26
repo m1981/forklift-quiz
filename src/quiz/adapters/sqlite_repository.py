@@ -441,6 +441,31 @@ class SQLiteQuizRepository(IQuizRepository):
         cursor = conn.execute(query, (user_id, category, limit))
         return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
 
+    def get_mastery_percentage(self, user_id: str, category: str) -> float:
+        """
+        Returns a float 0.0 - 1.0 representing mastery of a specific category.
+        Strict SRP: The DB knows how to calculate this, not the UI Step.
+        """
+        conn = self._get_connection()
+        sql = """
+            SELECT
+                COUNT(q.id) as total,
+                SUM(CASE
+                    WHEN COALESCE(up.consecutive_correct, 0) >= 3
+                    THEN 1
+                    ELSE 0
+                END) as mastered
+            FROM questions q
+            LEFT JOIN user_progress up
+                ON q.id = up.question_id AND up.user_id = ?
+            WHERE q.category = ?
+        """
+        cursor = conn.execute(sql, (user_id, category))
+        row = cursor.fetchone()
+        if not row or row[0] == 0:
+            return 0.0
+        return float(row[1]) / float(row[0])
+
     def debug_dump_user_progress(self, user_id: str) -> list[dict[str, Any]]:
         """
         Returns raw rows from user_progress for debugging.

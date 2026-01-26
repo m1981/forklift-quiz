@@ -5,10 +5,57 @@ from typing import Any
 import streamlit as st
 
 
+def _render_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
+    """Helper to render the breadcrumbs and category progress."""
+
+    # 1. Define the Breadcrumb Logic
+    # We want: "🏠 Pulpit / Flow Title [/ Category Name]"
+
+    col1, col2 = st.columns([3, 1])
+
+    with col1:
+        # We use columns inside to make the "Home" button sit inline with text
+        # But Streamlit buttons are block elements.
+        # A cleaner way is to use a small button for Home, then text.
+
+        if st.button(
+            "🏠 Pulpit",
+            type="secondary",
+            key="breadcrumb_home",
+            help="Wróć do menu głównego",
+        ):
+            callback("NAVIGATE_HOME", None)
+            return  # Stop rendering to prevent glitches during rerun
+
+        # Construct the text path
+        path_text = f"**{payload.flow_title}**"
+
+        # Only append category if it's different from the flow title (ignoring emojis)
+        # e.g. Flow="Daily Sprint", Cat="Hydraulics" -> Show both
+        # e.g. Flow="Hydraulics", Cat="Hydraulics" -> Show only Flow
+        clean_flow_title = (
+            payload.flow_title.replace("📚 ", "").replace("🚀 ", "").strip()
+        )
+
+        if clean_flow_title != payload.category_name:
+            path_text += f"  /  *{payload.category_name}*"
+
+        st.markdown(path_text)
+
+    with col2:
+        # 2. Category Mastery Progress (Compact)
+        pct = int(payload.category_mastery * 100)
+        st.caption(f"Opanowanie: {pct}%")
+        st.progress(payload.category_mastery)
+
+    st.write("---")  # Separator
+
+
 def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    """
-    Renders the active question with clickable buttons.
-    """
+    # --- NEW HEADER ---
+    _render_header(payload, callback)
+    # ------------------
+
     q = payload.question
 
     # --- CSS FIX: Left Align & Text Wrap ---
@@ -49,7 +96,7 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
 
     # --- Image ---
     if q.image_path and os.path.exists(q.image_path):
-        st.image(q.image_path, use_column_width=True)
+        st.image(q.image_path, use_container_width=True)
 
     # --- Options (Vertical Stack for correct order) ---
     st.write("---")
@@ -74,6 +121,7 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
     """
     Renders the feedback screen with FROZEN options and color coding.
     """
+    _render_header(payload, callback)
     q = payload.question
     fb = payload.last_feedback
 
@@ -82,7 +130,7 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
     st.markdown(f"**{q.text}**")
 
     if q.image_path and os.path.exists(q.image_path):
-        st.image(q.image_path, width=300)
+        st.image(q.image_path, use_container_width=True)
 
     # 2. Status Message
     if fb["is_correct"]:

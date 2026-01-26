@@ -57,6 +57,10 @@ class GameViewModel:
             self.start_category_mode(payload)
             return
 
+        if action == "NAVIGATE_HOME":
+            self.navigate_to_dashboard()
+            return
+
         self.director.handle_action(action, payload)
         st.rerun()
 

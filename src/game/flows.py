@@ -43,7 +43,8 @@ class DailySprintFlow(GameFlow):
 
         # --- CHANGE: Removed TextStep (Intro) ---
         return [
-            QuestionLoopStep(questions),
+            # --- FIX: Added flow_title ---
+            QuestionLoopStep(questions, flow_title="🚀 Codzienny Sprint"),
             SummaryStep(),
         ]
 
@@ -81,7 +82,8 @@ class CategorySprintFlow(GameFlow):
 
         # --- CHANGE: Removed TextStep (Intro) ---
         return [
-            QuestionLoopStep(questions),
+            # --- FIX: Added flow_title ---
+            QuestionLoopStep(questions, flow_title=f"📚 {self.category}"),
             SummaryStep(),
         ]
 
@@ -115,7 +117,8 @@ class OnboardingFlow(GameFlow):
                 "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.",
                 "Dalej",
             ),
-            QuestionLoopStep([tutorial_q]),
+            # --- FIX: Added flow_title ---
+            QuestionLoopStep([tutorial_q], flow_title="🎓 Szkolenie Wstępne"),
             TextStep(
                 "Szkolenie Zakończone",
                 "Jesteś gotowy do pracy!",

@@ -15,7 +15,7 @@ class SummaryPayload:
 
 class SummaryStep(GameStep):
     def enter(self, context: GameContext) -> None:
-        super().enter(context)  # Ensure context is stored
+        super().enter(context)
 
     def get_ui_model(self) -> UIModel:
         if not self.context:
@@ -66,6 +66,7 @@ class SummaryStep(GameStep):
             # Clear errors from context so we don't loop forever
             context.data["errors"] = []
 
-            return QuestionLoopStep(review_questions)
+            # --- FIX: Added flow_title ---
+            return QuestionLoopStep(review_questions, flow_title="🛠️ Poprawa Błędów")
 
         return None
