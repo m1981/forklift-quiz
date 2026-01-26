@@ -59,3 +59,11 @@ class GameViewModel:
 
         self.director.handle_action(action, payload)
         st.rerun()
+
+    def navigate_to_dashboard(self) -> None:
+        """Forcefully clears the current flow to show the Dashboard."""
+        # We reset the director's state
+        self.director._current_step = None
+        self.director._queue = []
+        self.director._is_complete = True
+        st.rerun()

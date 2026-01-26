@@ -1,3 +1,5 @@
+# src/game/flows.py
+
 from src.config import GameConfig
 from src.game.core import GameContext, GameFlow, GameStep
 from src.game.steps import QuestionLoopStep, SummaryStep, TextStep
@@ -8,7 +10,6 @@ from src.shared.telemetry import Telemetry
 class DailySprintFlow(GameFlow):
     """
     The 'Smart' Daily Sprint.
-    Uses the Repository's 'Brain' to mix new and review questions.
     """
 
     def build_steps(self, context: GameContext) -> list[GameStep]:
@@ -16,21 +17,20 @@ class DailySprintFlow(GameFlow):
         context.data["score"] = 0
         context.data["errors"] = []
 
-        # 1. Check Bonus Mode (Streak based)
-        # We call this to ensure profile exists, but we don't use the return value yet.
+        # 1. Ensure profile exists
         _ = context.repo.get_or_create_profile(context.user_id)
 
         # Logic: If streak > 3 days, we might give them a "Bonus" or just standard.
         # For now, let's keep the standard limit.
         limit = GameConfig.SPRINT_QUESTIONS
 
-        # 2. Fetch Smart Mix (The new Logic)
+        # 2. Fetch Smart Mix
         questions = context.repo.get_smart_mix(context.user_id, limit)
 
         telemetry.log_info(f"Smart Mix fetched: {len(questions)} questions")
 
         if not questions:
-            # This happens if the user has MASTERED 100% of the DB!
+            # Keep this TextStep only for the "All Mastered" edge case
             return [
                 TextStep(
                     "Gratulacje! 🏆",
@@ -41,12 +41,8 @@ class DailySprintFlow(GameFlow):
 
         context.data["total_questions"] = len(questions)
 
+        # --- CHANGE: Removed TextStep (Intro) ---
         return [
-            TextStep(
-                "Codzienny Sprint 🚀",
-                f"Wybraliśmy dla Ciebie {len(questions)} pytań. Powodzenia!",
-                "Start",
-            ),
             QuestionLoopStep(questions),
             SummaryStep(),
         ]
@@ -83,18 +79,16 @@ class CategorySprintFlow(GameFlow):
 
         context.data["total_questions"] = len(questions)
 
+        # --- CHANGE: Removed TextStep (Intro) ---
         return [
-            TextStep(
-                f"Temat: {self.category}",
-                "Skupiamy się na jednym temacie. Do dzieła!",
-                "Start",
-            ),
             QuestionLoopStep(questions),
             SummaryStep(),
         ]
 
 
 class OnboardingFlow(GameFlow):
+    # I kept the text steps here because it is a Tutorial,
+    # but you can remove them if you want it instant too.
     def build_steps(self, context: GameContext) -> list[GameStep]:
         tutorial_q = Question(
             id="TUT-01",
@@ -110,7 +104,6 @@ class OnboardingFlow(GameFlow):
             category="Tutorial",
         )
 
-        # Mark as onboarded
         profile = context.repo.get_or_create_profile(context.user_id)
         profile.has_completed_onboarding = True
         context.repo.save_profile(profile)
@@ -122,21 +115,10 @@ class OnboardingFlow(GameFlow):
                 "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.",
                 "Dalej",
             ),
-            TextStep(
-                "Zasady Gry",
-                (
-                    "Codziennie otrzymasz 15 pytań. "
-                    "Buduj serię (Streak) logując się codziennie."
-                ),
-                "Rozumiem",
-            ),
             QuestionLoopStep([tutorial_q]),
             TextStep(
                 "Szkolenie Zakończone",
-                (
-                    "Jesteś gotowy do pracy! "
-                    "Kliknij poniżej, aby rozpocząć pierwszy sprint."
-                ),
+                "Jesteś gotowy do pracy!",
                 "Rozpocznij Sprint 🚀",
             ),
         ]

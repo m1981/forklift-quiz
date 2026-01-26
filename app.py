@@ -27,18 +27,30 @@ vm = GameViewModel()
 renderer = StreamlitRenderer()
 
 # --- Sidebar Menu ---
-st.sidebar.header("Menu Główne")
+st.sidebar.header("Nawigacja")
 
-# 1. Daily Sprint (Primary Action)
+# 1. NEW: Dashboard Button (Home)
+if st.sidebar.button("🏠 Pulpit", use_container_width=True):
+    vm.navigate_to_dashboard()
+
+st.sidebar.markdown("---")
+
+# 2. Daily Sprint
 if st.sidebar.button("🚀 Codzienny Sprint", type="primary", use_container_width=True):
     vm.start_daily_sprint()
 
 st.sidebar.markdown("---")
 
-# 2. Category Selection (Secondary Action)
+# 3. Category Selection (Improved Logic)
 st.sidebar.subheader("📚 Trening Tematyczny")
-selected_cat = st.sidebar.selectbox("Wybierz kategorię:", GameConfig.CATEGORIES)
 
+# We use a form or just a selectbox with a button.
+# To make it feel "instant", we can check if the selection changed.
+selected_cat = st.sidebar.selectbox(
+    "Wybierz kategorię:", GameConfig.CATEGORIES, key="sidebar_cat_select"
+)
+
+# The button triggers the switch
 if st.sidebar.button("Rozpocznij Trening", use_container_width=True):
     vm.start_category_mode(selected_cat)
 
