@@ -4,25 +4,18 @@ from typing import Any
 
 import streamlit as st
 
-from src.components.mobile_suite import mobile_header, mobile_option
+# Import the new component
+from src.components.mobile_suite import mobile_header, mobile_option, mobile_result_row
 
 
 def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    """
-    Renders the V2 Mobile Header.
-    Merges: Home Button + Question Counter + Category Name + Progress Bar
-    into a single 40px high row.
-    """
-    # 1. Prepare Context Text (e.g. "1/15 • Hydraulika...")
+    # ... (Same as before) ...
     cat_name = payload.category_name
-    # Truncate long category names to fit on mobile screens
     if len(cat_name) > 40:
         cat_name = cat_name[:40] + "..."
 
     context_text = f"{payload.current_index}/{payload.total_count} • {cat_name}"
 
-    # 2. Render Component
-    # If the user clicks the Home icon inside the component, it returns True
     if mobile_header(
         context=context_text, progress=payload.category_mastery, key="mob_header"
     ):
@@ -30,10 +23,7 @@ def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -
 
 
 def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    """
-    Renders the active question screen using optimized mobile components.
-    """
-    # 1. Header (Zero vertical waste)
+    # ... (Same as before) ...
     _render_compact_header(payload, callback)
 
     q = payload.question
@@ -53,20 +43,14 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
         unsafe_allow_html=True,
     )
 
-    # 3. Image (Optional)
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
 
-    # 4. Options (The Interactive V2 Components)
-    # These replace st.button. They are tighter and touch-optimized.
     for key, text in q.options.items():
-        # mobile_option returns the key_char (e.g. 'A') if clicked
         clicked_key = mobile_option(key.value, text, key=f"opt_{q.id}_{key}")
-
         if clicked_key:
             callback("SUBMIT_ANSWER", key)
 
-    # 5. Hint (Bottom)
     if q.hint:
         with st.expander("💡 Wskazówka"):
             st.info(q.hint)
@@ -82,41 +66,40 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
     q = payload.question
     fb = payload.last_feedback
 
-    # 2. Question Text (Repeated for context)
+    # 2. Question Text
     st.markdown(f"**{q.text}**")
 
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
 
-    # 3. Status Message (Compact)
+    # 3. Status Message (Optional - The cards explain themselves now)
+    # We can keep a very small text or remove it entirely to save space.
+    # Let's keep it minimal.
     if fb["is_correct"]:
-        st.success("✅ Dobrze!")
+        st.markdown(":green[**Dobrze!**]")
     else:
-        st.error("❌ Źle")
+        st.markdown(":red[**Niestety źle.**]")
 
-    # 4. Frozen Options (Visualizing the result)
-    # We use standard Markdown here to distinguish "Result" from "Input"
+    # 4. Result Rows (The Elegant Part)
     for key, text in q.options.items():
-        prefix = "⚪"
-        style_start = ""
-        style_end = ""
+        state = "neutral"
 
+        # Logic to determine color
         if key == fb["correct_option"]:
-            prefix = "✅"
-            style_start = ":green[**"
-            style_end = "**]"
+            if key == fb["selected"]:
+                state = "correct"  # You picked right
+            else:
+                state = "missed"  # You picked wrong, but this was the right one
         elif key == fb["selected"] and not fb["is_correct"]:
-            prefix = "❌"
-            style_start = ":red[**"
-            style_end = "**]"
+            state = "wrong"  # You picked this and it was wrong
 
-        st.markdown(f"{prefix} {style_start}{key.value}) {text}{style_end}")
+        # Render the V2 Component
+        mobile_result_row(key.value, text, state=state, key=f"res_{q.id}_{key}")
 
     # 5. Explanation
     if fb.get("explanation"):
         st.info(f"{fb['explanation']}")
 
     # 6. Next Button
-    # We keep this as a standard primary button as it's the main flow action
     if st.button("Dalej ➡️", type="primary", use_container_width=True):
         callback("NEXT_QUESTION", None)
