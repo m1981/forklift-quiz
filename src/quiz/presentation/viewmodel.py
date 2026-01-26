@@ -51,5 +51,11 @@ class GameViewModel:
             self.start_onboarding()
             return
 
+        # --- NEW HANDLER ---
+        if action == "START_CATEGORY_MANUAL":
+            # Payload is the category name passed from the button
+            self.start_category_mode(payload)
+            return
+
         self.director.handle_action(action, payload)
         st.rerun()

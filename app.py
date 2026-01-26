@@ -1,9 +1,13 @@
+# src/app.py
+
 import logging
 import sys
 
+import pandas as pd
 import streamlit as st
 
 from src.config import GameConfig
+from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 from src.quiz.presentation.renderer import StreamlitRenderer
 from src.quiz.presentation.viewmodel import GameViewModel
 
@@ -40,10 +44,45 @@ if st.sidebar.button("Rozpocznij Trening", use_container_width=True):
 
 st.sidebar.markdown("---")
 
-# 3. Admin / Debug
-with st.sidebar.expander("⚙️ Opcje"):
-    if st.button("Resetuj Szkolenie (Onboarding)"):
-        vm.start_onboarding()
+# --- 🕵️‍♂️ DEBUG ZONE (NEW) ---
+with st.sidebar.expander("🕵️‍♂️ QA / Debug Zone", expanded=False):
+    st.markdown("### 1. Session Variables")
+    # Show critical Python variables from the Director's Context
+    if "game_director" in st.session_state:
+        director = st.session_state.game_director
+        if director.context:
+            data = director.context.data
+            st.write(f"**Score:** {data.get('score', 0)}")
+            st.write(f"**Errors:** {len(data.get('errors', []))}")
+            st.write(f"**Total Q:** {data.get('total_questions', 0)}")
+
+    st.markdown("---")
+    st.markdown("### 2. Database State")
+    if st.button("📸 Snapshot DB"):
+        # Fetch raw data
+        repo = vm.director.context.repo
+        user_id = vm.director.context.user_id
+        # Cast to concrete type for debug method
+        if isinstance(repo, SQLiteQuizRepository):
+            rows = repo.debug_dump_user_progress(user_id)
+
+            if rows:
+                st.session_state["debug_db_rows"] = rows
+            else:
+                st.warning("No history found.")
+        else:
+            st.warning("Debug method only available for SQLite repository.")
+
+    # Render the snapshot if it exists
+    if "debug_db_rows" in st.session_state:
+        df = pd.DataFrame(st.session_state["debug_db_rows"])
+        st.dataframe(df, hide_index=True)
+
+    st.markdown("---")
+    if st.button("⚠️ RESET USER DB"):
+        vm.director.context.repo.reset_user_progress(vm.director.context.user_id)
+        st.success("User reset!")
+        st.rerun()
 
 # Main Render Loop
 ui_data = vm.ui_model

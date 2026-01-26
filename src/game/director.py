@@ -58,10 +58,14 @@ class GameDirector:
 
         if result == "NEXT":
             self._advance()
-        elif isinstance(result, GameStep):
-            # Dynamic Branching: Insert new step at the front
+
+        # --- REFACTOR START ---
+        # Check for behavior (methods), not class inheritance
+        elif hasattr(result, "get_ui_model") and hasattr(result, "handle_action"):
             self.telemetry.log_info(f"🔀 Branching to {result.__class__.__name__}")
-            self._queue.insert(0, result)
+            # Type guard: if it has these methods, it's a GameStep
+            if isinstance(result, GameStep):
+                self._queue.insert(0, result)
             self._advance()
 
     def _advance(self) -> None:
