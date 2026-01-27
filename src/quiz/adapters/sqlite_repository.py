@@ -1,3 +1,5 @@
+# src/quiz/adapters/sqlite_repository.py
+
 import sqlite3
 from datetime import date, datetime
 from typing import Any
@@ -30,6 +32,9 @@ class SQLiteQuizRepository(IQuizRepository):
     @measure_time("db_get_repetition_candidates")
     def get_repetition_candidates(self, user_id: str) -> list[QuestionCandidate]:
         conn = self._get_connection()
+        # Use Config for threshold
+        threshold = GameConfig.MASTERY_THRESHOLD
+
         query = """
                 SELECT q.json_data,
                        COALESCE(up.consecutive_correct, 0) as streak,
@@ -43,9 +48,7 @@ class SQLiteQuizRepository(IQuizRepository):
                            AND up.timestamp < date ('now', '-3 days') \
                     ) \
                 """
-        cursor = conn.execute(
-            query, (user_id, GameConfig.MASTERY_THRESHOLD, GameConfig.MASTERY_THRESHOLD)
-        )
+        cursor = conn.execute(query, (user_id, threshold, threshold))
 
         candidates = []
         for row in cursor.fetchall():
@@ -60,13 +63,21 @@ class SQLiteQuizRepository(IQuizRepository):
 
         return candidates
 
+    @measure_time("db_get_category_stats")
     def get_category_stats(self, user_id: str) -> list[dict[str, int | str]]:
         conn = self._get_connection()
+        threshold = GameConfig.MASTERY_THRESHOLD
+
+        # TELEMETRY: Log the inputs to verify config is loaded
+        self.telemetry.log_info(
+            f"Calculating stats for user={user_id} with threshold={threshold}"
+        )
+
         sql = """
               SELECT q.category,
                      COUNT(q.id) as total,
                      SUM(CASE
-                             WHEN COALESCE(up.consecutive_correct, 0) >= 3
+                             WHEN COALESCE(up.consecutive_correct, 0) >= ?
                                  THEN 1
                              ELSE 0
                          END)    as mastered
@@ -75,9 +86,20 @@ class SQLiteQuizRepository(IQuizRepository):
                                  ON q.id = up.question_id AND up.user_id = ?
               GROUP BY q.category \
               """
-        cursor = conn.execute(sql, (user_id,))
+
+        # Pass threshold FIRST, then user_id
+        cursor = conn.execute(sql, (threshold, user_id))
+
         stats = []
-        for row in cursor.fetchall():
+        raw_rows = cursor.fetchall()
+
+        # TELEMETRY: Log the raw DB result
+        self.telemetry.log_info(
+            f"Raw stats rows fetched: {len(raw_rows)}",
+            first_row=str(raw_rows[0]) if raw_rows else "None",
+        )
+
+        for row in raw_rows:
             stats.append(
                 {
                     "category": row[0],
@@ -171,9 +193,6 @@ class SQLiteQuizRepository(IQuizRepository):
             delta = (today - last_login_db).days
             new_streak = current_streak
 
-            delta = (today - last_login_db).days
-            new_streak = current_streak
-
             if delta == 0:
                 # Same day login, do nothing
                 pass
@@ -233,9 +252,15 @@ class SQLiteQuizRepository(IQuizRepository):
             if not self.db_manager._shared_connection:
                 conn.close()
 
+    @measure_time("db_save_attempt")
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
         conn = self._get_connection()
         try:
+            # Explicitly cast to int to avoid SQLite boolean ambiguity
+            # in CASE statements
+            is_correct_int = 1 if is_correct else 0
+            initial_streak = 1 if is_correct else 0
+
             sql = """
                   INSERT INTO user_progress (
                       user_id, question_id, is_correct,
@@ -243,20 +268,35 @@ class SQLiteQuizRepository(IQuizRepository):
                   )
                   VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
                   ON CONFLICT(user_id, question_id)
-                DO \
-                  UPDATE SET
-                      consecutive_correct = CASE \
-                      WHEN excluded.is_correct = 1 \
-                      THEN user_progress.consecutive_correct + 1 \
+                DO UPDATE SET
+                  consecutive_correct = CASE
+                      WHEN excluded.is_correct = 1
+                      THEN user_progress.consecutive_correct + 1
                       ELSE 0
-                  END \
-                  ,
-                    is_correct = excluded.is_correct,
-                    timestamp = CURRENT_TIMESTAMP \
+                  END,
+                  is_correct = excluded.is_correct,
+                  timestamp = CURRENT_TIMESTAMP
                   """
-            initial_streak = 1 if is_correct else 0
-            conn.execute(sql, (user_id, question_id, is_correct, initial_streak))
+
+            cursor = conn.execute(
+                sql, (user_id, question_id, is_correct_int, initial_streak)
+            )
             conn.commit()
+
+            # Log if no rows were affected (which would indicate a logic error)
+            if cursor.rowcount == 0:
+                self.telemetry.log_info(
+                    f"save_attempt: No rows affected for {user_id} on {question_id}"
+                )
+            else:
+                # TELEMETRY: Confirm write success
+                self.telemetry.log_info(
+                    f"save_attempt: Success for {question_id}, correct={is_correct}"
+                )
+
+        except Exception as e:
+            self.telemetry.log_error(f"save_attempt failed for {user_id}", e)
+            raise e
         finally:
             if not self.db_manager._shared_connection:
                 conn.close()
@@ -280,13 +320,15 @@ class SQLiteQuizRepository(IQuizRepository):
             if not self.db_manager._shared_connection:
                 conn.close()
 
+    @measure_time("db_get_mastery")
     def get_mastery_percentage(self, user_id: str, category: str) -> float:
         conn = self._get_connection()
+        threshold = GameConfig.MASTERY_THRESHOLD
         try:
             sql = """
                   SELECT COUNT(q.id) as total, \
                          SUM(CASE \
-                                 WHEN COALESCE(up.consecutive_correct, 0) >= 3 \
+                                 WHEN COALESCE(up.consecutive_correct, 0) >= ? \
                                      THEN 1 \
                                  ELSE 0 \
                              END)    as mastered
@@ -295,8 +337,14 @@ class SQLiteQuizRepository(IQuizRepository):
                                      ON q.id = up.question_id AND up.user_id = ?
                   WHERE q.category = ? \
                   """
-            cursor = conn.execute(sql, (user_id, category))
+            cursor = conn.execute(sql, (threshold, user_id, category))
             row = cursor.fetchone()
+
+            # TELEMETRY: Log mastery calculation details
+            self.telemetry.log_info(
+                f"Mastery for {category}: {row} (Threshold: {threshold})"
+            )
+
             if not row or row[0] == 0:
                 return 0.0
             return float(row[1]) / float(row[0])

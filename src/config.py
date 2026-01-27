@@ -35,7 +35,7 @@ class GameConfig:
     PASSING_SCORE = 11
 
     # --- Mastery Algorithm ---
-    MASTERY_THRESHOLD = 3
+    MASTERY_THRESHOLD = 1
     NEW_RATIO = 0.6
 
     # --- Categories ---

@@ -79,6 +79,14 @@ class DashboardStep(GameStep):
                 }
             )
 
+        # --- TELEMETRY ADDED HERE ---
+        self.telemetry.log_info(
+            f"Dashboard Stats Calculated: Mastered={total_mastered}/{total_q} "
+            f"({global_progress:.1%})",
+            categories=[c["name"] for c in cat_data],
+        )
+        # ----------------------------
+
         payload = DashboardPayload(
             global_progress=global_progress,
             total_mastered=total_mastered,
