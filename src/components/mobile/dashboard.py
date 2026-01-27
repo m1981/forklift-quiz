@@ -1,22 +1,29 @@
-from typing import Any
+import math
+from dataclasses import dataclass
+from datetime import date, timedelta
+from typing import Any, Union
 
 import streamlit as st
 
 from src.components.mobile.shared import SHARED_CSS
+from src.config import Category
+from src.game.core import GameContext, GameStep, UIModel
+from src.shared.telemetry import Telemetry
+
+# -----------------------------------------------------------------------------
+# 1. COMPONENT DEFINITION (HTML/CSS/JS)
+# -----------------------------------------------------------------------------
 
 DASHBOARD_HTML = """
 <div class="dashboard-container">
-    <!-- Sprint Button (Pinned Top) -->
+    <!-- Sprint Button -->
     <button class="card sprint-card" id="sprintBtn">
-        <div class="icon">🚀</div>
+        <div class="icon-box">🚀</div>
         <div class="content">
-            <div class="title">Mix Pytań (Sprint)</div>
-            <div class="subtitle">15 losowych pytań</div>
+            <div class="title">Start Daily Sprint</div>
+            <div class="subtitle">15 Random Questions • ~3 mins</div>
         </div>
-        <div class="arrow">➜</div>
     </button>
-
-    <div class="divider">📚 Kategorie</div>
 
     <!-- Category Grid -->
     <div id="grid" class="grid">
@@ -30,107 +37,104 @@ DASHBOARD_CSS = (
     + """
 .dashboard-container {
     padding: 0 4px;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
-/* --- SPRINT CARD --- */
+/* --- CARDS (Generic) --- */
 .card {
     display: flex;
     align-items: center;
     width: 100%;
     background: white;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 12px;
     cursor: pointer;
     text-align: left;
     transition: transform 0.1s, background 0.1s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-
 .card:active {
     transform: scale(0.98);
-    background: #f8f9fa;
 }
 
+/* --- SPRINT CARD SPECIFIC --- */
 .sprint-card {
     border: 1px solid #22c55e; /* Green border */
-    background: #f0fdf4; /* Very light green bg */
+    background: #f0fdf4; /* Light Green BG */
+    margin-bottom: 24px; /* More space before categories */
 }
 
-.icon {
+.icon-box {
     font-size: 24px;
-    margin-right: 16px;
+    margin-right: 12px;
 }
 
 .content {
     flex: 1;
+    overflow: hidden; /* For text ellipsis */
 }
 
 .title {
     font-size: 16px;
-    font-weight: 600;
-    color: #1f2937;
+    font-weight: 700;
+    color: #111827;
     margin-bottom: 2px;
 }
 
 .subtitle {
     font-size: 12px;
+    color: #4b5563;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- GRID --- */
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* --- CATEGORY ITEM --- */
+.cat-item {
+    border: 1px solid #e5e7eb;
+    margin-bottom: 0; /* Reset generic card margin */
+}
+
+.cat-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 2px;
+}
+
+.cat-sub {
+    font-size: 12px;
     color: #6b7280;
 }
 
-.arrow {
-    color: #9ca3af;
-    font-weight: bold;
-}
-
-/* --- DIVIDER --- */
-.divider {
-    font-size: 13px;
-    font-weight: 700;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 20px 0 10px 4px;
-}
-
-/* --- GRID LAYOUT --- */
-.grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Mobile: 1 column */
-    gap: 10px;
-}
-
-/* Desktop Override: 2 Columns if width > 600px */
-@media (min-width: 600px) {
-    .grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* --- CATEGORY ITEMS --- */
-.cat-item {
-    display: flex;
-    align-items: center;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 12px;
-    cursor: pointer;
-}
-
-.cat-item:active {
-    background: #f9fafb;
-    border-color: #d1d5db;
-}
-
-.cat-progress {
+/* --- BADGES --- */
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
     font-size: 12px;
     font-weight: 600;
-    color: #22c55e; /* Green text for % */
-    background: #dcfce7;
-    padding: 2px 8px;
-    border-radius: 10px;
+    margin-left: 8px;
+    min-width: 40px;
+    text-align: center;
+}
+
+.badge-green-light {
+    background-color: #dcfce7; /* Light Green */
+    color: #16a34a; /* Dark Green Text */
+}
+
+.badge-green-solid {
+    background-color: #22c55e; /* Solid Green */
+    color: white;
 }
 """
 )
@@ -139,10 +143,17 @@ DASHBOARD_JS = """
 export default function(component) {
     const { data, setTriggerValue, parentElement } = component;
 
+    // --- DEBUGGING: Log what Python sent us ---
+    console.log("DASHBOARD COMPONENT RECEIVED DATA:", data);
+    if (data.categories && data.categories.length > 0) {
+        console.log("First Category Item:", data.categories[0]);
+    }
+    // ------------------------------------------
+
     const sprintBtn = parentElement.querySelector('#sprintBtn');
     const grid = parentElement.querySelector('#grid');
 
-    // 1. Handle Sprint Click
+    // 1. Sprint Click
     sprintBtn.onclick = () => {
         setTriggerValue('action', {type: 'SPRINT', payload: null});
     };
@@ -150,20 +161,28 @@ export default function(component) {
     // 2. Render Categories
     data.categories.forEach(cat => {
         const item = document.createElement('div');
-        item.className = 'cat-item card'; // Reuse card styling
-        item.style.marginBottom = '0'; // Grid handles gap
+        item.className = 'cat-item card';
 
-        // Icon Logic
-        const isMastered = cat.progress >= 1.0;
-        const icon = isMastered ? '✅' : (cat.icon || '📦');
-        const pct = Math.round(cat.progress * 100) + '%';
+        // Badge Logic
+        let badgeClass = 'badge-green-light';
+        let badgeText = Math.round(cat.progress * 100) + '%';
+        let iconHtml = `<div class="icon-box">${cat.icon}</div>`;
+
+        if (cat.progress >= 1.0) {
+            badgeClass = 'badge-green-solid';
+            badgeText = '100%';
+        }
+
+        // CHECK FOR MISSING SUBTITLE
+        const subText = cat.subtitle ? cat.subtitle : "MISSING DATA";
 
         item.innerHTML = `
-            <div class="icon" style="font-size: 20px; margin-right: 12px;">${icon}</div>
+            ${iconHtml}
             <div class="content">
-                <div class="title" style="font-size: 15px;">${cat.name}</div>
+                <div class="cat-title">${cat.name}</div>
+                <div class="cat-sub">${subText}</div>
             </div>
-            <div class="cat-progress">${pct}</div>
+            <div class="badge ${badgeClass}">${badgeText}</div>
         `;
 
         item.onclick = () => {
@@ -188,11 +207,96 @@ def mobile_dashboard(
     categories: list[dict[str, Any]], key: str | None = None
 ) -> dict[str, Any] | None:
     """
-    Renders the full dashboard grid.
-    Returns dict: {'type': 'SPRINT'|'CATEGORY', 'payload': ...}
+    Renders the dashboard grid.
+    Returns: {'type': 'SPRINT'|'CATEGORY', 'payload': ...}
     """
     result = _mobile_dashboard_component(
         data={"categories": categories}, key=key, on_action_change=lambda: None
     )
-    action = result.action
-    return dict(action) if action is not None else None
+    return dict(result.action) if result.action is not None else None
+
+
+# -----------------------------------------------------------------------------
+# 2. BUSINESS LOGIC (CONTROLLER)
+# -----------------------------------------------------------------------------
+
+
+@dataclass
+class DashboardPayload:
+    global_progress: float
+    total_mastered: int
+    total_questions: int
+    finish_date_str: str
+    days_left: int
+    categories: list[dict[str, Any]]
+
+
+class DashboardStep(GameStep):
+    def __init__(self) -> None:
+        super().__init__()
+        self.telemetry = Telemetry("DashboardStep")
+
+    def enter(self, context: GameContext) -> None:
+        super().enter(context)
+        if "score" in context.data:
+            del context.data["score"]
+        if "errors" in context.data:
+            del context.data["errors"]
+
+    def get_ui_model(self) -> UIModel:
+        if not self.context:
+            raise RuntimeError("No Context")
+
+        stats = self.context.repo.get_category_stats(self.context.user_id)
+
+        total_q = sum(int(s["total"]) for s in stats)
+        total_mastered = sum(int(s["mastered"]) for s in stats)
+        remaining = total_q - total_mastered
+        days_left = math.ceil(remaining / 15) if remaining > 0 else 0
+        finish_date = date.today() + timedelta(days=days_left)
+        global_progress = (total_mastered / total_q) if total_q > 0 else 0.0
+
+        cat_data = []
+        for stat in stats:
+            c_name = str(stat["category"])
+            c_total = int(stat["total"])
+            c_mastered = int(stat["mastered"])
+            c_icon = Category.get_icon(c_name)
+
+            # Shorten long name
+            display_name = c_name
+            if len(display_name) > 30:
+                display_name = display_name[:28] + "..."
+
+            # Construct the item
+            item = {
+                "name": display_name,
+                "progress": c_mastered / c_total if c_total > 0 else 0,
+                "icon": c_icon,
+                # THIS IS THE CRITICAL FIELD
+                "subtitle": f"{c_mastered} / {c_total} Mastered",
+            }
+            cat_data.append(item)
+
+        # --- TELEMETRY: Log the first item to check structure ---
+        if cat_data:
+            self.telemetry.log_info(f"Dashboard Payload Sample (Item 0): {cat_data[0]}")
+        else:
+            self.telemetry.log_info("Dashboard Payload is empty!")
+        # --------------------------------------------------------
+
+        payload = DashboardPayload(
+            global_progress=global_progress,
+            total_mastered=total_mastered,
+            total_questions=total_q,
+            finish_date_str=finish_date.strftime("%d %b"),
+            days_left=days_left,
+            categories=cat_data,
+        )
+
+        return UIModel(type="DASHBOARD", payload=payload)
+
+    def handle_action(
+        self, action: str, payload: Any, context: GameContext
+    ) -> Union["GameStep", str, None]:
+        return None

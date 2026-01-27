@@ -71,11 +71,18 @@ class DashboardStep(GameStep):
             cat_total = int(stat["total"])
             cat_mastered = int(stat["mastered"])
 
+            # Shorten long name for mobile view if needed
+            display_name = cat_name
+            if len(display_name) > 30:
+                display_name = display_name[:28] + "..."
+
             cat_data.append(
                 {
-                    "name": cat_name,
+                    "name": display_name,  # Use the shortened name
                     "progress": cat_mastered / cat_total if cat_total > 0 else 0,
                     "icon": Category.get_icon(cat_name),
+                    # 👇 ADD THIS LINE 👇
+                    "subtitle": f"{cat_mastered} / {cat_total} Mastered",
                 }
             )
 

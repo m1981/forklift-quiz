@@ -1,148 +1,153 @@
 import streamlit as st
 
-# 1. Define the HTML Structure
-# We use data attributes (data-label, data-progress) to pass info to JS
 HTML = """
 <button class="card-button" type="button">
     <div class="left-content">
         <span class="icon"></span>
-        <span class="label"></span>
+        <div class="text-content">
+            <div class="title"></div>
+            <div class="subtitle"></div>
+        </div>
     </div>
-    <div class="right-content">
-        <span class="progress"></span>
-    </div>
+    <div class="badge"></div>
 </button>
 """
 
-# 2. Define the CSS Styling
-# Note: We can use standard CSS here.
 CSS = """
 .card-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.2rem;
+    padding: 12px 16px;
+    margin-bottom: 8px;
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    color: #31333F;
+    transition: all 0.2s;
+    color: #1f2937;
     font-family: "Source Sans Pro", sans-serif;
-    font-size: 1rem;
-    line-height: 1.5;
     text-align: left;
-    box-sizing: border-box;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.card-button:hover {
-    border-color: #ff4b4b;
-    background-color: #fcfcfc;
-    transform: translateX(2px);
-}
-
-.card-button.active {
-    border-color: #ff4b4b;
-    background-color: #fff5f5;
-    font-weight: 600;
+.card-button:active {
+    background-color: #f9fafb;
+    transform: scale(0.99);
 }
 
 .left-content {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex: 1;
     min-width: 0;
 }
 
-.label {
+.icon {
+    font-size: 20px;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.right-content {
-    margin-left: 15px;
-    color: #808495;
-    font-family: monospace;
+.subtitle {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 2px;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.badge-light {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+.badge-solid {
+    background-color: #22c55e;
+    color: #ffffff;
 }
 """
 
-# 3. Define the JavaScript Logic
-# This function receives the 'component' object to talk to Streamlit
 JS = """
 export default function(component) {
     const { data, setTriggerValue, parentElement } = component;
 
-    // Select elements
     const button = parentElement.querySelector('.card-button');
     const iconSpan = parentElement.querySelector('.icon');
-    const labelSpan = parentElement.querySelector('.label');
-    const progressSpan = parentElement.querySelector('.progress');
+    const titleDiv = parentElement.querySelector('.title');
+    const subtitleDiv = parentElement.querySelector('.subtitle');
+    const badgeDiv = parentElement.querySelector('.badge');
 
-    // Populate data from Python
+    // Populate
     iconSpan.textContent = data.icon;
-    labelSpan.textContent = data.label;
-    progressSpan.textContent = data.progress;
+    titleDiv.textContent = data.label;
+    subtitleDiv.textContent = data.subtitle || ''; // New data field
 
-    // Handle Active State
-    if (data.isActive) {
-        button.classList.add('active');
+    // Badge Logic
+    // We expect 'progress' to be a percentage string like "45%"
+    badgeDiv.textContent = data.progress;
+
+    if (data.isMastered) {
+        badgeDiv.classList.add('badge-solid');
     } else {
-        button.classList.remove('active');
+        badgeDiv.classList.add('badge-light');
     }
 
-    // Handle Click
-    // We send the 'label' back as a trigger value when clicked
-    button.onclick = (e) => {
+    // Click
+    button.onclick = () => {
         setTriggerValue('clicked', data.id);
     };
 }
 """
 
-# 4. Register the Component
 _category_button_component = st.components.v2.component(
-    "category_button",
-    html=HTML,
-    css=CSS,
-    js=JS,
-    isolate_styles=True,  # Keep styles inside shadow DOM so they don't break app
+    "category_button", html=HTML, css=CSS, js=JS, isolate_styles=True
 )
 
 
-# 5. Create the Python Wrapper
 def category_button(
     id: str,
     label: str,
+    subtitle: str = "",
     progress: str = "0%",
-    icon: str = "🔨",
-    isActive: bool = False,
+    icon: str = "📦",
+    isMastered: bool = False,
     key: str | None = None,
 ) -> str | None:
     """
     Renders a category button.
-    Returns the ID if clicked, otherwise None.
     """
-
-    # Prepare data to send to JS
     component_data = {
         "id": id,
         "label": label,
+        "subtitle": subtitle,
         "progress": progress,
         "icon": icon,
-        "isActive": isActive,
+        "isMastered": isMastered,
     }
 
-    # Call the component
-    # We define 'on_clicked_change' because we setTriggerValue in JS
     result = _category_button_component(
         data=component_data, key=key, on_clicked_change=lambda: None
     )
 
-    # Return the ID if clicked
     clicked_value = result.clicked
-    if clicked_value is None:
-        return None
-    return str(clicked_value)
+    return str(clicked_value) if clicked_value is not None else None

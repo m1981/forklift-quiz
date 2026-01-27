@@ -92,8 +92,7 @@ class StreamlitRenderer:
         )
 
         # 2. RENDER DASHBOARD GRID
-        action = mobile_dashboard(categories=payload.categories, key="mob_dash")
-
+        action = mobile_dashboard(payload.categories)
         # Handle Actions
         if action:
             if action["type"] == "SPRINT":
