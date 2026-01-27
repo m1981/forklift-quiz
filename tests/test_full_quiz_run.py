@@ -25,7 +25,14 @@ def setup_game(candidates):
     mock_repo.get_or_create_profile.return_value = UserProfile(user_id="User")
     mock_repo.get_repetition_candidates.return_value = candidates
 
-    # Mock save_attempt to avoid errors, though we don't check it strictly here
+    # --- FIX 1: Mock the methods used by DashboardStep and QuestionLoopStep ---
+    # DashboardStep iterates over this, so it MUST be a list
+    mock_repo.get_category_stats.return_value = []
+    # QuestionLoopStep uses this for the header progress bar
+    mock_repo.get_mastery_percentage.return_value = 0.0
+    # --------------------------------------------------------------------------
+
+    # Mock save_attempt to avoid errors
     mock_repo.save_attempt = Mock()
 
     context = GameContext(user_id="User", repo=mock_repo)
@@ -81,8 +88,8 @@ def test_daily_sprint_perfect_run():
             .assert_on_screen("SUMMARY")
             .assert_score(3)  # 3/3 Correct
             .finish_quiz()
-            # End
-            .assert_on_screen("EMPTY")
+            # End - FIX 2: Expect DASHBOARD instead of EMPTY
+            .assert_on_screen("DASHBOARD")
         )
 
 
@@ -124,7 +131,6 @@ def test_daily_sprint_with_mistakes_and_review():
             .answer_question(OptionKey.A)  # Correct this time
             .assert_on_screen("FEEDBACK")
             .next_question()
-            # FIX: After the review loop finishes, the flow ends (EMPTY).
-            # We do NOT expect another Summary screen.
-            .assert_on_screen("EMPTY")
+            # End - FIX 2: Expect DASHBOARD instead of EMPTY
+            .assert_on_screen("DASHBOARD")
         )

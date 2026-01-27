@@ -14,6 +14,13 @@ def test_full_onboarding_flow_happy_path():
     # when saving 'has_completed_onboarding'
     mock_repo.get_or_create_profile.return_value = UserProfile(user_id="NewUser")
 
+    # --- FIX 1: Mock methods required by DashboardStep and QuestionLoopStep ---
+    # DashboardStep iterates over this result, so it must be a list
+    mock_repo.get_category_stats.return_value = []
+    # QuestionLoopStep uses this for the header progress bar
+    mock_repo.get_mastery_percentage.return_value = 0.0
+    # --------------------------------------------------------------------------
+
     context = GameContext(user_id="NewUser", repo=mock_repo)
     director = GameDirector(context)
     driver = GameDriver(director)
@@ -25,15 +32,14 @@ def test_full_onboarding_flow_happy_path():
     (
         driver.assert_on_screen("TEXT", title_contains="Witaj")
         .click_next()
-        # .assert_on_screen("TEXT", title_contains="Zasady")
-        # <--- REMOVED (Doesn't exist in flow)
         .assert_on_screen("QUESTION")  # The Tutorial Question
         .answer_question(OptionKey.A)  # Correct Answer
         .assert_on_screen("FEEDBACK")
         .next_question()
         .assert_on_screen("TEXT", title_contains="Szkolenie Zakończone")
         .click_next()
-        .assert_on_screen("EMPTY")  # Flow Finished
+        # --- FIX 2: Expect DASHBOARD instead of EMPTY ---
+        .assert_on_screen("DASHBOARD")
     )
 
     # 4. Verify Side Effects

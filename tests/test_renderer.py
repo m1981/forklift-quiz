@@ -16,7 +16,6 @@ class TestRendererInteractions:
     def mock_streamlit(self):
         """
         Patches Streamlit at the renderer and view levels.
-        Also mocks session_state for the Dashboard.
         """
         with patch("src.quiz.presentation.renderer.st") as mock_st:
             with patch("src.quiz.presentation.views.summary_view.st") as s_st:
@@ -28,21 +27,21 @@ class TestRendererInteractions:
                 mock_st.columns.side_effect = create_cols
                 s_st.columns.side_effect = create_cols
 
-                # 2. Mock Session State (Critical for Dashboard)
-                # The renderer accesses st.session_state.game_director.context.repo
-                mock_director = MagicMock()
-                mock_repo = MagicMock()
+                # --- FIX: Make session_state behave like a real dict ---
+                # This allows us to assert that values were actually set.
+                session_state_dict = {}
 
-                # Setup the chain: director -> context -> repo
-                mock_director.context.repo = mock_repo
-                mock_director.context.user_id = "TestUser"
+                # We use a side_effect for __getitem__ and __setitem__
+                # to proxy to the dict
+                def get_item(key):
+                    return session_state_dict.get(key)
 
-                # Mock repo stats response
-                mock_repo.get_category_stats.return_value = [
-                    {"category": "BHP", "total": 10, "mastered": 5}
-                ]
+                def set_item(key, value):
+                    session_state_dict[key] = value
 
-                mock_st.session_state.game_director = mock_director
+                mock_st.session_state.__getitem__.side_effect = get_item
+                mock_st.session_state.__setitem__.side_effect = set_item
+                # -------------------------------------------------------
 
                 yield mock_st, s_st
 
@@ -126,7 +125,16 @@ class TestRendererInteractions:
         # SIMULATE USER CLICK: The dashboard returns a SPRINT action
         mock_dash.return_value = {"type": "SPRINT", "payload": None}
 
-        model = UIModel(type="EMPTY", payload={})
+        # Mock Payload
+        mock_payload = Mock()
+        mock_payload.global_progress = 0.5
+        mock_payload.total_mastered = 5
+        mock_payload.total_questions = 10
+        mock_payload.finish_date_str = "01 Jan"
+        mock_payload.days_left = 3
+        mock_payload.categories = []
+
+        model = UIModel(type="DASHBOARD", payload=mock_payload)
 
         # Act
         renderer.render(model, mock_callback)
@@ -140,4 +148,36 @@ class TestRendererInteractions:
         mock_callback.assert_called_with("START_SPRINT_MANUAL", None)
 
         # 3. Verify rerun was triggered (standard Streamlit behavior after action)
+        mock_st.rerun.assert_called()
+
+    def test_dashboard_category_action(self, renderer, mock_streamlit, mock_components):
+        """
+        Verifies that clicking a Category card triggers the correct callback
+        and updates session state.
+        """
+        # Arrange
+        mock_st, _ = mock_streamlit
+        _, mock_dash = mock_components
+        mock_callback = Mock()
+
+        # SIMULATE USER CLICK: Category "BHP"
+        mock_dash.return_value = {"type": "CATEGORY", "payload": "BHP"}
+
+        # Mock Payload
+        mock_payload = Mock()
+        mock_payload.categories = []
+        model = UIModel(type="DASHBOARD", payload=mock_payload)
+
+        # Act
+        renderer.render(model, mock_callback)
+
+        # Assert
+        # 1. Callback fired with correct args
+        mock_callback.assert_called_with("START_CATEGORY_MANUAL", "BHP")
+
+        # 2. Session State updated (Renderer does this side effect)
+        # This assertion now works because we proxied __getitem__ to a real dict
+        assert mock_st.session_state["selected_category_manual"] == "BHP"
+
+        # 3. Rerun triggered
         mock_st.rerun.assert_called()

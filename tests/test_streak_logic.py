@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 import pytest
 
+from src.quiz.adapters.db_manager import DatabaseManager
 from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 
 # --- Fixtures ---
@@ -10,7 +11,9 @@ from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 @pytest.fixture
 def repo():
     """Returns a clean in-memory repo for every test."""
-    return SQLiteQuizRepository(db_path=":memory:", auto_seed=False)
+    # --- FIX: Use the new DatabaseManager API ---
+    db_manager = DatabaseManager(db_path=":memory:")
+    return SQLiteQuizRepository(db_manager)
 
 
 @pytest.fixture

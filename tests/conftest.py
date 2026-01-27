@@ -1,5 +1,6 @@
 import pytest
 
+from src.quiz.adapters.db_manager import DatabaseManager
 from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 from src.quiz.domain.models import OptionKey, Question
 
@@ -36,8 +37,8 @@ def in_memory_repo():
     Returns a clean, empty in-memory repository.
     Auto-seeding is DISABLED to ensure tests are isolated.
     """
-    # <--- CRITICAL: auto_seed=False
-    repo = SQLiteQuizRepository(db_path=":memory:", auto_seed=False)
+    db_manager = DatabaseManager(db_path=":memory:")
+    repo = SQLiteQuizRepository(db_manager=db_manager)
     return repo
 
 

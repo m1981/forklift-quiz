@@ -171,9 +171,17 @@ class SQLiteQuizRepository(IQuizRepository):
             delta = (today - last_login_db).days
             new_streak = current_streak
 
-            if delta == 1:
+            delta = (today - last_login_db).days
+            new_streak = current_streak
+
+            if delta == 0:
+                # Same day login, do nothing
+                pass
+            elif delta == 1:
+                # Consecutive day, increment
                 new_streak += 1
-            elif delta > 1:
+            else:
+                # Gap > 1 day OR Future date (delta < 0) -> Reset
                 new_streak = 1
 
             profile = UserProfile(
