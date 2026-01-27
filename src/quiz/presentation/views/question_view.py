@@ -67,18 +67,10 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
     fb = payload.last_feedback
 
     # 2. Question Text
-    st.markdown(f"**{q.text}**")
+    st.markdown(f"{q.text}")
 
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
-
-    # 3. Status Message (Optional - The cards explain themselves now)
-    # We can keep a very small text or remove it entirely to save space.
-    # Let's keep it minimal.
-    if fb["is_correct"]:
-        st.markdown(":green[**Dobrze!**]")
-    else:
-        st.markdown(":red[**Niestety źle.**]")
 
     # 4. Result Rows (The Elegant Part)
     for key, text in q.options.items():
