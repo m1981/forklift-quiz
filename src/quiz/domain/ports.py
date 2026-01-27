@@ -4,8 +4,6 @@ from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
 
 
 class IQuizRepository(ABC):
-    # --- REMOVED: get_all_questions (Unused in app flow) ---
-
     @abstractmethod
     def get_questions_by_ids(self, question_ids: list[str]) -> list[Question]:
         pass
@@ -26,19 +24,9 @@ class IQuizRepository(ABC):
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
         pass
 
-    # --- REMOVED: was_question_answered_on_date (Unused) ---
-    # --- REMOVED: get_incorrect_question_ids (Unused) ---
-
     @abstractmethod
     def get_mastery_percentage(self, user_id: str, category: str) -> float:
         pass
-
-    # --- REMOVED: get_all_attempted_ids (Unused) ---
-    # --- REMOVED: reset_user_progress (Unused) ---
-
-    # --- NEW METHODS FOR MASTERY & CATEGORIES ---
-
-    # --- REMOVED: get_smart_mix (Replaced by get_repetition_candidates) ---
 
     @abstractmethod
     def get_repetition_candidates(self, user_id: str) -> list[QuestionCandidate]:
@@ -51,4 +39,12 @@ class IQuizRepository(ABC):
     def get_questions_by_category(
         self, category: str, user_id: str, limit: int = 15
     ) -> list[Question]:
+        pass
+
+    # --- FIX: Added missing abstract method ---
+    @abstractmethod
+    def get_category_stats(self, user_id: str) -> list[dict[str, int | str]]:
+        """
+        Returns statistics per category for the dashboard.
+        """
         pass

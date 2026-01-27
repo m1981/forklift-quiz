@@ -1,15 +1,21 @@
-import math
 from collections.abc import Callable
-from datetime import date, timedelta
 from typing import Any
 
 import streamlit as st
 
-from src.components.mobile_suite import mobile_dashboard, mobile_hero
-from src.config import Category
+from src.components.mobile import mobile_dashboard, mobile_hero
 from src.game.core import UIModel
 from src.quiz.presentation.views import question_view, summary_view
 from src.shared.telemetry import Telemetry
+
+# --- ADR 005: Passive View Pattern ---
+# Decision: The Renderer MUST NOT perform business logic, data fetching,
+# or complex calculations.
+# Rationale: Logic leaking into the View makes the application hard to test
+# and violates SoC. The Renderer's sole responsibility is to map the
+# `UIModel` (DTO) to Streamlit widgets.
+# All calculations (dates, progress math) must happen in the `GameStep`.
+# -------------------------------------
 
 
 class StreamlitRenderer:
@@ -47,8 +53,8 @@ class StreamlitRenderer:
             question_view.render_feedback(payload, callback_handler)
         elif step_type == "SUMMARY":
             summary_view.render(payload, callback_handler)
-        elif step_type == "EMPTY":
-            self._render_dashboard(callback_handler)
+        elif step_type == "DASHBOARD":  # <--- Changed from EMPTY
+            self._render_dashboard(payload, callback_handler)
         elif step_type == "LOADING":
             st.info("Wczytywanie...")
         else:
@@ -68,50 +74,25 @@ class StreamlitRenderer:
         if st.button(payload.button_text, type="primary"):
             callback("NEXT", None)
 
-    def _render_dashboard(self, callback: Callable[[str, Any], None]) -> None:
-        # 1. Fetch Data
-        director = st.session_state.game_director
-        repo = director.context.repo
-        user_id = director.context.user_id
-        stats = repo.get_category_stats(user_id)
+    def _render_dashboard(
+        self, payload: Any, callback: Callable[[str, Any], None]
+    ) -> None:
+        # --- REFACTOR: Pure Rendering Logic Only ---
+        # The payload (DashboardPayload) now contains all pre-calculated
+        # strings and numbers.
 
-        # 2. Calculate Global Stats
-        total_q = sum(s["total"] for s in stats)
-        total_mastered = sum(s["mastered"] for s in stats)
-        remaining = total_q - total_mastered
-        days_left = math.ceil(remaining / 15) if remaining > 0 else 0
-        finish_date = date.today() + timedelta(days=days_left)
-
-        # Calculate progress float (0.0 - 1.0)
-        global_progress = total_mastered / total_q if total_q > 0 else 0
-
-        # --- 3. RENDER HERO (New Custom Component) ---
-        # This replaces st.title, st.progress, and st.columns/st.metric
+        # 1. RENDER HERO
         mobile_hero(
-            progress=global_progress,
-            mastered_count=total_mastered,
-            total_count=total_q,
-            finish_date_str=finish_date.strftime("%d %b"),
-            days_left=days_left,
+            progress=payload.global_progress,
+            mastered_count=payload.total_mastered,
+            total_count=payload.total_questions,
+            finish_date_str=payload.finish_date_str,
+            days_left=payload.days_left,
             key="hero_stats",
         )
 
-        # --- 4. RENDER DASHBOARD GRID ---
-        # Prepare data for the component
-        cat_data = []
-        for stat in stats:
-            cat_data.append(
-                {
-                    "name": stat["category"],
-                    "progress": stat["mastered"] / stat["total"]
-                    if stat["total"] > 0
-                    else 0,
-                    "icon": Category.get_icon(stat["category"]),
-                }
-            )
-
-        # Render the Grid
-        action = mobile_dashboard(categories=cat_data, key="mob_dash")
+        # 2. RENDER DASHBOARD GRID
+        action = mobile_dashboard(categories=payload.categories, key="mob_dash")
 
         # Handle Actions
         if action:

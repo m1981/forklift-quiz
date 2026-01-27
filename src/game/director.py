@@ -2,6 +2,7 @@ import logging
 from typing import Any
 
 from src.game.core import GameContext, GameFlow, GameStep, UIModel
+from src.game.steps.dashboard import DashboardStep  # <--- Import
 from src.shared.telemetry import Telemetry, measure_time
 
 logger = logging.getLogger(__name__)
@@ -35,17 +36,21 @@ class GameDirector:
         if self._current_step:
             return self._current_step.get_ui_model()
 
-        # 2. No Active Step (Idle or Finished)
-        self.telemetry.log_info("No active step. Returning EMPTY state (Dashboard).")
-        return UIModel(type="EMPTY", payload={"message": "Ready"})
+        # 2. No Active Step -> Show Dashboard
+        # --- REFACTOR: Use DashboardStep instead of generic EMPTY ---
+        dashboard = DashboardStep()
+        dashboard.enter(self.context)
+        return dashboard.get_ui_model()
 
     @measure_time("director_handle_action")
     def handle_action(self, action: str, payload: Any = None) -> None:
         """Central input handler."""
+
+        # Special case: If no step is active, we are effectively in Dashboard
         if not self._current_step:
-            self.telemetry.log_error(
-                "Action received but no active step", Exception("No Active Step")
-            )
+            # The ViewModel handles global actions like START_SPRINT_MANUAL
+            # so we might not even reach here, but for safety:
+            self.telemetry.log_info(f"Action on Dashboard: {action}")
             return
 
         step_name = self._current_step.__class__.__name__
@@ -59,11 +64,8 @@ class GameDirector:
         if result == "NEXT":
             self._advance()
 
-        # --- REFACTOR START ---
-        # Check for behavior (methods), not class inheritance
         elif hasattr(result, "get_ui_model") and hasattr(result, "handle_action"):
             self.telemetry.log_info(f"🔀 Branching to {result.__class__.__name__}")
-            # Type guard: if it has these methods, it's a GameStep
             if isinstance(result, GameStep):
                 self._queue.insert(0, result)
             self._advance()

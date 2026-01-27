@@ -1,168 +1,48 @@
-import json
-import os
 import sqlite3
 from datetime import date, datetime
 from typing import Any
 
 from src.config import GameConfig
+from src.quiz.adapters.db_manager import DatabaseManager
 from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
 from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
 
 
 class SQLiteQuizRepository(IQuizRepository):
-    def __init__(self, db_path: str = "data/quiz.db", auto_seed: bool = True) -> None:
+    def __init__(self, db_manager: DatabaseManager) -> None:
         self.telemetry = Telemetry("SQLiteRepository")
-        self.db_path = db_path
-        # Fix: Type hint as Optional[sqlite3.Connection] instead of Any
-        self._shared_connection: sqlite3.Connection | None = None
-        self._ensure_db_exists()
-        if self.db_path == ":memory:":
-            self._shared_connection = sqlite3.connect(
-                ":memory:", check_same_thread=False
-            )
-        self._init_schema()
-        self._migrate_schema()
-
-        if auto_seed:
-            self._seed_if_empty()
-
-    def _ensure_db_exists(self) -> None:
-        if self.db_path == ":memory:":
-            return
-        dir_name = os.path.dirname(self.db_path)
-        if dir_name:
-            os.makedirs(dir_name, exist_ok=True)
+        self.db_manager = db_manager
 
     def _get_connection(self) -> sqlite3.Connection:
-        if self._shared_connection:
-            return self._shared_connection
-        return sqlite3.connect(self.db_path)
+        return self.db_manager.get_connection()
 
-    def close(self) -> None:
-        if self._shared_connection:
-            self._shared_connection.close()
-
-    @measure_time("db_init_schema")
-    def _init_schema(self) -> None:
+    def is_empty(self) -> bool:
+        """Helper for the Seeder."""
         conn = self._get_connection()
-        try:
-            # Questions Table
-            conn.execute(
-                """
-                CREATE TABLE IF NOT EXISTS questions (
-                    id TEXT PRIMARY KEY,
-                    category TEXT,
-                    json_data TEXT
-                )
-                """
-            )
-
-            # User Progress Table
-            conn.execute(
-                """
-                CREATE TABLE IF NOT EXISTS user_progress (
-                    user_id TEXT,
-                    question_id TEXT,
-                    is_correct BOOLEAN,
-                    consecutive_correct INTEGER DEFAULT 0,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    PRIMARY KEY (user_id, question_id)
-                )
-                """
-            )
-
-            # User Profiles
-            conn.execute(
-                """
-                CREATE TABLE IF NOT EXISTS user_profiles (
-                    user_id TEXT PRIMARY KEY,
-                    streak_days INTEGER DEFAULT 0,
-                    last_login DATE,
-                    daily_goal INTEGER DEFAULT 3,
-                    daily_progress INTEGER DEFAULT 0,
-                    last_daily_reset DATE,
-                    has_completed_onboarding BOOLEAN DEFAULT 0
-                )
-                """
-            )
-            conn.commit()
-        except Exception as e:
-            self.telemetry.log_error("Schema Init Failed", e)
-
-    def _migrate_schema(self) -> None:
-        conn = self._get_connection()
-        try:
-            cursor = conn.execute("PRAGMA table_info(user_progress)")
-            columns = [row[1] for row in cursor.fetchall()]
-
-            if "consecutive_correct" not in columns:
-                self.telemetry.log_info(
-                    "Migrating DB: Adding consecutive_correct column"
-                )
-                conn.execute(
-                    "ALTER TABLE user_progress "
-                    "ADD COLUMN consecutive_correct INTEGER DEFAULT 0"
-                )
-
-            cursor = conn.execute("PRAGMA table_info(questions)")
-            q_columns = [row[1] for row in cursor.fetchall()]
-
-            if "category" not in q_columns:
-                self.telemetry.log_info("Migrating DB: Adding category column")
-                conn.execute(
-                    "ALTER TABLE questions ADD COLUMN category TEXT DEFAULT 'Ogólne'"
-                )
-
-            conn.commit()
-        except Exception as e:
-            self.telemetry.log_error("Migration Failed", e)
-
-    def _seed_if_empty(self) -> None:
-        try:
-            conn = self._get_connection()
-            cursor = conn.execute("SELECT count(*) FROM questions")
-            result = cursor.fetchone()
-            count = result[0] if result else 0
-
-            if count == 0:
-                self.telemetry.log_info("DB is empty. Attempting to seed...")
-                seed_file = "data/seed_questions.json"
-                if os.path.exists(seed_file):
-                    with open(seed_file, encoding="utf-8") as f:
-                        data = json.load(f)
-                        questions = [Question(**q) for q in data]
-                        self.seed_questions(questions)
-                else:
-                    self.telemetry.log_error(
-                        "Seed file NOT found", Exception(f"Missing: {seed_file}")
-                    )
-        except Exception as e:
-            self.telemetry.log_error("Auto-seeding failed", e)
+        cursor = conn.execute("SELECT count(*) FROM questions")
+        result = cursor.fetchone()
+        count = result[0] if result else 0
+        if not self.db_manager._shared_connection:
+            conn.close()
+        return count == 0
 
     @measure_time("db_get_repetition_candidates")
     def get_repetition_candidates(self, user_id: str) -> list[QuestionCandidate]:
-        """
-        Fetches raw candidates for the Spaced Repetition algorithm.
-        """
         conn = self._get_connection()
-
-        # We filter 'Mastered & Recent' in SQL for performance,
-        # but we leave the selection logic to the Domain.
         query = """
-            SELECT q.json_data,
-                   COALESCE(up.consecutive_correct, 0) as streak,
-                   up.question_id IS NOT NULL as seen
-            FROM questions q
-            LEFT JOIN user_progress up
-                ON q.id = up.question_id AND up.user_id = ?
-            WHERE
-                up.question_id IS NULL
-                OR up.consecutive_correct < ?
-                OR (up.consecutive_correct >= ?
-                    AND up.timestamp < date('now', '-3 days'))
-        """
-
+                SELECT q.json_data,
+                       COALESCE(up.consecutive_correct, 0) as streak,
+                       up.question_id IS NOT NULL          as seen
+                FROM questions q
+                         LEFT JOIN user_progress up
+                                   ON q.id = up.question_id AND up.user_id = ?
+                WHERE up.question_id IS NULL
+                   OR up.consecutive_correct < ?
+                   OR (up.consecutive_correct >= ?
+                           AND up.timestamp < date ('now', '-3 days') \
+                    ) \
+                """
         cursor = conn.execute(
             query, (user_id, GameConfig.MASTERY_THRESHOLD, GameConfig.MASTERY_THRESHOLD)
         )
@@ -175,30 +55,27 @@ class SQLiteQuizRepository(IQuizRepository):
                 QuestionCandidate(question=q, streak=streak, is_seen=bool(seen))
             )
 
+        if not self.db_manager._shared_connection:
+            conn.close()
+
         return candidates
 
     def get_category_stats(self, user_id: str) -> list[dict[str, int | str]]:
-        """
-        Returns a list of dicts:
-        [{'category': 'Power', 'total': 50, 'mastered': 10}, ...]
-        """
         conn = self._get_connection()
-
         sql = """
-          SELECT q.category,
-                 COUNT(q.id) as total,
-                 SUM(CASE
-                     WHEN COALESCE(up.consecutive_correct, 0) >= 3
-                     THEN 1
-                     ELSE 0
-                 END) as mastered
-          FROM questions q
-          LEFT JOIN user_progress up
-              ON q.id = up.question_id AND up.user_id = ?
-          GROUP BY q.category
-          """
+              SELECT q.category,
+                     COUNT(q.id) as total,
+                     SUM(CASE
+                             WHEN COALESCE(up.consecutive_correct, 0) >= 3
+                                 THEN 1
+                             ELSE 0
+                         END)    as mastered
+              FROM questions q
+                       LEFT JOIN user_progress up
+                                 ON q.id = up.question_id AND up.user_id = ?
+              GROUP BY q.category \
+              """
         cursor = conn.execute(sql, (user_id,))
-
         stats = []
         for row in cursor.fetchall():
             stats.append(
@@ -208,14 +85,17 @@ class SQLiteQuizRepository(IQuizRepository):
                     "mastered": row[2] if row[2] else 0,
                 }
             )
+
+        if not self.db_manager._shared_connection:
+            conn.close()
         return stats
 
     def get_questions_by_ids(self, question_ids: list[str]) -> list[Question]:
         if not question_ids:
             return []
         placeholders = ",".join(["?"] * len(question_ids))
+        conn = self._get_connection()
         try:
-            conn = self._get_connection()
             cursor = conn.execute(
                 f"SELECT json_data FROM questions WHERE id IN ({placeholders})",
                 question_ids,
@@ -224,6 +104,9 @@ class SQLiteQuizRepository(IQuizRepository):
         except Exception as e:
             self.telemetry.log_error("get_questions_by_ids failed", e)
             return []
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
     def seed_questions(self, questions: list[Question]) -> None:
         conn = self._get_connection()
@@ -238,195 +121,207 @@ class SQLiteQuizRepository(IQuizRepository):
             conn.commit()
         except sqlite3.Error as e:
             self.telemetry.log_error("seed_questions failed", e)
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
     def get_or_create_profile(self, user_id: str) -> UserProfile:
         conn = self._get_connection()
-        cursor = conn.execute(
-            "SELECT * FROM user_profiles WHERE user_id = ?", (user_id,)
-        )
-        row = cursor.fetchone()
-        today = date.today()
-
-        # --- CASE 1: NEW USER ---
-        if not row:
-            # Start with streak 1 (today is the first day)
-            profile = UserProfile(
-                user_id=user_id, streak_days=1, last_login=today, last_daily_reset=today
+        try:
+            cursor = conn.execute(
+                "SELECT * FROM user_profiles WHERE user_id = ?", (user_id,)
             )
-            conn.execute(
-                """
-                INSERT INTO user_profiles (
-                    user_id, streak_days, last_login, daily_goal,
-                    daily_progress, last_daily_reset, has_completed_onboarding
+            row = cursor.fetchone()
+            today = date.today()
+
+            if not row:
+                profile = UserProfile(
+                    user_id=user_id,
+                    streak_days=1,
+                    last_login=today,
+                    last_daily_reset=today,
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    profile.user_id,
-                    profile.streak_days,
-                    today,
-                    profile.daily_goal,
-                    0,
-                    today,
-                    False,
-                ),
+                conn.execute(
+                    """
+                    INSERT INTO user_profiles (
+                        user_id, streak_days, last_login, daily_goal,
+                        daily_progress, last_daily_reset,
+                        has_completed_onboarding
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        profile.user_id,
+                        profile.streak_days,
+                        today,
+                        profile.daily_goal,
+                        0,
+                        today,
+                        False,
+                    ),
+                )
+                conn.commit()
+                return profile
+
+            # Existing User Logic
+            last_login_db = (
+                datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
             )
-            conn.commit()
-            self.telemetry.log_info(f"New profile created for {user_id}")
+            current_streak = row[1]
+            delta = (today - last_login_db).days
+            new_streak = current_streak
+
+            if delta == 1:
+                new_streak += 1
+            elif delta > 1:
+                new_streak = 1
+
+            profile = UserProfile(
+                user_id=row[0],
+                streak_days=new_streak,
+                last_login=today,
+                daily_goal=row[3],
+                daily_progress=row[4],
+                last_daily_reset=datetime.strptime(row[5], "%Y-%m-%d").date()
+                if row[5]
+                else today,
+                has_completed_onboarding=bool(row[6]) if len(row) > 6 else False,
+            )
+
+            if delta > 0:
+                self.save_profile(profile)
+
             return profile
-
-        # --- CASE 2: EXISTING USER (Calculate Streak) ---
-
-        # Map DB row to Object
-        # Row: 0:id, 1:streak, 2:last_login, 3:goal, 4:progress,
-        # 5:reset, 6:onboarding
-        last_login_db = (
-            datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
-        )
-        current_streak = row[1]
-
-        # Logic:
-        # 1. If last_login == today: Do nothing (already counted).
-        # 2. If last_login == yesterday: Increment streak (consecutive).
-        # 3. If last_login < yesterday: Reset streak to 1 (broken chain).
-
-        delta = (today - last_login_db).days
-
-        new_streak = current_streak
-
-        if delta == 0:
-            # Already logged in today
-            pass
-        elif delta == 1:
-            # Logged in yesterday -> Increment
-            new_streak += 1
-            self.telemetry.log_info(f"Streak incremented for {user_id}: {new_streak}")
-        else:
-            # Missed a day or more -> Reset
-            new_streak = 1
-            self.telemetry.log_info(f"Streak broken for {user_id}. Reset to 1.")
-
-        # Create the Profile Object
-        profile = UserProfile(
-            user_id=row[0],
-            streak_days=new_streak,  # Use the calculated streak
-            last_login=today,  # Update to today
-            daily_goal=row[3],
-            daily_progress=row[4],
-            last_daily_reset=datetime.strptime(row[5], "%Y-%m-%d").date()
-            if row[5]
-            else today,
-            has_completed_onboarding=bool(row[6]) if len(row) > 6 else False,
-        )
-
-        # Persist the update immediately if dates changed
-        if delta > 0:
-            self.save_profile(profile)
-
-        return profile
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
     def save_profile(self, profile: UserProfile) -> None:
         conn = self._get_connection()
-        conn.execute(
-            """
-            UPDATE user_profiles
-            SET streak_days = ?, last_login = ?, daily_goal = ?,
-                daily_progress = ?, last_daily_reset = ?, has_completed_onboarding = ?
-            WHERE user_id = ?
-            """,
-            (
-                profile.streak_days,
-                profile.last_login,
-                profile.daily_goal,
-                profile.daily_progress,
-                profile.last_daily_reset,
-                profile.has_completed_onboarding,
-                profile.user_id,
-            ),
-        )
-        conn.commit()
-
-    # --- REMOVED: was_question_answered_on_date (Unused) ---
-    # --- REMOVED: get_incorrect_question_ids (Unused) ---
-    # --- REMOVED: get_all_attempted_ids (Unused) ---
-    # --- REMOVED: reset_user_progress (Unused) ---
+        try:
+            conn.execute(
+                """
+                UPDATE user_profiles
+                SET streak_days              = ?,
+                    last_login               = ?,
+                    daily_goal               = ?,
+                    daily_progress           = ?,
+                    last_daily_reset         = ?,
+                    has_completed_onboarding = ?
+                WHERE user_id = ?
+                """,
+                (
+                    profile.streak_days,
+                    profile.last_login,
+                    profile.daily_goal,
+                    profile.daily_progress,
+                    profile.last_daily_reset,
+                    profile.has_completed_onboarding,
+                    profile.user_id,
+                ),
+            )
+            conn.commit()
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
         conn = self._get_connection()
-        sql = """
-            INSERT INTO user_progress (
-                user_id, question_id, is_correct, consecutive_correct, timestamp
-            )
-            VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-            ON CONFLICT(user_id, question_id)
-            DO UPDATE SET
-                consecutive_correct = CASE
-                    WHEN excluded.is_correct = 1
-                    THEN user_progress.consecutive_correct + 1
-                    ELSE 0
-                END,
-                is_correct = excluded.is_correct,
-                timestamp = CURRENT_TIMESTAMP
-        """
-        initial_streak = 1 if is_correct else 0
-        conn.execute(sql, (user_id, question_id, is_correct, initial_streak))
-        conn.commit()
+        try:
+            sql = """
+                  INSERT INTO user_progress (
+                      user_id, question_id, is_correct,
+                      consecutive_correct, timestamp
+                  )
+                  VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+                  ON CONFLICT(user_id, question_id)
+                DO \
+                  UPDATE SET
+                      consecutive_correct = CASE \
+                      WHEN excluded.is_correct = 1 \
+                      THEN user_progress.consecutive_correct + 1 \
+                      ELSE 0
+                  END \
+                  ,
+                    is_correct = excluded.is_correct,
+                    timestamp = CURRENT_TIMESTAMP \
+                  """
+            initial_streak = 1 if is_correct else 0
+            conn.execute(sql, (user_id, question_id, is_correct, initial_streak))
+            conn.commit()
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
     def get_questions_by_category(
         self, category: str, user_id: str, limit: int = 15
     ) -> list[Question]:
         conn = self._get_connection()
-        query = """
-            SELECT q.json_data
-            FROM questions q
-            LEFT JOIN user_progress up
-                ON q.id = up.question_id AND up.user_id = ?
-            WHERE q.category = ?
-            ORDER BY COALESCE(up.consecutive_correct, 0) ASC, RANDOM()
-            LIMIT ?
-        """
-        cursor = conn.execute(query, (user_id, category, limit))
-        return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+        try:
+            query = """
+                    SELECT q.json_data
+                    FROM questions q
+                             LEFT JOIN user_progress up
+                                       ON q.id = up.question_id AND up.user_id = ?
+                    WHERE q.category = ?
+                    ORDER BY COALESCE(up.consecutive_correct, 0) ASC, RANDOM() LIMIT ? \
+                    """
+            cursor = conn.execute(query, (user_id, category, limit))
+            return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
     def get_mastery_percentage(self, user_id: str, category: str) -> float:
-        """
-        Returns a float 0.0 - 1.0 representing mastery of a specific category.
-        Strict SRP: The DB knows how to calculate this, not the UI Step.
-        """
         conn = self._get_connection()
-        sql = """
-            SELECT
-                COUNT(q.id) as total,
-                SUM(CASE
-                    WHEN COALESCE(up.consecutive_correct, 0) >= 3
-                    THEN 1
-                    ELSE 0
-                END) as mastered
-            FROM questions q
-            LEFT JOIN user_progress up
-                ON q.id = up.question_id AND up.user_id = ?
-            WHERE q.category = ?
-        """
-        cursor = conn.execute(sql, (user_id, category))
-        row = cursor.fetchone()
-        if not row or row[0] == 0:
-            return 0.0
-        return float(row[1]) / float(row[0])
+        try:
+            sql = """
+                  SELECT COUNT(q.id) as total, \
+                         SUM(CASE \
+                                 WHEN COALESCE(up.consecutive_correct, 0) >= 3 \
+                                     THEN 1 \
+                                 ELSE 0 \
+                             END)    as mastered
+                  FROM questions q
+                           LEFT JOIN user_progress up
+                                     ON q.id = up.question_id AND up.user_id = ?
+                  WHERE q.category = ? \
+                  """
+            cursor = conn.execute(sql, (user_id, category))
+            row = cursor.fetchone()
+            if not row or row[0] == 0:
+                return 0.0
+            return float(row[1]) / float(row[0])
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()
 
+    # --- ADR 006: Debug Methods in Repository ---
+    # Decision: We allow `debug_dump_user_progress` in the concrete
+    # implementation.
+    # Rationale: This method is used by the `app.py` entry point for
+    # developer diagnostics. It is NOT part of the `IQuizRepository`
+    # interface because domain logic should not rely on raw debug dumps.
+    # It is strictly for the outer shell (Infrastructure/Main).
+    # --------------------------------------------
     def debug_dump_user_progress(self, user_id: str) -> list[dict[str, Any]]:
         """
         Returns raw rows from user_progress for debugging.
         """
         conn = self._get_connection()
-        cursor = conn.execute(
-            """
-            SELECT question_id, is_correct, consecutive_correct, timestamp
-            FROM user_progress
-            WHERE user_id = ?
-            ORDER BY timestamp DESC
-            LIMIT 20
-            """,
-            (user_id,),
-        )
-        columns = [desc[0] for desc in cursor.description]
-        return [dict(zip(columns, row, strict=False)) for row in cursor.fetchall()]
+        try:
+            cursor = conn.execute(
+                """
+                SELECT question_id, is_correct, consecutive_correct, timestamp
+                FROM user_progress
+                WHERE user_id = ?
+                ORDER BY timestamp DESC
+                LIMIT 20
+                """,
+                (user_id,),
+            )
+            columns = [desc[0] for desc in cursor.description]
+            return [dict(zip(columns, row, strict=False)) for row in cursor.fetchall()]
+        finally:
+            if not self.db_manager._shared_connection:
+                conn.close()

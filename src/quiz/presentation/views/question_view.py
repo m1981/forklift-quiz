@@ -4,12 +4,10 @@ from typing import Any
 
 import streamlit as st
 
-# Import the new component
-from src.components.mobile_suite import mobile_header, mobile_option, mobile_result_row
+from src.components.mobile import mobile_header, mobile_option, mobile_result_row
 
 
 def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    # ... (Same as before) ...
     cat_name = payload.category_name
     if len(cat_name) > 40:
         cat_name = cat_name[:40] + "..."
@@ -23,7 +21,6 @@ def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -
 
 
 def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    # ... (Same as before) ...
     _render_compact_header(payload, callback)
 
     q = payload.question
