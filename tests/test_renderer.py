@@ -1,8 +1,11 @@
+from unittest.mock import MagicMock, Mock, patch
+
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+
 from src.game.core import UIModel
 from src.game.steps import SummaryPayload
 from src.quiz.presentation.renderer import StreamlitRenderer
+
 
 class TestRendererInteractions:
     """
@@ -11,26 +14,54 @@ class TestRendererInteractions:
 
     @pytest.fixture
     def mock_streamlit(self):
-        with patch('src.quiz.presentation.renderer.st') as mock_st:
-            with patch('src.quiz.presentation.views.summary_view.st') as s_st:
-
-                # <--- FIX: Dynamic Column Generation
-                # This ensures st.columns(2) returns 2 mocks, and st.columns(3) returns 3 mocks.
+        """
+        Patches Streamlit at the renderer and view levels.
+        Also mocks session_state for the Dashboard.
+        """
+        with patch("src.quiz.presentation.renderer.st") as mock_st:
+            with patch("src.quiz.presentation.views.summary_view.st") as s_st:
+                # 1. Handle Dynamic Columns (2 or 3 cols)
                 def create_cols(spec=1, *args, **kwargs):
                     count = spec if isinstance(spec, int) else len(spec)
                     return [MagicMock() for _ in range(count)]
 
-                # Apply side effect to all column calls
                 mock_st.columns.side_effect = create_cols
                 s_st.columns.side_effect = create_cols
 
+                # 2. Mock Session State (Critical for Dashboard)
+                # The renderer accesses st.session_state.game_director.context.repo
+                mock_director = MagicMock()
+                mock_repo = MagicMock()
+
+                # Setup the chain: director -> context -> repo
+                mock_director.context.repo = mock_repo
+                mock_director.context.user_id = "TestUser"
+
+                # Mock repo stats response
+                mock_repo.get_category_stats.return_value = [
+                    {"category": "BHP", "total": 10, "mastered": 5}
+                ]
+
+                mock_st.session_state.game_director = mock_director
+
                 yield mock_st, s_st
+
+    @pytest.fixture
+    def mock_components(self):
+        """
+        Patches the custom mobile components used in the dashboard.
+        """
+        with patch("src.quiz.presentation.renderer.mobile_hero") as mock_hero:
+            with patch("src.quiz.presentation.renderer.mobile_dashboard") as mock_dash:
+                yield mock_hero, mock_dash
 
     @pytest.fixture
     def renderer(self):
         return StreamlitRenderer()
 
-    def test_summary_view_finish_button_triggers_callback(self, renderer, mock_streamlit):
+    def test_summary_view_finish_button_triggers_callback(
+        self, renderer, mock_streamlit
+    ):
         # Arrange
         _, s_st = mock_streamlit
         mock_callback = Mock()
@@ -47,7 +78,9 @@ class TestRendererInteractions:
         # Assert
         mock_callback.assert_called_with("FINISH", None)
 
-    def test_summary_view_review_button_triggers_callback(self, renderer, mock_streamlit):
+    def test_summary_view_review_button_triggers_callback(
+        self, renderer, mock_streamlit
+    ):
         # Arrange
         _, s_st = mock_streamlit
         mock_callback = Mock()
@@ -75,5 +108,36 @@ class TestRendererInteractions:
         renderer.render(model, Mock())
 
         # Assert
-        # The implementation uses st.info("Wczytywanie...")
         mock_st.info.assert_called()
+
+    def test_dashboard_sprint_action(self, renderer, mock_streamlit, mock_components):
+        """
+        Verifies that clicking the 'Sprint' card on the dashboard
+        triggers the correct action.
+        """
+        # Arrange
+        mock_st, _ = mock_streamlit
+        mock_hero, mock_dash = mock_components
+        mock_callback = Mock()
+
+        # Setup Component Returns
+        mock_hero.return_value = None  # No action on hero
+
+        # SIMULATE USER CLICK: The dashboard returns a SPRINT action
+        mock_dash.return_value = {"type": "SPRINT", "payload": None}
+
+        model = UIModel(type="EMPTY", payload={})
+
+        # Act
+        renderer.render(model, mock_callback)
+
+        # Assert
+        # 1. Verify components were drawn
+        mock_hero.assert_called()
+        mock_dash.assert_called()
+
+        # 2. Verify callback
+        mock_callback.assert_called_with("START_SPRINT_MANUAL", None)
+
+        # 3. Verify rerun was triggered (standard Streamlit behavior after action)
+        mock_st.rerun.assert_called()

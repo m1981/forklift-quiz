@@ -1,5 +1,7 @@
+from unittest.mock import MagicMock, Mock, patch
+
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+
 from src.game.core import UIModel
 from src.game.steps import SummaryPayload
 from src.quiz.presentation.renderer import StreamlitRenderer
@@ -14,10 +16,12 @@ class TestSummaryViewInteractions:
     @pytest.fixture
     def mock_dependencies(self):
         # We patch the 'st' object specifically inside the summary_view module
-        with patch('src.quiz.presentation.views.summary_view.st') as mock_st:
+        with patch("src.quiz.presentation.views.summary_view.st") as mock_st:
             # 1. Handle st.columns()
-            # summary_view calls columns(3) for metrics, then columns(2) for buttons.
-            # We need a side_effect to return the right amount of MagicMocks (for 'with' context)
+            # summary_view calls columns(3) for metrics,
+            # then columns(2) for buttons.
+            # We need a side_effect to return the right amount of
+            # MagicMocks (for 'with' context)
             def create_cols(count):
                 return [MagicMock() for _ in range(count)]
 
@@ -87,7 +91,9 @@ class TestSummaryViewInteractions:
         mock_callback = Mock()
 
         # ARRANGE
-        payload = SummaryPayload(score=10, total=10, message="Perfect", has_errors=False)
+        payload = SummaryPayload(
+            score=10, total=10, message="Perfect", has_errors=False
+        )
         model = UIModel(type="SUMMARY", payload=payload)
 
         # ACT

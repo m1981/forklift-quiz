@@ -4,12 +4,13 @@ from src.config import GameConfig
 from src.game.core import GameContext, GameFlow, GameStep
 from src.game.steps import QuestionLoopStep, SummaryStep, TextStep
 from src.quiz.domain.models import OptionKey, Question
+from src.quiz.domain.spaced_repetition import SpacedRepetitionSelector
 from src.shared.telemetry import Telemetry
 
 
 class DailySprintFlow(GameFlow):
     """
-    The 'Smart' Daily Sprint.
+    Use Case: Start Daily Sprint
     """
 
     def build_steps(self, context: GameContext) -> list[GameStep]:
@@ -17,17 +18,17 @@ class DailySprintFlow(GameFlow):
         context.data["score"] = 0
         context.data["errors"] = []
 
-        # 1. Ensure profile exists
+        # 1. Infrastructure: Ensure profile
         _ = context.repo.get_or_create_profile(context.user_id)
 
-        # Logic: If streak > 3 days, we might give them a "Bonus" or just standard.
-        # For now, let's keep the standard limit.
-        limit = GameConfig.SPRINT_QUESTIONS
+        # 2. Infrastructure: Fetch Raw Data
+        candidates = context.repo.get_repetition_candidates(context.user_id)
 
-        # 2. Fetch Smart Mix
-        questions = context.repo.get_smart_mix(context.user_id, limit)
+        # 3. Domain Logic: Apply Spaced Repetition Rules
+        selector = SpacedRepetitionSelector()
+        questions = selector.select(candidates, limit=GameConfig.SPRINT_QUESTIONS)
 
-        telemetry.log_info(f"Smart Mix fetched: {len(questions)} questions")
+        telemetry.log_info(f"Daily Sprint Generated: {len(questions)} questions")
 
         if not questions:
             # Keep this TextStep only for the "All Mastered" edge case

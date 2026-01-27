@@ -1,13 +1,10 @@
 from abc import ABC, abstractmethod
-from datetime import date
 
-from src.quiz.domain.models import Question, UserProfile
+from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
 
 
 class IQuizRepository(ABC):
-    @abstractmethod
-    def get_all_questions(self) -> list[Question]:
-        pass
+    # --- REMOVED: get_all_questions (Unused in app flow) ---
 
     @abstractmethod
     def get_questions_by_ids(self, question_ids: list[str]) -> list[Question]:
@@ -29,31 +26,25 @@ class IQuizRepository(ABC):
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
         pass
 
-    @abstractmethod
-    def was_question_answered_on_date(
-        self, user_id: str, question_id: str, check_date: date
-    ) -> bool:
-        pass
-
-    @abstractmethod
-    def get_incorrect_question_ids(self, user_id: str) -> list[str]:
-        pass
+    # --- REMOVED: was_question_answered_on_date (Unused) ---
+    # --- REMOVED: get_incorrect_question_ids (Unused) ---
 
     @abstractmethod
     def get_mastery_percentage(self, user_id: str, category: str) -> float:
         pass
 
-    @abstractmethod
-    def get_all_attempted_ids(self, user_id: str) -> list[str]:
-        pass
-
-    @abstractmethod
-    def reset_user_progress(self, user_id: str) -> None:
-        pass
+    # --- REMOVED: get_all_attempted_ids (Unused) ---
+    # --- REMOVED: reset_user_progress (Unused) ---
 
     # --- NEW METHODS FOR MASTERY & CATEGORIES ---
+
+    # --- REMOVED: get_smart_mix (Replaced by get_repetition_candidates) ---
+
     @abstractmethod
-    def get_smart_mix(self, user_id: str, limit: int = 15) -> list[Question]:
+    def get_repetition_candidates(self, user_id: str) -> list[QuestionCandidate]:
+        """
+        Fetches raw candidates for the Spaced Repetition algorithm.
+        """
         pass
 
     @abstractmethod

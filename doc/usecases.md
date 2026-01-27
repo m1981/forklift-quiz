@@ -114,25 +114,3 @@ Below are the **Cockburn-style Use Cases** designed specifically for your Stream
     *   4a4. Resume at step 5.
 
 ---
-
-
-### Technical Implementation Notes (Streamlit Specifics)
-
-As a Streamlit expert, here is how I would map these use cases to code structures:
-
-1.  **State Management (`st.session_state`):**
-    *   We need a set or list called `st.session_state['incorrect_ids']`.
-    *   When **Use Case 1, Step 5** happens (validation), if the answer is wrong, we `.add()` the ID to that set.
-    *   When **Use Case 2, Step 7** happens (review success), we `.remove()` the ID from that set.
-
-2.  **Data Structure:**
-    *   The 250 questions should be loaded into a Pandas DataFrame or a list of dictionaries.
-    *   `id`: Unique identifier (Crucial for tracking).
-    *   `question`: String.
-    *   `options`: List `['A', 'B', 'C', 'D']`.
-    *   `answer`: String (e.g., 'A').
-    *   `explanation`: String (Optional, but great for Step 6 in Use Case 1).
-
-3.  **UI Layout:**
-    *   Use `st.radio` for the options.
-    *   Use `st.form` and `st.form_submit_button` to prevent the app from reloading immediately when a user clicks a radio button (this is a common Streamlit pitfall; we want them to click "Submit" explicitly).

@@ -32,6 +32,7 @@ def sample_question():
         text="Test?",
         options={OptionKey.A: "Yes", OptionKey.B: "No"},
         correct_option=OptionKey.A,
+        category="TestCat",
     )
 
 
@@ -118,7 +119,8 @@ class TestTextStep:
 class TestQuestionLoopStep:
     def test_submit_correct_answer_updates_score(self, game_context, sample_question):
         # Arrange
-        step = QuestionLoopStep([sample_question])
+        # FIX: Added flow_title argument
+        step = QuestionLoopStep([sample_question], flow_title="Test Flow")
         step.enter(game_context)  # Init score=0
 
         # Act
@@ -136,7 +138,8 @@ class TestQuestionLoopStep:
 
     def test_submit_incorrect_answer_tracks_error(self, game_context, sample_question):
         # Arrange
-        step = QuestionLoopStep([sample_question])
+        # FIX: Added flow_title argument
+        step = QuestionLoopStep([sample_question], flow_title="Test Flow")
         step.enter(game_context)
 
         # Act
@@ -152,8 +155,11 @@ class TestQuestionLoopStep:
 
     def test_next_question_advances_index(self, game_context, sample_question):
         # Arrange
-        q2 = Question(id="Q2", text="?", options={}, correct_option=OptionKey.A)
-        step = QuestionLoopStep([sample_question, q2])
+        q2 = Question(
+            id="Q2", text="?", options={}, correct_option=OptionKey.A, category="Test"
+        )
+        # FIX: Added flow_title argument
+        step = QuestionLoopStep([sample_question, q2], flow_title="Test Flow")
         step.enter(game_context)
 
         # Act
@@ -171,7 +177,10 @@ class TestQuestionLoopStep:
 
     def test_loop_finishes_after_last_question(self, game_context, sample_question):
         # Arrange
-        step = QuestionLoopStep([sample_question])  # Only 1 question
+        # FIX: Added flow_title argument
+        step = QuestionLoopStep(
+            [sample_question], flow_title="Test Flow"
+        )  # Only 1 question
         step.enter(game_context)
 
         step.handle_action("SUBMIT_ANSWER", OptionKey.A, game_context)
@@ -215,6 +224,8 @@ class TestSummaryStep:
 
         # Mock repo to return a question object
         mock_q = Mock(spec=Question)
+        # Ensure the mock question has a category for the loop step
+        mock_q.category = "Review"
         game_context.repo.get_questions_by_ids.return_value = [mock_q]
 
         step.enter(game_context)
@@ -227,6 +238,8 @@ class TestSummaryStep:
         assert result.questions == [mock_q]
         # Verify errors were cleared to prevent infinite loop
         assert game_context.data["errors"] == []
+        # Verify the new loop has the correct title
+        assert result.flow_title == "🛠️ Poprawa Błędów"
 
     def test_review_mistakes_skips_if_no_errors(self, game_context):
         # Arrange

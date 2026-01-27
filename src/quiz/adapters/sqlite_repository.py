@@ -1,12 +1,11 @@
 import json
 import os
-import random
 import sqlite3
 from datetime import date, datetime
 from typing import Any
 
 from src.config import GameConfig
-from src.quiz.domain.models import Question, UserProfile
+from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
 from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
 
@@ -141,18 +140,42 @@ class SQLiteQuizRepository(IQuizRepository):
         except Exception as e:
             self.telemetry.log_error("Auto-seeding failed", e)
 
-    @measure_time("db_get_all_questions")
-    def get_all_questions(self) -> list[Question]:
-        try:
-            conn = self._get_connection()
-            cursor = conn.execute("SELECT json_data FROM questions")
-            results = [
-                Question.model_validate_json(row[0]) for row in cursor.fetchall()
-            ]
-            return results
-        except Exception as e:
-            self.telemetry.log_error("get_all_questions failed", e)
-            return []
+    @measure_time("db_get_repetition_candidates")
+    def get_repetition_candidates(self, user_id: str) -> list[QuestionCandidate]:
+        """
+        Fetches raw candidates for the Spaced Repetition algorithm.
+        """
+        conn = self._get_connection()
+
+        # We filter 'Mastered & Recent' in SQL for performance,
+        # but we leave the selection logic to the Domain.
+        query = """
+            SELECT q.json_data,
+                   COALESCE(up.consecutive_correct, 0) as streak,
+                   up.question_id IS NOT NULL as seen
+            FROM questions q
+            LEFT JOIN user_progress up
+                ON q.id = up.question_id AND up.user_id = ?
+            WHERE
+                up.question_id IS NULL
+                OR up.consecutive_correct < ?
+                OR (up.consecutive_correct >= ?
+                    AND up.timestamp < date('now', '-3 days'))
+        """
+
+        cursor = conn.execute(
+            query, (user_id, GameConfig.MASTERY_THRESHOLD, GameConfig.MASTERY_THRESHOLD)
+        )
+
+        candidates = []
+        for row in cursor.fetchall():
+            q_json, streak, seen = row
+            q = Question.model_validate_json(q_json)
+            candidates.append(
+                QuestionCandidate(question=q, streak=streak, is_seen=bool(seen))
+            )
+
+        return candidates
 
     def get_category_stats(self, user_id: str) -> list[dict[str, int | str]]:
         """
@@ -224,8 +247,12 @@ class SQLiteQuizRepository(IQuizRepository):
         row = cursor.fetchone()
         today = date.today()
 
+        # --- CASE 1: NEW USER ---
         if not row:
-            profile = UserProfile(user_id=user_id)
+            # Start with streak 1 (today is the first day)
+            profile = UserProfile(
+                user_id=user_id, streak_days=1, last_login=today, last_daily_reset=today
+            )
             conn.execute(
                 """
                 INSERT INTO user_profiles (
@@ -245,25 +272,58 @@ class SQLiteQuizRepository(IQuizRepository):
                 ),
             )
             conn.commit()
+            self.telemetry.log_info(f"New profile created for {user_id}")
             return profile
 
-        has_onboarding = False
-        if len(row) > 6:
-            has_onboarding = bool(row[6])
+        # --- CASE 2: EXISTING USER (Calculate Streak) ---
 
-        return UserProfile(
+        # Map DB row to Object
+        # Row: 0:id, 1:streak, 2:last_login, 3:goal, 4:progress,
+        # 5:reset, 6:onboarding
+        last_login_db = (
+            datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
+        )
+        current_streak = row[1]
+
+        # Logic:
+        # 1. If last_login == today: Do nothing (already counted).
+        # 2. If last_login == yesterday: Increment streak (consecutive).
+        # 3. If last_login < yesterday: Reset streak to 1 (broken chain).
+
+        delta = (today - last_login_db).days
+
+        new_streak = current_streak
+
+        if delta == 0:
+            # Already logged in today
+            pass
+        elif delta == 1:
+            # Logged in yesterday -> Increment
+            new_streak += 1
+            self.telemetry.log_info(f"Streak incremented for {user_id}: {new_streak}")
+        else:
+            # Missed a day or more -> Reset
+            new_streak = 1
+            self.telemetry.log_info(f"Streak broken for {user_id}. Reset to 1.")
+
+        # Create the Profile Object
+        profile = UserProfile(
             user_id=row[0],
-            streak_days=row[1],
-            last_login=datetime.strptime(row[2], "%Y-%m-%d").date()
-            if row[2]
-            else today,
+            streak_days=new_streak,  # Use the calculated streak
+            last_login=today,  # Update to today
             daily_goal=row[3],
             daily_progress=row[4],
             last_daily_reset=datetime.strptime(row[5], "%Y-%m-%d").date()
             if row[5]
             else today,
-            has_completed_onboarding=has_onboarding,
+            has_completed_onboarding=bool(row[6]) if len(row) > 6 else False,
         )
+
+        # Persist the update immediately if dates changed
+        if delta > 0:
+            self.save_profile(profile)
+
+        return profile
 
     def save_profile(self, profile: UserProfile) -> None:
         conn = self._get_connection()
@@ -286,51 +346,10 @@ class SQLiteQuizRepository(IQuizRepository):
         )
         conn.commit()
 
-    def was_question_answered_on_date(
-        self, user_id: str, question_id: str, check_date: date
-    ) -> bool:
-        date_str = check_date.strftime("%Y-%m-%d")
-        conn = self._get_connection()
-        cursor = conn.execute(
-            """
-            SELECT count(*) FROM user_progress
-            WHERE user_id = ? AND question_id = ? AND date(timestamp) = ?
-            """,
-            (user_id, question_id, date_str),
-        )
-        result = cursor.fetchone()
-        return bool(result[0] > 0) if result else False
-
-    def get_incorrect_question_ids(self, user_id: str) -> list[str]:
-        conn = self._get_connection()
-        cursor = conn.execute(
-            """
-            SELECT question_id FROM user_progress
-            WHERE user_id = ? AND is_correct = 0
-            """,
-            (user_id,),
-        )
-        return [row[0] for row in cursor.fetchall()]
-
-    def get_all_attempted_ids(self, user_id: str) -> list[str]:
-        conn = self._get_connection()
-        cursor = conn.execute(
-            "SELECT question_id FROM user_progress WHERE user_id = ?", (user_id,)
-        )
-        return [row[0] for row in cursor.fetchall()]
-
-    def reset_user_progress(self, user_id: str) -> None:
-        conn = self._get_connection()
-        conn.execute("DELETE FROM user_progress WHERE user_id = ?", (user_id,))
-        conn.execute(
-            """
-            UPDATE user_profiles
-            SET streak_days=0, daily_progress=0, has_completed_onboarding=0
-            WHERE user_id = ?
-            """,
-            (user_id,),
-        )
-        conn.commit()
+    # --- REMOVED: was_question_answered_on_date (Unused) ---
+    # --- REMOVED: get_incorrect_question_ids (Unused) ---
+    # --- REMOVED: get_all_attempted_ids (Unused) ---
+    # --- REMOVED: reset_user_progress (Unused) ---
 
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
         conn = self._get_connection()
@@ -352,78 +371,6 @@ class SQLiteQuizRepository(IQuizRepository):
         initial_streak = 1 if is_correct else 0
         conn.execute(sql, (user_id, question_id, is_correct, initial_streak))
         conn.commit()
-
-    @measure_time("db_get_smart_mix")
-    def get_smart_mix(self, user_id: str, limit: int = 15) -> list[Question]:
-        conn = self._get_connection()
-
-        # We fetch:
-        # 1. Questions never seen (streak IS NULL)
-        # 2. Questions seen but NOT mastered (streak < 3)
-        # 3. Questions mastered BUT older than 3 days (Spaced Repetition)
-        query = """
-            SELECT q.json_data,
-                   COALESCE(up.consecutive_correct, 0) as streak,
-                   up.question_id IS NOT NULL as seen
-            FROM questions q
-            LEFT JOIN user_progress up
-                ON q.id = up.question_id AND up.user_id = ?
-            WHERE
-                -- Case A: Never seen
-                up.question_id IS NULL
-                OR
-                -- Case B: Seen, but not mastered yet
-                up.consecutive_correct < ?
-                OR
-                -- Case C: Mastered, but answered > 3 days ago (Review time)
-                (up.consecutive_correct >= ? AND up.timestamp < date('now', '-3 days'))
-        """
-
-        # Pass threshold twice (once for Case B, once for Case C)
-        cursor = conn.execute(
-            query, (user_id, GameConfig.MASTERY_THRESHOLD, GameConfig.MASTERY_THRESHOLD)
-        )
-        rows = cursor.fetchall()
-
-        learning_pool = []
-        unseen_pool = []
-
-        for row in rows:
-            q_json, streak, seen = row
-            if streak >= GameConfig.MASTERY_THRESHOLD:
-                continue
-
-            q = Question.model_validate_json(q_json)
-
-            if not seen or streak < GameConfig.MASTERY_THRESHOLD:
-                if seen:
-                    learning_pool.append(q)
-                else:
-                    unseen_pool.append(q)
-
-        target_new = int(limit * GameConfig.NEW_RATIO)
-        target_review = limit - target_new
-
-        random.shuffle(learning_pool)
-        random.shuffle(unseen_pool)
-
-        selected = []
-        selected.extend(learning_pool[:target_review])
-        selected.extend(unseen_pool[:target_new])
-
-        if len(selected) < limit:
-            needed = limit - len(selected)
-            remaining_new = unseen_pool[target_new:]
-            selected.extend(remaining_new[:needed])
-
-        if len(selected) < limit:
-            needed = limit - len(selected)
-            remaining_learning = learning_pool[target_review:]
-            selected.extend(remaining_learning[:needed])
-
-        random.shuffle(selected)
-        self.telemetry.log_info(f"Smart Mix Generated: {len(selected)} questions")
-        return selected[:limit]
 
     def get_questions_by_category(
         self, category: str, user_id: str, limit: int = 15

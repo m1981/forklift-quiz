@@ -94,9 +94,12 @@ with st.sidebar.expander("🕵️‍♂️ QA / Debug Zone", expanded=False):
 
     st.markdown("---")
     if st.button("⚠️ RESET USER DB"):
-        vm.director.context.repo.reset_user_progress(vm.director.context.user_id)
-        st.success("User reset!")
-        st.rerun()
+        # Note: reset_user_progress was removed from the interface
+        # If you need this functionality, re-add it to IQuizRepository
+        st.warning("Reset functionality temporarily disabled")
+        # vm.director.context.repo.reset_user_progress(vm.director.context.user_id)
+        # st.success("User reset!")
+        # st.rerun()
 
 # Main Render Loop
 ui_data = vm.ui_model

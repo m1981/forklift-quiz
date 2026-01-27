@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import date
 from enum import Enum
 
@@ -24,6 +25,19 @@ class Question(BaseModel):
     explanation: str | None = None
     hint: str | None = None
     category: str = "Ogólne"
+
+
+# --- (Data Transfer Object) ---
+@dataclass
+class QuestionCandidate:
+    """
+    Represents a question eligible for selection,
+    decoupled from the database implementation.
+    """
+
+    question: Question
+    streak: int
+    is_seen: bool
 
 
 class UserProfile(BaseModel):
