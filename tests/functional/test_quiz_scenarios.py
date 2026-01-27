@@ -1,3 +1,11 @@
+# ==============================================================================
+# ARCHITECTURE: FUNCTIONAL TEST (USER FLOWS)
+# ------------------------------------------------------------------------------
+# GOAL: Verify End-to-End User Scenarios via the GameDriver.
+# CONSTRAINTS:
+#   1. DRIVER: MUST use 'tests.helpers.game_driver.GameDriver'.
+#   2. I/O: MOCKED. Use 'unittest.mock' for the Repository/Database.
+# ==============================================================================
 from unittest.mock import Mock, patch
 
 from src.game.core import GameContext

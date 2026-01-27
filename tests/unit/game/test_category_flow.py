@@ -1,3 +1,12 @@
+# ==============================================================================
+# ARCHITECTURE: UNIT TEST (CORE LOGIC)
+# ------------------------------------------------------------------------------
+# GOAL: Verify pure business logic, state transitions, and algorithms.
+# CONSTRAINTS:
+#   1. EXECUTION: FAST (< 50ms per test).
+#   2. I/O: FORBIDDEN. No Database, No Network, No File System.
+#   3. MOCKS: Mandatory for Repositories and External Services.
+# ==============================================================================
 from unittest.mock import Mock
 
 from src.game.core import GameContext

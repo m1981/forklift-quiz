@@ -1,3 +1,11 @@
+# ==============================================================================
+# ARCHITECTURE: UNIT TEST (PRESENTATION LAYER)
+# ------------------------------------------------------------------------------
+# GOAL: Verify View Logic (e.g., 'If button clicked, trigger callback').
+# CONSTRAINTS:
+#   1. DEPENDENCIES: MUST mock the 'streamlit' library.
+#   2. STATE: Verify 'st.session_state' mutations via mocks.
+# ==============================================================================
 from unittest.mock import MagicMock, Mock, patch
 
 import pytest

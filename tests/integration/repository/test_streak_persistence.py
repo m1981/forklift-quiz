@@ -1,3 +1,11 @@
+# ==============================================================================
+# ARCHITECTURE: INTEGRATION TEST (ADAPTER LAYER)
+# ------------------------------------------------------------------------------
+# GOAL: Verify Data Persistence and SQL Logic.
+# CONSTRAINTS:
+#   1. DATABASE: Use a real SQLite instance (In-Memory or Temp File).
+#   2. SCOPE: Test CRUD operations, Complex Queries, and Data Integrity.
+# ==============================================================================
 from datetime import date, timedelta
 
 import pytest
