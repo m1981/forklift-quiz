@@ -4,7 +4,7 @@ from src.game.core import GameContext
 from src.game.director import GameDirector
 from src.game.flows import DailySprintFlow
 from src.quiz.domain.models import OptionKey, Question, QuestionCandidate, UserProfile
-from tests.drivers.game_driver import GameDriver
+from tests.helpers.game_driver import GameDriver
 
 # --- Setup Helpers ---
 
