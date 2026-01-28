@@ -1,4 +1,6 @@
+import base64  # <--- ADDED
 import math
+import os  # <--- ADDED
 from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Any, Union
@@ -10,8 +12,8 @@ from src.shared.telemetry import Telemetry
 
 @dataclass
 class DashboardPayload:
-    app_title: str  # <--- NEW
-    app_logo: str  # <--- NEW
+    app_title: str  # <--- ADDED
+    app_logo_src: str  # <--- ADDED
     global_progress: float
     total_mastered: int
     total_questions: int
@@ -29,6 +31,36 @@ class DashboardStep(GameStep):
     def __init__(self) -> None:
         super().__init__()
         self.telemetry = Telemetry("DashboardStep")
+
+    # <--- THIS METHOD WAS MISSING IN YOUR DIFF
+    def _get_logo_base64(self) -> str:
+        """
+        Reads the logo file from config and converts to Base64 Data URI.
+        """
+        path = GameConfig.APP_LOGO_PATH
+
+        # 1. Check if it's a web URL (pass through)
+        if path.startswith("http"):
+            return path
+
+        # 2. Check local file
+        if os.path.exists(path):
+            try:
+                with open(path, "rb") as img_file:
+                    b64_data = base64.b64encode(img_file.read()).decode("utf-8")
+                    # Determine mime type
+                    mime = "image/png"
+                    if path.lower().endswith(".jpg") or path.lower().endswith(".jpeg"):
+                        mime = "image/jpeg"
+                    elif path.lower().endswith(".svg"):
+                        mime = "image/svg+xml"
+
+                    return f"data:{mime};base64,{b64_data}"
+            except Exception as e:
+                self.telemetry.log_error("Failed to load logo", e)
+
+        # 3. Fallback (Transparent pixel)
+        return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 
     def enter(self, context: GameContext) -> None:
         super().enter(context)
@@ -92,8 +124,8 @@ class DashboardStep(GameStep):
         # ----------------------------
 
         payload = DashboardPayload(
-            app_title=GameConfig.APP_TITLE,  # <--- NEW
-            app_logo=GameConfig.APP_LOGO_EMOJI,  # <--- NEW
+            app_title=GameConfig.APP_TITLE,
+            app_logo_src=self._get_logo_base64(),  # <--- CALLING THE NEW METHOD
             global_progress=global_progress,
             total_mastered=total_mastered,
             total_questions=total_q,

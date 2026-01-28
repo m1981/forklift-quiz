@@ -32,8 +32,9 @@ class Category(Enum):
 class GameConfig:
     # --- App Identity ---
     APP_TITLE = "Wózki widłowe 2 WJO"
-    # You can replace this with an image URL if you have one hosted
-    APP_LOGO_EMOJI = "🚜"
+    # Path to your logo file (relative to project root)
+    # Ensure this file exists, or the code will fallback to a placeholder
+    APP_LOGO_PATH = "assets/logo.png"
 
     # --- Game Rules ---
     DAILY_GOAL = 3

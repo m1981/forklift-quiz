@@ -6,7 +6,9 @@ HERO_HTML = """
 <div class="hero-compact">
     <!-- Left: Logo -->
     <div class="logo-col">
-        <div class="logo-box" id="app-logo"></div>
+        <div class="logo-box">
+            <img id="app-logo-img" src="" alt="Logo" />
+        </div>
     </div>
 
     <!-- Center: Info -->
@@ -41,7 +43,7 @@ HERO_CSS = (
     background: white;
     border-bottom: 1px solid #e5e7eb;
     padding: 12px 8px;
-    margin: 0 -4px 16px -4px; /* Negative margin to span width */
+    margin: 0 -4px 16px -4px;
     font-family: "Source Sans Pro", sans-serif;
 }
 
@@ -51,15 +53,23 @@ HERO_CSS = (
 }
 
 .logo-box {
-    width: 48px;
-    height: 48px;
-    background: #f3f4f6; /* Gray-100 */
+    width: 96px;
+    height: 96px;
+    background: white;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    padding: 4px; /* Padding inside the box */
+    overflow: hidden;
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures image fits without distortion */
+    display: block;
 }
 
 /* --- INFO --- */
@@ -148,7 +158,7 @@ export default function(component) {
     const { data, parentElement } = component;
 
     // Selectors
-    const logoEl = parentElement.querySelector('#app-logo');
+    const imgEl = parentElement.querySelector('#app-logo-img');
     const titleEl = parentElement.querySelector('#app-title');
     const barEl = parentElement.querySelector('#global-bar');
     const percentEl = parentElement.querySelector('#global-percent');
@@ -157,7 +167,10 @@ export default function(component) {
     const menuBtn = parentElement.querySelector('#menuBtn');
 
     // Data Binding
-    logoEl.textContent = data.logo;
+    if (data.logoSrc) {
+        imgEl.src = data.logoSrc;
+    }
+
     titleEl.textContent = data.title;
 
     const pct = Math.round(data.progress * 100);
@@ -167,7 +180,7 @@ export default function(component) {
     masteredEl.textContent = `${data.mastered}/${data.total}`;
     dateEl.textContent = data.finishDate;
 
-    // Menu Action (Trigger Sidebar)
+    // Menu Action
     menuBtn.onclick = () => {
         const doc = window.parent.document;
         // Try to find Streamlit sidebar toggle
@@ -189,7 +202,7 @@ _mobile_hero_component = st.components.v2.component(
 
 def mobile_hero(
     title: str,
-    logo: str,
+    logo_src: str,
     progress: float,
     mastered_count: int,
     total_count: int,
@@ -203,7 +216,7 @@ def mobile_hero(
     _mobile_hero_component(
         data={
             "title": title,
-            "logo": logo,
+            "logoSrc": logo_src,
             "progress": progress,
             "mastered": mastered_count,
             "total": total_count,

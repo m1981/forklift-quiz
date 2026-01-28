@@ -1,4 +1,6 @@
+import base64
 import math
+import os
 from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Any, Union
@@ -241,6 +243,8 @@ def mobile_dashboard(
 
 @dataclass
 class DashboardPayload:
+    app_title: str
+    app_logo_src: str
     global_progress: float
     total_mastered: int
     total_questions: int
@@ -308,6 +312,8 @@ class DashboardStep(GameStep):
         # --------------------------------------------------------
 
         payload = DashboardPayload(
+            app_title=GameConfig.APP_TITLE,
+            app_logo_src=self._get_logo_base64(),  # <--- Load Image
             global_progress=global_progress,
             total_mastered=total_mastered,
             total_questions=total_q,
@@ -322,3 +328,25 @@ class DashboardStep(GameStep):
         self, action: str, payload: Any, context: GameContext
     ) -> Union["GameStep", str, None]:
         return None
+
+    def _get_logo_base64(self) -> str:
+        """Reads the logo file from config and converts to Base64 Data URI."""
+        path = GameConfig.APP_LOGO_PATH
+
+        if path.startswith("http"):
+            return path
+
+        if os.path.exists(path):
+            try:
+                with open(path, "rb") as img_file:
+                    b64_data = base64.b64encode(img_file.read()).decode("utf-8")
+                    mime = "image/png"
+                    if path.lower().endswith((".jpg", ".jpeg")):
+                        mime = "image/jpeg"
+                    elif path.lower().endswith(".svg"):
+                        mime = "image/svg+xml"
+                    return f"data:{mime};base64,{b64_data}"
+            except Exception as e:
+                self.telemetry.log_error("Failed to load logo", e)
+
+        return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
