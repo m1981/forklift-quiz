@@ -382,19 +382,19 @@ class TestRendererContract:
         # 4. Assert
         assert True
 
+    def test_renderer_handles_unknown_step_type(self, renderer, mock_streamlit):
+        """
+        GIVEN a UIModel with an unknown type
+        WHEN render is called
+        THEN it should log an error and show an error message.
+        """
+        # FIX: Do not unpack. The fixture in this class only yields 'mock_st'.
+        mock_st = mock_streamlit
 
-def test_renderer_handles_unknown_step_type(renderer, mock_streamlit):
-    """
-    GIVEN a UIModel with an unknown type
-    WHEN render is called
-    THEN it should log an error and show an error message.
-    """
-    mock_st, _ = mock_streamlit
-    model = UIModel(type="UNKNOWN_ALIEN_TYPE", payload={})
+        model = UIModel(type="UNKNOWN_ALIEN_TYPE", payload={})
 
-    # Act
-    renderer.render(model, Mock())
+        # Act
+        renderer.render(model, Mock())
 
-    # Assert
-    mock_st.error.assert_called()
-    # If you mock telemetry, assert log_error was called too
+        # Assert
+        mock_st.error.assert_called()

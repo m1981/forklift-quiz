@@ -138,7 +138,7 @@ class SQLiteQuizRepository(IQuizRepository):
                 cursor.execute(
                     "INSERT OR REPLACE INTO questions (id, json_data, category) "
                     "VALUES (?, ?, ?)",
-                    (q.id, q.json(), q.category),
+                    (q.id, q.model_dump_json(), q.category),
                 )
             conn.commit()
         except sqlite3.Error as e:

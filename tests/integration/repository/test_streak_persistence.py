@@ -19,9 +19,13 @@ from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 @pytest.fixture
 def repo():
     """Returns a clean in-memory repo for every test."""
-    # --- FIX: Use the new DatabaseManager API ---
     db_manager = DatabaseManager(db_path=":memory:")
-    return SQLiteQuizRepository(db_manager)
+
+    # Yield instead of return to allow cleanup code after the test
+    yield SQLiteQuizRepository(db_manager)
+
+    # TEARDOWN: Close the connection
+    db_manager.close()
 
 
 @pytest.fixture
