@@ -1,6 +1,6 @@
-import base64  # <--- ADDED
+import base64
 import math
-import os  # <--- ADDED
+import os
 from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Any, Union
@@ -12,8 +12,8 @@ from src.shared.telemetry import Telemetry
 
 @dataclass
 class DashboardPayload:
-    app_title: str  # <--- ADDED
-    app_logo_src: str  # <--- ADDED
+    app_title: str
+    app_logo_src: str
     global_progress: float
     total_mastered: int
     total_questions: int
@@ -32,7 +32,6 @@ class DashboardStep(GameStep):
         super().__init__()
         self.telemetry = Telemetry("DashboardStep")
 
-    # <--- THIS METHOD WAS MISSING IN YOUR DIFF
     def _get_logo_base64(self) -> str:
         """
         Reads the logo file from config and converts to Base64 Data URI.
@@ -74,13 +73,10 @@ class DashboardStep(GameStep):
         if not self.context:
             raise RuntimeError("DashboardStep accessed before enter()")
 
-        # 1. Fetch Data (Infrastructure)
-        # Returns: [{'category': 'BHP', 'total': 10, 'mastered': 5}, ...]
+        # 1. Fetch Data
         stats = self.context.repo.get_category_stats(self.context.user_id)
 
-        # 2. Calculate Global Stats (Domain Logic)
-        # We explicitly cast to int because we know 'total' and 'mastered' are ints,
-        # even though the dict type hint says int | str.
+        # 2. Calculate Global Stats
         total_q = sum(int(s["total"]) for s in stats)
         total_mastered = sum(int(s["mastered"]) for s in stats)
         remaining = total_q - total_mastered
@@ -89,11 +85,9 @@ class DashboardStep(GameStep):
         days_left = math.ceil(remaining / throughput) if remaining > 0 else 0
 
         finish_date = date.today() + timedelta(days=days_left)
-
-        # Avoid division by zero
         global_progress = (total_mastered / total_q) if total_q > 0 else 0.0
 
-        # 3. Prepare Category Data (Presentation Logic)
+        # 3. Prepare Category Data
         cat_data = []
         for stat in stats:
             full_name = str(stat["category"])
@@ -101,7 +95,6 @@ class DashboardStep(GameStep):
             c_mastered = int(stat["mastered"])
             c_icon = Category.get_icon(full_name)
 
-            # Shorten long name ONLY for display
             display_name = full_name
             if len(display_name) > 30:
                 display_name = display_name[:28] + "..."
@@ -115,17 +108,16 @@ class DashboardStep(GameStep):
             }
             cat_data.append(item)
 
-        # --- TELEMETRY ADDED HERE ---
+        # --- TELEMETRY ---
         self.telemetry.log_info(
-            f"Dashboard Stats Calculated: Mastered={total_mastered}/{total_q} "
-            f"({global_progress:.1%})",
+            f"Dashboard Stats Calculated: Mastered={total_mastered}/{total_q}",
             categories=[c["name"] for c in cat_data],
         )
         # ----------------------------
 
         payload = DashboardPayload(
             app_title=GameConfig.APP_TITLE,
-            app_logo_src=self._get_logo_base64(),  # <--- CALLING THE NEW METHOD
+            app_logo_src=self._get_logo_base64(),
             global_progress=global_progress,
             total_mastered=total_mastered,
             total_questions=total_q,
