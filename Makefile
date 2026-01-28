@@ -55,6 +55,10 @@ test-html: ## Run tests with HTML coverage report
 test: ## Run tests with coverage
 	uv run pytest
 
+.PHONY: watch
+watch: ## Run tests in watch mode
+	uv run pytest-watcher .
+
 .PHONY: clean
 clean: ## Remove cache and virtual environment
 	rm -rf .venv
