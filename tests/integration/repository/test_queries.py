@@ -6,6 +6,8 @@
 #   1. DATABASE: Use a real SQLite instance (In-Memory or Temp File).
 #   2. SCOPE: Test CRUD operations, Complex Queries, and Data Integrity.
 # ==============================================================================
+from unittest.mock import patch
+
 import pytest
 
 from src.quiz.adapters.db_manager import DatabaseManager
@@ -30,6 +32,7 @@ def create_q(id, category="Gen"):
     )
 
 
+@patch("src.config.GameConfig.MASTERY_THRESHOLD", 3)
 def test_get_repetition_candidates_logic(repo):
     """
     Verify SQL logic for Spaced Repetition:
@@ -37,6 +40,9 @@ def test_get_repetition_candidates_logic(repo):
     2. Seen & Low Streak (<3) -> Candidate
     3. Seen & High Streak (>=3) & Recent (<3 days) -> HIDDEN
     4. Seen & High Streak (>=3) & Old (>3 days) -> Candidate (Review)
+
+    FIX: Patched MASTERY_THRESHOLD to 3.
+    FIX: Manually inserted Q_Learning with past date to avoid daily filter.
     """
     user_id = "User1"
 
@@ -50,12 +56,18 @@ def test_get_repetition_candidates_logic(repo):
     repo.seed_questions(qs)
 
     # 2. Setup Progress
+    conn = repo._get_connection()
+
     # Q_Learning: Streak 1 (Should show)
-    repo.save_attempt(user_id, "Q_Learning", is_correct=True)
+    # We insert it as 'yesterday' so it's not hidden by the "attempted today" filter
+    conn.execute(
+        """INSERT OR REPLACE INTO user_progress
+        (user_id, question_id, consecutive_correct, timestamp)
+        VALUES (?, ?, ?, date('now', '-1 day'))""",
+        (user_id, "Q_Learning", 1),
+    )
 
     # Q_Mastered_Recent: Streak 3, Just now (Should be HIDDEN)
-    # We need to manually inject this to control the timestamp
-    conn = repo._get_connection()
     conn.execute(
         """INSERT OR REPLACE INTO user_progress
         (user_id, question_id, consecutive_correct, timestamp)

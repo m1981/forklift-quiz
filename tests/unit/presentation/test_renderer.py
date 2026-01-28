@@ -350,6 +350,8 @@ class TestRendererContract:
                 flow_title="Test Flow",
                 category_name="Test Category",
                 category_mastery=0.5,
+                session_history=[],
+                current_streak=0,
             )
 
         elif step_type == "FEEDBACK":
@@ -360,6 +362,8 @@ class TestRendererContract:
                 flow_title="Test Flow",
                 category_name="Test Category",
                 category_mastery=0.5,
+                session_history=[],
+                current_streak=0,
                 last_feedback={
                     "is_correct": False,
                     "selected": OptionKey.A,
@@ -377,3 +381,20 @@ class TestRendererContract:
 
         # 4. Assert
         assert True
+
+
+def test_renderer_handles_unknown_step_type(renderer, mock_streamlit):
+    """
+    GIVEN a UIModel with an unknown type
+    WHEN render is called
+    THEN it should log an error and show an error message.
+    """
+    mock_st, _ = mock_streamlit
+    model = UIModel(type="UNKNOWN_ALIEN_TYPE", payload={})
+
+    # Act
+    renderer.render(model, Mock())
+
+    # Assert
+    mock_st.error.assert_called()
+    # If you mock telemetry, assert log_error was called too

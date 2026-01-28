@@ -26,7 +26,16 @@ def mock_repo():
 
 @pytest.fixture
 def game_context(mock_repo):
-    return GameContext(user_id="TestUser", repo=mock_repo)
+    # FIX: Initialize data dict with required keys to prevent KeyError
+    ctx = GameContext(user_id="TestUser", repo=mock_repo)
+    ctx.data = {
+        "score": 0,
+        "errors": [],
+        "total_questions": 0,
+        "session_history": [],  # Added for completeness
+        "current_streak": 0,  # Added for completeness
+    }
+    return ctx
 
 
 @pytest.fixture
