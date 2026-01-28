@@ -52,36 +52,3 @@ class UserProfile(BaseModel):
 
     def is_bonus_mode(self) -> bool:
         return self.daily_progress >= self.daily_goal
-
-
-class QuizSessionState(BaseModel):
-    """
-    Encapsulates the state of a running quiz.
-    """
-
-    current_q_index: int = 0
-    score: int = 0
-    session_error_ids: list[str] = []
-    internal_phase: str = "Sprint"  # 'Sprint' or 'Correction'
-    is_complete: bool = False
-
-    def record_correct_answer(self) -> None:
-        self.score += 1
-
-    def record_error(self, question_id: str) -> None:
-        if question_id not in self.session_error_ids:
-            self.session_error_ids.append(question_id)
-
-    def resolve_error(self, question_id: str) -> None:
-        if question_id in self.session_error_ids:
-            self.session_error_ids.remove(question_id)
-
-    def next_question(self) -> None:
-        self.current_q_index += 1
-
-    def reset(self, phase: str = "Sprint") -> None:
-        self.current_q_index = 0
-        self.score = 0
-        self.session_error_ids = []
-        self.internal_phase = phase
-        self.is_complete = False
