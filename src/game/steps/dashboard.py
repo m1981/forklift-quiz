@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Any, Union
 
-from src.config import Category
+from src.config import Category, GameConfig
 from src.game.core import GameContext, GameStep, UIModel
 from src.shared.telemetry import Telemetry
 
@@ -56,8 +56,9 @@ class DashboardStep(GameStep):
         total_mastered = sum(int(s["mastered"]) for s in stats)
         remaining = total_q - total_mastered
 
-        # Logic: 15 questions per day goal
-        days_left = math.ceil(remaining / 15) if remaining > 0 else 0
+        throughput = GameConfig.SPRINT_QUESTIONS
+        days_left = math.ceil(remaining / throughput) if remaining > 0 else 0
+
         finish_date = date.today() + timedelta(days=days_left)
 
         # Avoid division by zero
@@ -66,25 +67,24 @@ class DashboardStep(GameStep):
         # 3. Prepare Category Data (Presentation Logic)
         cat_data = []
         for stat in stats:
-            # Extract and cast for safety
-            cat_name = str(stat["category"])
-            cat_total = int(stat["total"])
-            cat_mastered = int(stat["mastered"])
+            full_name = str(stat["category"])  # <--- KEEP FULL NAME
+            c_total = int(stat["total"])
+            c_mastered = int(stat["mastered"])
+            c_icon = Category.get_icon(full_name)
 
-            # Shorten long name for mobile view if needed
-            display_name = cat_name
+            # Shorten long name ONLY for display
+            display_name = full_name
             if len(display_name) > 30:
                 display_name = display_name[:28] + "..."
 
-            cat_data.append(
-                {
-                    "name": display_name,  # Use the shortened name
-                    "progress": cat_mastered / cat_total if cat_total > 0 else 0,
-                    "icon": Category.get_icon(cat_name),
-                    # 👇 ADD THIS LINE 👇
-                    "subtitle": f"{cat_mastered} / {cat_total} Mastered",
-                }
-            )
+            item = {
+                "id": full_name,  # <--- NEW FIELD: The real ID for logic
+                "name": display_name,  # <--- FIELD: The visual label
+                "progress": c_mastered / c_total if c_total > 0 else 0,
+                "icon": c_icon,
+                "subtitle": f"{c_mastered} / {c_total} Mastered",
+            }
+            cat_data.append(item)
 
         # --- TELEMETRY ADDED HERE ---
         self.telemetry.log_info(

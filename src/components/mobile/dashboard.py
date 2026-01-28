@@ -6,7 +6,7 @@ from typing import Any, Union
 import streamlit as st
 
 from src.components.mobile.shared import SHARED_CSS
-from src.config import Category
+from src.config import Category, GameConfig
 from src.game.core import GameContext, GameStep, UIModel
 from src.shared.telemetry import Telemetry
 
@@ -20,8 +20,9 @@ DASHBOARD_HTML = """
     <button class="card sprint-card" id="sprintBtn">
         <div class="icon-box">🚀</div>
         <div class="content">
-            <div class="title">Start Daily Sprint</div>
-            <div class="subtitle">15 Random Questions • ~3 mins</div>
+            <!-- Text injected via JS from Python Data -->
+            <div class="title" id="sprintTitle"></div>
+            <div class="subtitle" id="sprintSub"></div>
         </div>
     </button>
 
@@ -151,9 +152,15 @@ export default function(component) {
     // ------------------------------------------
 
     const sprintBtn = parentElement.querySelector('#sprintBtn');
+    const sprintTitle = parentElement.querySelector('#sprintTitle');
+    const sprintSub = parentElement.querySelector('#sprintSub');
     const grid = parentElement.querySelector('#grid');
 
-    // 1. Sprint Click
+    // 1. Populate Sprint Button Text (Dynamic)
+    sprintTitle.textContent = data.sprintLabel;
+    sprintSub.textContent = data.sprintSub;
+
+    // 2. Sprint Click
     sprintBtn.onclick = () => {
         setTriggerValue('action', {type: 'SPRINT', payload: null});
     };
@@ -186,7 +193,9 @@ export default function(component) {
         `;
 
         item.onclick = () => {
-            setTriggerValue('action', {type: 'CATEGORY', payload: cat.name});
+            // CRITICAL: Use cat.id (Full Name) for logic, fallback to cat.name
+            const payloadId = cat.id || cat.name;
+            setTriggerValue('action', {type: 'CATEGORY', payload: payloadId});
         };
 
         grid.appendChild(item);
@@ -210,8 +219,17 @@ def mobile_dashboard(
     Renders the dashboard grid.
     Returns: {'type': 'SPRINT'|'CATEGORY', 'payload': ...}
     """
+    # Prepare dynamic text based on GameConfig
+    sprint_count = GameConfig.SPRINT_QUESTIONS
+
     result = _mobile_dashboard_component(
-        data={"categories": categories}, key=key, on_action_change=lambda: None
+        data={
+            "categories": categories,
+            "sprintLabel": "Start Daily Sprint",
+            "sprintSub": f"{sprint_count} Random Questions • ~3 mins",
+        },
+        key=key,
+        on_action_change=lambda: None,
     )
     return dict(result.action) if result.action is not None else None
 
@@ -252,33 +270,37 @@ class DashboardStep(GameStep):
         total_q = sum(int(s["total"]) for s in stats)
         total_mastered = sum(int(s["mastered"]) for s in stats)
         remaining = total_q - total_mastered
-        days_left = math.ceil(remaining / 15) if remaining > 0 else 0
+
+        # Use Config for throughput estimate
+        throughput = GameConfig.SPRINT_QUESTIONS
+        days_left = math.ceil(remaining / throughput) if remaining > 0 else 0
+
         finish_date = date.today() + timedelta(days=days_left)
         global_progress = (total_mastered / total_q) if total_q > 0 else 0.0
 
         cat_data = []
         for stat in stats:
-            c_name = str(stat["category"])
+            full_name = str(stat["category"])
             c_total = int(stat["total"])
             c_mastered = int(stat["mastered"])
-            c_icon = Category.get_icon(c_name)
+            c_icon = Category.get_icon(full_name)
 
-            # Shorten long name
-            display_name = c_name
+            # Shorten long name for display
+            display_name = full_name
             if len(display_name) > 30:
                 display_name = display_name[:28] + "..."
 
             # Construct the item
             item = {
-                "name": display_name,
+                "id": full_name,  # Logic ID (Full Name)
+                "name": display_name,  # Display Label (Shortened)
                 "progress": c_mastered / c_total if c_total > 0 else 0,
                 "icon": c_icon,
-                # THIS IS THE CRITICAL FIELD
                 "subtitle": f"{c_mastered} / {c_total} Mastered",
             }
             cat_data.append(item)
 
-        # --- TELEMETRY: Log the first item to check structure ---
+        # --- TELEMETRY ---
         if cat_data:
             self.telemetry.log_info(f"Dashboard Payload Sample (Item 0): {cat_data[0]}")
         else:

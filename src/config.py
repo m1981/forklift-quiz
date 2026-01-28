@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Final
 
 
 class Category(Enum):
@@ -31,7 +32,7 @@ class Category(Enum):
 class GameConfig:
     # --- Game Rules ---
     DAILY_GOAL = 3
-    SPRINT_QUESTIONS = 15
+    SPRINT_QUESTIONS: Final[int] = 15
     PASSING_SCORE = 11
 
     # --- Mastery Algorithm ---

@@ -306,7 +306,7 @@ class SQLiteQuizRepository(IQuizRepository):
                 conn.close()
 
     def get_questions_by_category(
-        self, category: str, user_id: str, limit: int = 15
+        self, category: str, user_id: str, limit: int = GameConfig.SPRINT_QUESTIONS
     ) -> list[Question]:
         conn = self._get_connection()
         try:

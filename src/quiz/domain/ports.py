@@ -37,7 +37,7 @@ class IQuizRepository(ABC):
 
     @abstractmethod
     def get_questions_by_category(
-        self, category: str, user_id: str, limit: int = 15
+        self, category: str, user_id: str, limit: int
     ) -> list[Question]:
         pass
 
