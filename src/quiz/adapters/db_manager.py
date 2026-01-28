@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from typing import Any
 
 from src.shared.telemetry import Telemetry, measure_time
 
@@ -10,6 +11,7 @@ class DatabaseManager:
     1. Managing the SQLite connection lifecycle.
     2. Initializing the database schema (DDL).
     3. Handling migrations.
+    4. Ensuring pickle-safety for Streamlit Session State.
     """
 
     def __init__(self, db_path: str = "data/quiz.db") -> None:
@@ -19,7 +21,7 @@ class DatabaseManager:
 
         self._ensure_db_exists()
 
-        # For in-memory DBs, we must keep the connection open
+        # For in-memory DBs, we must keep the connection open immediately
         if self.db_path == ":memory:":
             self._shared_connection = sqlite3.connect(
                 ":memory:", check_same_thread=False
@@ -28,15 +30,55 @@ class DatabaseManager:
         self._init_schema()
         self._migrate_schema()
 
+    # --- SERIALIZATION LOGIC (Pickle Safety) ---
+    def __getstate__(self) -> dict[str, Any]:
+        """
+        Called when Streamlit/Pickle saves the session.
+        We must remove the SQLite connection object because it cannot be pickled.
+        """
+        state = self.__dict__.copy()
+        # Remove the unpickleable connection object
+        if "_shared_connection" in state:
+            del state["_shared_connection"]
+        return state
+
+    def __setstate__(self, state: dict[str, Any]) -> None:
+        """
+        Called when Streamlit/Pickle restores the session.
+        We restore the state and reset the connection to None.
+        It will be lazily re-created by get_connection().
+        """
+        self.__dict__.update(state)
+        self._shared_connection = None
+        # Note: If using ":memory:", data is lost here.
+        # This architecture assumes file-based SQLite for persistence.
+
     def get_connection(self) -> sqlite3.Connection:
-        """Returns a usable database connection."""
+        """Returns a usable database connection, reconnecting if necessary."""
+        # If we have a live connection, use it
         if self._shared_connection:
-            return self._shared_connection
-        return sqlite3.connect(self.db_path)
+            try:
+                # Optional: Check if connection is actually alive
+                self._shared_connection.execute("SELECT 1")
+                return self._shared_connection
+            except sqlite3.ProgrammingError:
+                # Connection was closed externally
+                self._shared_connection = None
+
+        # Create new connection
+        conn = sqlite3.connect(self.db_path, check_same_thread=False)
+
+        # Optimization: Enable WAL mode for better concurrency
+        if self.db_path != ":memory:":
+            conn.execute("PRAGMA journal_mode=WAL")
+
+        self._shared_connection = conn
+        return conn
 
     def close(self) -> None:
         if self._shared_connection:
             self._shared_connection.close()
+            self._shared_connection = None
 
     def _ensure_db_exists(self) -> None:
         if self.db_path == ":memory:":
@@ -128,10 +170,9 @@ class DatabaseManager:
                 """
             )
             conn.commit()
-            if not self._shared_connection:
-                conn.close()
         except Exception as e:
             self.telemetry.log_error("Schema Init Failed", e)
+            # Do not close shared connection here if we want to keep it open
 
     def _migrate_schema(self) -> None:
         conn = self.get_connection()
@@ -156,7 +197,5 @@ class DatabaseManager:
                 )
 
             conn.commit()
-            if not self._shared_connection:
-                conn.close()
         except Exception as e:
             self.telemetry.log_error("Migration Failed", e)

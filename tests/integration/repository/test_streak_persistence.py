@@ -1,11 +1,5 @@
-# ==============================================================================
-# ARCHITECTURE: INTEGRATION TEST (ADAPTER LAYER)
-# ------------------------------------------------------------------------------
-# GOAL: Verify Data Persistence and SQL Logic.
-# CONSTRAINTS:
-#   1. DATABASE: Use a real SQLite instance (In-Memory or Temp File).
-#   2. SCOPE: Test CRUD operations, Complex Queries, and Data Integrity.
-# ==============================================================================
+# tests/integration/repository/test_streak_persistence.py
+
 from datetime import date, timedelta
 
 import pytest
@@ -18,14 +12,11 @@ from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 
 @pytest.fixture
 def repo():
-    """Returns a clean in-memory repo for every test."""
-    db_manager = DatabaseManager(db_path=":memory:")
-
-    # Yield instead of return to allow cleanup code after the test
-    yield SQLiteQuizRepository(db_manager)
-
-    # TEARDOWN: Close the connection
-    db_manager.close()
+    db = DatabaseManager(":memory:")
+    repo = SQLiteQuizRepository(db)
+    yield repo
+    # Cleanup: Close the database connection
+    db.close()
 
 
 @pytest.fixture
@@ -66,7 +57,8 @@ def test_consecutive_login_increments_streak(repo, user_id):
         INSERT INTO user_profiles (user_id, streak_days, last_login)
         VALUES (?, ?, ?)
         """,
-        (user_id, 5, yesterday),
+        # FIX: Use .isoformat() for date
+        (user_id, 5, yesterday.isoformat()),
     )
     conn.commit()
 
@@ -94,7 +86,8 @@ def test_missed_day_resets_streak(repo, user_id):
         INSERT INTO user_profiles (user_id, streak_days, last_login)
         VALUES (?, ?, ?)
         """,
-        (user_id, 100, two_days_ago),
+        # FIX: Use .isoformat() for date
+        (user_id, 100, two_days_ago.isoformat()),
     )
     conn.commit()
 
@@ -140,7 +133,8 @@ def test_future_date_correction(repo, user_id):
         INSERT INTO user_profiles (user_id, streak_days, last_login)
         VALUES (?, ?, ?)
         """,
-        (user_id, 10, tomorrow),
+        # FIX: Use .isoformat() for date
+        (user_id, 10, tomorrow.isoformat()),
     )
     conn.commit()
 

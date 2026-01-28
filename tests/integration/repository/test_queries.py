@@ -19,7 +19,9 @@ from src.quiz.domain.models import OptionKey, Question
 def repo():
     db = DatabaseManager(":memory:")
     repo = SQLiteQuizRepository(db)
-    return repo
+    yield repo
+    # Cleanup: Close the database connection
+    db.close()
 
 
 def create_q(id, category="Gen"):

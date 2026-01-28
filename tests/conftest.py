@@ -39,7 +39,9 @@ def in_memory_repo():
     """
     db_manager = DatabaseManager(db_path=":memory:")
     repo = SQLiteQuizRepository(db_manager=db_manager)
-    return repo
+    yield repo
+    # Cleanup: Close the database connection
+    db_manager.close()
 
 
 @pytest.fixture

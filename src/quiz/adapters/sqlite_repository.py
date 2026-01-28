@@ -175,10 +175,12 @@ class SQLiteQuizRepository(IQuizRepository):
                     (
                         profile.user_id,
                         profile.streak_days,
-                        today,
+                        # FIX: Convert date to string
+                        today.isoformat(),
                         profile.daily_goal,
                         0,
-                        today,
+                        # FIX: Convert date to string
+                        today.isoformat(),
                         False,
                     ),
                 )
@@ -239,10 +241,12 @@ class SQLiteQuizRepository(IQuizRepository):
                 """,
                 (
                     profile.streak_days,
-                    profile.last_login,
+                    # FIX: Convert date to string
+                    profile.last_login.isoformat(),
                     profile.daily_goal,
                     profile.daily_progress,
-                    profile.last_daily_reset,
+                    # FIX: Convert date to string
+                    profile.last_daily_reset.isoformat(),
                     profile.has_completed_onboarding,
                     profile.user_id,
                 ),
