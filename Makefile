@@ -51,9 +51,13 @@ test-html: ## Run tests with HTML coverage report
 	uv run pytest --cov=services --cov=models --cov=pages --cov-report=html --cov-report=term
 	@echo "$(GREEN)Coverage report generated in htmlcov/index.html$(RESET)"
 
-.PHONY: test
-test: ## Run tests with coverage
+.PHONY: test-cov
+test-cov: ## Run tests with coverage (uses defaults from pyproject.toml)
 	uv run pytest
+
+.PHONY: test
+test: ## Run tests WITHOUT coverage
+	uv run pytest --no-cov
 
 .PHONY: watch
 watch: ## Run tests in watch mode
