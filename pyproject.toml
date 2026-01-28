@@ -94,7 +94,7 @@ indent-width = 4
 [tool.ruff.lint]
 # Enable: Pyflakes (F), pycodestyle (E, W), isort (I), pyupgrade (UP), flake8-bugbear (B)
 select = ["F", "E", "W", "I", "UP", "B"]
-ignore = []
+ignore = ["E501"]
 
 [tool.ruff.format]
 quote-style = "double"

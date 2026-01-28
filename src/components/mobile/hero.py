@@ -3,130 +3,140 @@ import streamlit as st
 from src.components.mobile.shared import SHARED_CSS
 
 HERO_HTML = """
-<div class="hero-card">
-    <div class="header-row">
-        <span class="label">GLOBAL MASTERY</span>
+<div class="hero-compact">
+    <!-- Left: Logo -->
+    <div class="logo-col">
+        <div class="logo-box" id="app-logo"></div>
     </div>
 
-    <div class="main-stat">
-        <span id="global-percent">0%</span>
-    </div>
+    <!-- Center: Info -->
+    <div class="info-col">
+        <div class="app-title" id="app-title"></div>
 
-    <div class="progress-bg">
-        <div class="progress-fill" id="global-bar"></div>
-    </div>
-
-    <div class="stats-grid">
-        <div class="stat-item border-right">
-            <div class="stat-label">Mastered</div>
-            <div class="stat-value" id="stat-mastered">0 / 0</div>
+        <div class="progress-row">
+            <div class="progress-track">
+                <div class="progress-fill" id="global-bar"></div>
+            </div>
+            <div class="percent-text" id="global-percent">0%</div>
         </div>
-        <div class="stat-item">
-            <div class="stat-label">Est. Finish</div>
-            <div class="stat-value green-text" id="stat-date">--</div>
+
+        <div class="stats-row">
+            <span id="stat-mastered">0/0</span> Mastered • Finish: <span id="stat-date" class="highlight">--</span>
         </div>
     </div>
 
-    <!-- Menu Button Absolute Positioned inside Card or Relative -->
-    <button id="menuBtn" class="menu-btn">⋮</button>
+    <!-- Right: Menu -->
+    <div class="menu-col">
+        <button id="menuBtn" class="menu-btn">⋮</button>
+    </div>
 </div>
 """
 
 HERO_CSS = (
     SHARED_CSS
     + """
-.hero-card {
-    position: relative;
-    background: linear-gradient(180deg, #ecfdf5 0%, #ffffff 60%); /* Mint gradient */
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 4px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+.hero-compact {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 8px;
+    margin: 0 -4px 16px -4px; /* Negative margin to span width */
     font-family: "Source Sans Pro", sans-serif;
-    color: #1f2937;
 }
 
-.header-row {
-    margin-bottom: 8px;
+/* --- LOGO --- */
+.logo-col {
+    margin-right: 12px;
 }
 
-.label {
-    font-size: 11px;
+.logo-box {
+    width: 48px;
+    height: 48px;
+    background: #f3f4f6; /* Gray-100 */
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* --- INFO --- */
+.info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* Prevent text overflow */
+}
+
+.app-title {
+    font-size: 16px;
     font-weight: 700;
-    text-transform: uppercase;
-    color: #6b7280; /* Gray-500 */
-    letter-spacing: 0.5px;
-}
-
-.main-stat {
-    font-size: 42px;
-    font-weight: 700;
-    line-height: 1.1;
     color: #111827;
-    margin-bottom: 16px;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* --- PROGRESS BAR --- */
-.progress-bg {
-    height: 10px;
-    background: #e5e7eb; /* Gray-200 */
-    border-radius: 5px;
+/* --- PROGRESS --- */
+.progress-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.progress-track {
+    flex: 1;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 24px;
+    margin-right: 8px;
 }
 
 .progress-fill {
     height: 100%;
     background: #22c55e; /* Green-500 */
     width: 0%;
-    transition: width 1s ease-out;
-    border-radius: 5px;
+    transition: width 0.5s ease-out;
+    border-radius: 3px;
 }
 
-/* --- STATS GRID --- */
-.stats-grid {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #f3f4f6;
-    padding-top: 16px;
-}
-
-.stat-item {
-    flex: 1;
-}
-
-.border-right {
-    border-right: 1px solid #f3f4f6;
-    margin-right: 16px;
-}
-
-.stat-label {
+.percent-text {
     font-size: 12px;
-    color: #4b5563; /* Gray-600 */
-    margin-bottom: 4px;
-}
-
-.stat-value {
-    font-size: 18px;
     font-weight: 700;
-    color: #111827;
+    color: #374151;
+    min-width: 32px;
+    text-align: right;
 }
 
-.green-text {
-    color: #22c55e;
+/* --- STATS --- */
+.stats-row {
+    font-size: 11px;
+    color: #6b7280;
 }
 
-/* MENU BUTTON */
+.highlight {
+    color: #16a34a; /* Green-600 */
+    font-weight: 600;
+}
+
+/* --- MENU --- */
+.menu-col {
+    margin-left: 4px;
+    align-self: flex-start;
+}
+
 .menu-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
     background: transparent;
     border: none;
     font-size: 24px;
     cursor: pointer;
     color: #9ca3af;
+    padding: 0 8px;
     line-height: 1;
 }
 .menu-btn:hover { color: #4b5563; }
@@ -138,32 +148,34 @@ export default function(component) {
     const { data, parentElement } = component;
 
     // Selectors
-    const percentEl = parentElement.querySelector('#global-percent');
+    const logoEl = parentElement.querySelector('#app-logo');
+    const titleEl = parentElement.querySelector('#app-title');
     const barEl = parentElement.querySelector('#global-bar');
+    const percentEl = parentElement.querySelector('#global-percent');
     const masteredEl = parentElement.querySelector('#stat-mastered');
     const dateEl = parentElement.querySelector('#stat-date');
     const menuBtn = parentElement.querySelector('#menuBtn');
 
-    // Data
-    const pct = Math.round(data.progress * 100);
+    // Data Binding
+    logoEl.textContent = data.logo;
+    titleEl.textContent = data.title;
 
-    // Update DOM
-    percentEl.textContent = pct + "%";
+    const pct = Math.round(data.progress * 100);
     barEl.style.width = pct + "%";
-    masteredEl.textContent = `${data.mastered} / ${data.total}`;
+    percentEl.textContent = pct + "%";
+
+    masteredEl.textContent = `${data.mastered}/${data.total}`;
     dateEl.textContent = data.finishDate;
 
-    // Menu Click Handler
+    // Menu Action (Trigger Sidebar)
     menuBtn.onclick = () => {
         const doc = window.parent.document;
-        const sidebarBtn = doc.querySelector(
-            'button[data-testid="stExpandSidebarButton"]'
-        );
-        if (sidebarBtn) sidebarBtn.click();
-        else {
-            const closeBtn = doc.querySelector(
-                'button[data-testid="stCollapseSidebarButton"]'
-            );
+        // Try to find Streamlit sidebar toggle
+        const sidebarBtn = doc.querySelector('button[data-testid="stExpandSidebarButton"]');
+        if (sidebarBtn) {
+            sidebarBtn.click();
+        } else {
+            const closeBtn = doc.querySelector('button[data-testid="stCollapseSidebarButton"]');
             if (closeBtn) closeBtn.click();
         }
     };
@@ -176,6 +188,8 @@ _mobile_hero_component = st.components.v2.component(
 
 
 def mobile_hero(
+    title: str,
+    logo: str,
     progress: float,
     mastered_count: int,
     total_count: int,
@@ -183,8 +197,13 @@ def mobile_hero(
     days_left: int,
     key: str | None = None,
 ) -> None:
+    """
+    Renders the compact header with logo, title, and progress.
+    """
     _mobile_hero_component(
         data={
+            "title": title,
+            "logo": logo,
             "progress": progress,
             "mastered": mastered_count,
             "total": total_count,

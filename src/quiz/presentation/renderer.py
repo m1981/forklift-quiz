@@ -83,6 +83,8 @@ class StreamlitRenderer:
 
         # 1. RENDER HERO
         mobile_hero(
+            title=payload.app_title,
+            logo=payload.app_logo,
             progress=payload.global_progress,
             mastered_count=payload.total_mastered,
             total_count=payload.total_questions,

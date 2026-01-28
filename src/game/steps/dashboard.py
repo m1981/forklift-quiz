@@ -10,11 +10,8 @@ from src.shared.telemetry import Telemetry
 
 @dataclass
 class DashboardPayload:
-    """
-    DTO containing pre-calculated data for the Dashboard View.
-    The View should not need to do any math on this data.
-    """
-
+    app_title: str  # <--- NEW
+    app_logo: str  # <--- NEW
     global_progress: float
     total_mastered: int
     total_questions: int
@@ -67,7 +64,7 @@ class DashboardStep(GameStep):
         # 3. Prepare Category Data (Presentation Logic)
         cat_data = []
         for stat in stats:
-            full_name = str(stat["category"])  # <--- KEEP FULL NAME
+            full_name = str(stat["category"])
             c_total = int(stat["total"])
             c_mastered = int(stat["mastered"])
             c_icon = Category.get_icon(full_name)
@@ -78,8 +75,8 @@ class DashboardStep(GameStep):
                 display_name = display_name[:28] + "..."
 
             item = {
-                "id": full_name,  # <--- NEW FIELD: The real ID for logic
-                "name": display_name,  # <--- FIELD: The visual label
+                "id": full_name,
+                "name": display_name,
                 "progress": c_mastered / c_total if c_total > 0 else 0,
                 "icon": c_icon,
                 "subtitle": f"{c_mastered} / {c_total} Mastered",
@@ -95,6 +92,8 @@ class DashboardStep(GameStep):
         # ----------------------------
 
         payload = DashboardPayload(
+            app_title=GameConfig.APP_TITLE,  # <--- NEW
+            app_logo=GameConfig.APP_LOGO_EMOJI,  # <--- NEW
             global_progress=global_progress,
             total_mastered=total_mastered,
             total_questions=total_q,

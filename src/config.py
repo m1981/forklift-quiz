@@ -30,6 +30,11 @@ class Category(Enum):
 
 
 class GameConfig:
+    # --- App Identity ---
+    APP_TITLE = "Wózki widłowe 2 WJO"
+    # You can replace this with an image URL if you have one hosted
+    APP_LOGO_EMOJI = "🚜"
+
     # --- Game Rules ---
     DAILY_GOAL = 3
     SPRINT_QUESTIONS: Final[int] = 15
