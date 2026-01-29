@@ -1,7 +1,3 @@
-Here is a professional introduction and directory map to place at the very top of your documentation file. It sets the context for the diagrams that follow.
-
-***
-
 # System Architecture & Design Documentation
 
 ## Executive Summary
