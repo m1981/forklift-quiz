@@ -23,7 +23,7 @@ HERO_HTML = """
         </div>
 
         <div class="stats-row">
-            <span id="stat-mastered">0/0</span> Mastered • Finish: <span id="stat-date" class="highlight">--</span>
+            <span id="stat-mastered">0/0</span> Zrobione • Koniec: <span id="stat-date" class="highlight">--</span>
         </div>
     </div>
 

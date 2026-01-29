@@ -112,8 +112,8 @@ def mobile_dashboard(
     result = _mobile_dashboard_component(
         data={
             "categories": categories,
-            "sprintLabel": "Start Daily Sprint",
-            "sprintSub": f"{sprint_count} Random Questions • ~3 mins",
+            "sprintLabel": "Start",
+            "sprintSub": f"{sprint_count} losowych pytań • ~15 mins",
         },
         key=key,
         on_action_change=lambda: None,

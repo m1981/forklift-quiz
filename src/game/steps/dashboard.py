@@ -104,7 +104,7 @@ class DashboardStep(GameStep):
                 "name": display_name,
                 "progress": c_mastered / c_total if c_total > 0 else 0,
                 "icon": c_icon,
-                "subtitle": f"{c_mastered} / {c_total} Mastered",
+                "subtitle": f"{c_mastered} / {c_total} Zrobione",
             }
             cat_data.append(item)
 
