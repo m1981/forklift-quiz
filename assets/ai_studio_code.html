@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistrz UDT - System dla Ośrodków Szkoleniowych</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js for interactivity (Mobile menu, FAQ) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- NAVIGATION -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50" x-data="{ open: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-blue-600">Mistrz<span class="text-gray-900">UDT</span></span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#problem" class="text-gray-600 hover:text-blue-600 font-medium">Dlaczego my?</a>
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 font-medium">Funkcje</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-blue-600 font-medium">Cennik</a>
+                    <a href="mailto:kontakt@mistrzudt.pl" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Zamów Demo
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button @click="open = !open" class="text-gray-500 hover:text-gray-900 focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="open" x-cloak class="md:hidden bg-white border-t border-gray-100 shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#problem" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Dlaczego my?</a>
+                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Funkcje</a>
+                <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Cennik</a>
+                <a href="mailto:kontakt@mistrzudt.pl" class="block w-full text-center mt-4 bg-blue-600 text-white px-5 py-3 rounded-lg font-medium">
+                    Zamów Demo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block xl:inline">Zwiększ zdawalność</span>
+                            <span class="block text-blue-600 xl:inline">egzaminów UDT</span>
+                        </h1>
+                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Nowoczesna aplikacja webowa (SPA) do nauki teorii, która wygląda jak Twoja własna. Daj kursantom narzędzie, dzięki któremu zdadzą za pierwszym razem.
+                        </p>
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#pricing" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
+                                    Przetestuj za darmo
+                                </a>
+                            </div>
+                            <div class="mt-3 sm:mt-0 sm:ml-3">
+                                <div class="w-full flex items-center justify-center px-8 py-3 text-base font-medium text-gray-500 bg-gray-100 rounded-md md:py-4 md:text-lg md:px-10">
+                                    Bez instalacji
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <!-- Hero Image (Phone Mockup) -->
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gray-50 flex items-center justify-center py-10 lg:py-0">
+            <div class="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+                <div class="h-[32px] w-[3px] bg-gray-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
+                <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+                <div class="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
+                <div class="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
+                <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white">
+                    <img src="./dashboard-only.png" class="w-full h-full object-cover" alt="App Screenshot">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM / SOLUTION SECTION -->
+    <section id="problem" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Wartość dla Biznesu</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Dlaczego Ośrodki wybierają nas?
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Koniec z papierem</h3>
+                    <p class="text-gray-600">Papierowe skrypty lądują w koszu. Darmowe strony są pełne reklam. Twój kursant traci czas, a Ty ryzykujesz opinię.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Inteligentna Nauka</h3>
+                    <p class="text-gray-600">Algorytm "Smart Mix" wie, czego kursant nie umie. Aplikacja "męczy" go trudnymi pytaniami tak długo, aż je opanuje.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Twój Prestiż</h3>
+                    <p class="text-gray-600">Aplikacja wyświetla <strong>Twoje Logo</strong> na ekranie głównym. Kursant widzi profesjonalne narzędzie od Twojej firmy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SHOWCASE (ZIG ZAG) -->
+    <section id="features" class="py-16 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+
+            <!-- Feature 1 -->
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                <div class="relative">
+                    <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
+                        Nauka w 15 minut dziennie
+                    </h3>
+                    <p class="mt-3 text-lg text-gray-500">
+                        Twoi kursanci to zapracowani ludzie. Nasz system "Szybkich Sprintów" pozwala im uczyć się w przerwie na kawę lub w autobusie.
+                    </p>
+                    <ul class="mt-6 space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <p class="ml-3 text-base text-gray-500">Tylko 15 pytań na sesję</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <p class="ml-3 text-base text-gray-500">Pasek postępu motywuje do powrotu</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-10 lg:mt-0 relative">
+                    <div class="mx-auto border-gray-200 bg-gray-100 border-8 rounded-[2rem] h-[500px] w-[260px] shadow-lg overflow-hidden">
+                         <!-- PLACEHOLDER FOR SCREENSHOT 1 (Start Button) -->
+                        <img src="https://placehold.co/260x500/png?text=Screenshot+1:+Start+Button" class="w-full h-full object-cover" alt="App Feature">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 (Reversed) -->
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                <div class="mt-10 lg:mt-0 lg:col-start-2 relative">
+                    <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
+                        Nie tylko "Błąd". Wyjaśniamy "Dlaczego".
+                    </h3>
+                    <p class="mt-3 text-lg text-gray-500">
+                        Gdy kursant zaznaczy źle, system natychmiast wyświetla wyjaśnienie. Uczymy zrozumienia przepisów UDT, a nie pamięciowego "zakuwania" literek A, B, C.
+                    </p>
+                </div>
+                <div class="lg:col-start-1 relative flex justify-center">
+                    <div class="mx-auto border-gray-200 bg-gray-100 border-8 rounded-[2rem] h-[500px] w-[260px] shadow-lg overflow-hidden">
+                         <!-- PLACEHOLDER FOR SCREENSHOT 3 (Explanation Box) -->
+                        <img src="https://placehold.co/260x500/png?text=Screenshot+3:+Explanation" class="w-full h-full object-cover" alt="App Feature">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                <div class="relative">
+                    <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
+                        Rozdajesz kody, my robimy resztę
+                    </h3>
+                    <p class="mt-3 text-lg text-gray-500">
+                        Żadnego zakładania kont, żadnych haseł dla instruktora. Dostajesz od nas gotowe wizytówki z kodami QR. Wręczasz je kursantowi na pierwszych zajęciach i gotowe.
+                    </p>
+                </div>
+                <div class="mt-10 lg:mt-0 relative flex justify-center">
+                    <!-- Placeholder for QR Card Image -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl border border-gray-200 w-80 h-48 flex flex-col items-center justify-center text-center">
+                        <div class="text-4xl mb-2">📷</div>
+                        <p class="font-bold text-gray-800">Karta Dostępu</p>
+                        <p class="text-sm text-gray-500">Zeskanuj QR, aby rozpocząć</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-16 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold sm:text-4xl">Prosty Cennik</h2>
+                <p class="mt-4 text-xl text-gray-400">Wybierz opcję najlepszą dla Twojego ośrodka.</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+                <!-- Free Tier -->
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 flex flex-col">
+                    <h3 class="text-xl font-semibold text-gray-300">Pakiet Testowy</h3>
+                    <div class="mt-4 flex items-baseline text-5xl font-extrabold">
+                        0 PLN
+                    </div>
+                    <p class="mt-1 text-gray-400">Jednorazowo</p>
+                    <ul class="mt-6 space-y-4 flex-1">
+                        <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> 5 kodów dostępu</li>
+                        <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Pełna wersja aplikacji</li>
+                        <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Ważność kodów: 30 dni</li>
+                    </ul>
+                    <a href="mailto:kontakt@mistrzudt.pl?subject=Pakiet Testowy" class="mt-8 block w-full bg-gray-600 hover:bg-gray-500 text-center py-3 rounded-lg font-medium transition">
+                        Pobierz Kody
+                    </a>
+                </div>
+
+                <!-- Paid Tier -->
+                <div class="bg-blue-600 rounded-2xl p-8 border border-blue-500 flex flex-col relative transform md:-translate-y-4 shadow-2xl">
+                    <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg uppercase tracking-wide">
+                        Polecane
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Partner Ośrodka</h3>
+                    <div class="mt-4 flex items-baseline text-5xl font-extrabold">
+                        499 PLN
+                        <span class="text-xl font-medium text-blue-200 ml-2">/mies.</span>
+                    </div>
+                    <ul class="mt-6 space-y-4 flex-1">
+                        <li class="flex items-center"><span class="text-white mr-2">✓</span> <strong>Do 50 kursantów</strong> miesięcznie</li>
+                        <li class="flex items-center"><span class="text-white mr-2">✓</span> <strong>Twoje Logo</strong> w aplikacji (Co-branding)</li>
+                        <li class="flex items-center"><span class="text-white mr-2">✓</span> Panel do generowania kodów</li>
+                        <li class="flex items-center"><span class="text-white mr-2">✓</span> Wsparcie techniczne</li>
+                    </ul>
+                    <a href="mailto:kontakt@mistrzudt.pl?subject=Pakiet Partner" class="mt-8 block w-full bg-white text-blue-600 hover:bg-gray-50 text-center py-3 rounded-lg font-bold transition">
+                        Wybierz Pakiet
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-8">Częste Pytania</h2>
+
+            <div class="space-y-4" x-data="{ active: null }">
+                <!-- Q1 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button @click="active === 1 ? active = null : active = 1" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-gray-900">Czy kursant musi coś instalować?</span>
+                        <span x-show="active !== 1">+</span><span x-show="active === 1">-</span>
+                    </button>
+                    <div x-show="active === 1" x-collapse class="px-6 pb-4 text-gray-600">
+                        Nie. To nowoczesna aplikacja webowa (PWA). Działa natychmiast po zeskanowaniu kodu QR, na każdym telefonie (Android i iPhone).
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button @click="active === 2 ? active = null : active = 2" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-gray-900">Czy pytania są aktualne?</span>
+                        <span x-show="active !== 2">+</span><span x-show="active === 2">-</span>
+                    </button>
+                    <div x-show="active === 2" x-collapse class="px-6 pb-4 text-gray-600">
+                        Tak. Monitorujemy stronę UDT. Gdy zmieniają się przepisy, aktualizujemy bazę tego samego dnia. Nie musisz drukować nowych materiałów.
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button @click="active === 3 ? active = null : active = 3" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-gray-900">Co jeśli mam więcej niż 50 kursantów?</span>
+                        <span x-show="active !== 3">+</span><span x-show="active === 3">-</span>
+                    </button>
+                    <div x-show="active === 3" x-collapse class="px-6 pb-4 text-gray-600">
+                        Skontaktuj się z nami. Mamy pakiety "Unlimited" dla dużych ośrodków szkoleniowych.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="text-xl font-bold text-gray-900">MistrzUDT</span>
+                <p class="text-sm text-gray-500 mt-1">© 2025 Wszelkie prawa zastrzeżone.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 hover:text-gray-900">Regulamin</a>
+                <a href="#" class="text-gray-500 hover:text-gray-900">Polityka Prywatności</a>
+                <a href="mailto:kontakt@mistrzudt.pl" class="text-gray-500 hover:text-gray-900">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
