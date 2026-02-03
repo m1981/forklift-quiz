@@ -34,7 +34,7 @@ class GameConfig:
     APP_TITLE = "Wózki widłowe 2 WJO"
     # Path to your logo file (relative to project root)
     # Ensure this file exists, or the code will fallback to a placeholder
-    APP_LOGO_PATH = "assets/logo.png"
+    APP_LOGO_PATH = "assets/logo.jpg"
 
     # --- Game Rules ---
     DAILY_GOAL = 3
