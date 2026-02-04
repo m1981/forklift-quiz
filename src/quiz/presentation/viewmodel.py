@@ -1,34 +1,45 @@
+import os
 from typing import Any
 
 import streamlit as st
+from dotenv import load_dotenv
 
 from src.game.core import GameContext, UIModel
 from src.game.director import GameDirector
 from src.game.flows import CategorySprintFlow, DailySprintFlow, OnboardingFlow
-from src.quiz.adapters.db_manager import DatabaseManager
 from src.quiz.adapters.seeder import DataSeeder
-from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
+from src.quiz.adapters.supabase_repository import SupabaseQuizRepository
+
+# Load environment variables (SUPABASE_URL, SUPABASE_KEY)
+load_dotenv()
 
 
 class GameViewModel:
     def __init__(self) -> None:
         if "game_director" not in st.session_state:
             # --- COMPOSITION ROOT START ---
-            # 1. Initialize Infrastructure
-            db_manager = DatabaseManager("data/quiz.db")
 
-            # 2. Initialize Repository
-            repo = SQLiteQuizRepository(db_manager)
+            # 1. Initialize Infrastructure (Supabase)
+            url = os.getenv("SUPABASE_URL")
+            key = os.getenv("SUPABASE_KEY")
 
-            # 3. Run Seeder (Application Logic)
+            if not url or not key:
+                st.error("Configuration Error: Missing Supabase Credentials in .env")
+                st.stop()
+
+            repo = SupabaseQuizRepository(url, key)
+
+            # 2. Run Seeder (Application Logic)
+            # This will check Supabase. If empty, it reads local JSON and uploads.
             seeder = DataSeeder(repo)
             seeder.seed_if_empty()
 
-            # 4. Initialize Game Context
-            user_id = "User1"  # In real app, get from auth
+            # 3. Initialize Game Context
+            # TODO: In Phase 2, this comes from Auth0
+            user_id = "User1"
             context = GameContext(user_id=user_id, repo=repo)
 
-            # 5. Initialize Director
+            # 4. Initialize Director
             st.session_state.game_director = GameDirector(context)
             # --- COMPOSITION ROOT END ---
 
