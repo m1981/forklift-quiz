@@ -17,6 +17,10 @@ class GameContext:
     # Generic storage for score, flags, etc.
     data: dict[str, Any] = field(default_factory=dict)
 
+    # --- NEW FIELDS ---
+    is_demo_mode: bool = False
+    prospect_slug: str | None = None
+
 
 @dataclass
 class UIModel:
@@ -27,6 +31,9 @@ class UIModel:
 
     type: str  # e.g., 'TEXT', 'QUESTION', 'SUMMARY'
     payload: Any
+    # --- NEW FIELD ---
+    # Allows the Director to override the logo for specific steps
+    branding_logo_path: str | None = None
 
 
 class GameStep(ABC):

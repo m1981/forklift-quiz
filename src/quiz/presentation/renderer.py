@@ -37,6 +37,9 @@ class StreamlitRenderer:
         step_type = ui_model.type
         payload = ui_model.payload
 
+        if ui_model.branding_logo_path and hasattr(payload, "app_logo_src"):
+            payload.app_logo_src = ui_model.branding_logo_path
+
         # <--- LOGGING THE STATE
         self.telemetry.log_info(
             f"Rendering Step: {step_type}",
@@ -77,14 +80,13 @@ class StreamlitRenderer:
     def _render_dashboard(
         self, payload: Any, callback: Callable[[str, Any], None]
     ) -> None:
-        # --- REFACTOR: Pure Rendering Logic Only ---
-        # The payload (DashboardPayload) now contains all pre-calculated
-        # strings and numbers.
+        # Let's assume standard payload usage:
+        logo_to_render = payload.app_logo_src
 
         # 1. RENDER HERO
         mobile_hero(
             title=payload.app_title,
-            logo_src=payload.app_logo_src,  # <--- Updated
+            logo_src=logo_to_render,
             progress=payload.global_progress,
             mastered_count=payload.total_mastered,
             total_count=payload.total_questions,

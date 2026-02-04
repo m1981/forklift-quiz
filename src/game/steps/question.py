@@ -4,6 +4,7 @@ import logging
 from dataclasses import dataclass
 from typing import Any, Union
 
+from src.config import GameConfig
 from src.game.core import GameContext, GameStep, UIModel
 from src.quiz.domain.models import Question
 
@@ -23,6 +24,7 @@ class QuestionStepPayload:
     current_streak: int
     # -------------------------
     last_feedback: dict[str, Any] | None = None
+    app_logo_src: str | None = None
 
 
 class QuestionLoopStep(GameStep):
@@ -97,7 +99,20 @@ class QuestionLoopStep(GameStep):
             )
 
             ui_type = "FEEDBACK" if self.feedback_mode else "QUESTION"
-            return UIModel(type=ui_type, payload=payload)
+
+            # --- DEMO MODE LOGIC ---
+            branding_logo = None
+            if self.context and self.context.is_demo_mode:
+                branding_logo = GameConfig.get_demo_logo_path(
+                    self.context.prospect_slug
+                )
+            # -----------------------
+
+            return UIModel(
+                type=ui_type,
+                payload=payload,
+                branding_logo_path=branding_logo,  # <--- Pass to Renderer
+            )
 
         except Exception as e:
             logger.critical(

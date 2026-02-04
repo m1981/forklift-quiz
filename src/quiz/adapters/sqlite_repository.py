@@ -162,6 +162,7 @@ class SQLiteQuizRepository(IQuizRepository):
                     streak_days=1,
                     last_login=today,
                     last_daily_reset=today,
+                    metadata={},  # Add this
                 )
                 conn.execute(
                     """

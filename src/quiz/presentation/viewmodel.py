@@ -1,14 +1,19 @@
 import os
+import uuid
 from typing import Any
 
 import streamlit as st
 from dotenv import load_dotenv
 
+from src.config import GameConfig
 from src.game.core import GameContext, UIModel
 from src.game.director import GameDirector
-from src.game.flows import CategorySprintFlow, DailySprintFlow, OnboardingFlow
+from src.game.flows import CategorySprintFlow, DailySprintFlow, DemoFlow, OnboardingFlow
+from src.quiz.adapters.db_manager import DatabaseManager
 from src.quiz.adapters.seeder import DataSeeder
+from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
 from src.quiz.adapters.supabase_repository import SupabaseQuizRepository
+from src.quiz.domain.ports import IQuizRepository
 
 # Load environment variables (SUPABASE_URL, SUPABASE_KEY)
 load_dotenv()
@@ -19,25 +24,56 @@ class GameViewModel:
         if "game_director" not in st.session_state:
             # --- COMPOSITION ROOT START ---
 
-            # 1. Initialize Infrastructure (Supabase)
-            url = os.getenv("SUPABASE_URL")
-            key = os.getenv("SUPABASE_KEY")
+            # 1. Initialize Infrastructure (SQLite vs Supabase)
+            repo: IQuizRepository  # Type annotation for the variable
 
-            if not url or not key:
-                st.error("Configuration Error: Missing Supabase Credentials in .env")
-                st.stop()
+            if GameConfig.USE_SQLITE:
+                # Local Development Mode
+                db_manager = DatabaseManager("data/quiz.db")
+                repo = SQLiteQuizRepository(db_manager)
+                st.toast("🛠️ Running in SQLite Mode", icon="💾")
+            else:
+                # Production / Cloud Mode
+                url = os.getenv("SUPABASE_URL")
+                key = os.getenv("SUPABASE_KEY")
+                if not url or not key:
+                    st.error("Missing Supabase Credentials")
+                    st.stop()
+                repo = SupabaseQuizRepository(url, key)
 
-            repo = SupabaseQuizRepository(url, key)
-
-            # 2. Run Seeder (Application Logic)
-            # This will check Supabase. If empty, it reads local JSON and uploads.
+            # 2. Run Seeder
             seeder = DataSeeder(repo)
             seeder.seed_if_empty()
 
-            # 3. Initialize Game Context
-            # TODO: In Phase 2, this comes from Auth0
-            user_id = "User1"
-            context = GameContext(user_id=user_id, repo=repo)
+            # 3. Initialize Game Context & Identity Logic
+            # --- DEMO MODE LOGIC ---
+            query_params = st.query_params
+            demo_slug = query_params.get("demo")
+
+            if demo_slug:
+                if "demo_user_id" not in st.session_state:
+                    st.session_state.demo_user_id = str(uuid.uuid4())
+
+                user_id = st.session_state.demo_user_id
+                is_demo = True
+
+                # Save metadata for analytics
+                profile = repo.get_or_create_profile(user_id)
+                # Ensure your UserProfile model has 'metadata' field!
+                profile.metadata = {"type": "demo", "prospect": demo_slug}
+                repo.save_profile(profile)
+
+            else:
+                user_id = "User1"
+                is_demo = False
+                demo_slug = None
+
+            context = GameContext(
+                user_id=user_id,
+                repo=repo,
+                is_demo_mode=is_demo,
+                prospect_slug=demo_slug,
+            )
 
             # 4. Initialize Director
             st.session_state.game_director = GameDirector(context)
@@ -49,6 +85,12 @@ class GameViewModel:
         self.director = st.session_state.game_director
 
     def _check_auto_start(self, context: GameContext) -> None:
+        # --- DEMO FLOW TRIGGER ---
+        if context.is_demo_mode:
+            # Always force Demo Flow, ignore onboarding status
+            self.director.start_flow(DemoFlow())
+            return
+
         profile = context.repo.get_or_create_profile(context.user_id)
         if not profile.has_completed_onboarding:
             self.director.start_flow(OnboardingFlow())

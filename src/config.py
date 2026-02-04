@@ -1,3 +1,4 @@
+import os
 from enum import Enum
 from typing import Final
 
@@ -30,11 +31,16 @@ class Category(Enum):
 
 
 class GameConfig:
+    # --- Infrastructure Switch ---
+    USE_SQLITE: bool = True  # Changed from "true" string to boolean
+
     # --- App Identity ---
     APP_TITLE = "Wózki widłowe 2 WJO"
     # Path to your logo file (relative to project root)
     # Ensure this file exists, or the code will fallback to a placeholder
     APP_LOGO_PATH = "assets/logo.jpg"
+
+    DEMO_QUESTION_IDS: Final[list[str]] = ["1", "2", "3", "4", "5"]
 
     # --- Game Rules ---
     DAILY_GOAL = 3
@@ -48,3 +54,16 @@ class GameConfig:
     # --- Categories ---
     # Now we just reference the Enum, ensuring consistency
     CATEGORIES = Category.all_labels()
+
+    @staticmethod
+    def get_demo_logo_path(prospect_slug: str | None) -> str:
+        """Returns path to assets/logos/{slug}.png"""
+        if not prospect_slug:
+            return GameConfig.APP_LOGO_PATH
+
+        safe_slug = "".join(c for c in prospect_slug if c.isalnum() or c in "_-")
+        path = f"assets/logos/{safe_slug}.png"
+
+        if not os.path.exists(path):
+            return GameConfig.APP_LOGO_PATH
+        return path

@@ -126,12 +126,20 @@ class DashboardStep(GameStep):
             categories=cat_data,
         )
 
-        return UIModel(type="DASHBOARD", payload=payload)
+        # --- DEMO MODE LOGIC ---
+        branding_logo = None
+        if self.context.is_demo_mode:
+            # Resolve the specific logo for this prospect
+            branding_logo = GameConfig.get_demo_logo_path(self.context.prospect_slug)
+        # -----------------------
+
+        return UIModel(
+            type="DASHBOARD",
+            payload=payload,
+            branding_logo_path=branding_logo,  # <--- Pass to Renderer
+        )
 
     def handle_action(
         self, action: str, payload: Any, context: GameContext
     ) -> Union["GameStep", str, None]:
-        # The Director/ViewModel handles the actual flow switching (START_SPRINT, etc.)
-        # based on the action string. The Step itself doesn't need to do much here
-        # unless we had internal dashboard states (like tabs).
         return None

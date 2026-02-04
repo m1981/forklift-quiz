@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
 from enum import Enum
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -93,12 +94,10 @@ class UserProfile(BaseModel):
     last_login: date = Field(default_factory=date.today)
     daily_progress: int = 0
     last_daily_reset: date = Field(default_factory=date.today)
-
-    # New Field: User's native language for support
     preferred_language: Language = Language.PL
-
     daily_goal: int = GameConfig.DAILY_GOAL
     has_completed_onboarding: bool = False
+    metadata: dict[str, Any] = Field(default_factory=dict)
 
     def is_bonus_mode(self) -> bool:
         return self.daily_progress >= self.daily_goal

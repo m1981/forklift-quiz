@@ -126,3 +126,40 @@ class OnboardingFlow(GameFlow):
                 "Rozpocznij Sprint 🚀",
             ),
         ]
+
+
+class DemoFlow(GameFlow):
+    """
+    Special flow for sales demos.
+    - Fixed set of questions.
+    - No spaced repetition algorithm.
+    """
+
+    def build_steps(self, context: GameContext) -> list[GameStep]:
+        # 1. Fetch specific questions defined in Config
+        target_ids = GameConfig.DEMO_QUESTION_IDS
+        questions = context.repo.get_questions_by_ids(target_ids)
+
+        # Fallback if IDs are wrong/missing in DB
+        if not questions:
+            return [
+                TextStep(
+                    "Konfiguracja Demo",
+                    "Nie znaleziono pytań demo w bazie danych.",
+                    "Zamknij",
+                )
+            ]
+
+        context.data["total_questions"] = len(questions)
+        context.data["score"] = 0
+        context.data["errors"] = []
+
+        return [
+            TextStep(
+                "Tryb Demonstracyjny",
+                f"Witaj! Przygotowaliśmy dla Ciebie {len(questions)} przykładowych pytań.",
+                "Rozpocznij Test",
+            ),
+            QuestionLoopStep(questions, flow_title="⭐ Demo"),
+            SummaryStep(),
+        ]

@@ -98,6 +98,7 @@ class SupabaseQuizRepository(IQuizRepository):
                     streak_days=1,
                     last_login=today,
                     last_daily_reset=today,
+                    metadata={},  # Add this
                 )
                 payload = new_profile.model_dump(mode="json")
                 self.client.table("user_profiles").insert(payload).execute()
@@ -125,6 +126,7 @@ class SupabaseQuizRepository(IQuizRepository):
                     str(row["last_daily_reset"]), "%Y-%m-%d"
                 ).date(),
                 has_completed_onboarding=bool(row["has_completed_onboarding"]),
+                metadata=row.get("metadata", {}),  # Add this
             )
 
             if delta > 0:
