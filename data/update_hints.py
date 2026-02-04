@@ -54,7 +54,7 @@ def update_questions_with_hints(
 if __name__ == "__main__":
     # Assuming you already ran the category update, we use v2 as input
     SEED_FILE = "seed_questions.json"
-    MAPPING_FILE = "hint_mapping.json"
+    MAPPING_FILE = "mapping_hints.json"
     OUTPUT_FILE = "seed_questions_hints.json"
 
     update_questions_with_hints(SEED_FILE, MAPPING_FILE, OUTPUT_FILE)

@@ -49,7 +49,7 @@ def update_questions_with_categories(
 if __name__ == "__main__":
     # Define your file paths here
     SEED_FILE = "seed_questions.json"
-    MAPPING_FILE = "category_mapping.json"
+    MAPPING_FILE = "mapping_category.json"
     OUTPUT_FILE = "seed_questions_categories.json"
 
     update_questions_with_categories(SEED_FILE, MAPPING_FILE, OUTPUT_FILE)

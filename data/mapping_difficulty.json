@@ -1,0 +1,434 @@
+[
+  {
+    "id": 1,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Subtelne różnice", "Dokładne sformułowania"],
+    "explanation": "Wymaga rozróżnienia: DECYZJA (a nie zezwolenie ustne/pisemne od konserwatora). Kluczowy dokument, ale może być mylony z innymi formami zgody."
+  },
+  {
+    "id": 2,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Proste rozróżnienie ról"],
+    "explanation": "Jasne: operator nie wykonuje napraw. Fundamentalna zasada podziału obowiązków."
+  },
+  {
+    "id": 3,
+    "difficulty-level": 4,
+    "difficulty-reason": ["Subtelne różnice", "Pułapki"],
+    "explanation": "Wymaga rozróżnienia: terminy przeglądów (instrukcja) vs terminy badań UDT (rozporządzenie). Zdający mogą mieszać źródła. Odpowiedź A wymaga precyzji."
+  },
+  {
+    "id": 4,
+    "difficulty-level": 4,
+    "difficulty-reason": ["Dokładne sformułowania", "Cytat z ustawy"],
+    "explanation": "Dozór techniczny to DZIAŁANIA (nie instytucja). Wymaga zapamiętania dokładnego brzmienia definicji ze statutu."
+  },
+  {
+    "id": 5,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Subtelne różnice", "Dokładne sformułowania"],
+    "explanation": "UDT + specjalistyczne jednostki (TDT, WDT), a nie 'upoważnione przez UDT organizacje'. Trzeba znać nazwy instytucji."
+  },
+  {
+    "id": 6,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Subtelne różnice"],
+    "explanation": "Różnica między modernizacją (zmiana parametrów) a naprawą (usunięcie usterek). Wymaga dokładnego zapamiętania definicji."
+  },
+  {
+    "id": 7,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Dokładne sformułowania"],
+    "explanation": "Kto wykonuje naprawy: zakład z uprawnieniami UDT (A). Odrzuca inne możliwości (operator, konserwator bez uprawnień). Wymaga wiedzy o procedurach."
+  },
+  {
+    "id": 8,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Pułapki", "Zapamiętanie listy"],
+    "explanation": "Trzy formy dozoru: pełny, ograniczony, uproszczony (B). Trzeba znać dokładne nazwy - łatwo mylić z innymi możliwościami (całkowita, częściowa)."
+  },
+  {
+    "id": 9,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna kompetencja"],
+    "explanation": "Decyzję wydaje UDT (D). Wyklucza możliwości: konserwator, eksploatujący z upoważnienia. Stosunkowo jasne."
+  },
+  {
+    "id": 10,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Pułapki", "Złożoność"],
+    "explanation": "Wszystkie trzy warunki (A+B+C) muszą być spełnione (D). Pułapka: można myśleć że wystarczy jeden. Wymaga czytania uważnie."
+  },
+  {
+    "id": 11,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Pułapki", "Złożoność"],
+    "explanation": "Podobne do pyt. 10 - wszystkie warunki (D). Wymaga spostrzeżenia, że różne elementy (dziennik + szkolenie + decyzja) to cztery wymogi razem."
+  },
+  {
+    "id": 12,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasne konsekwencje"],
+    "explanation": "Naruszenie przepisów → grzywna lub ograniczenie wolności (C). Nie upomnienia czy zalecenia."
+  },
+  {
+    "id": 13,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna procedura"],
+    "explanation": "Inspektor wydaje decyzję wstrzymującą (A). Nie mandat, nie pouczenie - wstrzymanie pracy."
+  },
+  {
+    "id": 14,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasny obowiązek"],
+    "explanation": "Zgłoszenie do UDT (A) - niezwłocznie. Nie naprawa, nie zgłoszenie producenta."
+  },
+  {
+    "id": 15,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna kompetencja"],
+    "explanation": "Cofnięcie uprawnień: tylko UDT (A). Nie pracodawca, nie inspektor BHP, nie PIP."
+  },
+  {
+    "id": 16,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Proste wykluczenie"],
+    "explanation": "Zawiesia transportowe NIE podlegają (D). Inne elementy (żurawie, wciągarki, wózki) podlegają."
+  },
+  {
+    "id": 17,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Proste włączenie"],
+    "explanation": "Wszystkie wymienione urządzenia podlegają (D) - przenośniki, układnice, wyciągi. 'Wszystkie' = najczęściej poprawna."
+  },
+  {
+    "id": 18,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna definicja"],
+    "explanation": "Niebezpieczne uszkodzenie = urządzenie nie nadaje się do eksploatacji lub stwarza zagrożenie (D). Długa, ale jednoznaczna odpowiedź."
+  },
+  {
+    "id": 19,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna definicja"],
+    "explanation": "Nieszczęśliwy wypadek = nagłe zdarzenie z obrażeniami ciała lub śmiercią (A). Prosty warunek skutkowy."
+  },
+  {
+    "id": 20,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Wyjątki", "Subtelne różnice"],
+    "explanation": "Podnoszenie osób urządzeniem do ładunków = wymaga UZGODNIENIA Z UDT (A), nie z przełożonym czy BHP. To wyjątek wymagający formalnej procedury."
+  },
+  {
+    "id": 21,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna odpowiedzialność"],
+    "explanation": "Odpowiedzialność: eksploatujący (A). Nie UDT, nie PIP, nie inspektor."
+  },
+  {
+    "id": 22,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Pułapki", "Wielowariantowa"],
+    "explanation": "Odpowiedź D (a i b) - osoba z uprawnieniami, bez względu na to czy z serwisu czy zakładu. Pułapka: myśleć że wyklucza się opcje."
+  },
+  {
+    "id": 23,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna rola"],
+    "explanation": "Dziennik prowadzi: konserwator (D). Nie inspektor, nie operator, nie pracownik ogólny."
+  },
+  {
+    "id": 24,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna procedura"],
+    "explanation": "Badanie odbiorcze: przed pierwszą decyzją (B). To pierwsze badanie nowego urządzenia."
+  },
+  {
+    "id": 25,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna procedura"],
+    "explanation": "Badania okresowe: tylko przy dozorze pełnym (B). Nie ograniczonym, nie uproszczonym."
+  },
+  {
+    "id": 26,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasny wymóg procedury"],
+    "explanation": "Nieobecność konserwatora: wymaga uzgodnienia z UDT (A). Nie pisemne usprawiedliwienie, nie zwolnienie lekarskie."
+  },
+  {
+    "id": 27,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasny wymóg formalny"],
+    "explanation": "Wymóg: ukończone 18 lat (A). Nie ma wymagań ws. wykształcenia ani stażu (przepisy UDT)."
+  },
+  {
+    "id": 28,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "Wszystkie wymienione sytuacje (D) - zły stan operatora, zagrożenie, niesprawność. 'Wszystkie' = prawie zawsze poprawna."
+  },
+  {
+    "id": 29,
+    "difficulty-level": 4,
+    "difficulty-reason": ["Subtelne różnice", "Zapamiętanie źródeł"],
+    "explanation": "Terminy przeglądów: instrukcja ORAZ rozporządzenie (D). Wymaga wiedzy o dwóch źródłach - nie tylko jednym."
+  },
+  {
+    "id": 30,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Dokładne sformułowania"],
+    "explanation": "Terminy badań UDT: rozporządzenie (B). Nie ustawa, nie dokumentacja, nie dziennik. Kluczowe źródło."
+  },
+  {
+    "id": 31,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Proste rozróżnienie ról"],
+    "explanation": "Operator: tylko stosuje instrukcję obsługi (A). Nie instrukcję konserwacji, nie wykonuje napraw."
+  },
+  {
+    "id": 32,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasny dokument"],
+    "explanation": "Eksploatacja: na podstawie decyzji UDT (C). Naklejka czy protokół to tylko potwierdzenie, nie dokument dopuszczający."
+  },
+  {
+    "id": 33,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna procedura"],
+    "explanation": "Inspektor sporządza: decyzję + protokół (B). Nie instrukcję, nie deklarację CE."
+  },
+  {
+    "id": 34,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna kompetencja"],
+    "explanation": "Naprawy/modernizacje: zakład uprawniony (C). Nie operator, nie konserwator bez specjalnych uprawnień."
+  },
+  {
+    "id": 35,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna odpowiedzialność"],
+    "explanation": "Odpowiedzialność bezpośrednia: operator (A). On ma bezpośredni wpływ na bezpieczną pracę."
+  },
+  {
+    "id": 36,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Proste źródło"],
+    "explanation": "Zasady bezpieczeństwa: instrukcja eksploatacji (A). Nie ustawa, nie dziennik, nie protokół."
+  },
+  {
+    "id": 37,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Subtelne różnice", "Pułapki"],
+    "explanation": "Codzienne czynności: oględziny + próby ruchowe (D). Pułapka: myśleć że próby statyczne/dynamiczne (te są na badaniu UDT). Wymaga rozróżnienia."
+  },
+  {
+    "id": 38,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna kompetencja"],
+    "explanation": "Zaświadczenia wydaje: UDT (D). Nie firma szkoleniowa, nie inspektor BHP, nie pracodawca."
+  },
+  {
+    "id": 39,
+    "difficulty-level": 1,
+    "difficulty-reason": ["Oczywiste"],
+    "explanation": "Przeciążanie: zawsze zabronione (A). Najoczywistsza odpowiedź bezpieczeństwa."
+  },
+  {
+    "id": 40,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Konkretne sytuacje", "Zapamiętanie"],
+    "explanation": "Badania doraźne: wymiana cięgien (B). Wymaga konkretnego zapamiętania, kiedy się przeprowadza - nie po każdej usterce."
+  },
+  {
+    "id": 41,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasne źródło"],
+    "explanation": "Obowiązki operatora: instrukcja eksploatacji (A). Nie dziennik, nie ustawa - instrukcja producenta."
+  },
+  {
+    "id": 42,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna kompetencja"],
+    "explanation": "Badania okresowe: inspektor UDT (B). Nie konserwator, nie serwis, nie operator."
+  },
+  {
+    "id": 43,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "Jednostki dozoru: UDT + TDT + WDT (D). 'Wszystkie' = prawie zawsze poprawna."
+  },
+  {
+    "id": 44,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasny obszar"],
+    "explanation": "Ważność zaświadczeń: RP (A). Nie UE, nie bez określenia, nie Schengen."
+  },
+  {
+    "id": 45,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "OOI: wszystkie źródła (D) - instrukcja, BHP, przepisy wewnętrzne. 'Wszystkie' = prawie zawsze."
+  },
+  {
+    "id": 46,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "Urządzenia pod dozorem: wszystkie wymienione (D). Dźwigi, wózki, przenośniki - wszystkie."
+  },
+  {
+    "id": 47,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Subtelne różnice", "Źródła"],
+    "explanation": "Instrukcja NIE zawiera: terminów badań UDT (C). Wymaga wiedzy, że instrukcja zawiera terminy przeglądów, ale nie badań urzędowych."
+  },
+  {
+    "id": 48,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna zawartość"],
+    "explanation": "Księga rewizyjna zawiera: protokoły z badań UDT (A). Nie usterki, nie przepisy, nie operatorów."
+  },
+  {
+    "id": 49,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasne prawo"],
+    "explanation": "Decyzja UDT: podlega odwołaniu (C). To decyzja administracyjna z możliwością zaskarżenia."
+  },
+  {
+    "id": 50,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "Do egzaminu: wszystkie warunki (D) - wniosek + 18 lat + brak przeciwwskazań. 'Wszystkie' = reguła."
+  },
+  {
+    "id": 51,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna procedura"],
+    "explanation": "Po badaniu: protokół + decyzja (D). Nie przedłużenie zaświadczenia operatora, nie naklejka jako zezwolenie."
+  },
+  {
+    "id": 52,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Dokładne sformułowania", "Zapamiętanie"],
+    "explanation": "Zaświadczenia są TERMINOWE (C) - okres wynikający z rozporządzenia. Pułapka: myśleć że bezterminowe. Wymaga dokładnej wiedzy o przepisach."
+  },
+  {
+    "id": 53,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasne konsekwencje"],
+    "explanation": "Przeróbki bez uzgodnienia: grzywna/ograniczenie wolności (A). Nie mandat, nie brak kary."
+  },
+  {
+    "id": 54,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasne konsekwencje"],
+    "explanation": "Brak decyzji UDT: grzywna/ograniczenie wolności (A). To poważne naruszenie - kara kryminalna."
+  },
+  {
+    "id": 55,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna definicja"],
+    "explanation": "Instrukcja eksploatacji: dokument producenta (A). Nie rekomendacje UDT, nie dokument użytkownika."
+  },
+  {
+    "id": 56,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Wyjątki"],
+    "explanation": "Zaświadczenia nie wymaga: napęd ręczny (B). Inne urządzenia wymagają, nawet u właściciela czy prywatnie."
+  },
+  {
+    "id": 57,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasny zakres"],
+    "explanation": "Zaświadczenie ogranicza do: tylko wymienione urządzenia (A). Nie wszystkie pod dozorem, nie inne categories."
+  },
+  {
+    "id": 58,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Pułapki", "Subtelne różnice"],
+    "explanation": "Obowiązki operatora: odmowa pracy (bez decyzji) + stosowanie instrukcji (D). Pułapka: myśleć że trzeba zawsze słuchać przełożonego. Operator ma prawo do odmowy."
+  },
+  {
+    "id": 59,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Pułapki", "Subtelne różnice"],
+    "explanation": "Zaświadczenie ważne: z dowodem tożsamości (B). Pułapka: myśleć że bezterminowe lub w UE. To dokument imiennym bez zdjęcia - wymaga potwierdzenia tożsamości."
+  },
+  {
+    "id": 60,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "Po wypadku: wszystkie czynności (D) - pomoc + zabezpieczenie + zgłoszenie. 'Wszystkie' = zawsze."
+  },
+  {
+    "id": 61,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Proste zakazanie"],
+    "explanation": "Nie wolno: podnosić nieznanej masy (A). Pozostałe (kontrola, stosowanie instrukcji, oględziny) TRZEBA wykonać."
+  },
+  {
+    "id": 62,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Pułapki"],
+    "explanation": "Formy dozoru: pełny, uproszczony, ograniczony (A). Nie rodzaje badań (B), nie instytucje (C)."
+  },
+  {
+    "id": 63,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Wyjątki", "Procedury"],
+    "explanation": "Podnoszenie osób: wymaga uzgodnienia z UDT (C). To wyjątek od zakazu - wymaga formalnej procedury i warunków bezpieczeństwa."
+  },
+  {
+    "id": 64,
+    "difficulty-level": 4,
+    "difficulty-reason": ["Subtelne różnice", "Złożoność"],
+    "explanation": "Tandem: wymaga opracowanego planu (A), nie wystarczy suma udźwigów. Pułapka: myśleć że można zsumować. Wymaga kompleksowego podejścia."
+  },
+  {
+    "id": 65,
+    "difficulty-level": 1,
+    "difficulty-reason": ["Fundamentalna zasada"],
+    "explanation": "Pod ładunkiem: zawsze niedozwolone (A). Żadne wyjątki, żadne współczynniki."
+  },
+  {
+    "id": 66,
+    "difficulty-level": 1,
+    "difficulty-reason": ["Fundamentalna zasada"],
+    "explanation": "Nad osobami: zawsze niedozwolone (D). Żadne warunki, żadne wyjątki - odpowiedź niepoprawna dla wszystkich."
+  },
+  {
+    "id": 67,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna kompetencja"],
+    "explanation": "Zaświadczenia wydaje: UDT/TDT/WDT (B). Nie właściciel, nie PIP."
+  },
+  {
+    "id": 68,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasna procedura"],
+    "explanation": "Wynik egzaminu: bezpośrednio po egzaminie (B). Nie czeka 7/14/30 dni - od razu."
+  },
+  {
+    "id": 69,
+    "difficulty-level": 1,
+    "difficulty-reason": ["Jasna elastyczność"],
+    "explanation": "Dziennik: papierowy lub elektroniczny (B). Pracodawca ma wybór formy."
+  },
+  {
+    "id": 70,
+    "difficulty-level": 2,
+    "difficulty-reason": ["Jasne pochodzenie"],
+    "explanation": "Instrukcja stanowiskowa: wydawana przez pracodawcę (C). To dokument wewnętrzny, nie od producenta."
+  },
+  {
+    "id": 71,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Dokładne sformułowania", "Procedury"],
+    "explanation": "Po wygaśnięciu: można obsługiwać tylko po uzyskaniu nowego zaświadczenia (C). Nie można kontynuować na podstawie starego czy złożonego wniosku."
+  },
+  {
+    "id": 72,
+    "difficulty-level": 3,
+    "difficulty-reason": ["Dokładne sformułowania", "Procedury"],
+    "explanation": "Przedłużenie: pisemny wniosek operatora (A). Nie automatyczne, nie zgłoszenie pracodawcy, nie telefonicznie."
+  }
+]
