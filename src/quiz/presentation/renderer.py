@@ -4,6 +4,7 @@ from typing import Any
 import streamlit as st
 
 from src.components.mobile import mobile_dashboard, mobile_hero
+from src.config import GameConfig
 from src.game.core import UIModel
 from src.quiz.presentation.views import question_view, summary_view
 from src.shared.telemetry import Telemetry
@@ -38,7 +39,9 @@ class StreamlitRenderer:
         payload = ui_model.payload
 
         if ui_model.branding_logo_path and hasattr(payload, "app_logo_src"):
-            payload.app_logo_src = ui_model.branding_logo_path
+            payload.app_logo_src = GameConfig.get_image_base64(
+                ui_model.branding_logo_path
+            )
 
         # <--- LOGGING THE STATE
         self.telemetry.log_info(

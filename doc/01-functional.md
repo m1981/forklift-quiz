@@ -50,6 +50,13 @@ The system selects questions based on the following priority:
 *   Login on $Today = LastLogin + 1$: Streak increments (+1).
   *   Login on $Today > LastLogin + 1$: Streak resets to 1.
 
+**BR-04: Content Updates (Safe Seeding)**
+*   **Immutability of Progress:** User progress is linked to `Question.ID`.
+*   **Content Patching:** The system allows updating the text, hints, or explanations of existing questions without resetting user progress.
+*   **Mechanism:** The Seeder uses an `UPSERT` (Insert or Replace) strategy.
+    *   If `ID` exists: Update content fields.
+    *   If `ID` is new: Insert new record.
+    *   **Constraint:** Question IDs must never be changed or re-used for different questions.
 ---
 
 ## 4. Primary Actors & Goals
@@ -183,3 +190,30 @@ The system selects questions based on the following priority:
     *   4a1. System displays error feedback (demonstrating the "Wrong Answer" UI).
     *   4a2. System prompts user to try again.
     *   4a3. Resume at Step 4.
+
+
+### Use Case 5: Run Sales Demo
+
+**Primary Actor:** Prospective Client / Sales Rep
+**Scope:** Warehouse Quiz App
+**Level:** 🌊 User Goal
+**Trigger:** User accesses URL with `?demo=client_name`.
+
+**Preconditions:** None (No login required).
+**Success Guarantees:** User experiences a curated flow with their branding; Data is isolated.
+
+**Main Success Scenario (MSS):**
+1.  System detects `demo` parameter.
+2.  System generates a temporary, isolated session ID.
+3.  System loads the specific "Demo Configuration" (Logo, Question Set).
+4.  System launches the **Demo Flow** (bypassing Onboarding).
+5.  **User and System repeat for fixed Demo Questions:**
+    a. System presents question with Client Logo.
+    b. User answers.
+    c. System records result tagged with Client Name.
+6.  System presents Summary.
+
+**Extensions:**
+*   **3a. Invalid Client Slug:**
+    *   3a1. System falls back to default App Logo.
+    *   3a2. System proceeds with generic demo tracking.

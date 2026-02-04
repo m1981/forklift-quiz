@@ -165,9 +165,11 @@ graph TD
 
     subgraph Infrastructure["Infrastructure Layer"]
         SQLiteRepo[SQLiteQuizRepository]
+        SupabaseRepo[SupabaseQuizRepository]
         DBManager[DatabaseManager]
         Telemetry[Telemetry / Prometheus]
         SQLite[(SQLite DB)]
+        Cloud[(Supabase Cloud)]
     end
 
     %% Interactions
@@ -186,8 +188,16 @@ graph TD
 
     Context --> Ports
     SQLiteRepo -.implements.-> Ports
+    SupabaseRepo -.implements.-> Ports
+
+    %% Config Switch
+    Config[GameConfig] -->|USE_SQLITE| ViewModel
+    ViewModel -->|True| SQLiteRepo
+    ViewModel -->|False| SupabaseRepo
+
     SQLiteRepo --> DBManager
     DBManager --> SQLite
+    SupabaseRepo --> Cloud
 
     SQLiteRepo -.-> Telemetry
 ```
@@ -391,6 +401,13 @@ The Domain layer defines *what* it needs (`IQuizRepository`), but not *how* to g
 *   **Adapter:** `src/quiz/adapters/sqlite_repository.py`
 *   **Benefit:** Allows swapping SQLite for PostgreSQL or a Mock for testing without changing a single line of the Game Engine.
 
+### 2.4. The Demo Mode Pattern (Multi-Tenancy Lite)
+To support sales demos without polluting production data or requiring complex auth:
+*   **Trigger:** URL Parameter `?demo=slug` (e.g., `?demo=tesla`).
+*   **Isolation:** The `GameViewModel` generates a random UUID for the session, ensuring multiple prospects don't overwrite each other's answers.
+*   **Tagging:** The `UserProfile` is tagged with metadata `{"type": "demo", "prospect": "tesla"}` for analytics.
+*   **Branding:** The `GameContext` carries the prospect slug, allowing the `Renderer` to dynamically inject custom logos into the UI.
+*   **Content:** A specialized `DemoFlow` bypasses the spaced repetition algorithm to serve a fixed, curated list of questions defined in `GameConfig`.
 ---
 
 ## 3. Technology Stack Decisions & Rationale
@@ -400,7 +417,8 @@ The Domain layer defines *what* it needs (`IQuizRepository`), but not *how* to g
 | **Language** | **Python 3.12+** | Leverages modern typing features (`type | None`, `ParamSpec`) for strict static analysis and performance improvements. |
 | **Frontend** | **Streamlit** | Enables rapid development of data-heavy UI. We mitigate its "rerun" limitations using the State Machine architecture. |
 | **UI Components** | **HTML/JS/CSS** | Custom `st.components.v2` are used for the Mobile Header and Dashboard to bypass Streamlit's styling limitations and provide a native-app feel. |
-| **Database** | **SQLite (WAL Mode)** | Zero-configuration, file-based persistence ideal for embedded/single-instance apps. WAL (Write-Ahead Logging) mode is enabled for better concurrency. |
+| **Database (Dev)** | **SQLite** | Enables offline development and rapid iteration. "Force Seed" mode ensures content updates are visible immediately. |
+| **Database (Prod)** | **Supabase (PostgreSQL)** | Provides scalable, cloud-based persistence. Uses `UPSERT` logic to allow safe content patching without downtime. |
 | **Observability** | **Prometheus & OpenTelemetry** | "Commercial Grade" requirement. Provides real-time metrics (latency, error rates) and distributed tracing capabilities via `src/shared/telemetry.py`. |
 | **Quality Assurance** | **Ruff, Mypy, Pytest** | Strict linting and static type checking ensure the codebase remains maintainable and bug-free as it scales. |
 
@@ -436,14 +454,19 @@ sequenceDiagram
     participant Step
     participant Renderer
 
-    User->>Streamlit: Opens App / Refreshes
-    Streamlit->>ViewModel: Initialize
+    User->>Streamlit: Opens App (?demo=tesla)
+    Streamlit->>ViewModel: Initialize (Detect Demo)
     ViewModel->>Director: get_ui_model()
     Director->>Step: get_ui_model()
-    Step-->>Director: UIModel (DTO)
-    Director-->>ViewModel: UIModel (DTO)
+
+    Step->>Step: Check Context.is_demo
+    Step-->>Director: UIModel (branding_logo="tesla.png")
+
+    Director-->>ViewModel: UIModel
     ViewModel->>Renderer: render(UIModel)
-    Renderer->>Streamlit: Draw Widgets
+
+    Renderer->>Renderer: Inject Logo into Payload
+    Renderer->>Streamlit: Draw Widgets (with Custom Logo)
     Streamlit-->>User: Display Page
 ```
 

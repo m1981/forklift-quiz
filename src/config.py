@@ -1,3 +1,4 @@
+import base64
 import os
 from enum import Enum
 from typing import Final
@@ -67,3 +68,50 @@ class GameConfig:
         if not os.path.exists(path):
             return GameConfig.APP_LOGO_PATH
         return path
+
+    @staticmethod
+    def get_image_base64(path: str) -> str:
+        """
+        Converts a local image path to a Base64 Data URI for HTML embedding.
+        Handles both local paths and web URLs.
+        """
+        # Debug Log 1: What are we trying to load?
+        print(f"DEBUG: get_image_base64 called with path: '{path}'")
+
+        # 1. Pass through web URLs
+        if path.startswith("http"):
+            print("DEBUG: Path is a URL. Passing through.")
+            return path
+
+        # 2. Convert local file
+        # Debug Log 2: Check absolute path to verify CWD (Current Working Directory)
+        abs_path = os.path.abspath(path)
+        print(f"DEBUG: Absolute path resolved to: '{abs_path}'")
+
+        if os.path.exists(path):
+            try:
+                print("DEBUG: File exists. Attempting to read...")
+                with open(path, "rb") as img_file:
+                    b64_data = base64.b64encode(img_file.read()).decode("utf-8")
+
+                    # Determine mime type
+                    mime = "image/png"
+                    lower_path = path.lower()
+                    if lower_path.endswith(".jpg") or lower_path.endswith(".jpeg"):
+                        mime = "image/jpeg"
+                    elif lower_path.endswith(".svg"):
+                        mime = "image/svg+xml"
+
+                    print(
+                        f"DEBUG: Success! Generated Base64 string (len={len(b64_data)})"
+                    )
+                    return f"data:{mime};base64,{b64_data}"
+            except Exception as e:
+                print(f"DEBUG: Error reading file: {e}")
+                pass  # Fallback below
+        else:
+            print("DEBUG: File NOT found at path.")
+
+        # 3. Fallback (Transparent pixel)
+        print("DEBUG: Returning Fallback 1x1 Pixel.")
+        return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
