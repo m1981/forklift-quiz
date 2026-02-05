@@ -1,0 +1,230 @@
+[
+  {
+    "id": "1",
+    "text": "Urządzenie techniczne objęte dozorem technicznym może być eksploatowane na podstawie:",
+    "image_path": null,
+    "options": {
+      "A": "zezwolenia ustnego lub pisemnego wydanego przez upoważnionego konserwatora",
+      "B": "ważnej decyzji zezwalającej na eksploatację wydanej przez organ właściwej jednostki dozoru technicznego",
+      "C": "oznaczenia CE zamieszczonego na urządzeniu",
+      "D": "deklaracji zgodności wystawionej przez wytwórcę"
+    },
+    "correct_option": "B",
+    "explanation": "Zgodnie z ustawą o dozorze technicznym, do eksploatacji urządzenia wymagana jest formalna decyzja wydana przez odpowiedni organ (np. UDT).",
+    "hint": "Zezwolenie konserwatora (A) brzmi oficjalnie, ale konserwator tylko wykonuje PRZEGLĄDY, nie wydaje ZEZWOLEŃ",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": "2",
+    "text": "Które z wymienionych czynności nie należą do zakresu obowiązków obsługującego UTB:",
+    "image_path": null,
+    "options": {
+      "A": "wykonywanie niewielkich napraw urządzenia w ramach posiadanego wykształcenia i umiejętności",
+      "B": "przestrzeganie instrukcji eksploatacji w zakresie obsługi UTB",
+      "C": "zapoznanie się z planem pracy i wielkością przenoszonych ładunków",
+      "D": "wszystkie odpowiedzi są poprawne"
+    },
+    "correct_option": "A",
+    "explanation": "Operator (obsługujący) nie jest uprawniony do wykonywania napraw. Naprawy leżą w kompetencjach uprawnionego konserwatora.",
+    "hint": "Operator to ty. Operator obsługuje, NIE naprawia. Czytaj uważnie!",
+    "category": "Prawo i Dozór Techniczny"
+
+  },
+  {
+    "id": "3",
+    "text": "Terminy przeglądów konserwacyjnych urządzeń technicznych:",
+    "image_path": null,
+    "options": {
+      "A": "są zawarte w instrukcji eksploatacji urządzenia",
+      "B": "określa konserwator urządzenia",
+      "C": "określa w protokole inspektor wykonujący badanie",
+      "D": "wszystkie odpowiedzi są poprawne"
+    },
+    "correct_option": "A",
+    "explanation": "Podstawowym źródłem informacji o częstotliwości przeglądów jest instrukcja eksploatacji dostarczona przez producenta urządzenia.",
+    "hint": "Wymaga rozróżnienia: terminy przeglądów (instrukcja) vs terminy badań UDT (rozporządzenie)",
+    "category": "Prawo i Dozór Techniczny"
+
+  },
+  {
+    "id": "4",
+    "text": "Dozorem technicznym nazywamy:",
+    "image_path": null,
+    "options": {
+      "A": "określone ustawą działania zmierzające do zapewnienia bezpiecznego funkcjonowania urządzeń technicznych i urządzeń do odzyskiwania par paliwa oraz działania zmierzające do zapewnienia bezpieczeństwa publicznego w tych obszarach",
+      "B": "instytucje kontrolujące stan techniczny urządzeń",
+      "C": "Urząd Dozoru Technicznego",
+      "D": "UDT, WDT, TDT"
+    },
+    "correct_option": "A",
+    "explanation": "Jest to oficjalna definicja dozoru technicznego zawarta w Ustawie o dozorze technicznym.",
+    "hint": "Dozór techniczny to DZIAŁANIA (nie instytucja). Wymaga zapamiętania dokładnego brzmienia definicji ze statutu.",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": "5",
+    "text": "Dozór techniczny nad urządzeniami technicznymi wykonuje:",
+    "image_path": null,
+    "options": {
+      "A": "Urząd Dozoru Technicznego oraz specjalistyczne jednostki dozoru technicznego",
+      "B": "Urząd Dozoru Technicznego oraz upoważnione przez UDT organizacje",
+      "C": "Urząd Dozoru Technicznego i zagraniczne jednostki dozoru technicznego",
+      "D": "wszystkie odpowiedzi są poprawne"
+    },
+    "correct_option": "A",
+    "explanation": "W Polsce dozór sprawuje UDT oraz jednostki specjalistyczne, takie jak Transportowy Dozór Techniczny (TDT) czy Wojskowy Dozór Techniczny (WDT).",
+    "hint": "\uD83D\uDEA8 PUŁAPKA SŁOWNA: \"Upoważnione organizacje\" (B) WYKONUJĄ NAPRAWY/MODERNIZACJE, a NIE dozór techniczny",
+    "category": "Prawo i Dozór Techniczny"
+  },
+    {
+    "id": "6",
+    "text": "Zmiana parametrów technicznych lub zmiana konstrukcji urządzenia technicznego traktowana jest jako:",
+    "image_path": null,
+    "options": {
+      "A": "modernizacja urządzenia technicznego",
+      "B": "naprawa urządzenia technicznego",
+      "C": "usuwanie usterek i innych nieprawidłowości urządzenia technicznego",
+      "D": "wytworzenie nowego urządzenia"
+    },
+    "correct_option": "A",
+    "explanation": "Wszelkie zmiany wpływające na parametry lub konstrukcję (np. udźwig, zasięg) są definowane jako modernizacja, a nie naprawa.",
+    "hint": "ZAPAMIĘTAJ RÓŻNICĘ: NAPRAWA to \"powrót do poprzedniego stanu\" (jak było, tak jest). MODERNIZACJA to \"coś się zmienia\" - np. zmiana udźwigu z 2 t na 3 t",
+    "category": "Prawo i Dozór Techniczny"
+  },
+   {
+    "id": "7",
+    "text": "Uzgodnioną naprawę lub modernizację urządzeń technicznych może wykonać:",
+    "image_path": null,
+    "options": {
+      "A": "naprawiający lub modernizujący, który posiada uprawnienie wydane przez organ właściwej jednostki dozoru technicznego",
+      "B": "eksploatujący urządzenie techniczne posiadający odpowiednie doświadczenie w zakresie napraw lub modernizacji",
+      "C": "konserwator posiadający odpowiednie doświadczenie w zakresie napraw lub modernizacji",
+      "D": "w niewielkim zakresie kompetentny operator"
+    },
+    "correct_option": "A",
+    "explanation": "⚖\uFE0F PRAWO ADMINISTRACYJNE: \"Uprawnienie\" to ZAWSZE DECYZJA ADMINISTRACYJNA (dokument urzędowy), nigdy samo \"doświadczenie\". Nawet jeśli ktoś robi naprawy \"okazjonalnie\", musi mieć technologię UZGODNIONĄ z UDT (Art. 9 ust. 1b). Bez formalnego dokumentu UDT = zakazane!",
+    "hint": "Opcje B, C, D brzmią wiarygodnie (doświadczenie, konserwator), ale wymagane jest FORMALNE UPRAWNIENIE (decyzja UDT)",
+    "category": "Prawo i Dozór Techniczny"
+  },
+   {
+    "id": "8",
+    "text": "Ustawa o dozorze technicznym określa następujące formy dozoru technicznego:",
+    "image_path": null,
+    "options": {
+      "A": "całkowita, częściowa, ograniczona",
+      "B": "pełna, ograniczona, uproszczona",
+      "C": "pełna, cykliczna, sporadyczna",
+      "D": "UDT, WDT, TDT"
+    },
+    "correct_option": "B",
+    "explanation": "Ustawa wyróżnia trzy formy dozoru: pełny, ograniczony oraz uproszczony.",
+    "hint": "Zapamiętaj jedyny skrót POU! ",
+    "category": "Prawo i Dozór Techniczny"
+  },
+    {
+    "id": "9",
+    "text": "Decyzję zezwalającą na eksploatację urządzenia technicznego wydaje:",
+    "image_path": null,
+    "options": {
+      "A": "konserwator po wykonaniu przeglądu z wynikiem pozytywnym",
+      "B": "organ właściwej jednostki dozoru technicznego lub eksploatujący urządzenie techniczne z upoważnienia organu właściwej jednostki dozoru technicznego",
+      "C": "organ właściwej jednostki dozoru technicznego lub organ administracji publicznej z upoważnienia organu właściwej jednostki dozoru technicznego",
+      "D": "organ właściwej jednostki dozoru technicznego"
+    },
+    "correct_option": "D",
+    "explanation": "KLUCZOWE: Decyzję wydaje ZAWSZE i WYŁĄCZNIE \"organ właściwej jednostki dozoru technicznego\" (czyli inspektor UDT/TDT/WDT działający w imieniu tej jednostki).",
+    "hint": "Opcja B (upoważnienie dla eksploatującego) i C (inny organ administracji) brzmią wiarygodnie, ale Art. 14 jest JASNY - tylko UDT. Trzeba zapamiętać.",
+    "category": "Prawo i Dozór Techniczny",
+      Jasna kompetencja
+  },
+    {
+    "id": "10",
+    "text": "Obsługujący urządzenie techniczne może podjąć pracę gdy:",
+    "image_path": null,
+    "options": {
+      "A": "urządzenie posiada ważną decyzję zezwalającą na eksploatację jeżeli wymagają tego odpowiednie przepisy",
+      "B": "posiada zaświadczenie kwalifikacyjne odpowiedniej kategorii",
+      "C": "urządzenie posiada aktualny pozytywny wynik przeglądu konserwacyjnego",
+      "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
+    },
+    "correct_option": "D",
+    "explanation": "1\uFE0F⃣ Wózek musi być SPRAWNY (ostatni przegląd ok.) 2\uFE0F⃣ Musi mieć DECYZJĘ UDT (dokument) 3\uFE0F⃣ Ty musisz mieć ZAŚWIADCZENIE (dokument w portfelu). Brak choćby JEDNEGO = STOP, nie pracujesz!",
+    "hint": "\uD83D\uDD10 Potrójna zasada bezpieczeństwa: SPRZĘT + PAPIER + CZŁOWIEK",
+    "category": "Prawo i Dozór Techniczny"
+  },
+    {
+    "id": "11",
+    "text": "Obsługujący urządzenie techniczne może podjąć pracę gdy:",
+    "image_path": null,
+    "options": {
+      "A": "urządzenie posiada aktualny wpis w dzienniku konserwacji potwierdzający sprawność urządzenia",
+      "B": "przeszedł odpowiednie szkolenie stanowiskowe",
+      "C": "urządzenie posiada ważną decyzję zezwalającą na eksploatację",
+      "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
+    },
+    "correct_option": "D",
+    "explanation": "\uD83D\uDD10 ZNOWU TRÓJCA: DZIENNIK (A) + SZKOLENIE (B) + DECYZJA (C). Pytanie 11 to INNA wersja pytania 10, ale z innymi elementami. Pamiętaj: dziennik musi ZAWSZE być AKTUALNY. Szkolenie stanowiskowe to wymóg BHP (Art. 22). Decyzja to zawsze Art. 14.",
+    "hint": "Wszystkie TRZY niezależne elementy muszą być spełnione jednocześnie dla bezpiecznej pracy.",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": "12",
+    "text": "W przypadku nieprzestrzegania przez eksploatującego przepisów o dozorze technicznym eksploatujący:",
+    "image_path": null,
+    "options": {
+      "A": "otrzymuje pisemne upomnienie",
+      "B": "otrzymuje zalecenia pokontrolne",
+      "C": "podlega grzywnie lub karze ograniczenia wolności",
+      "D": "odpowiedź a i b jest prawidłowa"
+    },
+    "correct_option": "C",
+    "explanation": "⚖\uFE0F Naruszenie przepisów UDT = GRZYWNA lub OGRANICZENIE WOLNOŚCI (Art. 63-64)",
+    "hint": "Opcje A (upomnienie) i B (zalecenia) to środki łagodne",
+    "category": "Prawo i Dozór Techniczny"
+  },
+    {
+    "id": "13",
+    "text": "W przypadku stwierdzenia zagrożenia dla życia lub zdrowia ludzkiego oraz mienia i środowiska inspektor:",
+    "image_path": null,
+    "options": {
+      "A": "wydaje decyzję wstrzymującą eksploatację urządzenia technicznego",
+      "B": "wystawia mandat karny",
+      "C": "pisemnie poucza eksploatującego",
+      "D": "wszystkie odpowiedzi są poprawne"
+    },
+    "correct_option": "A",
+    "explanation": "Jeśli inspektor stwierdzi ZAGROŻENIE (wypadek, kolizja, niebezpieczne uszkodzenie), wydaje DECYZJĘ O WSTRZYMANIU - art. 18 ust. 2. To nie jest \"rekomendacja\", nie \"pouczenie\"",
+    "hint": "Mandat wydaje policja (B), nie UDT",
+    "category": "Prawo i Dozór Techniczny"
+  },
+   {
+    "id": "14",
+    "text": "W przypadku niebezpiecznego uszkodzenia urządzenia technicznego lub nieszczęśliwego wypadku eksploatujący:",
+    "image_path": null,
+    "options": {
+      "A": "niezwłocznie powiadamia UDT o zaistniałym zdarzeniu",
+      "B": "powiadamia producenta urządzenia o przyczynach powstałego zdarzenia",
+      "C": "niezwłocznie dokonuje naprawy urządzenia i przekazuje do dalszej eksploatacji",
+      "D": "zgłasza urządzenie do wykonania naprawy"
+    },
+    "correct_option": "A",
+    "explanation": "Art. 19 ust. 1 Ustawy: \"Eksploatujący urządzenie techniczne jest obowiązany NIEZWŁOCZNIE ZAWIADOMIĆ organ właściwej jednostki dozoru technicznego O KAŻDYM NIEBEZPIECZNYM USZKODZENIU urządzenia technicznego lub NIESZCZĘŚLIWYM WYPADKU związanym z jego eksploatacją.",
+    "hint": "To jest podobne do wypadku samochodowego - najpierw policja, potem mechanik!",
+    "category": "Prawo i Dozór Techniczny"
+  },
+    {
+    "id": "15",
+    "text": "Zaświadczenie kwalifikacyjne do obsługi może zostać cofnięte przez:",
+    "image_path": null,
+    "options": {
+      "A": "organ właściwej jednostki dozoru technicznego",
+      "B": "eksploatującego urządzenie techniczne",
+      "C": "inspektora bhp",
+      "D": "Państwową Inspekcję Pracy"
+    },
+    "correct_option": "A",
+    "explanation": "Tylko organ, który wydał uprawnienia (czyli jednostka dozoru technicznego, np. UDT), ma prawo je cofnąć.",
+    "hint": "Zasada ogólna: KTO WYDAJE - TEN COFA",
+    "category": "Prawo i Dozór Techniczny"
+  }
+]
