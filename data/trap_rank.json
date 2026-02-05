@@ -1,0 +1,39 @@
+{
+  "ranking_pulapek": [
+    {
+      "pozycja": 1,
+      "pula": "Opcja D (wszystkie poprawne) jako FAŁSZ",
+      "pytania": [2, 3, 10, 11, 13, 17, 43, 45],
+      "ilosc": 8,
+      "opis": "Kandydaci myślą 'są to wszystkie obowiązki', ale JEDNA zawsze brakuje"
+    },
+    {
+      "pozycja": 2,
+      "pulapka": "Słowa brzmiące oficjalnie ale BŁĘDNE",
+      "pytania": [1, 5, 9, 22, 34],
+      "ilosc": 5,
+      "opis": "Np. 'upoważnione organizacje' (wykonują naprawy, nie dozór), 'konserwator' (robi serwis, nie decyzje)"
+    },
+    {
+      "pozycja": 3,
+      "pulapka": "Zamieszanie kompetencji (kto robi co)",
+      "pytania": [31, 34, 35, 41, 42],
+      "ilosc": 5,
+      "opis": "Operator ≠ Konserwator ≠ Serwis. Każdy ma swoją rolę"
+    },
+    {
+      "pozycja": 4,
+      "pulapka": "Mieszanie pojęć (dozór vs naprawy vs konserwacja)",
+      "pytania": [5, 22, 23, 34, 40, 42],
+      "ilosc": 6,
+      "opis": "Dozór techniczny to KONTROLA (UDT). Naprawy to SERWIS. Konserwacja to utrzymanie"
+    },
+    {
+      "pozycja": 5,
+      "pulapka": "Wymaga DOKŁADNEJ ZNAJOMOŚCI TEKSTU artykułów",
+      "pytania": [4, 6, 7, 8, 20],
+      "ilosc": 5,
+      "opis": "Nie można się domyślić - trzeba znać Art. 4, Art. 14, Art. 17 dokładnie"
+    }
+  ]
+}

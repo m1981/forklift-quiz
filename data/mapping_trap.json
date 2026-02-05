@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "difficulty_level": 2,
+    "trap": "Zezwolenie konserwatora (A) brzmi oficjalnie, ale konserwator tylko wykonuje przeglądy, nie wydaje zezwoleń",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 2,
+    "difficulty_level": 3,
+    "trap": "Opcja D (wszystkie poprawne) jest FAŁSZEM - odpowiedź A (naprawa) jest NIEDOZWOLONA dla operatora",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 3,
+    "difficulty_level": 2,
+    "trap": "Opcja D (wszystkie poprawne) brzmi naturalnie, ale FAŁSZ - tylko A (instrukcja producenta) określa terminy",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 4,
+    "difficulty_level": 2,
+    "trap": "Odpowiedź A to DOKŁADNA kopia Art. 2 ust. 1 ustawy - trzeba znać definicję słowo w słowo",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 5,
+    "difficulty_level": 4,
+    "trap": "Opcja B (upoważnione organizacje) wykonują NAPRAWY, a NIE dozór techniczny - pułapka słowna",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 6,
+    "difficulty_level": 3,
+    "trap": "Art. 4 pkt 5-6 wymaga DOKŁADNEGO czytania różnicy: MODERNIZACJA zmienia parametry, NAPRAWA przywraca stan",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 7,
+    "difficulty_level": 4,
+    "trap": "Opcje B, C, D brzmią wiarygodnie (doświadczenie, konserwator), ale wymagane jest FORMALNE UPRAWNIENIE (decyzja UDT)",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 8,
+    "difficulty_level": 2,
+    "trap": "Art. 12 wymienia dokładnie trzy formy - odpowiedź B to KOPIA tekstu, banalnie proste",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 9,
+    "difficulty_level": 4,
+    "trap": "Opcja B (upoważnienie dla eksploatującego) i C (inny organ administracji) brzmią wiarygodnie, ale Art. 14 jest JASNY - tylko UDT",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 10,
+    "difficulty_level": 3,
+    "trap": "Opcja D (wszystkie) wymaga spełnienia WSZYSTKICH trzech niezależnych warunków - to nie jest wybór, to kumulacja",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 11,
+    "difficulty_level": 3,
+    "trap": "Pytanie-duplikat Q10, ale z innymi warunkami (dziennik zamiast przeglądu) - kandydaci mogą się pomylić",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 12,
+    "difficulty_level": 4,
+    "trap": "Opcje A (upomnienie) i B (zalecenia) to środki łagodne, ale Art. 63 mówi o KARACH KARNYCH - pułapka poziomu sankcji",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 13,
+    "difficulty_level": 2,
+    "trap": "Opcja D (wszystkie) jest FAŁSZEM - inspektor MUSI wydać decyzję (A), to jego obowiązek w sytuacji zagrożenia",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 14,
+    "difficulty_level": 2,
+    "trap": "Słowo NIEZWŁOCZNIE to klucz - nie czekaj na koniec zmiany, zadzwoń natychmiast do UDT",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 15,
+    "difficulty_level": 2,
+    "trap": "Zasada prosta: KTO WYDAJE - TEN COFA. Tylko UDT/TDT/WDT mogą cofnąć własne zaświadczenia",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 16,
+    "difficulty_level": 5,
+    "trap": "LISTA NEGATYWNA (co NIE jest objęte) - zawiesia to AKCESORIA, nie urządzenia główne - wymaga znajomości Rozporządzenia",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 17,
+    "difficulty_level": 2,
+    "trap": "Standardowe pytanie - wszystkie A, B, C to urządzenia OBJĘTE - odpowiedź D (wszystkie) to zawsze 'tak'",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 18,
+    "difficulty_level": 3,
+    "trap": "Opcje B, C (częściowa/obniżona eksploatacja) są częściowo poprawne, ale D wymaga CAŁKOWITEGO braku możliwości",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 19,
+    "difficulty_level": 4,
+    "trap": "Brak formalnej definicji w ustawie - wymaga wnioskowania: wypadek = OBRAŻENIA CIAŁA LUB ŚMIERĆ człowieka",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 20,
+    "difficulty_level": 4,
+    "trap": "Sytuacja wyjątkowa - prawie zawsze zakazane, ale Art. 17 ust. 1a dopuszcza FORMALNIE po uzgodnieniu z UDT",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 21,
+    "difficulty_level": 2,
+    "trap": "Art. 2 ust. 3 jednoznacznie: UDT kontroluje, ale EKSPLOATUJĄCY odpowiada - to główna odpowiedzialność",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 22,
+    "difficulty_level": 3,
+    "trap": "Odpowiedź D (A + B) wymaga zrozumienia: ZAŚWIADCZENIE OTWIERA DRZWI, bez względu na pochodzenie pracownika",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 23,
+    "difficulty_level": 3,
+    "trap": "Inspektor UDT pisze PROTOKOŁY badań (część księgi), ale KONSERWATOR pisze dziennik codziennie",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 24,
+    "difficulty_level": 2,
+    "trap": "Badania odbiorcze to PIERWSZE badania PRZED wydaniem decyzji - opcja B to klasyka procedury",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 25,
+    "difficulty_level": 3,
+    "trap": "Tylko PEŁNY dozór wymaga badań OKRESOWYCH - ograniczony ma tylko doraźne - wyróżnienie między formami",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 26,
+    "difficulty_level": 3,
+    "trap": "Opcje B, C mogą być dodatkowo wymagane, ale MINIMUM to A - uzgodnienie z inspektorem WCZEŚNIE",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 27,
+    "difficulty_level": 2,
+    "trap": "Opcje B, C (wykształcenie, staż) to wymogi dla PRODUCENTÓW/SERWISU, a nie dla OPERATORÓW - zapamiętanie kategorii",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 28,
+    "difficulty_level": 2,
+    "trap": "TRZY niezależne przesłanki (stan operatora, zagrożenie, sprawność sprzętu) - operator ma PRAWO odmówić pracy",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 29,
+    "difficulty_level": 3,
+    "trap": "Opcja B (sama ustawa) nie podaje konkretnych terminów - wymagana jest INSTRUKCJA + ROZPORZĄDZENIE",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 30,
+    "difficulty_level": 2,
+    "trap": "Art. 8 ust. 5 jasno: ROZPORZĄDZENIE określa terminy, nie sama ustawa",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 31,
+    "difficulty_level": 2,
+    "trap": "Opcje B (konserwacja), C (naprawy) należą do INNYCH osób - operator to TYLKO obsługa",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 32,
+    "difficulty_level": 2,
+    "trap": "Naklejka (A) to przypomnienie, protokół (D) to raport - DECYZJA (C) to jedymy dokument PRAWNY do eksploatacji",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 33,
+    "difficulty_level": 2,
+    "trap": "Inspektor zawsze pisze DWA dokumenty: PROTOKÓŁ (raport) + DECYZJA (zezwolenie/odmowa)",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 34,
+    "difficulty_level": 3,
+    "trap": "Konserwator (B) może być pracownikiem uprawnionego zakładu, ale sam bez papierów = zakazane",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 35,
+    "difficulty_level": 2,
+    "trap": "OPERATOR w chwili pracy ma BEZPOŚREDNIĄ odpowiedzialność - producent/BHP/inspektor to inne sfery",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 36,
+    "difficulty_level": 2,
+    "trap": "Instrukcja producenta (A) zawiera szczegółowe procedury dla konkretnego modelu - ustawa/dziennik/protokół to ogólne/zapisowe",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 37,
+    "difficulty_level": 3,
+    "trap": "OTC (Operator Before Using) to OKULARY + TEST - opcja B (próby statyczne/dynamiczne) to testy UDT, nie codzienne",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 38,
+    "difficulty_level": 2,
+    "trap": "Szkoła (A) wydaje certyfikat, BHP (B) to inny resort, pracodawca (C) nie ma uprawnień - TYLKO UDT",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 39,
+    "difficulty_level": 2,
+    "trap": "Opcje C (+125%), D (+110%) mogą brzmieć 'akceptowalnie', ale Art. 6 mówi ZAKAZANE ABSOLUTNIE",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 40,
+    "difficulty_level": 3,
+    "trap": "Badania doraźne wykonywane PO zdarzeniach krytycznych (wymiana cięgien, wypadek), a nie raz na rok",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 41,
+    "difficulty_level": 2,
+    "trap": "Instrukcja (A) zawiera szczegółowe obowiązki KAŻDEGO konkretnego wózka - ustawa podaje tylko ogólne",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 42,
+    "difficulty_level": 2,
+    "trap": "PERIODYCZNE badania to monopol inspektora UDT - konserwator robi konserwacje, serwis wspomaga, operator obsługuje",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 43,
+    "difficulty_level": 2,
+    "trap": "TRZY równoległe jednostkami (UDT, TDT, WDT) - każda w swoim resorcie - odpowiedź D (wszystkie)",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 44,
+    "difficulty_level": 2,
+    "trap": "Zaświadczenie UDT jest dokumentem KRAJOWYM - EU (B), Schengen (D) to inne pojęcia, bez znaczenia dla zaświadczeń",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 45,
+    "difficulty_level": 2,
+    "trap": "TRZY niezależne źródła wymagań (instrukcja, BHP, regulamin) - wszystkie obowiązują jednocześnie, nie wybieraj",
+    "category": "Prawo i Dozór Techniczny"
+  },
+  {
+    "id": 46,
+    "difficulty_level": 2,
+    "trap": "Pytanie testuje tylko znajomość KATALOGU urządzeń - wszystkie A, B, C są objęte dozorem"
+  },
+  {
+    "id": 47,
+    "difficulty_level": 2,
+    "trap": "Instrukcja producenta (DTR) vs Rozporządzenie - terminy badań UDT nie są w instrukcji"
+  },
+  {
+    "id": 48,
+    "difficulty_level": 2,
+    "trap": "Księga rewizyjna vs Dziennik konserwacji - dwa różne dokumenty, łatwo pomylić"
+  },
+  {
+    "id": 49,
+    "difficulty_level": 2,
+    "trap": "Decyzja UDT jest DECYZJĄ ADMINISTRACYJNĄ - zawsze podlega odwołaniu (prawo administracyjne)"
+  },
+  {
+    "id": 50,
+    "difficulty_level": 3,
+    "trap": "TRZY niezależne wymogi (wniosek + wiek + zdrowie) - to nie jest wybór, ale kumulacja"
+  },
+  {
+    "id": 51,
+    "difficulty_level": 2,
+    "trap": "Inspektor robi ZAWSZE: protokół (raport) + decyzja (zezwolenie) - dwa dokumenty"
+  },
+  {
+    "id": 52,
+    "difficulty_level": 2,
+    "trap": "Okres ważności zaświadczenia (5-10 lat) nie zależy od punktów, ale od TYPU URZĄDZENIA"
+  },
+  {
+    "id": 53,
+    "difficulty_level": 3,
+    "trap": "Przeróbka bez uzgodnienia = GRZYWNA LUB OGRANICZENIE WOLNOŚCI (nie mandat, nie bez kary)"
+  },
+  {
+    "id": 54,
+    "difficulty_level": 3,
+    "trap": "Dopuszczenie bez decyzji = ZAWSZE kara (Art. 63), niezależnie czy był wypadek"
+  },
+  {
+    "id": 55,
+    "difficulty_level": 2,
+    "trap": "Instrukcja pochodzi OD PRODUCENTA - UDT wydaje zalecenia, nie instrukcje"
+  }
+]

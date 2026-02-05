@@ -1,0 +1,43 @@
+{
+  "strategie_nauki": {
+    "faza_1_podstawy": {
+      "opis": "NAUCZY się DEFINICJI z Art. 2, 4",
+      "artykuly": ["Art. 2", "Art. 4 pkt 3-7"],
+      "czas": "30 minut",
+      "rezultat": "Zrozumiesz: co to dozór, co to modernizacja vs naprawa, jednostkami"
+    },
+    "faza_2_procedury": {
+      "opis": "Przeczytaj PROCEDURY: Art. 14, 22, 23, 26, 33",
+      "artykuly": ["Art. 14", "Art. 22", "Art. 23", "Art. 26", "Art. 33"],
+      "czas": "1 godzina",
+      "rezultat": "Zrozumiesz: jak działa egzamin, zaświadczenia, obowiązki, decyzje"
+    },
+    "faza_3_rozporządzenie": {
+      "opis": "UCZYE się LISTY urządzeń (Załącznik 3) i procedur (§ 30-40)",
+      "artykuly": ["Rozporządzenie Załącznik 3", "Procedury obsługi"],
+      "czas": "1 godzina",
+      "rezultat": "Poznasz: jakie urządzenia są objęte, terminy badań, obowiązki OTC"
+    },
+    "faza_4_testy": {
+      "opis": "ROZWIĄŻ pytania 1-45 (ta baza)",
+      "artykuly": ["Wszystkie"],
+      "czas": "2 godziny",
+      "rezultat": "Przyzwyczaić się do PUŁAPEK, nauczę się czytać uważnie"
+    }
+  },
+  "niezbedne_artykuly": [
+    "Art. 2 (definicja dozoru)",
+    "Art. 4 (definicje: jednostkami, modernizacja, naprawa, konserwacja)",
+    "Art. 6 (eksploatacja zgodnie z przeznaczeniem)",
+    "Art. 9 (naprawy = zakład uprawniony)",
+    "Art. 14 (decyzja zezwalająca)",
+    "Art. 17 (modernizacja wymagająuzgodnienia)",
+    "Art. 22 (zaświadczenia, obowiązki)",
+    "Art. 23 (egzamin, przedłużenie)",
+    "Art. 26 (obowiązki pracodawcy)",
+    "Art. 28 (uprawnienia inspektora)",
+    "Art. 33 (księga rewizyjna)",
+    "Rozporządzenie Załącznik 3 (lista urządzeń)",
+    "Procedury obsługi (Art. 37-40)"
+  ]
+}

@@ -759,5 +759,168 @@
         "hint": "🦺 TRZY WARSTWY OCHRONY: 1️⃣ INSTRUKCJA (A) - producent mówi 'hełm obowiązkowy' dla tego wózka. 2️⃣ BHP (B) - ustawa mówi 'pracodawca MUSI ci zapewnić hełm'. 3️⃣ REGULAMIN ZAKŁADU (C) - Twoja firma mówi 'dodatkowo: kamizelka odblaskowa, nawet w hali'. Wszystkie TRZY się nakładają! Jeśli którakolwiek mówi 'hełm' = NOSISZ HEŁM!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 22 ust. 1c, Rozporządzenie (procedury obsługi), Ustawa o BHP"
+      },
+      {
+        "id": "46",
+        "text": "Zgodnie z rozporządzeniem Rady Ministrów w sprawie rodzajów urządzeń technicznych podlegających dozorowi technicznemu przepisom dozoru technicznego podlegają:",
+        "image_path": null,
+        "options": {
+          "A": "dźwigi, żurawie, suwnice, wciągarki i wciągniki",
+          "B": "wózki jezdniowe podnośnikowe z mechanicznym napędem podnoszenia, podesty ruchome",
+          "C": "dźwignice linotorowe, przenośniki kabinowe i krzesełkowe",
+          "D": "wszystkie odpowiedzi są poprawne"
+        },
+        "correct_option": "D",
+        "explanation": "Rozporządzenie Ministra, Załącznik nr 3 (Tabela nr 1 - OBSŁUGA): Wymienia dokładnie kategorie urządzeń objętych dozorem technicznym: Pozycja 1-3 (Wciągarki, Suwnice, Żurawie) - OBJĘTE (A). Pozycja 8 (Wózki jezdniowe podnośnikowe), Pozycja 7 (Podesty ruchome) - OBJĘTE (B). Pozycja 10 (Dźwignice linotorowe) - OBJĘTE, Pozycja 13 (Przenośniki kabinowe i krzesełkowe) - OBJĘTE (C). Wszystkie wymienione kategorie znajdują się w oficjalnej LIŚCIE ROZPORZĄDZENIA urządzeń podlegających dozorowi. To jest standardowe pytanie testujące znajomość katalogu urządzeń.",
+        "hint": "📋 LISTA URZĄDZEŃ Z ROZPORZĄDZENIA: Art. 5 ust. 2 + Rozporządzenie Załącznik 3 - tam jest PEŁNA LISTA co jest objęte dozorem. Wszystkie A, B, C to standard'owe transportowe urządzenia bliskiego. Pytanie testuje czy znasz KATALOG. Odpowiedź D (wszystkie) = zawsze tak dla takich pytań!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Rozporządzenie, Załącznik nr 3, Tabela nr 1"
+      },
+      {
+        "id": "47",
+        "text": "Instrukcja eksploatacji może nie zawierać:",
+        "image_path": null,
+        "options": {
+          "A": "informacji o terminach i zakresie przeglądów konserwacyjnych UTB",
+          "B": "podstawowych parametrów i przeznaczenia UTB",
+          "C": "terminów badań technicznych wykonywanych przez jednostkę inspekcyjną",
+          "D": "informacji o sposobie obsługi urządzenia"
+        },
+        "correct_option": "C",
+        "explanation": "Art. 4 pkt 7 + Rozporządzenie (procedury obsługi): Instrukcja eksploatacji (DTR) zawiera INFORMACJE PRODUCENTA o: A) terminy przeglądów (Art. 22 ust. 1c - 'prowadzonych zgodnie z instrukcją') - MUSI być. B) parametry techniczne (Art. 8 ust. 5 - 'specyfikacje techniczne') - MUSI być. D) sposoby obsługi (Art. 22 ust. 3 - 'obsługujący muszą znać instrukcję') - MUSI być. Natomiast C) terminy badań UDT - to jest ROZPORZĄDZENIE (Art. 8 ust. 5, Art. 13 ust. 1 pkt 2), NIE instrukcja producenta. Instrukcja jest dokumentem PRODUCENTA, a terminy badań UDT to przepisy PUBLICZNE (rządowe). Producent nie określa kiedy będzie przychodzić inspektor!",
+        "hint": "📖 DTR vs PRAWO: Instrukcja producenta (DTR) zawiera: A) przeglądy - tak (B) parametry - tak (D) obsługa - tak. ALE C) terminy badań UDT - NIE! To jest w ROZPORZĄDZENIU (Art. 13), nie u producenta. Producent pisze 'rób przegląd co 500h', ale NIE pisze 'inspektor UDT przychodzi co rok'. Zapamiętaj: DTR = producent. Terminy badań UDT = prawo!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 4 pkt 7, Art. 8 ust. 5, Art. 13 ust. 1"
+      },
+      {
+        "id": "48",
+        "text": "Księga rewizyjna urządzenia musi zawierać:",
+        "image_path": null,
+        "options": {
+          "A": "zbiór protokołów z badań wykonywanych przez jednostkę inspekcyjną",
+          "B": "dokument, w którym odnotowywane są przeglądy konserwacyjne",
+          "C": "treść aktualnych aktów prawnych",
+          "D": "wykaz uprawnionych operatorów"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 33 ust. 3 Ustawy: 'Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną „księgą rewizyjną urządzenia"
+        '. Księga to ZBIÓR PROTOKOŁÓW z badań UDT (inspekcji publicznych) (A) - to jest ARCHIWUM OFICJALNE urządzenia. Przeglądy konserwacyjne (B) są notowane w DZIENNIKU KONSERWACJI (Art. 33 ust. 3 mówi też o '
+        dzienniku
+        '), ale nie są częścią księgi rewizyjnej. Akty prawne (C) - to przepisy ogólne, nie dokumentacja urządzenia. Wykaz operatorów (D) - to może być w osobnym dokumencie, nie w księdze rewizyjnej. KSIĘGA = ARCHIWUM BADAŃ UDT.",
+        "hint": "🗂️ KSIĘGA = ARCHIWUM INSPEKCJI: Art. 33 ust. 3 - księga rewizyjna to ZBIÓR PROTOKOŁÓW z badań UDT (raportów inspekcji). To są papierki: 'dzisiaj byliśmy, wszystko ok' (inspektor UDT). Przeglądy konserwacji (B) - to pisze KONSERWATOR w dzienniku ('wymieniliśmy olej'). To są RÓŻNE dokumenty! Zapamiętaj: KSIĘGA = UDT. DZIENNIK = KONSERWATOR.",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 33 ust. 3"
+      },
+      {
+        "id": "49",
+        "text": "Decyzja wydana przez UDT:",
+        "image_path": null,
+        "options": {
+          "A": "nie podlega odwołaniu",
+          "B": "może zostać zmieniona przez inspektora PIP",
+          "C": "podlega możliwości odwołania się przez eksploatującego",
+          "D": "każda odpowiedź jest niepoprawna"
+        },
+        "correct_option": "C",
+        "explanation": "Art. 7 ust. 1 Ustawy: 'Do postępowania przed organami jednostek dozoru technicznego stosuje się przepisy Kodeksu postępowania administracyjnego' + Art. 127 KPA: 'Od decyzji przysługuje odwołanie' (standard prawny). Decyzja UDT to DECYZJA ADMINISTRACYJNA (forma urzędowa), a wszystkie takie decyzje podlegają procedurze odwołania (prawo do wniesienia skargi/odwołania do wyższego organu). Opcja A (nie podlega) - FAŁSZ, każda decyzja administracyjna podlega odwołaniu. Opcja B (PIP zmieni) - FAŁSZ, zmianę robi wyższy organ dozoru, nie PIP (inny resort). Opcja D - wszystkie niepoprawne - FAŁSZ. Odpowiedź C to standardowa zasada prawa administracyjnego.",
+        "hint": "⚖️ PRAWO ADMINISTRACYJNE: Art. 7 ust. 1 - decyzje UDT to DECYZJE ADMINISTRACYJNE (papiery z pieczęcią urzędu). Wszystkie takie decyzje (KPA Art. 127) podlegają ODWOŁANIU (prawo do kontestacji). Nie zgadzasz się? Odwołujesz się do wyższego organu! PIP (B) to inny resort (praca), nie może zmienić decyzji UDT. Zapamiętaj: UDT wydaje -> eksploatujący może się odwołać!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 7 ust. 1, KPA Art. 127"
+      },
+      {
+        "id": "50",
+        "text": "Do egzaminu sprawdzającego kwalifikacje może przystąpić osoba, która:",
+        "image_path": null,
+        "options": {
+          "A": "złożyła wniosek o sprawdzenie kwalifikacji",
+          "B": "ukończyła 18 lat",
+          "C": "nie ma przeciwwskazań zdrowotnych do obsługi urządzeń technicznych",
+          "D": "wszystkie odpowiedzi są poprawne"
+        },
+        "correct_option": "D",
+        "explanation": "Art. 22 ust. 1c + Art. 23 ust. 1c Ustawy: 'Sprawdzenie kwalifikacji...dotyczy osób, które UKOŃCZYŁY 18 LAT (B) oraz władają językiem polskim...oraz zrozumienie zasad jego przeprowadzenia' + Art. 23 ust. 1 (procedura egzaminacyjna): 'na WNIOSEK zainteresowanych osób' (A) + Rozporządzenie § 3 ust. 1 wymaga 'bez przeciwwskazań zdrowotnych' (C). Wszystkie TRZY warunki muszą być spełnione jednocześnie: A) złoży wniosek (formalność), B) ma 18 lat (wymóg wiekowy), C) zdolny zdrowotnie (wymóg medyczny). To nie jest wybór - to KUMULACJA wymogów.",
+        "hint": "✅ TRZY WYMOGI DO EGZAMINU: 1️⃣ WNIOSEK (A) - musisz złożyć papierek w UDT. 2️⃣ WIEK 18+ (B) - Art. 22 ust. 1c. 3️⃣ ZDROWIE (C) - bez przeciwwskazań medycznych (nie możesz być nieprzytomny, niewidomy itp.). Braknie JEDNEGO = NIE idziesz na egzamin! Odpowiedź D (wszystkie)!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 22 ust. 1c, Art. 23 ust. 1, Rozporządzenie § 3 ust. 1"
+      },
+      {
+        "id": "51",
+        "text": "Po zakończonym badaniu technicznym z wynikiem pozytywnym inspektor UDT:",
+        "image_path": null,
+        "options": {
+          "A": "przedłuża ważność świadectwa kwalifikacji operatora",
+          "B": "oznakowuje urządzenie naklejką, która jest zezwoleniem na użytkowanie urządzenia",
+          "C": "informuje użytkownika pisemnie w dzienniku konserwacji, że wyraża zgodę na eksploatację urządzenia",
+          "D": "sporządza protokół z wykonanych czynności i wydaje decyzję administracyjną zezwalającą na eksploatację"
+        },
+        "correct_option": "D",
+        "explanation": "Art. 33 ust. 1 + Art. 14 ust. 4: 'Inspektor sporządza...PROTOKÓŁ wykonania czynności dozoru technicznego' + 'Na podstawie pozytywnych wyników badań...organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia'. Opcja A (przedłuża świadectwo operatora) - FAŁSZ, świadectwa operatora przedłuża się na osobnym wniosku (Art. 23 ust. 2a), nie podczas badania urządzenia. Opcja B (naklejka = zezwolenie) - FAŁSZ, naklejka to INFORMACJA (przypomnienie o terminie), ale nie PODSTAWA PRAWNA - podstawą jest DECYZJA administracyjna. Opcja C (wpis w dzienniku) - FAŁSZ, dziennik to ZAPIS faktów, nie dokument urzędowy. Opcja D to dokładnie procedura: PROTOKÓŁ (raport) + DECYZJA (zezwolenie). To DWA dokumenty zawsze.",
+        "hint": "📜 ZAWSZE PARA DOKUMENTÓW: Art. 33 + Art. 14 - inspektor UDT ZAWSZE robi: 1️⃣ PROTOKÓŁ (raport: 'mierzyliśmy, wszystko ok'). 2️⃣ DECYZJA (papier z pieczęcią: 'Zezwalam na eksploatację'). Naklejka (B) to tylko reminder 'następne badanie 15.01'. Świadectwo operatora (A) to osobny papier. Dziennik (C) to zapis, nie dokument UDT. Zapamiętaj: PROTOKÓŁ + DECYZJA = efekt pracy inspektora!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 33 ust. 1, Art. 14 ust. 4"
+      },
+      {
+        "id": "52",
+        "text": "Zaświadczenia kwalifikacyjne:",
+        "image_path": null,
+        "options": {
+          "A": "są ważne bezterminowo",
+          "B": "są terminowe z okresem ważności uzależnionym od ilości uzyskanych punktów na egzaminie",
+          "C": "są terminowe z okresem ważności zgodnym z zapisami rozporządzenia w sprawie trybu sprawdzenia kwalifikacji",
+          "D": "są ważne przez okres 15 lat"
+        },
+        "correct_option": "C",
+        "explanation": "Art. 22 ust. 3a: 'Zaświadczenia kwalifikacyjne osób...są wydawane na czas określony NIE KRÓTSZY NIŻ 5 LAT I NIE DŁUŻSZY NIŻ 10 LAT, w zależności od rodzaju urządzenia technicznego, stopnia trudności w jego obsłudze i konserwacji oraz stopnia zagrożenia' + Rozporządzenie, Załącznik nr 3 określa konkretne okresy dla każdego typu urządzenia (np. wózki widłowe 5 lat, żurawie 10 lat). Opcja A (bezterminowo) - FAŁSZ, zaświadczenia mają TERMINY. Opcja B (zależy od punktów) - FAŁSZ, okres ważności nie zależy od wyniku egzaminu, ale od TYPU urządzenia (Art. 22 ust. 3a). Opcja D (15 lat) - FAŁSZ, maksimum to 10 lat (Art. 22 ust. 3a). Opcja C to dokładnie Art. 22 ust. 3a + Rozporządzenie.",
+        "hint": "⏰ TERMINOWE ZAŚWIADCZENIA: Art. 22 ust. 3a - zaświadczenia są TERMINOWE (nie wieczyste!) na 5-10 lat (zależy od typu urządzenia, nie od wyniku). Rozporządzenie Załącznik 3 mówi: wózki 5 lat, żurawie 10 lat, itd. Punkt na egzaminie (B) = bez wpływu na termin! 15 lat (D) = za dużo! Zapamiętaj: CO 5-10 LAT idziesz NA PRZEDŁUŻENIE!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 22 ust. 3a, Rozporządzenie Załącznik nr 3"
+      },
+      {
+        "id": "53",
+        "text": "Dokonujący przeróbek urządzenia technicznego bez uzgodnienia z organem właściwej jednostki dozoru technicznego:",
+        "image_path": null,
+        "options": {
+          "A": "podlega karze grzywny lub ograniczenia wolności",
+          "B": "podlega ukaraniu mandatem karnym",
+          "C": "nie podlega karze",
+          "D": "wszystkie odpowiedzi są niepoprawne"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 63 ust. 2 pkt 2: 'Tej samej karze [grzywnie lub ograniczeniu wolności] podlega ten, kto...PRZERABIA urządzenie techniczne BEZ ZGODY organu właściwej jednostki dozoru technicznego' + Art. 17 ust. 1: 'Dokonanie naprawy lub modernizacji urządzenia technicznego...wymaga UPRZEDNIEGO UZGODNIENIA z organem właściwej jednostki dozoru technicznego'. Przeróbka to MODERNIZACJA (zmiana parametrów/konstrukcji) - wymaga FORMALNEGO uzgodnienia. Brak uzgodnienia = PRZESTĘPSTWO. Opcja B (mandat karny) - FAŁSZ, mandaty wydaje policja, nie UDT. Opcja C (bez kary) - FAŁSZ, Art. 63 jasno mówi o karze. Opcja D - wszystkie niepoprawne - FAŁSZ.",
+        "hint": "⚠️ PRZERÓBKI = KARA: Art. 17 ust. 1 + Art. 63 ust. 2 pkt 2 - zmiana urządzenia BEZ UZGODNIENIA = GRZYWNA lub OGRANICZENIE WOLNOŚCI (kara karna!). Nie możesz sobie zmienić udźwigu z 2 na 3 tony bez papierku UDT! Mandat (B) = policja, nie UDT. Bez kary (C) = FAŁSZ. Zapamiętaj: KAŻDA zmiana = UZGODNIENIE Z UDT!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 17 ust. 1, Art. 63 ust. 2 pkt 2"
+      },
+      {
+        "id": "54",
+        "text": "Kto dopuszcza do eksploatacji urządzenie techniczne bez ważnej decyzji zezwalającej na eksploatację:",
+        "image_path": null,
+        "options": {
+          "A": "podlega karze grzywny lub ograniczenia wolności",
+          "B": "nie podlega karze, jeżeli nie dojdzie do wypadku",
+          "C": "podlega wyłącznie karze grzywny",
+          "D": "podlega karze więzienia"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 63 ust. 1 pkt 1: 'Kto dopuszcza do eksploatacji urządzenie techniczne: 1) BEZ OTRZYMANIA decyzji organu właściwej jednostki dozoru technicznego o dopuszczeniu urządzenia do eksploatacji...PODLEGA GRZYWNIE albo KARZE OGRANICZENIA WOLNOŚCI'. To jest ZAWSZE kara, niezależnie czy doszło do wypadku (opcja B - FAŁSZ). Opcja C (wyłącznie grzywna) - FAŁSZ, kodeks mówi 'grzywna LUB ograniczenie wolności' (wybór sędziego, najczęściej grzywna, ale może być wolność ograniczona). Opcja D (więzienie) - FAŁSZ, to są kary łagodne (nie aresztowanie). Art. 63 ust. 1 definiuje to jako WYKROCZENIE lub PRZESTĘPSTWO (w zależności od okoliczności), ale zawsze grzywna/ograniczenie, nie więzienie.",
+        "hint": "🚫 BEZ DECYZJI = KARA: Art. 63 ust. 1 pkt 1 - dopuszczenie do pracy urządzenia BEZ WAŻNEJ DECYZJI UDT = GRZYWNA lub OGRANICZENIE WOLNOŚCI. Zawsze kara (A), nawet jeśli się nic nie stało (B - FAŁSZ). Tylko grzywna (C) lub więzienie (D) - nie, kod mówi 'grzywna LUB ograniczenie'. Zapamiętaj: NIGDY bez decyzji!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 63 ust. 1 pkt 1"
+      },
+      {
+        "id": "55",
+        "text": "Instrukcja eksploatacji to:",
+        "image_path": null,
+        "options": {
+          "A": "zbiór informacji niezbędnych do bezpiecznej eksploatacji urządzenia udostępniany przez producenta",
+          "B": "zbiór zaleceń wydawanych przez Urząd Dozoru Technicznego",
+          "C": "instrukcja, którą musi stworzyć użytkownik urządzenia",
+          "D": "wszystkie odpowiedzi są poprawne"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 4 pkt 7 (definicje) + Art. 22 ust. 1c + praktyka: Instrukcja eksploatacji (DTR - Documentation Technical Requirements) to DOKUMENT PRODUCENTA zawierający procedury bezpiecznej obsługi konkretnego urządzenia. Opcja A (producenta) - PRAWIDŁOWO. Opcja B (zalecenia UDT) - FAŁSZ, UDT wydaje DECYZJE i ZALECENIA TECHNICZNE (Art. 28), ale to nie jest 'instrukcja eksploatacji'. Opcja C (użytkownik tworzy) - FAŁSZ, użytkownik STOSUJE instrukcję, nie tworzy. Instrukcja pochodzi od producenta (producent wie best jak działa jego wózek). Opcja D - wszystkie poprawne - FAŁSZ. Odpowiedź A to czysta definicja.",
+        "hint": "📖 DTR = DOKUMENT PRODUCENTA: Art. 4 pkt 7 - instrukcja eksploatacji to INFORMACJE PRODUCENTA (A) o tym jak bezpiecznie obsługiwać konkretny model. UDT (B) wydaje zalecenia, ale nie instrukcje. Użytkownik (C) nie pisze instrukcji - dostaje ją w pakiecie z wózkiem! Zapamiętaj: DTR zawsze pochodzi OD PRODUCENTA!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 4 pkt 7, Art. 22 ust. 1c"
       }
     ]
