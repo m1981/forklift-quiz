@@ -318,5 +318,90 @@
     "id": 55,
     "difficulty_level": 2,
     "trap": "Instrukcja pochodzi OD PRODUCENTA - UDT wydaje zalecenia, nie instrukcje"
+  },
+  {
+    "id": 56,
+    "difficulty_level": 2,
+    "trap": "Wyjątek 'napęd ręczny' dotyczy WSZYSTKICH mechanizmów. Jeśli nawet jeden mechanizm jest elektryczny/hydrauliczny - zaświadczenie WYMAGANE"
+  },
+  {
+    "id": 57,
+    "difficulty_level": 3,
+    "trap": "Zaświadczenie jest KATEGORIALNE (np. 'wózki bez wysięgnika'). Operacja na innym typie = NIELEGALNA, nawet jeśli pracodawca każe"
+  },
+  {
+    "id": 58,
+    "difficulty_level": 3,
+    "trap": "Operator MA PRAWO odmówić. Przełożony NIE MOŻE wymuszać pracy na urządzeniu bez ważnej decyzji UDT lub bez instrukcji"
+  },
+  {
+    "id": 59,
+    "difficulty_level": 2,
+    "trap": "Zaświadczenie ZAWSZE TERMINOWE (5-10 lat, Art. 22 ust. 3a). Bez dowodu tożsamości zaświadczenie NIE LICZY SIĘ (może być czyjaś kopia)"
+  },
+  {
+    "id": 60,
+    "difficulty_level": 3,
+    "trap": "Wszystkie TRZY obowiązki jednocześnie: ratuj (KK Art. 162), zabezpieczaj (BHP), melduj (Art. 19). Brak choćby jednego = naruszenie prawa"
+  },
+  {
+    "id": 61,
+    "difficulty_level": 2,
+    "trap": "Nie chodzi o 'ciężkie rzeczy' - chodzi o BRAK PEWNOŚCI CO DO MASY. Nawet 10 kg nieznanego ładunku = ZAKAZ. Operator ma prawo żądać dokumentacji"
+  },
+  {
+    "id": 62,
+    "difficulty_level": 1,
+    "trap": "FORMY (Art. 12) to: PEŁNY, OGRANICZONY, UPROSZCZONY. Opcje B i C to nie formy, ale RODZAJE BADAŃ lub JEDNOSTKI - łatwa pułapka słowna"
+  },
+  {
+    "id": 63,
+    "difficulty_level": 3,
+    "trap": "Podnoszenie osób MOŻLIWE tylko z FORMALNYM UZGODNIENIEM UDT (zmiana warunków eksploatacji). Bez papierka od UDT = NIELEGALNE, niezależnie od poziomu bezpieczeństwa"
+  },
+  {
+    "id": 64,
+    "difficulty_level": 4,
+    "trap": "TANDEM wymaga PLANU (nie wystarczy suma udźwigów). Brak planu = zakazane, nawet jeśli matematyka się zgadza (1 + 1 = 2 t)"
+  },
+  {
+    "id": 65,
+    "difficulty_level": 1,
+    "trap": "ZERO TOLERANCJI - nie ma współczynnika bezpieczeństwa, który ratowałby życie. Art. 19 wymaga zgłoszenia KAŻDEGO wypadku - system jest bezwzględny"
+  },
+  {
+    "id": 66,
+    "difficulty_level": 2,
+    "trap": "NAD ludźmi = ZAWSZE zakaz. Procedura: NAJPIERW usunąć ludzi ze strefy, POTEM podnoszysz. Żaden kask nie chroni przed toną cegieł"
+  },
+  {
+    "id": 67,
+    "difficulty_level": 1,
+    "trap": "Zaświadczenie wydaje WYŁĄCZNIE UDT/TDT/WDT (Art. 23). PIP pilnuje BHP. Firmowy szkoleniowiec może szkolić, ale nie wydać państwowego dokumentu"
+  },
+  {
+    "id": 68,
+    "difficulty_level": 1,
+    "trap": "WYNIK NATYCHMIAST (§ 4 Rozporządzenia). Brak czekania na papier. Komisja mówi Ci na miejscu - zdałeś lub nie. Dokument przychodzi później"
+  },
+  {
+    "id": 69,
+    "difficulty_level": 3,
+    "trap": "DZIENNIK KONSERWACJI (codzienne notatki konserwatora) ≠ KSIĘGA REWIZYJNA (archiwum protokołów UDT). Dwie różne książeczki, dwie różne osoby je prowadzą"
+  },
+  {
+    "id": 70,
+    "difficulty_level": 2,
+    "trap": "Instrukcja stanowiskowa to dokument WEWNĘTRZNY (od pracodawcy), a nie od producenta. DTR (instrukcja wózka) pochodzi od producenta. RÓŻNE źródła"
+  },
+  {
+    "id": 71,
+    "difficulty_level": 3,
+    "trap": "Po wygaśnięciu zaświadczenia = ZERO uprawnień (Art. 22 ust. 3a). Brak możliwości pracy nawet jeśli 'jutro przychodzi przedłużenie'. Teraz = NIEWAŻNE"
+  },
+  {
+    "id": 72,
+    "difficulty_level": 2,
+    "trap": "Przedłużenie to WNIOSEK OPERATORA (nie pracodawcy). Musi być PISEMNIE. Warunki: 3 lata doświadczenia w ostatnich 5 lat (Art. 23 ust. 2c)"
   }
 ]
