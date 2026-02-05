@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "hint": "⚠️ **Uważaj na hierarchię:** Konserwator jest ważny, ale tylko robi przeglądy. Kto jest \"szefem wszystkich szefów\" i wydaje ten najważniejszy papier (decyzję)?"
+  },
+  {
+    "id": "2",
+    "hint": "🛠️ **Twoja rola:** Ty masz jeździć, a nie naprawiać. Szukaj odpowiedzi, która mówi o grzebaniu w maszynie – tego Ci nie wolno robić."
+  },
+  {
+    "id": "3",
+    "hint": "🔍 **Co jest ważniejsze?** Na egzaminie instrukcja obsługi od producenta jest jak biblia. To tam najpierw szukamy terminów, dopiero potem w ustawach."
+  },
+  {
+    "id": "4",
+    "hint": "📖 **Haczyk w słowach:** Pytają o definicję \"dozoru\" (czyli co się robi), a nie o nazwę urzędu (kto to robi). Szukaj odpowiedzi, która opisuje działania."
+  },
+  {
+    "id": "5",
+    "hint": "⚠️ **Pułapka:** \"Upoważnione organizacje\" brzmią mądrze, ale one zazwyczaj tylko naprawiają. Dozór to tylko UDT oraz wojsko i kolej (WDT, TDT)."
+  },
+  {
+    "id": "6",
+    "hint": "🔄 **Co się zmieniło?** Jeśli naprawiasz usterkę – to naprawa. Ale jeśli zmieniasz parametry (np. wózek ma teraz większy udźwig) – to już poważniejsza sprawa. Jak to się nazywa?"
+  },
+  {
+    "id": "7",
+    "hint": "📜 **Papier to podstawa:** Doświadczenie wujka czy kolegi się nie liczy. Żeby naprawiać wózki, trzeba mieć oficjalne uprawnienie z pieczątką UDT."
+  },
+  {
+    "id": "8",
+    "hint": "🧠 **Do wykucia:** Tu nie ma logiki, trzeba zapamiętać. Są trzy formy dozoru. Zapamiętaj skrót **POU** (P..., O..., U...)."
+  },
+  {
+    "id": "9",
+    "hint": "🏛️ **Tylko jeden organ:** Decyzję o dopuszczeniu do pracy może wydać tylko inspektor UDT. Ani Twój szef, ani konserwator nie mają takiej mocy."
+  },
+  {
+    "id": "10",
+    "hint": "🧩 **Zasada 3 elementów:** Żeby legalnie pracować, musisz mieć komplet: 1. Sprawny wózek, 2. Decyzję UDT, 3. Swoje uprawnienia. Brakuje jednego? Nie jedziesz."
+  },
+  {
+    "id": "11",
+    "hint": "⚠️ **Wszystko albo nic:** Czy sam wpis w dzienniku wystarczy? Nie. Szukaj odpowiedzi, która wymienia WSZYSTKIE warunki naraz."
+  },
+  {
+    "id": "12",
+    "hint": "⚖️ **To nie mandat:** Łamanie przepisów UDT to nie jest zwykłe wykroczenie jak przejście na czerwonym. To przestępstwo. Szukaj najsurowszej kary."
+  },
+  {
+    "id": "13",
+    "hint": "🛑 **Co może inspektor?** Inspektor nie wlepia mandatów. Jeśli widzi zagrożenie, robi coś gorszego dla firmy – natychmiast zakazuje używania maszyny."
+  },
+  {
+    "id": "14",
+    "hint": "🚑 **Jak przy wypadku:** Nic nie ruszaj, nic nie naprawiaj, bo zatrzesz ślady. Najpierw dzwonisz do UDT i czekasz na ich zgodę."
+  },
+  {
+    "id": "15",
+    "hint": "🔄 **Prosta zasada:** Kto dał Ci uprawnienia? UDT. Więc tylko UDT może Ci je zabrać. Szef czy BHP-owiec nie mogą unieważnić państwowego dokumentu."
+  }
+]
