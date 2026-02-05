@@ -2,7 +2,7 @@
   "ranking_pulapek": [
     {
       "pozycja": 1,
-      "pula": "Opcja D (wszystkie poprawne) jako FAŁSZ",
+      "pulapka": "Opcja D (wszystkie poprawne) jako FAŁSZ",
       "pytania": [2, 3, 10, 11, 13, 17, 43, 45],
       "ilosc": 8,
       "opis": "Kandydaci myślą 'są to wszystkie obowiązki', ale JEDNA zawsze brakuje"
