@@ -635,8 +635,8 @@
     "image_path": null,
     "options": {
       "A": "Urząd Dozoru Technicznego",
-      "B": "Wojskowy Dozór techniczny",
-      "C": "Transportowy dozór Techniczny",
+      "B": "Wojskowy dozór techniczny",
+      "C": "Transportowy dozór techniczny",
       "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "D",
