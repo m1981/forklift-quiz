@@ -28,7 +28,6 @@
     "explanation": "Operator (obsługujący) nie jest uprawniony do wykonywania napraw. Naprawy leżą w kompetencjach uprawnionego konserwatora.",
     "hint": "Operator to ty. Operator obsługuje, NIE naprawia. Czytaj uważnie!",
     "category": "Prawo i Dozór Techniczny"
-
   },
   {
     "id": "3",
@@ -44,7 +43,6 @@
     "explanation": "Podstawowym źródłem informacji o częstotliwości przeglądów jest instrukcja eksploatacji dostarczona przez producenta urządzenia.",
     "hint": "Wymaga rozróżnienia: terminy przeglądów (instrukcja) vs terminy badań UDT (rozporządzenie)",
     "category": "Prawo i Dozór Techniczny"
-
   },
   {
     "id": "4",
@@ -76,7 +74,7 @@
     "hint": "\uD83D\uDEA8 PUŁAPKA SŁOWNA: \"Upoważnione organizacje\" (B) WYKONUJĄ NAPRAWY/MODERNIZACJE, a NIE dozór techniczny",
     "category": "Prawo i Dozór Techniczny"
   },
-    {
+  {
     "id": "6",
     "text": "Zmiana parametrów technicznych lub zmiana konstrukcji urządzenia technicznego traktowana jest jako:",
     "image_path": null,
@@ -91,7 +89,7 @@
     "hint": "ZAPAMIĘTAJ RÓŻNICĘ: NAPRAWA to \"powrót do poprzedniego stanu\" (jak było, tak jest). MODERNIZACJA to \"coś się zmienia\" - np. zmiana udźwigu z 2 t na 3 t",
     "category": "Prawo i Dozór Techniczny"
   },
-   {
+  {
     "id": "7",
     "text": "Uzgodnioną naprawę lub modernizację urządzeń technicznych może wykonać:",
     "image_path": null,
@@ -106,7 +104,7 @@
     "hint": "Opcje B, C, D brzmią wiarygodnie (doświadczenie, konserwator), ale wymagane jest FORMALNE UPRAWNIENIE (decyzja UDT)",
     "category": "Prawo i Dozór Techniczny"
   },
-   {
+  {
     "id": "8",
     "text": "Ustawa o dozorze technicznym określa następujące formy dozoru technicznego:",
     "image_path": null,
@@ -121,7 +119,7 @@
     "hint": "Zapamiętaj jedyny skrót POU! ",
     "category": "Prawo i Dozór Techniczny"
   },
-    {
+  {
     "id": "9",
     "text": "Decyzję zezwalającą na eksploatację urządzenia technicznego wydaje:",
     "image_path": null,
@@ -134,10 +132,9 @@
     "correct_option": "D",
     "explanation": "KLUCZOWE: Decyzję wydaje ZAWSZE i WYŁĄCZNIE \"organ właściwej jednostki dozoru technicznego\" (czyli inspektor UDT/TDT/WDT działający w imieniu tej jednostki).",
     "hint": "Opcja B (upoważnienie dla eksploatującego) i C (inny organ administracji) brzmią wiarygodnie, ale Art. 14 jest JASNY - tylko UDT. Trzeba zapamiętać.",
-    "category": "Prawo i Dozór Techniczny",
-      Jasna kompetencja
+    "category": "Prawo i Dozór Techniczny"
   },
-    {
+  {
     "id": "10",
     "text": "Obsługujący urządzenie techniczne może podjąć pracę gdy:",
     "image_path": null,
@@ -152,7 +149,7 @@
     "hint": "\uD83D\uDD10 Potrójna zasada bezpieczeństwa: SPRZĘT + PAPIER + CZŁOWIEK",
     "category": "Prawo i Dozór Techniczny"
   },
-    {
+  {
     "id": "11",
     "text": "Obsługujący urządzenie techniczne może podjąć pracę gdy:",
     "image_path": null,
@@ -182,7 +179,7 @@
     "hint": "Opcje A (upomnienie) i B (zalecenia) to środki łagodne",
     "category": "Prawo i Dozór Techniczny"
   },
-    {
+  {
     "id": "13",
     "text": "W przypadku stwierdzenia zagrożenia dla życia lub zdrowia ludzkiego oraz mienia i środowiska inspektor:",
     "image_path": null,
@@ -197,7 +194,7 @@
     "hint": "Mandat wydaje policja (B), nie UDT",
     "category": "Prawo i Dozór Techniczny"
   },
-   {
+  {
     "id": "14",
     "text": "W przypadku niebezpiecznego uszkodzenia urządzenia technicznego lub nieszczęśliwego wypadku eksploatujący:",
     "image_path": null,
@@ -212,7 +209,7 @@
     "hint": "To jest podobne do wypadku samochodowego - najpierw policja, potem mechanik!",
     "category": "Prawo i Dozór Techniczny"
   },
-    {
+  {
     "id": "15",
     "text": "Zaświadczenie kwalifikacyjne do obsługi może zostać cofnięte przez:",
     "image_path": null,
