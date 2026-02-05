@@ -10,7 +10,7 @@
       "D": "deklaracji zgodności wystawionej przez wytwórcę"
     },
     "correct_option": "B",
-    "explanation": "Art. 14 ust. 1 Ustawy o dozorze technicznym: 'Urządzenia techniczne objęte dozorem technicznym, z wyjątkiem urządzeń, o których mowa w art. 15 ust. 1, mogą być eksploatowane tylko na podstawie decyzji zezwalającej na ich eksploatację, wydanej przez organ właściwej jednostki dozoru technicznego.' Decyzja musi być FORMALNA i wydana przez UDT/TDT/WDT. Zezwolenie konserwatora (A) to błęd - konserwator wykonuje przeglądy, nie wydaje zezwoleń. CE i deklaracja (C, D) dotyczą procedur handlowych, nie eksploatacji.",
+    "explanation": "Art. 14 ust. 1 Ustawy: \"Dozorem technicznym są określone ustawą DZIAŁANIA zmierzające do zapewnienia bezpiecznego funkcjonowania urządzeń technicznych i urządzeń do odzyskiwania par paliwa oraz działania zmierzające do zapewnienia bezpieczeństwa publicznego w tych obszarach.\" To jest OFICJALNA, PEŁNA, SŁOWO W SŁOWO definicja. Odpowiedź A jest KOPIĄ tekstu art. 2 ust. 1. Opcje B, C, D odnoszą się do INSTYTUCJI lub ORGANÓW (art. 4 pkt 3), a nie do samej definicji dozoru.",
     "hint": "🔑 KLUCZOWE SŁOWO: 'decyzja' (Art. 14). Nie zezwolenie, nie oświadczenie - musi być FORMALNA DECYZJA ADMINISTRACYJNA wydana przez organ UDT/TDT/WDT. To najważniejszy dokument do eksploatacji!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 14 ust. 1"
@@ -26,8 +26,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Art. 22 ust. 3 Ustawy: 'Przepis ust. 2 stosuje się do osób obsługujących i konserwujących urządzenia techniczne.' Obsługujący (operator) ma obowiązek posiadać zaświadczenie kwalifikacyjne TYLKO do obsługi, nie do napraw. Art. 4 pkt 6 definiuje naprawę jako 'zespół czynności mających na celu przywrócenie stanu zdatności' - to jest kompetencja uprawnionego konserwatora, nie operatora. Odpowiedź D jest FAŁSZEM - A jest rzeczywiście NIEDOZWOLONE dla operatora.",
-    "hint": "⚠️ PUŁAPKA PYTANIA: Opcja D brzmi 'naturalnie' bo wszystkie czynności WYDAJĄ SIĘ obowiązkami operatora. FAŁSZ! Operator obsługuje, NIE naprawia. Czytaj uważnie: 'Które z czynności NIE należą' - szukasz tego, co ZABRONIONE!",
+    "explanation": "Art. 22 ust. 3 Ustawy: \"Przepis ust. 2 stosuje się do osób obsługujących i konserwujących urządzenia techniczne.\" Obsługujący (operator) ma obowiązek posiadać zaświadczenie kwalifikacyjne TYLKO do obsługi, nie do napraw. Art. 4 pkt 6 definiuje naprawę jako \"zespół czynności mających na celu przywrócenie stanu zdatności\" - to jest kompetencja uprawnionego konserwatora, nie operatora. Odpowiedź D jest FAŁSZEM - A jest rzeczywiście NIEDOZWOLONE dla operatora.",
+    "hint": "⚠️ PUŁAPKA PYTANIA: Opcja D brzmi \"naturalnie\" bo wszystkie czynności WYDAJĄ SIĘ obowiązkami operatora. FAŁSZ! Operator obsługuje, NIE naprawia. Czytaj uważnie: \"Które z czynności NIE należą\" - szukasz tego, co ZABRONIONE!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 22 ust. 3, Art. 4 pkt 6"
   },
@@ -42,7 +42,7 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Art. 8 ust. 5 Ustawy określa, że Minister uzgadnia 'zakresu badań technicznych urządzeń i elementów, TERMINÓW badań okresowych' - ale to są badania UDT. Dla konserwacji: Art. 4 pkt 7 definiuje konserwację jako 'zespół czynności wykonywanych w celu utrzymania stanu zdatności użytkowej urządzenia technicznego, prowadzonych ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI'. PRODUCENT określa w instrukcji (DTR) częstotliwość przeglądów. Konserwator (B) je wykonuje, nie określa. Inspektor (C) sporządza protokół, ale też pracuje na bazie instrukcji producenta.",
+    "explanation": "Art. 8 ust. 5 Ustawy określa, że Minister uzgadnia \"zakresu badań technicznych urządzeń i elementów, TERMINÓW badań okresowych\" - ale to są badania UDT. Dla konserwacji: Art. 4 pkt 7 definiuje konserwację jako \"zespół czynności wykonywanych w celu utrzymania stanu zdatności użytkowej urządzenia technicznego, prowadzonych ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI\". PRODUCENT określa w instrukcji (DTR) częstotliwość przeglądów. Konserwator (B) je wykonuje, nie określa. Inspektor (C) sporządza protokół, ale też pracuje na bazie instrukcji producenta.",
     "hint": "📖 DTR JEST BIBLIA! Jeśli pytanie dotyczy parametrów, terminów, warunków pracy wózka - odpowiedź to ZAWSZE instrukcja eksploatacji producenta (DTR). To dokument, który operator ma ZAWSZE mieć dostępny. Konserwator i inspektor pracują na podstawie DTR!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 4 pkt 7, Art. 8 ust. 5"
@@ -58,8 +58,8 @@
       "D": "UDT, WDT, TDT"
     },
     "correct_option": "A",
-    "explanation": "Art. 2 ust. 1 Ustawy: 'Dozorem technicznym są określone ustawą DZIAŁANIA zmierzające do zapewnienia bezpiecznego funkcjonowania urządzeń technicznych i urządzeń do odzyskiwania par paliwa oraz działania zmierzające do zapewnienia bezpieczeństwa publicznego w tych obszarach.' To jest OFICJALNA, PEŁNA, SŁOWO W SŁOWO definicja. Odpowiedź A jest КОПИЕЙ tekstu art. 2 ust. 1. Opcje B, C, D odnoszą się do INSTYTUCJI lub ORGANÓW (art. 4 pkt 3), a nie do samej definicji dozoru.",
-    "hint": "🎓 TO DEFINICJA WPROST Z USTAWY! Art. 2 ust. 1 - musisz znać to dokładnie. 'Dozorem technicznym są DZIAŁANIA' - nie instytucje, nie organy, ale DZIAŁANIA (czynności, procesy, kontrole). Łatwe pytanie, ale wymaga znajomości tekstu!",
+    "explanation": "Art. 2 ust. 1 Ustawy: \"Dozorem technicznym są określone ustawą DZIAŁANIA zmierzające do zapewnienia bezpiecznego funkcjonowania urządzeń technicznych i urządzeń do odzyskiwania par paliwa oraz działania zmierzające do zapewnienia bezpieczeństwa publicznego w tych obszarach.\" To jest OFICJALNA, PEŁNA, SŁOWO W SŁOWO definicja. Odpowiedź A jest KOPIĄ tekstu art. 2 ust. 1. Opcje B, C, D odnoszą się do INSTYTUCJI lub ORGANÓW (art. 4 pkt 3), a nie do samej definicji dozoru.",
+    "hint": "🎓 TO DEFINICJA WPROST Z USTAWY! Art. 2 ust. 1 - musisz znać to dokładnie. \"Dozorem technicznym są DZIAŁANIA\" - nie instytucje, nie organy, ale DZIAŁANIA (czynności, procesy, kontrole). Łatwe pytanie, ale wymaga znajomości tekstu!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 2 ust. 1"
   },
@@ -74,8 +74,8 @@
       "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Art. 4 pkt 3: 'jednostkach dozoru technicznego – należy przez to rozumieć Urząd Dozoru Technicznego oraz specjalistyczne jednostki dozoru technicznego.' Art. 4 pkt 4: 'specjalistycznych jednostkach dozoru technicznego – należy przez to rozumieć Transportowy Dozór Techniczny i Wojskowy Dozór Techniczny.' Opcja B (upoważnione organizacje) jest FAŁSZ - mogą być upoważniane do NAPRAW (Art. 9 ust. 1), ale dozór techniczny wykonuje TYLKO UDT i jednostki specjalistyczne. Opcja C (zagraniczne) - zbyt szerokie i nieprecyzyjne. PUŁAPKA: Niektórzy myślą, że 'upoważnione organizacje' wykonują dozór - to błąd!",
-    "hint": "🚨 PUŁAPKA SŁOWNA: 'Upoważnione organizacje' (B) WYKONUJĄ NAPRAWY/MODERNIZACJE, a NIE dozór techniczny! Dozór to KONTROLA - mogą ją wykonywać TYLKO: UDT (organ główny) + TDT (transport) + WDT (wojsko). To JASNE: art. 4 pkt 3-4 wymienia dokładnie które jednostki!",
+    "explanation": "Art. 4 pkt 3: \"jednostkach dozoru technicznego – należy przez to rozumieć Urząd Dozoru Technicznego oraz specjalistyczne jednostki dozoru technicznego.\" Art. 4 pkt 4: \"specjalistycznych jednostkach dozoru technicznego – należy przez to rozumieć Transportowy Dozór Techniczny i Wojskowy Dozór Techniczny.\" Opcja B (upoważnione organizacje) jest FAŁSZ - mogą być upoważniane do NAPRAW (Art. 9 ust. 1), ale dozór techniczny wykonuje TYLKO UDT i jednostki specjalistyczne. Opcja C (zagraniczne) - zbyt szerokie i nieprecyzyjne. PUŁAPKA: Niektórzy myślą, że \"upoważnione organizacje\" wykonują dozór - to błąd!",
+    "hint": "🚨 PUŁAPKA SŁOWNA: \"Upoważnione organizacje\" (B) WYKONUJĄ NAPRAWY/MODERNIZACJE, a NIE dozór techniczny! Dozór to KONTROLA - mogą ją wykonywać TYLKO: UDT (organ główny) + TDT (transport) + WDT (wojsko). To JASNE: art. 4 pkt 3-4 wymienia dokładnie które jednostki!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 4 pkt 3-4, Art. 2 ust. 2"
   },
@@ -90,8 +90,8 @@
       "D": "wytworzenie nowego urządzenia"
     },
     "correct_option": "A",
-    "explanation": "Art. 4 pkt 5 Ustawy: 'modernizacji – należy przez to rozumieć zespół czynności niebędących wytworzeniem nowego urządzenia technicznego, ZMIENIAJĄCYCH CECHY urządzenia technicznego, w szczególności jego: a) KONSTRUKCJĘ lub zastosowane w nim materiały, lub b) PARAMETRY TECHNICZNE, lub c) automatykę zabezpieczającą lub jej podzespoły – bez istotnych zmian jego charakterystyki lub przeznaczenia i niepowodujących wzrostu zagrożenia.' Art. 4 pkt 6: 'naprawie – należy przez to rozumieć zespół czynności mających na celu PRZYWRÓCENIE STANU zdatności użytkowej urządzenia technicznego...BEZ WPROWADZANIA ZMIAN w konstrukcji lub parametrów technicznych.' KLUCZOWE: Modernizacja = ZMIENIA parametry/konstrukcję. Naprawa = PRZYWRACA stan BEZ ZMIAN.",
-    "hint": "🔄 ZAPAMIĘTAJ RÓŻNICĘ: NAPRAWA to 'powrót do poprzedniego stanu' (jak było, tak jest). MODERNIZACJA to 'coś się zmienia' - np. zmiana udźwigu z 2 t na 3 t, wydłużenie zasięgu, zmiana materiałów. Art. 4 pkt 5-6 to czysta definicja - nie ma tu grubych liter, ale trzeba DOKŁADNIE czytać!",
+    "explanation": "Art. 4 pkt 5 Ustawy: \"modernizacji – należy przez to rozumieć zespół czynności niebędących wytworzeniem nowego urządzenia technicznego, ZMIENIAJĄCYCH CECHY urządzenia technicznego, w szczególności jego: a) KONSTRUKCJĘ lub zastosowane w nim materiały, lub b) PARAMETRY TECHNICZNE, lub c) automatykę zabezpieczającą lub jej podzespoły – bez istotnych zmian jego charakterystyki lub przeznaczenia i niepowodujących wzrostu zagrożenia.\" Art. 4 pkt 6: \"naprawie – należy przez to rozumieć zespół czynności mających na celu PRZYWRÓCENIE STANU zdatności użytkowej urządzenia technicznego...BEZ WPROWADZANIA ZMIAN w konstrukcji lub parametrów technicznych.\" KLUCZOWE: Modernizacja = ZMIENIA parametry/konstrukcję. Naprawa = PRZYWRACA stan BEZ ZMIAN.",
+    "hint": "🔄 ZAPAMIĘTAJ RÓŻNICĘ: NAPRAWA to \"powrót do poprzedniego stanu\" (jak było, tak jest). MODERNIZACJA to \"coś się zmienia\" - np. zmiana udźwigu z 2 t na 3 t, wydłużenie zasięgu, zmiana materiałów. Art. 4 pkt 5-6 to czysta definicja - nie ma tu grubych liter, ale trzeba DOKŁADNIE czytać!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 4 pkt 5-6"
   },
@@ -106,8 +106,8 @@
       "D": "w niewielkim zakresie kompetentny operator"
     },
     "correct_option": "A",
-    "explanation": "Art. 9 ust. 1 Ustawy: 'Urządzenia techniczne oraz materiały i elementy stosowane do ich wytwarzania, naprawy lub modernizacji mogą być wytwarzane, naprawiane lub modernizowane przez wytwarzającego, naprawiającego lub modernizującego, który posiada uprawnienie, wydane w formie DECYZJI ADMINISTRACYJNEJ, do ich wytwarzania, naprawiania lub modernizacji...wydane przez organ właściwej jednostki dozoru technicznego.' Art. 9 ust. 1b: 'Uzyskania uprawnienia...nie jest wymagane, gdy podmiot naprawiający lub modernizujący świadczy taką usługę OKAZJONALNIE i zastosuje właściwą technologię naprawy lub modernizacji, UZGODNIONĄ I NADZOROWANĄ przez organ właściwej jednostki dozoru technicznego.' Opcje B (doświadczenie) i C (konserwator) są FAŁSZEM - wymagane są FORMALNE UPRAWNIENIA (decyzja administracyjna) od UDT. Operator (D) - na pewno nie.",
-    "hint": "⚖️ PRAWO ADMINISTRACYJNE: 'Uprawnienie' to ZAWSZE DECYZJA ADMINISTRACYJNA (dokument urzędowy), nigdy samo 'doświadczenie'. Nawet jeśli ktoś robi naprawy 'okazjonalnie', musi mieć technologię UZGODNIONĄ z UDT (Art. 9 ust. 1b). Bez formalnego dokumentu UDT = zakazane!",
+    "explanation": "Art. 9 ust. 1 Ustawy: \"Urządzenia techniczne oraz materiały i elementy stosowane do ich wytwarzania, naprawy lub modernizacji mogą być wytwarzane, naprawiane lub modernizowane przez wytwarzającego, naprawiającego lub modernizującego, który posiada uprawnienie, wydane w formie DECYZJI ADMINISTRACYJNEJ, do ich wytwarzania, naprawiania lub modernizacji...wydane przez organ właściwej jednostki dozoru technicznego.\" Art. 9 ust. 1b: \"Uzyskania uprawnienia...nie jest wymagane, gdy podmiot naprawiający lub modernizujący świadczy taką usługę OKAZJONALNIE i zastosuje właściwą technologię naprawy lub modernizacji, UZGODNIONĄ I NADZOROWANĄ przez organ właściwej jednostki dozoru technicznego.\" Opcje B (doświadczenie) i C (konserwator) są FAŁSZEM - wymagane są FORMALNE UPRAWNIENIA (decyzja administracyjna) od UDT. Operator (D) - na pewno nie.",
+    "hint": "⚖️ PRAWO ADMINISTRACYJNE: \"Uprawnienie\" to ZAWSZE DECYZJA ADMINISTRACYJNA (dokument urzędowy), nigdy samo \"doświadczenie\". Nawet jeśli ktoś robi naprawy \"okazjonalnie\", musi mieć technologię UZGODNIONĄ z UDT (Art. 9 ust. 1b). Bez formalnego dokumentu UDT = zakazane!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 9 ust. 1, ust. 1b"
   },
@@ -122,7 +122,7 @@
       "D": "UDT, WDT, TDT"
     },
     "correct_option": "B",
-    "explanation": "Art. 12 Ustawy: 'Dozór techniczny nad urządzeniami technicznymi, niezależnie od czynności, o których mowa w art. 8 ust. 1–3, 6 i 7, jest wykonywany w formie: 1) dozoru technicznego PEŁNEGO; 2) dozoru technicznego OGRANICZONEGO; 3) dozoru technicznego UPROSZCZONEGO.' To jest DOKŁADNE wyliczenie z ustawy. Odpowiedź B to KOPIA Art. 12. Pozostałe opcje to albo przemieszane terminy (A, C), albo instytucje zamiast form (D).",
+    "explanation": "Art. 12 Ustawy: \"Dozór techniczny nad urządzeniami technicznymi, niezależnie od czynności, o których mowa w art. 8 ust. 1–3, 6 i 7, jest wykonywany w formie: 1) dozoru technicznego PEŁNEGO; 2) dozoru technicznego OGRANICZONEGO; 3) dozoru technicznego UPROSZCZONEGO.\" To jest DOKŁADNE wyliczenie z ustawy. Odpowiedź B to KOPIA Art. 12. Pozostałe opcje to albo przemieszane terminy (A, C), albo instytucje zamiast form (D).",
     "hint": "✅ SŁOWNIK UDT: Zapamiętaj formalne NAZWY form dozoru: PEŁNY (najsurowszy), OGRANICZONY (średni), UPROSZCZONY (najłagodniejszy). Art. 12 wymienia je w kolejności - to banalnie proste pytanie testujące znajomość tekstu!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 12"
@@ -138,8 +138,8 @@
       "D": "organ właściwej jednostki dozoru technicznego"
     },
     "correct_option": "D",
-    "explanation": "Art. 14 ust. 4 Ustawy: 'Na podstawie pozytywnych wyników badań i wykonanych czynności, o których mowa w ust. 2, organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia.' KLUCZOWE: Decyzję wydaje ZAWSZE i WYŁĄCZNIE 'organ właściwej jednostki dozoru technicznego' (czyli inspektor UDT/TDT/WDT działający w imieniu tej jednostki). Nie może jej wydać: konserwator (A), eksploatujący nawet z upoważnienia (B), czy inny organ administracji (C). Są to pytania-pułapki grające na TERMINACH takich jak 'upoważnienie' (B) czy 'organ administracji' (C), które WYDAJĄ SIĘ wiarygodne, ale Art. 14 jest JASNY - decyzję wydaje organ UDT OSOBIŚCIE.",
-    "hint": "🛑 ULTRA-WAŻNE: Decyzję zezwalającą wydaje WYŁĄCZNIE 'organ właściwej jednostki dozoru technicznego'. Art. 14 ust. 4. To NIE MOŻE być: 1) konserwator (robi przeglądy, ale nie decyduje), 2) eksploatujący (nawet z papierkiem), 3) inny urząd (czytaj Art. 4 pkt 3 - TYLKO UDT/TDT/WDT mogą). Słowa 'lub eksploatujący' (opcja B) to PUŁAPKA - nie można mu upoważnić do wydawania decyzji administracyjnej!",
+    "explanation": "Art. 14 ust. 4 Ustawy: \"Na podstawie pozytywnych wyników badań i wykonanych czynności, o których mowa w ust. 2, organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia.\" KLUCZOWE: Decyzję wydaje ZAWSZE i WYŁĄCZNIE \"organ właściwej jednostki dozoru technicznego\" (czyli inspektor UDT/TDT/WDT działający w imieniu tej jednostki). Nie może jej wydać: konserwator (A), eksploatujący nawet z upoważnienia (B), czy inny organ administracji (C). Są to pytania-pułapki grające na TERMINACH takich jak \"upoważnienie\" (B) czy \"organ administracji\" (C), które WYDAJĄ SIĘ wiarygodne, ale Art. 14 jest JASNY - decyzję wydaje organ UDT OSOBIŚCIE.",
+    "hint": "🛑 ULTRA-WAŻNE: Decyzję zezwalającą wydaje WYŁĄCZNIE \"organ właściwej jednostki dozoru technicznego\". Art. 14 ust. 4. To NIE MOŻE być: 1) konserwator (robi przeglądy, ale nie decyduje), 2) eksploatujący (nawet z papierkiem), 3) inny urząd (czytaj Art. 4 pkt 3 - TYLKO UDT/TDT/WDT mogą). Słowa \"lub eksploatujący\" (opcja B) to PUŁAPKA - nie można mu upoważnić do wydawania decyzji administracyjnej!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 14 ust. 1, 4"
   },
@@ -154,60 +154,28 @@
       "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
     },
     "correct_option": "D",
-    "explanation": "Trzy NIEZALEŻNE wymogi (wszystkie z ustawy): 1) Art. 14 ust. 1: 'Urządzenia techniczne objęte dozorem technicznym...mogą być eksploatowane TYLKO NA PODSTAWIE decyzji zezwalającej na ich eksploatację, wydanej przez organ właściwej jednostki dozoru technicznego' - czyli warunek A (DECYZJA). 2) Art. 22 ust. 3 + Art. 23: 'Osoby obsługujące...urządzenia techniczne obowiązane są posiadać ZAŚWIADCZENIA KWALIFIKACYJNE' - czyli warunek B (UPRAWNIENIA). 3) Art. 13 ust. 2 pkt b: 'w toku eksploatacji urządzeń technicznych objętych dozorem technicznym pełnym organ...wykonuje okresowe i doraźne badania techniczne' + Art. 33 ust. 3: 'Przedsiębiorca...przechowuje...zbiór protokołów dotyczących danego urządzenia...zwaną „księgą rewizyjną urządzenia"
-    ' - czyli warunek C (KONSERWACJA). Wszystkie TRY warunki są NIEZALEŻNE i muszą być JEDNOCZEŚNIE spełnione. To nie jest przypadek, gdzie wystarczy jedno - bezpieczeństwo wymaga połączenia: sprawnego sprzętu (C) + urzędowego dopuszczenia (A) + uprawnień operatora (B).",
+    "explanation": "Trzy NIEZALEŻNE wymogi (wszystkie z ustawy): 1) Art. 14 ust. 1: "Urządzenia techniczne objęte dozorem technicznym...mogą być eksploatowane TYLKO NA PODSTAWIE decyzji zezwalającej na ich eksploatację, wydanej przez organ właściwej jednostki dozoru technicznego" - czyli warunek A (DECYZJA). 2) Art. 22 ust. 3 + Art. 23: "Osoby obsługujące...urządzenia techniczne obowiązane są posiadać ZAŚWIADCZENIA KWALIFIKACYJNE" - czyli warunek B (UPRAWNIENIA). 3) Art. 13 ust. 2 pkt b: "w toku eksploatacji urządzeń technicznych objętych dozorem technicznym pełnym organ...wykonuje okresowe i doraźne badania techniczne" + Art. 33 ust. 3: "Przedsiębiorca...przechowuje...zbiór protokołów dotyczących danego urządzenia...zwaną "księgą rewizyjną urządzenia" - czyli warunek C (KONSERWACJA). Wszystkie TRY warunki są NIEZALEŻNE i muszą być JEDNOCZEŚNIE spełnione. To nie jest przypadek, gdzie wystarczy jedno - bezpieczeństwo wymaga połączenia: sprawnego sprzętu (C) + urzędowego dopuszczenia (A) + uprawnień operatora (B).",
     "hint": "🔐 TRÓJAŚA ZASADA BEZPIECZEŃSTWA: SPRZĘT (C) + PAPIER (A) + CZŁOWIEK (B). Jeśli BRAKUJE KTÓREGOKOLWIEK - operator NIE MOŻE PRACOWAĆ. To nie jest pytanie teoretyczne - to praktyczne BEZPIECZEŃSTWO: 1️⃣ Wózek musi być SPRAWNY (ostatni przegląd ok.) 2️⃣ Musi mieć DECYZJĘ UDT (papier na ścianie) 3️⃣ Ty musisz mieć ZAŚWIADCZENIE (dokument w portfelu). Brak choćby JEDNEGO = STOP, nie pracujesz!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 14 ust. 1, Art. 22 ust. 3, Art. 23, Art. 13 ust. 2 pkt b, Art. 33 ust. 3"
   },
-  [
-    {
-      "id": "11",
-      "text": "Obsługujący urządzenie techniczne może podjąć pracę gdy:",
-      "image_path": null,
-      "options": {
-        "A": "urządzenie posiada aktualny wpis w dzienniku konserwacji potwierdzający sprawność urządzenia",
-        "B": "przeszedł odpowiednie szkolenie stanowiskowe",
-        "C": "urządzenie posiada ważną decyzję zezwalającą na eksploatację",
-        "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
-      },
-      "correct_option": "D",
-      "explanation": "Analogiczne do pytania 10, ale z innymi wymogami: 1) Art. 33 ust. 3: 'Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną „księgą rewizyjną urządzenia"
-      ' + Art. 26 pkt 1: '
-      Przedsiębiorca...jest
-      obowiązany
-      zapewnić
-      warunki
-      do
-      bezpiecznego
-      i
-      sprawnego
-      ich
-    [
-      czynności
-      dozoru
-    ]
-    wykonania
-    ' - czyli warunek A (dziennik/księga rewizyjna). 2) Art. 22 ust. 1c: '
-    Sprawdzenie
-    kwalifikacji
-    osób...dotyczy
-    osób,
-    które...władają
-    językiem
-    polskim
-    ' + przepisy BHP wymagają szkolenia stanowiskowego - czyli warunek B (szkolenie). 3) Art. 14 ust. 1 - warunek C (decyzja). Wszystkie TRZY niezależne elementy muszą być spełnione jednocześnie dla bezpiecznej pracy.",
-    "hint"
-    :
-    "🔐 ZNOWU TRÓJAŚA: DZIENNIK (A) + SZKOLENIE (B) + DECYZJA (C). Pytanie 11 to INNA wersja pytania 10, ale z innymi elementami. Pamiętaj: dziennik musi ZAWSZE być AKTUALNY (ostatni wpis nie może być sprzed roku!). Szkolenie stanowiskowe to wymóg BHP (Art. 22). Decyzja to zawsze Art. 14. Razem = operator może pracować.",
-    "category"
-    :
-    "Prawo i Dozór Techniczny",
-    "source_article"
-    :
-    "Art. 14 ust. 1, Art. 22 ust. 1c, Art. 26 pkt 1, Art. 33 ust. 3"
-    }
-    ,
+ {
+    "id": "11",
+    "text": "Obsługujący urządzenie techniczne może podjąć pracę gdy:",
+    "image_path": null,
+    "options": {
+      "A": "urządzenie posiada aktualny wpis w dzienniku konserwacji potwierdzający sprawność urządzenia",
+      "B": "przeszedł odpowiednie szkolenie stanowiskowe",
+      "C": "urządzenie posiada ważną decyzję zezwalającą na eksploatację",
+      "D": "wszystkie powyższe warunki muszą być spełnione jednocześnie"
+    },
+    "correct_option": "D",
+    "explanation": "Analogiczne do pytania 10, ale z innymi wymogami: 1) Art. 33 ust. 3: "Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną "księgą rewizyjną urządzenia" + Art. 26 pkt 1: Przedsiębiorca...jest obowiązany zapewnić warunki do bezpiecznego i sprawnego ich [czynności dozoru] wykonania - czyli warunek A (dziennik/księga rewizyjna). 2) Art. 22 ust. 1c: "Sprawdzenie kwalifikacji osób...dotyczy osób, które...władają językiem polskim" + przepisy BHP wymagają szkolenia stanowiskowego - czyli warunek B (szkolenie). 3) Art. 14 ust. 1 - warunek C (decyzja). Wszystkie TRZY niezależne elementy muszą być spełnione jednocześnie dla bezpiecznej pracy.",
+    "hint": "🔐 ZNOWU TRÓJCA: DZIENNIK (A) + SZKOLENIE (B) + DECYZJA (C). Pytanie 11 to INNA wersja pytania 10, ale z innymi elementami. Pamiętaj: dziennik musi ZAWSZE być AKTUALNY (ostatni wpis nie może być sprzed roku!). Szkolenie stanowiskowe to wymóg BHP (Art. 22). Decyzja to zawsze Art. 14. Razem = operator może pracować.",
+    "category": "Prawo i Dozór Techniczny",
+    "source_article": "Art. 14 ust. 1, Art. 22 ust. 1c, Art. 26 pkt 1, Art. 33 ust. 3"
+  },
+
     {
     "id": "12",
     "text": "W przypadku nieprzestrzegania przez eksploatującego przepisów o dozorze technicznym eksploatujący:",
@@ -219,8 +187,8 @@
     "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "C",
-    "explanation": "Art. 63 ust. 1 Ustawy: 'Kto dopuszcza do eksploatacji urządzenie techniczne: 1) bez otrzymania decyzji organu właściwej jednostki dozoru technicznego...2) wbrew decyzji organu właściwej jednostki dozoru technicznego o wstrzymaniu eksploatacji...podlega GRZYWNIE albo KARZE OGRANICZENIA WOLNOŚCI.' Art. 64: 'Kto: 1) uniemożliwia lub utrudnia wykonywanie czynności...2) nie wykonuje obowiązku zawiadomienia...podlega KARZE GRZYWNY.' To są ZAWSZE KARY KARNE, nigdy 'upomnienia' czy 'zalecenia' (które są środkami łagodnymi, administracyjnymi, stosowanymi wcześniej, przed karami). Opcje A i B to błędy - takie środki mogą być WCZEŚNIE (zanim zaczynają się kary), ale głównym skutkiem nieprzestrzegania są KARY KARNE.",
-    "hint": "⚖️ KARY KARNE: Naruszenie przepisów UDT = GRZYWNA lub OGRANICZENIE WOLNOŚCI (Art. 63-64). NIE MA 'upomnienia' czy 'zalecenia pokontrolnego' jako głównej kary - to błędy! Upomnienia mogą być na wczesnym etapie, ale jeśli operator IGNORUJE - wtedy idą już kary. Zapamiętaj: eksperyment eksploatacyjny bez decyzji = kara!",
+    "explanation": "Art. 63 ust. 1 Ustawy: "Kto dopuszcza do eksploatacji urządzenie techniczne: 1) bez otrzymania decyzji organu właściwej jednostki dozoru technicznego...2) wbrew decyzji organu właściwej jednostki dozoru technicznego o wstrzymaniu eksploatacji...podlega GRZYWNIE albo KARZE OGRANICZENIA WOLNOŚCI." Art. 64: "Kto: 1) uniemożliwia lub utrudnia wykonywanie czynności...2) nie wykonuje obowiązku zawiadomienia...podlega KARZE GRZYWNY." To są ZAWSZE KARY KARNE, nigdy "upomnienia" czy "zalecenia" (które są środkami łagodnymi, administracyjnymi, stosowanymi wcześniej, przed karami). Opcje A i B to błędy - takie środki mogą być WCZEŚNIE (zanim zaczynają się kary), ale głównym skutkiem nieprzestrzegania są KARY KARNE.",
+    "hint": "⚖️ KARY KARNE: Naruszenie przepisów UDT = GRZYWNA lub OGRANICZENIE WOLNOŚCI (Art. 63-64). NIE MA "upomnienia" czy "zalecenia pokontrolnego" jako głównej kary - to błędy! Upomnienia mogą być na wczesnym etapie, ale jeśli operator IGNORUJE - wtedy idą już kary. Zapamiętaj: eksperyment eksploatacyjny bez decyzji = kara!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 63 ust. 1, Art. 64"
     },
@@ -235,8 +203,8 @@
     "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "A",
-    "explanation": "Art. 18 ust. 2 Ustawy: 'Przepis ust. 1 [wstrzymanie eksploatacji] stosuje się odpowiednio w razie STWIERDZENIA ZAGROŻENIA dla życia lub zdrowia ludzkiego oraz mienia i środowiska.' Art. 18 ust. 1: 'W przypadku nieprzestrzegania przez eksploatującego przepisów o dozorze technicznym organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ O WSTRZYMANIU EKSPLOATACJI urządzenia.' Inspektor MUSI wydać decyzję administracyjną - to jego OBOWIĄZEK, a nie uznanie. Mandat (B) wydaje policja, nie inspektor UDT. 'Pouczenie' (C) to środek administracyjny, ale niewystarczający w sytuacji zagrożenia. Odpowiedź D jest FAŁSZEM - inspektor wydaje DECYZJĘ (A), to jedyne słuszne działanie w sytuacji bezpośredniego zagrożenia.",
-    "hint": "🚨 ALARM - DECYZJA NATYCHMIAST: Jeśli inspektor stwierdzi ZAGROŻENIE (wypadek, kolizja, niebezpieczne uszkodzenie), wydaje DECYZJĘ O WSTRZYMANIU - art. 18 ust. 2. To nie jest 'rekomendacja', nie 'pouczenie' - to ROZKAZ SĄDOWY. Urządzenie MUSI stać, do czasu naprawy. Mandat wydaje policja (B), nie UDT. To KRYTYCZNE pytanie!",
+    "explanation": "Art. 18 ust. 2 Ustawy: "Przepis ust. 1 [wstrzymanie eksploatacji] stosuje się odpowiednio w razie STWIERDZENIA ZAGROŻENIA dla życia lub zdrowia ludzkiego oraz mienia i środowiska." Art. 18 ust. 1: "W przypadku nieprzestrzegania przez eksploatującego przepisów o dozorze technicznym organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ O WSTRZYMANIU EKSPLOATACJI urządzenia." Inspektor MUSI wydać decyzję administracyjną - to jego OBOWIĄZEK, a nie uznanie. Mandat (B) wydaje policja, nie inspektor UDT. "Pouczenie" (C) to środek administracyjny, ale niewystarczający w sytuacji zagrożenia. Odpowiedź D jest FAŁSZEM - inspektor wydaje DECYZJĘ (A), to jedyne słuszne działanie w sytuacji bezpośredniego zagrożenia.",
+    "hint": "🚨 ALARM - DECYZJA NATYCHMIAST: Jeśli inspektor stwierdzi ZAGROŻENIE (wypadek, kolizja, niebezpieczne uszkodzenie), wydaje DECYZJĘ O WSTRZYMANIU - art. 18 ust. 2. To nie jest "rekomendacja", nie "pouczenie" - to ROZKAZ SĄDOWY. Urządzenie MUSI stać, do czasu naprawy. Mandat wydaje policja (B), nie UDT. To KRYTYCZNE pytanie!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 18 ust. 1-2"
     },
@@ -251,8 +219,8 @@
     "D": "zgłasza urządzenie do wykonania naprawy"
     },
     "correct_option": "A",
-    "explanation": "Art. 19 ust. 1 Ustawy: 'Eksploatujący urządzenie techniczne jest obowiązany NIEZWŁOCZNIE ZAWIADOMIĆ organ właściwej jednostki dozoru technicznego O KAŻDYM NIEBEZPIECZNYM USZKODZENIU urządzenia technicznego lub NIESZCZĘŚLIWYM WYPADKU związanym z jego eksploatacją.' To jest BEZWZGLĘDNY OBOWIĄZEK - 'niezwłocznie' oznacza natychmiast (bez czekania). Opcja B (producent) - może być dodatkowo powiadomiony, ale UDT musi być PIERWSZY. Opcja C (naprawa) - bezwzględnie ZAKAZANE - urządzenie musi stać do czasu badania przez UDT. Opcja D - zgłoszenie do naprawy może być DOPIERO PO uzyskaniu zgody UDT.",
-    "hint": "📞 NATYCHMIAST TELEFON DO UDT: Art. 19 ust. 1 - 'NIEZWŁOCZNIE powiadomić organ UDT'. To nie czeka na koniec zmianę, nie trzeba pisać maila - TELEFON DZISIAJ! Producent (B) może być powiadomiony, ale UDT FIRST. Naprawianie samemu (C) = zakazane do czasu badania. To jest podobne do wypadku samochodowego - najpierw policja, potem mechanik!",
+    "explanation": "Art. 19 ust. 1 Ustawy: "Eksploatujący urządzenie techniczne jest obowiązany NIEZWŁOCZNIE ZAWIADOMIĆ organ właściwej jednostki dozoru technicznego O KAŻDYM NIEBEZPIECZNYM USZKODZENIU urządzenia technicznego lub NIESZCZĘŚLIWYM WYPADKU związanym z jego eksploatacją." To jest BEZWZGLĘDNY OBOWIĄZEK - "niezwłocznie" oznacza natychmiast (bez czekania). Opcja B (producent) - może być dodatkowo powiadomiony, ale UDT musi być PIERWSZY. Opcja C (naprawa) - bezwzględnie ZAKAZANE - urządzenie musi stać do czasu badania przez UDT. Opcja D - zgłoszenie do naprawy może być DOPIERO PO uzyskaniu zgody UDT.",
+    "hint": "📞 NATYCHMIAST TELEFON DO UDT: Art. 19 ust. 1 - "NIEZWŁOCZNIE powiadomić organ UDT". To nie czeka na koniec zmianę, nie trzeba pisać maila - TELEFON DZISIAJ! Producent (B) może być powiadomiony, ale UDT FIRST. Naprawianie samemu (C) = zakazane do czasu badania. To jest podobne do wypadku samochodowego - najpierw policja, potem mechanik!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 19 ust. 1"
     },
@@ -267,7 +235,7 @@
     "D": "Państwową Inspekcję Pracy"
     },
     "correct_option": "A",
-    "explanation": "Art. 22 ust. 4 Ustawy: 'W razie nieprzestrzegania przez osoby wymienione w ust. 2 i 3 warunków technicznych dozoru technicznego oraz norm i przepisów prawnych w tym zakresie, organ właściwej jednostki dozoru technicznego COFA, w drodze decyzji, uprawnienia kwalifikacyjne wynikające z zaświadczenia kwalifikacyjnego wydanego osobom, o których mowa w ust. 2 i 3.' Zasada ogólna: KTO WYDAJE - TEN COFA. Zaświadczenie wydaje organ jednostki dozoru (UDT/TDT/WDT) - tylko taki organ może je cofnąć. Eksploatujący (B) to pracodawca, może zwolnić pracownika, ale nie może cofnąć licencji urzędowej. BHP (C) i PIP (D) to inne inspekcje, nie mają uprawnień do zaświadczeń UDT.",
+    "explanation": "Art. 22 ust. 4 Ustawy: "W razie nieprzestrzegania przez osoby wymienione w ust. 2 i 3 warunków technicznych dozoru technicznego oraz norm i przepisów prawnych w tym zakresie, organ właściwej jednostki dozoru technicznego COFA, w drodze decyzji, uprawnienia kwalifikacyjne wynikające z zaświadczenia kwalifikacyjnego wydanego osobom, o których mowa w ust. 2 i 3." Zasada ogólna: KTO WYDAJE - TEN COFA. Zaświadczenie wydaje organ jednostki dozoru (UDT/TDT/WDT) - tylko taki organ może je cofnąć. Eksploatujący (B) to pracodawca, może zwolnić pracownika, ale nie może cofnąć licencji urzędowej. BHP (C) i PIP (D) to inne inspekcje, nie mają uprawnień do zaświadczeń UDT.",
     "hint": "🏛️ ZASADA: KTO WYDAJE - TEN COFA. Zaświadczenie wydaje UDT/TDT/WDT → tylko te organy mogą cofnąć. To jak prawo jazdy - wydaje prawo jazdy wojewoda, tylko wojewoda (teraz CEPIK) może je cofnąć. Pracodawca może Cię zwolnić (B), ale nie zabierze Ci papierka UDT. BHP (C) i PIP (D) to inne resorty - zero uprawnień!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 22 ust. 4"
@@ -283,7 +251,7 @@
     "D": "zawiesia transportowe"
     },
     "correct_option": "D",
-    "explanation": "Rozporządzenie Ministra (Załącznik nr 3, Tabela nr 1) w dalszej części stwierdza: 'Poz. 1–3 [Wciągarki, Suwnice, Żurawie] nie dotyczą urządzeń technicznych: − o napędzie ręcznym wszystkich mechanizmów; − z napędem elektrycznym jednofazowym o udźwigu do 1000 kg; − o udźwigu do 250 kg, z wyłączeniem urządzeń służących do przemieszczania osób.' Zawiesia transportowe (liny, pasy, łańcuchy - artykuł 16 rozporządzenia) to AKCESORIA, nie urządzenia główne. Są regulowane ODDZIELNIE, jako 'cięgna nośne' (Art. 113 rozporządzenia wymienia je jako ELEMENTY wchodzące w skład urządzeń, a nie samodzielne urządzenia). Opcje A, B, C - to ALL są OBJĘTE dozorem (z wyjątkami wymienionymi wyżej dla małych udźwigów/napędu ręcznego).",
+    "explanation": "Rozporządzenie Ministra (Załącznik nr 3, Tabela nr 1) w dalszej części stwierdza: "Poz. 1–3 [Wciągarki, Suwnice, Żurawie] nie dotyczą urządzeń technicznych: − o napędzie ręcznym wszystkich mechanizmów; − z napędem elektrycznym jednofazowym o udźwigu do 1000 kg; − o udźwigu do 250 kg, z wyłączeniem urządzeń służących do przemieszczania osób." Zawiesia transportowe (liny, pasy, łańcuchy - artykuł 16 rozporządzenia) to AKCESORIA, nie urządzenia główne. Są regulowane ODDZIELNIE, jako "cięgna nośne" (Art. 113 rozporządzenia wymienia je jako ELEMENTY wchodzące w skład urządzeń, a nie samodzielne urządzenia). Opcje A, B, C - to ALL są OBJĘTE dozorem (z wyjątkami wymienionymi wyżej dla małych udźwigów/napędu ręcznego).",
     "hint": "🎯 PUŁAPKA - LISTA NEGATYWNA: To pytanie dotyczy tego CO NIE JEST objęte dozorem. Zawiesia (liny, pasy) to CZĘŚCI urządzeń, nie samodzielne urządzenia (Art. 113 rozporządzenia je wymienia jako elementy). A, B, C to wszystkie urządzenia GŁÓWNE - są objęte (z wyjątkami dla bardzo małych). Zapamiętaj: zawiesia to AKCESORIA, wykonywane oddzielnie, nie podlegają UDT jako odrębne urządzenia!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Rozporządzenie, Załącznik nr 3, Tabela 1 (wykaz urządzeń objętych)"
@@ -300,8 +268,8 @@
     "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "D",
-    "explanation": "Rozporządzenie Ministra, Załącznik nr 3 (RODZAJE URZĄDZEŃ TECHNICZNYCH, PRZY OBSŁUDZE I KONSERWACJI KTÓRYCH WYMAGANE JEST POSIADANIE KWALIFIKACJI): Tabela nr 1 pozycja 13 (Przenośniki): 'Przenośniki kabinowe i krzesełkowe' - OBJĘTE. Pozycja 4 (Układnice): 'Układnice' - OBJĘTE. Pozycja 9 (Urządzenia dla osób niepełnosprawnych) - OBJĘTE (chociaż to jest w Tabeli nr 2 'Konserwacja', również są objęte obsługą). Pozycja 5 (Wyciągi towarowe): 'Wyciągi towarowe' - OBJĘTE. Pozycja 6 (Wyciągi statków): 'Wyciągi statków' - OBJĘTE. Wszystkie wymienione są w tabeli rozporządzenia.",
-    "hint": "✅ STANDARDOWE PYTANIE: Wszystkie A, B, C to urządzenia z TABELI nr 1 rozporządzenia (lista urządzeń objętych). Odpowiedź D to zawsze 'tak' dla takich pytań. Zapamiętaj podstawowe kategorie: ŻURAWIE, SUWNICE, WCIĄGARKI, WÓZKI, DŹWIGI, PRZENOŚNIKI, WYCIĄGI - to core'owe urządzenia transportu bliskiego!",
+    "explanation": "Rozporządzenie Ministra, Załącznik nr 3 (RODZAJE URZĄDZEŃ TECHNICZNYCH, PRZY OBSŁUDZE I KONSERWACJI KTÓRYCH WYMAGANE JEST POSIADANIE KWALIFIKACJI): Tabela nr 1 pozycja 13 (Przenośniki): "Przenośniki kabinowe i krzesełkowe" - OBJĘTE. Pozycja 4 (Układnice): "Układnice" - OBJĘTE. Pozycja 9 (Urządzenia dla osób niepełnosprawnych) - OBJĘTE (chociaż to jest w Tabeli nr 2 "Konserwacja", również są objęte obsługą). Pozycja 5 (Wyciągi towarowe): "Wyciągi towarowe" - OBJĘTE. Pozycja 6 (Wyciągi statków): "Wyciągi statków" - OBJĘTE. Wszystkie wymienione są w tabeli rozporządzenia.",
+    "hint": "✅ STANDARDOWE PYTANIE: Wszystkie A, B, C to urządzenia z TABELI nr 1 rozporządzenia (lista urządzeń objętych). Odpowiedź D to zawsze "tak" dla takich pytań. Zapamiętaj podstawowe kategorie: ŻURAWIE, SUWNICE, WCIĄGARKI, WÓZKI, DŹWIGI, PRZENOŚNIKI, WYCIĄGI - to core"owe urządzenia transportu bliskiego!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Rozporządzenie, Załącznik nr 3, Tabela nr 1"
     },
@@ -316,8 +284,8 @@
     "D": "nieprzewidziane uszkodzenie, w wyniku którego urządzenie nie nadaje się do eksploatacji lub jego dalsza eksploatacja stanowi zagrożenie"
     },
     "correct_option": "D",
-    "explanation": "Art. 19 ust. 1 odwołuje się do 'niebezpiecznego uszkodzenia' - Ustawa nie definiuje go wprost w słowach, ale z kontekstu Art. 19 (obowiązek niezwłocznego zawiadomienia) i Art. 18 ust. 2 (wstrzymanie eksploatacji w razie zagrożenia) wynika, że 'niebezpieczne uszkodzenie' to takie, które: 1) jest NIEPRZEWIDYWANE (wypadek, kolizja, uderzenie), 2) powoduje ZAGROŻENIE LUB NIEMOŻNOŚĆ DALSZEJ EKSPLOATACJI (Art. 18: 'zagrożenie dla życia lub zdrowia ludzkiego oraz mienia i środowiska'). Odpowiedź D precyzyjnie opisuje to: 'urządzenie nie nadaje się do eksploatacji lub dalsza eksploatacja stanowi zagrożenie'. Opcje A (każda usterka), B (częściowa), C (obniżone parametry) - to nie kwalifikują się na 'niebezpieczne', bo urządzenie MOŻE być jeszcze eksploatowane (być może pod nadzorem, być może z ograniczeniami).",
-    "hint": "⚠️ KLUCZOWE SŁOWO: 'niebezpieczne' (czytaj: ZAGROŻENIE). Zwykła usterka (A) - czekaj na serwis. Częściowa eksploatacja (B-C) - może być możliwa z ograniczeniami. Ale 'niebezpieczne uszkodzenie' (D) = STOP. Nie może być w żaden sposób eksploatowane, bo grozi wypadkiem. Art. 19 ust. 1: 'niezwłocznie zawiadomić UDT' - to jest sygnał że coś pękło kritycznie!",
+    "explanation": "Art. 19 ust. 1 odwołuje się do "niebezpiecznego uszkodzenia" - Ustawa nie definiuje go wprost w słowach, ale z kontekstu Art. 19 (obowiązek niezwłocznego zawiadomienia) i Art. 18 ust. 2 (wstrzymanie eksploatacji w razie zagrożenia) wynika, że "niebezpieczne uszkodzenie" to takie, które: 1) jest NIEPRZEWIDYWANE (wypadek, kolizja, uderzenie), 2) powoduje ZAGROŻENIE LUB NIEMOŻNOŚĆ DALSZEJ EKSPLOATACJI (Art. 18: "zagrożenie dla życia lub zdrowia ludzkiego oraz mienia i środowiska"). Odpowiedź D precyzyjnie opisuje to: "urządzenie nie nadaje się do eksploatacji lub dalsza eksploatacja stanowi zagrożenie". Opcje A (każda usterka), B (częściowa), C (obniżone parametry) - to nie kwalifikują się na "niebezpieczne", bo urządzenie MOŻE być jeszcze eksploatowane (być może pod nadzorem, być może z ograniczeniami).",
+    "hint": "⚠️ KLUCZOWE SŁOWO: "niebezpieczne" (czytaj: ZAGROŻENIE). Zwykła usterka (A) - czekaj na serwis. Częściowa eksploatacja (B-C) - może być możliwa z ograniczeniami. Ale "niebezpieczne uszkodzenie" (D) = STOP. Nie może być w żaden sposób eksploatowane, bo grozi wypadkiem. Art. 19 ust. 1: "niezwłocznie zawiadomić UDT" - to jest sygnał że coś pękło kritycznie!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 18 ust. 1-2, Art. 19 ust. 1"
     },
@@ -332,8 +300,8 @@
     "D": "każda usterka UTB spowodowana przyczyną losową"
     },
     "correct_option": "A",
-    "explanation": "Art. 19 ust. 1 odwołuje się do 'nieszczęśliwego wypadku związanego z eksploatacją urządzenia technicznego' - ale Ustawa o dozorze technicznym nie definiuje tego terminu wprost. JEDNAK Art. 19 ust. 2 powołuje art. 233 § 6 Kodeks karny, co sugeruje związek z wypadkami OSOBOWYMI. Z kontekstu bezpieczeństwa (Art. 18: 'zagrożenie dla życia lub zdrowia ludzkiego') wynika, że 'nieszczęśliwy wypadek' to zdarzenie, które spowodowało OBRAŻENIA CIAŁA LUB ŚMIERĆ CZŁOWIEKA. Opcje B (przerwę w pracy) i D (usterka z przyczyny losowej) to zbyt szerokie. Opcja C (wyłączenie z eksploatacji) - urządzenie może być wyłączone bez wypadku (np. profilaktyka). Odpowiedź A precyzyjnie wskazuje KONSEKWENCJĘ: obrażenia ciała lub śmierć.",
-    "hint": "💀 ŚMIERĆ LUB OBRAŻENIA: Nieszczęśliwy wypadek = wypadek, w którym CZŁOWIEK się POSZKODOWAŁ. Art. 19 ust. 1: 'wypadek związany z eksploatacją' - czytaj: operator stracił palec, przygniótł nogę, zginął. Przerwę w pracy (B) - to tylko skutek ekonomiczny, nie wypadek. Usterka (D) - to nie wypadek, to awaria sprzętu. Pytanie o definicję z bezpieczeństwa OSÓB, nie maszyn!",
+    "explanation": "Art. 19 ust. 1 odwołuje się do "nieszczęśliwego wypadku związanego z eksploatacją urządzenia technicznego" - ale Ustawa o dozorze technicznym nie definiuje tego terminu wprost. JEDNAK Art. 19 ust. 2 powołuje art. 233 § 6 Kodeks karny, co sugeruje związek z wypadkami OSOBOWYMI. Z kontekstu bezpieczeństwa (Art. 18: "zagrożenie dla życia lub zdrowia ludzkiego") wynika, że "nieszczęśliwy wypadek" to zdarzenie, które spowodowało OBRAŻENIA CIAŁA LUB ŚMIERĆ CZŁOWIEKA. Opcje B (przerwę w pracy) i D (usterka z przyczyny losowej) to zbyt szerokie. Opcja C (wyłączenie z eksploatacji) - urządzenie może być wyłączone bez wypadku (np. profilaktyka). Odpowiedź A precyzyjnie wskazuje KONSEKWENCJĘ: obrażenia ciała lub śmierć.",
+    "hint": "💀 ŚMIERĆ LUB OBRAŻENIA: Nieszczęśliwy wypadek = wypadek, w którym CZŁOWIEK się POSZKODOWAŁ. Art. 19 ust. 1: "wypadek związany z eksploatacją" - czytaj: operator stracił palec, przygniótł nogę, zginął. Przerwę w pracy (B) - to tylko skutek ekonomiczny, nie wypadek. Usterka (D) - to nie wypadek, to awaria sprzętu. Pytanie o definicję z bezpieczeństwa OSÓB, nie maszyn!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 19 ust. 1-2"
     },
@@ -348,8 +316,8 @@
     "D": "jest możliwe przy zachowaniu szczególnej ostrożności i pod nadzorem inspektora"
     },
     "correct_option": "A",
-    "explanation": "Art. 17 ust. 1a Ustawy: 'Modernizacja urządzenia technicznego odbywa się na podstawie dokumentacji technicznej uzgodnionej z organem właściwej jednostki dozoru technicznego...'. Podnoszenie osób na urządzeniu do ładunków to DE FACTO MODERNIZACJA (zmiana przeznaczenia, zmiana parametrów bezpieczeństwa). Art. 20 ust. 4 rozporządzenia ministerialnego uzupełniającego stanovisku specjalistów: takie operacje wymagają FORMALNEGO uzgodnienia warunków techniczych z UDT. Przełożony (B) może wydać polecenie, ale nie może wyrazić zgody technicznej. BHP (C) może wymagać dodatkowych zabezpieczeń, ale autoryzacja techniczna to UDT. 'Szczególna ostrożność' (D) to mitokreślenie - bez formalnego dopuszczenia przez UDT jest to ZAKAZANE, niezależnie od ostrożności.",
-    "hint": "🚫 ULTRA-ZAKAZANE (prawie): Podnoszenie ludzi na wózku do ładunków to przesunięcie PRZEZNACZENIA urządzenia - czyli modernizacja! Art. 17 ust. 1a: wymaga UZGODNIENIA z UDT. Przełożony (B) może polecić 'zrób to', ale ma prawo mówić 'nie' operator! BHP (C) dodaje hełmy, ale UDT DECYDUJE czy wообще. 'Szczególna ostrożność' (D) = NIEWYSTARCZAJĄCA. Prawo mówi: UZGODNIENIE Z UDT FIRST, dopiero wtedy może być możliwe (lub nie)!",
+    "explanation": "Art. 17 ust. 1a Ustawy: "Modernizacja urządzenia technicznego odbywa się na podstawie dokumentacji technicznej uzgodnionej z organem właściwej jednostki dozoru technicznego...". Podnoszenie osób na urządzeniu do ładunków to DE FACTO MODERNIZACJA (zmiana przeznaczenia, zmiana parametrów bezpieczeństwa). Art. 20 ust. 4 rozporządzenia ministerialnego uzupełniającego stanovisku specjalistów: takie operacje wymagają FORMALNEGO uzgodnienia warunków techniczych z UDT. Przełożony (B) może wydać polecenie, ale nie może wyrazić zgody technicznej. BHP (C) może wymagać dodatkowych zabezpieczeń, ale autoryzacja techniczna to UDT. "Szczególna ostrożność" (D) to mitokreślenie - bez formalnego dopuszczenia przez UDT jest to ZAKAZANE, niezależnie od ostrożności.",
+    "hint": "🚫 ULTRA-ZAKAZANE (prawie): Podnoszenie ludzi na wózku do ładunków to przesunięcie PRZEZNACZENIA urządzenia - czyli modernizacja! Art. 17 ust. 1a: wymaga UZGODNIENIA z UDT. Przełożony (B) może polecić "zrób to", ale ma prawo mówić "nie" operator! BHP (C) dodaje hełmy, ale UDT DECYDUJE czy wоcznie. "Szczególna ostrożność" (D) = NIEWYSTARCZAJĄCA. Prawo mówi: UZGODNIENIE Z UDT FIRST, dopiero wtedy może być możliwe (lub nie)!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 17 ust. 1a"
     },
@@ -364,8 +332,8 @@
     "D": "inspektor UDT"
     },
     "correct_option": "A",
-    "explanation": "Art. 2 ust. 3 Ustawy: 'Wykonywanie dozoru technicznego przez jednostki dozoru technicznego nie ZWALNIA projektujących, wytwarzających, EKSPLOATUJĄCYCH, naprawiających i modernizujących urządzenia techniczne od ODPOWIEDZIALNOŚCI za jakość i stan tych urządzeń...'. Art. 26 pkt 1: 'Przedsiębiorca, u którego są wykonywane czynności dozoru technicznego, jest obowiązany: 1) zapewnić warunki do bezpiecznego i sprawnego ich [przeglądów] wykonania...' + Art. 31 ust. 1-2: 'Przedsiębiorca...jest obowiązany zapewnić bezpieczne warunki pracy' i 'na polecenie inspektora do wykonania czynności przy urządzeniu'. To JASNE: eksploatujący (właściciel/użytkownik) ma PEŁNĄ ODPOWIEDZIALNOŚĆ za urządzenie. UDT (B) to KONTROLA, nie odpowiedzialność. PIP (C) to inny resort (bezpieczeństwo pracy), inspektor (D) to pracownik UDT, ale nie brierze odpowiedzialności za urządzenie eksploatującego.",
-    "hint": "👤 WŁAŚCICIEL = ODPOWIEDZIALNY. Art. 2 ust. 3: 'nie zwalnia eksploatującego od odpowiedzialności'. Ty kupujesz wózek, ty za niego odpowiadasz - przeglądami, konserwacją, warunkami. UDT (B) kontroluje czy robisz co trzeba, ale nie ODPOWIADA zamiast Ciebie. PIP (C) to inny resort - praca ludzi, a nie sprzęt. Inspektor (D) to gość, który przychodzi Cię sprawdzać. Odpowiedzialność to ZAWSZE: EKSPLOATUJĄCY!",
+    "explanation": "Art. 2 ust. 3 Ustawy: "Wykonywanie dozoru technicznego przez jednostki dozoru technicznego nie ZWALNIA projektujących, wytwarzających, EKSPLOATUJĄCYCH, naprawiających i modernizujących urządzenia techniczne od ODPOWIEDZIALNOŚCI za jakość i stan tych urządzeń...". Art. 26 pkt 1: "Przedsiębiorca, u którego są wykonywane czynności dozoru technicznego, jest obowiązany: 1) zapewnić warunki do bezpiecznego i sprawnego ich [przeglądów] wykonania..." + Art. 31 ust. 1-2: "Przedsiębiorca...jest obowiązany zapewnić bezpieczne warunki pracy" i "na polecenie inspektora do wykonania czynności przy urządzeniu". To JASNE: eksploatujący (właściciel/użytkownik) ma PEŁNĄ ODPOWIEDZIALNOŚĆ za urządzenie. UDT (B) to KONTROLA, nie odpowiedzialność. PIP (C) to inny resort (bezpieczeństwo pracy), inspektor (D) to pracownik UDT, ale nie brierze odpowiedzialności za urządzenie eksploatującego.",
+    "hint": "👤 WŁAŚCICIEL = ODPOWIEDZIALNY. Art. 2 ust. 3: "nie zwalnia eksploatującego od odpowiedzialności". Ty kupujesz wózek, ty za niego odpowiadasz - przeglądami, konserwacją, warunkami. UDT (B) kontroluje czy robisz co trzeba, ale nie ODPOWIADA zamiast Ciebie. PIP (C) to inny resort - praca ludzi, a nie sprzęt. Inspektor (D) to gość, który przychodzi Cię sprawdzać. Odpowiedzialność to ZAWSZE: EKSPLOATUJĄCY!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 2 ust. 3, Art. 26 pkt 1, Art. 31 ust. 1-2"
     }
@@ -381,8 +349,8 @@
     "D": "odpowiedź a i b jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Art. 22 ust. 3: 'Przepis ust. 2 stosuje się do osób obsługujących i konserwujących urządzenia techniczne' - czyli osoby do KONSERWACJI muszą mieć zaświadczenie (opcja A). Art. 23: Sprawdzenie kwalifikacji - nie mówi, że musi być tylko pracownik 'zakładowy' (opcja C) czy tylko 'producenta' (opcja B). Każda OSOBA z zaświadczeniem może robić przeglądy - czy to pracownik wewnętrzny, czy z serwisu producenta, czy z firmy trzeciej. Opcja C (zakładowe służby) - mogą robić, ALE pod warunkiem że mają zaświadczenia (Art. 22 ust. 3). Opcja B (serwis producenta) - mogą robić, ALE pod warunkiem zaświadczeń. Odpowiedź D: 'A i B' jest prawidłowa - obydwa mogą, o ile mają zaświadczenia. Wariacją byłaby opcja 'E: A, B i C wszystkie', ale takie nie ma.",
-    "hint": "📋 ZAŚWIADCZENIE OTWIERA DRZWI: Art. 22 ust. 3 - 'osoby konserwujące...muszą posiadać zaświadczenie'. KOGO mogą być te osoby? Kogokolwiek z zaświadczeniem! Pracownik interno (A), serwis producenta (B), nawet freelancer - ALE tylko z papierkiem UDT! Opcja C (služby zakładowe) ma prawo robić, jeśli ich pracownicy mają zaświadczenia. Zapamiętaj: ZAŚWIADCZENIE > pochodzenie pracownika!",
+    "explanation": "Art. 22 ust. 3: "Przepis ust. 2 stosuje się do osób obsługujących i konserwujących urządzenia techniczne" - czyli osoby do KONSERWACJI muszą mieć zaświadczenie (opcja A). Art. 23: Sprawdzenie kwalifikacji - nie mówi, że musi być tylko pracownik "zakładowy" (opcja C) czy tylko "producenta" (opcja B). Każda OSOBA z zaświadczeniem może robić przeglądy - czy to pracownik wewnętrzny, czy z serwisu producenta, czy z firmy trzeciej. Opcja C (zakładowe służby) - mogą robić, ALE pod warunkiem że mają zaświadczenia (Art. 22 ust. 3). Opcja B (serwis producenta) - mogą robić, ALE pod warunkiem zaświadczeń. Odpowiedź D: "A i B" jest prawidłowa - obydwa mogą, o ile mają zaświadczenia. Wariacją byłaby opcja "E: A, B i C wszystkie", ale takie nie ma.",
+    "hint": "📋 ZAŚWIADCZENIE OTWIERA DRZWI: Art. 22 ust. 3 - "osoby konserwujące...muszą posiadać zaświadczenie". KOGO mogą być te osoby? Kogokolwiek z zaświadczeniem! Pracownik interno (A), serwis producenta (B), nawet freelancer - ALE tylko z papierkiem UDT! Opcja C (služby zakładowe) ma prawo robić, jeśli ich pracownicy mają zaświadczenia. Zapamiętaj: ZAŚWIADCZENIE > pochodzenie pracownika!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 22 ust. 3, Art. 23"
     },
@@ -397,8 +365,8 @@
     "D": "konserwator urządzenia technicznego"
     },
     "correct_option": "D",
-    "explanation": "Art. 33 ust. 3 Ustawy: 'Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną „księgą rewizyjną urządzenia"'. Księga to ZBIÓR protokołów badań UDT. ALE Art. 33 nie mówi, kto ją PROWADZI dziennie. ART. CZTERY pkt 7: 'konserwacji – należy przez to rozumieć zespół czynności wykonywanych...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI'. Z kontekstu: Konserwator WYKONUJE przeglądady (konserwację) → Konserwator ODNOTOWUJE w dzienniku/protokole co zrobił → Konserwator PROWADZI dokumentację. Inspektor UDT (A) sporządza PROTOKOŁY BADAŃ (część księgi rewizyjnej), ale nie dziennik codziennego ruchu. Operator (B) - obsługuje, nie pisze. Pracownik eksploatującego (C) - może prowadzić, ale zwykle to konserwator (D). Odpowiedź D jest najdalej poprawna.",
-    "hint": "📔 DZIENNIK = DZIENNIK KONSERWATORA: Art. 33 - 'księga rewizyjna' (papierowa/elektroniczna) przechowywana u eksploatującego. Ale KTO ją pisze KAŻDEGO DNIA? Konserwator (D) - robi przegląd → pisze: 'Sprawdzono..., wymieniono...'. Inspektor (A) pisze PROTOKOŁY (część księgi), ale rzadko (co rok/6 miesięcy). Operator (B) nie pisze - tylko czyta instrukcję! Czyli: KONSERWATOR = dziennik + codzienne notatki.",
+    "explanation": "Art. 33 ust. 3 Ustawy: "Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną "księgą rewizyjną urządzenia". Księga to ZBIÓR protokołów badań UDT. ALE Art. 33 nie mówi, kto ją PROWADZI dziennie. ART. CZTERY pkt 7: "konserwacji – należy przez to rozumieć zespół czynności wykonywanych...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI". Z kontekstu: Konserwator WYKONUJE przeglądady (konserwację) → Konserwator ODNOTOWUJE w dzienniku/protokole co zrobił → Konserwator PROWADZI dokumentację. Inspektor UDT (A) sporządza PROTOKOŁY BADAŃ (część księgi rewizyjnej), ale nie dziennik codziennego ruchu. Operator (B) - obsługuje, nie pisze. Pracownik eksploatującego (C) - może prowadzić, ale zwykle to konserwator (D). Odpowiedź D jest najdalej poprawna.",
+    "hint": "📔 DZIENNIK = DZIENNIK KONSERWATORA: Art. 33 - "księga rewizyjna" (papierowa/elektroniczna) przechowywana u eksploatującego. Ale KTO ją pisze KAŻDEGO DNIA? Konserwator (D) - robi przegląd → pisze: "Sprawdzono..., wymieniono...". Inspektor (A) pisze PROTOKOŁY (część księgi), ale rzadko (co rok/6 miesięcy). Operator (B) nie pisze - tylko czyta instrukcję! Czyli: KONSERWATOR = dziennik + codzienne notatki.",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 33 ust. 3, Art. 4 pkt 7"
     },
@@ -413,8 +381,8 @@
     "D": "po każdej zmianie eksploatującego"
     },
     "correct_option": "B",
-    "explanation": "Art. 13 ust. 1 pkt 2 lit. a: 'w toku eksploatacji urządzeń technicznych objętych dozorem technicznym pełnym organ właściwej jednostki dozoru technicznego: a) przeprowadza BADANIA urządzenia w warunkach gotowości do pracy – BADANIA ODBIORCZE' + Art. 14 ust. 2: 'Organ właściwej jednostki dozoru technicznego przed wydaniem DECYZJI...przeprowadza BADANIA i wykonuje czynności sprawdzające'. Badania odbiorcze to PIERWSZE badania - wykonywane PRZED wydaniem decyzji zezwalającej. Opcja A (terminy rozporządzenia) - to dotyczy badań OKRESOWYCH (co rok/2 lata), nie odbiorczych. Opcja C (po naprawie) - to badania DORAŹNE, nie odbiorcze. Opcja D (zmiana eksploatującego) - novi eksploatujący przejmuje decyzję poprzednika, nie robi nowych badań odbiorczych (Art. 15a).",
-    "hint": "🆕 PIERWSZE BADANIE - ODBIORCZE: Art. 13 - 'badania odbiorcze' to badania 'w warunkach gotowości do pracy' wykonywane PRZED wydaniem pierwszej decyzji (B). To jest TEST czy nowy wózek działa prawidłowo. Potem: OKRESOWE (co rok), DORAŹNE (po wypadku/naprawie). Zmiana właściciela (D) - stary właściciel oddaje papier nowemu, bez nowych badań!",
+    "explanation": "Art. 13 ust. 1 pkt 2 lit. a: "w toku eksploatacji urządzeń technicznych objętych dozorem technicznym pełnym organ właściwej jednostki dozoru technicznego: a) przeprowadza BADANIA urządzenia w warunkach gotowości do pracy – BADANIA ODBIORCZE" + Art. 14 ust. 2: "Organ właściwej jednostki dozoru technicznego przed wydaniem DECYZJI...przeprowadza BADANIA i wykonuje czynności sprawdzające". Badania odbiorcze to PIERWSZE badania - wykonywane PRZED wydaniem decyzji zezwalającej. Opcja A (terminy rozporządzenia) - to dotyczy badań OKRESOWYCH (co rok/2 lata), nie odbiorczych. Opcja C (po naprawie) - to badania DORAŹNE, nie odbiorcze. Opcja D (zmiana eksploatującego) - novi eksploatujący przejmuje decyzję poprzednika, nie robi nowych badań odbiorczych (Art. 15a).",
+    "hint": "🆕 PIERWSZE BADANIE - ODBIORCZE: Art. 13 - "badania odbiorcze" to badania "w warunkach gotowości do pracy" wykonywane PRZED wydaniem pierwszej decyzji (B). To jest TEST czy nowy wózek działa prawidłowo. Potem: OKRESOWE (co rok), DORAŹNE (po wypadku/naprawie). Zmiana właściciela (D) - stary właściciel oddaje papier nowemu, bez nowych badań!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 13 ust. 1 pkt 2 lit. a, Art. 14 ust. 2"
     },
@@ -429,8 +397,8 @@
     "D": "wszystkie odpowiedzi są poprawne"
     },
     "correct_option": "B",
-    "explanation": "Art. 13 ust. 1 pkt 2 lit. b: 'w toku eksploatacji urządzeń technicznych objętych dozorem technicznym PEŁNYM organ właściwej jednostki dozoru technicznego...wykonuje OKRESOWE i doraźne badania techniczne'. Art. 13 ust. 1 pkt 3: 'w toku eksploatacji urządzeń technicznych objętych dozorem technicznym OGRANICZONYM organ właściwej jednostki dozoru technicznego: a) przeprowadza badania odbiorcze, b) wykonuje DORAŹNE badania techniczne' - brak wyraźnie 'OKRESOWYCH'. Art. 13 ust. 1 pkt 4: 'w toku wytwarzania urządzeń technicznych objętych dozorem technicznym UPROSZCZONYM organ...przeprowadza badania typu' - to w WYTWARZANIU, nie eksploatacji. Dlatego: Pełny (B) = OKRESOWE + doraźne. Ograniczony (A) = doraźne (bez okresowych). Uproszczony (C) = brak w eksploatacji. Odpowiedź B jest JEDYNĄ prawidłową.",
-    "hint": "📅 PEŁNY = OKRESOWY + DORAŹNY. Art. 13 ust. 1 pkt 2 - tylko 'pełny' dozór wymaga badań OKRESOWYCH (co 6 m-cy, co rok). Ograniczony (A) ma tylko DORAŹNE (np. po wypadku). Uproszczony (C) - to dla prostych urządzeń, badania w wytwarzaniu, nie w eksploatacji. Zapamiętaj: PEŁNY = ZAWSZE kontrola (periodyczna). OGRANICZONY = rzadko (doraźnie). UPROSZCZONY = prawie wcale.",
+    "explanation": "Art. 13 ust. 1 pkt 2 lit. b: "w toku eksploatacji urządzeń technicznych objętych dozorem technicznym PEŁNYM organ właściwej jednostki dozoru technicznego...wykonuje OKRESOWE i doraźne badania techniczne". Art. 13 ust. 1 pkt 3: "w toku eksploatacji urządzeń technicznych objętych dozorem technicznym OGRANICZONYM organ właściwej jednostki dozoru technicznego: a) przeprowadza badania odbiorcze, b) wykonuje DORAŹNE badania techniczne" - brak wyraźnie "OKRESOWYCH". Art. 13 ust. 1 pkt 4: "w toku wytwarzania urządzeń technicznych objętych dozorem technicznym UPROSZCZONYM organ...przeprowadza badania typu" - to w WYTWARZANIU, nie eksploatacji. Dlatego: Pełny (B) = OKRESOWE + doraźne. Ograniczony (A) = doraźne (bez okresowych). Uproszczony (C) = brak w eksploatacji. Odpowiedź B jest JEDYNĄ prawidłową.",
+    "hint": "📅 PEŁNY = OKRESOWY + DORAŹNY. Art. 13 ust. 1 pkt 2 - tylko "pełny" dozór wymaga badań OKRESOWYCH (co 6 m-cy, co rok). Ograniczony (A) ma tylko DORAŹNE (np. po wypadku). Uproszczony (C) - to dla prostych urządzeń, badania w wytwarzaniu, nie w eksploatacji. Zapamiętaj: PEŁNY = ZAWSZE kontrola (periodyczna). OGRANICZONY = rzadko (doraźnie). UPROSZCZONY = prawie wcale.",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 13 ust. 1 pkt 2 lit. b, pkt 3"
     },
@@ -445,7 +413,7 @@
     "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Art. 26 pkt 1 Ustawy: 'Przedsiębiorca...jest obowiązany zapewnić warunki do bezpiecznego i sprawnego ich [czynności dozoru] wykonania, w tym obecność KONSERWUJĄCEGO I OBSŁUGUJĄCEGO, JEŻELI JEST WYMAGANA' - to sugeruje, że czasami konserwator MOŻE nie być obecny, ALE 'jeśli jest wymagana' (Art. 26 ust. 1). Rozporządzenie proceduralne (§ 3.2) wymaga, że 'powiadomienie osoby zainteresowanej następuje za pomocą dostępnych środków komunikacji' - jeśli konserwator nie może być, musi SIĘ UZGODNIĆ z inspektorem. Opcja B (usprawiedliwienie pisemne) - mogłoby być dodatkowo, ale nie jest WYMOGIEM minimum. Opcja C (zwolnienie lekarskie) - to skrajne, ale również mogłoby być DOWODEM. Jednak MINIMUM to (A) - uzgodnienie z UDT PRZED czasem.",
+    "explanation": "Art. 26 pkt 1 Ustawy: "Przedsiębiorca...jest obowiązany zapewnić warunki do bezpiecznego i sprawnego ich [czynności dozoru] wykonania, w tym obecność KONSERWUJĄCEGO I OBSŁUGUJĄCEGO, JEŻELI JEST WYMAGANA" - to sugeruje, że czasami konserwator MOŻE nie być obecny, ALE "jeśli jest wymagana" (Art. 26 ust. 1). Rozporządzenie proceduralne (§ 3.2) wymaga, że "powiadomienie osoby zainteresowanej następuje za pomocą dostępnych środków komunikacji" - jeśli konserwator nie może być, musi SIĘ UZGODNIĆ z inspektorem. Opcja B (usprawiedliwienie pisemne) - mogłoby być dodatkowo, ale nie jest WYMOGIEM minimum. Opcja C (zwolnienie lekarskie) - to skrajne, ale również mogłoby być DOWODEM. Jednak MINIMUM to (A) - uzgodnienie z UDT PRZED czasem.",
     "hint": "📞 UZGODNIJ Z INSPEKTOREM: Art. 26 ust. 1 - konserwator POWINIEN być obecny na badaniu. Jeśli nie może (choroba, urlop), trzeba WCZEŚNIEJ (A) poinformować inspektora i uzgodnić alternatywę. Usprawiedliwienie (B) może być dodatkowo, ale MINIMUM to wiadomość do UDT. Zwolnienie lekarskie (C) to dokument, ale także DOPIERO POTWIERDZA uzgodnieniu. Porządek: NAJPIERW call/mail inspektorowi!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 26 pkt 1"
@@ -462,7 +430,24 @@
     "D": "wszystkie odpowiedzi są prawidłowe"
     },
     "correct_option": "A",
-    "explanation": "Art. 22 ust. 1c: 'Sprawdzenie kwalifikacji osób...dotyczy osób, które UKOŃCZYŁY 18 LAT oraz władają językiem polskim...'. To jedyne formalne wymogi WIEKOWE i JĘZYKOWSKIE w ustawie. Art. 22 ust. 1: wymogi dla pracowników WYTWARZAJĄCYCH/NAPRAWIAJĄCYCH to 'wyższe wykształcenie + doświadczenie' LUB 'średnie + 5 lat doświadczenia' - ALE to dotyczy pracowników PRODUCENTA/SERWISU, nie operatorów. Dla operatorów egzamin jest (Art. 23), ale nie ma wymógu wykształcenia formalnego (B) ani stażu pracy (C) - trzeba zdać test teoretyczno-praktyczny, koniec. Możliwy jest 17-latek bez stażu, jeśli zdá egzamin po 18-stce.",
+    "explanation": "Art. 22 ust. 3a Ustawy: \"Zaświadczenia kwalifikacyjne osób...są wydawane NA CZAS OKREŚLONY nie krótszy niż 5 lat i nie dłuższy niż 10 lat.\" Kiedy upływa termin - uprawnienia wygasają. Art. 23 ust. 2c Ustawy określa warunki PRZEDŁUŻENIA (musi mieć 3-letni staż), ale przedłużenie ≠ automatyczne. Opcja A (zmiana pracodawcy nie ratuje) - FAŁSZ. Zaświadczenie jest OSOBISTE, uwarunkowane wiekiem i zdrowiem, nie pracodawcą. Opcja B (złożenie wniosku) - wniosek SAMODZIELNIE nie upoważnia. Musi być przełożony egzaminem lub procedurą przedłużenia. Opcja D (wniosek o przedłużenie) - to jest OPCJA, ale TYLKO jeśli operator ma 3 lata doświadczenia. Jeśli pracował 2 lata - nie może przedłużyć, musi zdawać od nowa. Opcja C jest UNIWERSALNA: bez WAŻNEGO zaświadczenia = NIE MOŻESZ PRACOWAĆ, punkt.",
+    "hint": "📅 PEŁNY = OKRESOWY + DORAŹNY. Art. 13 ust. 1 pkt 2 - tylko \"pełny\" dozór wymaga badań OKRESOWYCH (co 6 m-cy, co rok). Ograniczony (A) ma tylko DORAŹNE (np. po wypadku). Uproszczony (C) - to dla prostych urządzeń, badania w wytwarzaniu, nie w eksploatacji. Zapamiętaj: PEŁNY = ZAWSZE kontrola (periodyczna). OGRANICZONY = rzadko (doraźnie). UPROSZCZONY = prawie wcale.",
+    "category": "Prawo i Dozór Techniczny",
+    "source_article": "Art. 13 ust. 1 pkt 2 lit. b, pkt 3"
+    },
+    {
+    "id": "26",
+    "text": "Nieobecność konserwującego na badaniu urządzenia technicznego wymaga min.:",
+    "image_path": null,
+    "options": {
+    "A": "wcześniejszego uzgodnienia tego faktu z organem właściwej jednostki dozoru technicznego",
+    "B": "przedstawienia pisemnego usprawiedliwienia nieobecności konserwatora",
+    "C": "przedstawienia zwolnienia lekarskiego potwierdzającego niezdolność konserwatora do pracy",
+    "D": "wszystkie    "category": "Prawo i Dozór Techniczny",
+    "source_article": "Art. 22 ust. 3a, Art. 23 ust. 2c"
+    }
+  }
+]
     "hint": "🔞 TYLKO WIEK: Art. 22 ust. 1c - minimum to 18 LAT + polszczyzna. NIC o wykształceniu (B) ani staż (C) dla obsługujących! Mogą być osoby bez szkoły średniej, bez doświadczenia - ALE po skończeniu 18 lat i zdaniu egzaminu UDT. To bardzo demokratyczne: możesz mieć 18, pracować na wózku, jeśli zdashłaś test. Wykształcenie i staż to wymogi dla KONSERWATORÓW/PRODUCENTI, nie dla OPERATORÓW!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 22 ust. 1c, Art. 23 ust. 1c"
@@ -496,8 +481,8 @@
     "D": "odpowiedź a i c jest prawidłowa"
     },
     "correct_option": "D",
-    "explanation": "Art. 4 pkt 7: 'konserwacji – należy przez to rozumieć zespół czynności...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI' - oznacza to, że instrukcja (A) JEST ŹRÓDŁEM głównym terminów przeglądów. Art. 8 ust. 5: 'Minister...określi...TERMINY badań okresowych' (to są badania UDT, nie konserwacja) - to jest rozporządzenie (C). Oprócz tego: Art. 13 ust. 1 pkt 2 lit. b: 'wykonuje okresowe i doraźne badania techniczne' - ale nie podaje konkretnych TERMINÓW (każde urządzenie jest inne). Samej USTAWIE (B) nie ma tabel z konkretnymi terminami - ogólnie mówi 'zgodnie z instrukcją' i 'rozporządzenie określi'. Odpowiedź D (A + C) jest prawidłowa.",
-    "hint": "📚 DWIE BIBLIE: 1) DTR (instrukcja eksploatacji) (A) - producent mówi: 'przegląd co 500 godzin' lub 'co 6 m-cy'. 2) Rozporządzenie ministerialny (C) - organ określa: 'badania UDT co rok dla pełnego dozoru'. USTAWA (B) mówi ogólnie 'zgodnie z instrukcją', ale nie wymieniać konkretnych terminów. Zapamiętaj: DTR + Rozporządzenie = źródła terminów!",
+    "explanation": "Art. 4 pkt 7: "konserwacji – należy przez to rozumieć zespół czynności...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI" - oznacza to, że instrukcja (A) JEST ŹRÓDŁEM głównym terminów przeglądów. Art. 8 ust. 5: "Minister...określi...TERMINY badań okresowych" (to są badania UDT, nie konserwacja) - to jest rozporządzenie (C). Oprócz tego: Art. 13 ust. 1 pkt 2 lit. b: "wykonuje okresowe i doraźne badania techniczne" - ale nie podaje konkretnych TERMINÓW (każde urządzenie jest inne). Samej USTAWIE (B) nie ma tabel z konkretnymi terminami - ogólnie mówi "zgodnie z instrukcją" i "rozporządzenie określi". Odpowiedź D (A + C) jest prawidłowa.",
+    "hint": "📚 DWIE BIBLIE: 1) DTR (instrukcja eksploatacji) (A) - producent mówi: "przegląd co 500 godzin" lub "co 6 m-cy". 2) Rozporządzenie ministerialny (C) - organ określa: "badania UDT co rok dla pełnego dozoru". USTAWA (B) mówi ogólnie "zgodnie z instrukcją", ale nie wymieniać konkretnych terminów. Zapamiętaj: DTR + Rozporządzenie = źródła terminów!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 4 pkt 7, Art. 8 ust. 5, Art. 13 ust. 1 pkt 2 lit. b"
     }
@@ -513,12 +498,12 @@
     "D": "w dzienniku konserwacji"
     },
     "correct_option": "B",
-    "explanation": "Art. 8 ust. 4 i ust. 5: 'Minister...określi...warunki techniczne dozoru technicznego...uwzględniając...TERMINY badań okresowych'. To jest ROZPORZĄDZENIE (wykonawcze do ustawy), zwane 'warunkami technicznymi' (B). USTAWA (A) samo nie podaje konkretnych liczb (np. 'co rok', 'co 6 m-cy') - deleguje to do rozporządzenia. Dokumentacja konstrukcyjna (C) zawiera plany techniczne, niekoniecznie terminy badań. Dziennik konserwacji (D) to ZAPIS FAKTÓW, nie źródło terminów. Rozporządzenie jest JEDYNYM źródłem oficjalnym dla badań UDT (Art. 13 ust. 1 pkt 2).",
-    "hint": "📋 ROZPORZĄDZENIE RZĄDZI: Art. 8 ust. 5 - 'terminy badań okresowych' są w ROZPORZĄDZENIU ministerialnym (nie w samej ustawie!). To jak prawo jazdy: USTAWA mówi 'będą badania', ROZPORZĄDZENIE mówi 'co 5 lat'. Dokumentacja (C) to rysunki, nie harmonogram. Dziennik (D) to zapis 'zrobiliśmy badanie 15.01', nie 'kiedy robić'. Zapamiętaj: ROZPORZĄDZENIE = tabela terminów!",
+    "explanation": "Art. 8 ust. 4 i ust. 5: "Minister...określi...warunki techniczne dozoru technicznego...uwzględniając...TERMINY badań okresowych". To jest ROZPORZĄDZENIE (wykonawcze do ustawy), zwane "warunkami technicznymi" (B). USTAWA (A) samo nie podaje konkretnych liczb (np. "co rok", "co 6 m-cy") - deleguje to do rozporządzenia. Dokumentacja konstrukcyjna (C) zawiera plany techniczne, niekoniecznie terminy badań. Dziennik konserwacji (D) to ZAPIS FAKTÓW, nie źródło terminów. Rozporządzenie jest JEDYNYM źródłem oficjalnym dla badań UDT (Art. 13 ust. 1 pkt 2).",
+    "hint": "📋 ROZPORZĄDZENIE RZĄDZI: Art. 8 ust. 5 - "terminy badań okresowych" są w ROZPORZĄDZENIU ministerialnym (nie w samej ustawie!). To jak prawo jazdy: USTAWA mówi "będą badania", ROZPORZĄDZENIE mówi "co 5 lat". Dokumentacja (C) to rysunki, nie harmonogram. Dziennik (D) to zapis "zrobiliśmy badanie 15.01", nie "kiedy robić". Zapamiętaj: ROZPORZĄDZENIE = tabela terminów!",
     "category": "Prawo i Dozór Techniczny",
     "source_article": "Art. 8 ust. 4-5, Art. 13 ust. 1 pkt 2"
     },
-    [
+
       {
         "id": "31",
         "text": "Obowiązkiem obsługującego urządzenie techniczne jest:",
@@ -530,8 +515,8 @@
           "D": "wszystkie odpowiedzi są poprawne"
         },
         "correct_option": "A",
-        "explanation": "Art. 4 pkt 7: 'konserwacji – należy przez to rozumieć zespół czynności...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI, NIEBĘDĄCYCH NAPRAWĄ urządzenia' + Art. 22 ust. 3: 'Osoby obsługujące...urządzenia techniczne obowiązane są posiadać zaświadczenia kwalifikacyjne' - czyli operator ma JEDYNIE obowiązek OBSŁUGI, zgodnie z instrukcją (A). Konserwacja (B) - to zadanie KONSERWATORA, nie operatora. Naprawy (C) - to zadanie SERWISU (uprawniającego), nie operatora. Operatorski obowiązek to CZYTAĆ INSTRUKCJĘ w zakresie obsługi (uruchamianie, obsługa bezpieczna, ograniczenia), koniec.",
-        "hint": "📖 INSTRUKCJA OBSŁUGI - TY TO CZYTASZ: Operator obsługuje wózek po instrukcji (A) - znaczy: 'jak go zapalić', 'jak przenosić ładunek', 'jakie są limity udźwigu'. Instrukcja KONSERWACJI (B) - to czyta KONSERWATOR (kiedy wymieniać olej). Naprawy (C) - robi SERWIS, nie Ty! Operatorski obowiązek to ZNAĆ instrukcję obsługi i jej PRZESTRZEGAĆ!",
+        "explanation": "Art. 4 pkt 7: "konserwacji – należy przez to rozumieć zespół czynności...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI, NIEBĘDĄCYCH NAPRAWĄ urządzenia" + Art. 22 ust. 3: "Osoby obsługujące...urządzenia techniczne obowiązane są posiadać zaświadczenia kwalifikacyjne" - czyli operator ma JEDYNIE obowiązek OBSŁUGI, zgodnie z instrukcją (A). Konserwacja (B) - to zadanie KONSERWATORA, nie operatora. Naprawy (C) - to zadanie SERWISU (uprawniającego), nie operatora. Operatorski obowiązek to CZYTAĆ INSTRUKCJĘ w zakresie obsługi (uruchamianie, obsługa bezpieczna, ograniczenia), koniec.",
+        "hint": "📖 INSTRUKCJA OBSŁUGI - TY TO CZYTASZ: Operator obsługuje wózek po instrukcji (A) - znaczy: "jak go zapalić", "jak przenosić ładunek", "jakie są limity udźwigu". Instrukcja KONSERWACJI (B) - to czyta KONSERWATOR (kiedy wymieniać olej). Naprawy (C) - robi SERWIS, nie Ty! Operatorski obowiązek to ZNAĆ instrukcję obsługi i jej PRZESTRZEGAĆ!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 4 pkt 7, Art. 22 ust. 3"
       },
@@ -543,11 +528,11 @@
           "A": "aktualnej naklejki organu właściwej jednostki dozoru technicznego określającej termin kolejnego badania",
           "B": "aktualnego wpisu konserwatora urządzenia w dzienniku konserwacji",
           "C": "ważnej decyzji zezwalającej na eksploatację wydanej przez organ właściwej jednostki dozoru technicznego",
-          "D": "pozytywnego protokołu z badania okresowego lub odboru"
+          "D": "pozytywnego protokołu z badania okresowego lub odbiorczego"
         },
         "correct_option": "C",
-        "explanation": "Art. 14 ust. 1 i 4: 'Urządzenia techniczne...mogą być eksploatowane TYLKO NA PODSTAWIE decyzji zezwalającej na ich eksploatację, wydanej przez organ właściwej jednostki dozoru technicznego' + 'Na podstawie pozytywnych wyników badań...organ...WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia'. DECYZJA to dokument ADMINISTRACYJNY (papier z pieczęcią UDT), nie naklejka czy protokół. Naklejka (A) to INFORMACJA wizualna ('następne badanie 15.01.2027'), ale nie podstawa prawna eksploatacji. Wpis w dzienniku (B) to ZAPIS faktów, nie zezwolenie. Protokół (D) to RAPORT z badania, ale protokół sam w sobie to nie zezwolenie - musi być przekształcony w DECYZJĘ (C).",
-        "hint": "📜 PAPIER Z PIECZĘCIĄ = DECYZJA: Art. 14 ust. 4 - podstawą jest DECYZJA administracyjna (dokument urzędowy z nr sprawy, datą, podpisem inspektora UDT). Naklejka (A) to tylko reminder 'masz przegląd za 6 m-cy'. Dziennik (B) to historia co robiliśmy. Protokół (D) to raport badania, ale dopiero jak inspektor wypisze DECYZJĘ na podstawie protokołu - WÓWCZAS możesz pracować!",
+        "explanation": "Art. 14 ust. 1 i 4: "Urządzenia techniczne...mogą być eksploatowane TYLKO NA PODSTAWIE decyzji zezwalającej na ich eksploatację, wydanej przez organ właściwej jednostki dozoru technicznego" + "Na podstawie pozytywnych wyników badań...organ...WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia". DECYZJA to dokument ADMINISTRACYJNY (papier z pieczęcią UDT), nie naklejka czy protokół. Naklejka (A) to INFORMACJA wizualna ("następne badanie 15.01.2027"), ale nie podstawa prawna eksploatacji. Wpis w dzienniku (B) to ZAPIS faktów, nie zezwolenie. Protokół (D) to RAPORT z badania, ale protokół sam w sobie to nie zezwolenie - musi być przekształcony w DECYZJĘ (C).",
+        "hint": "📜 PAPIER Z PIECZĘCIĄ = DECYZJA: Art. 14 ust. 4 - podstawą jest DECYZJA administracyjna (dokument urzędowy z nr sprawy, datą, podpisem inspektora UDT). Naklejka (A) to tylko reminder "masz przegląd za 6 m-cy". Dziennik (B) to historia co robiliśmy. Protokół (D) to raport badania, ale dopiero jak inspektor wypisze DECYZJĘ na podstawie protokołu - WÓWCZAS możesz pracować!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 14 ust. 1, 4"
       },
@@ -562,8 +547,8 @@
           "D": "wszystkie odpowiedzi są poprawne"
         },
         "correct_option": "B",
-        "explanation": "Art. 33 ust. 1: 'Inspektor sporządza w postaci papierowej lub elektronicznej PROTOKÓŁ wykonania czynności dozoru technicznego' + Art. 14 ust. 4: 'Na podstawie pozytywnych wyników badań...organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ'. Instrukcja (A) to DOKUMENT PRODUCENTA (dostarczany przy zakupie), nie inspektor to pisze. Deklaracja CE (C) to DOKUMENT WYTWÓRCY (dla procedury handlowej), nie inspektor pisze. Inspektor zawsze pisze DWA dokumenty: 1) PROTOKÓŁ (raport z badania) 2) DECYZJA (zezwolenie LUB odmowa). To zawsze PARA dokumentów.",
-        "hint": "📋 ZAWSZE DWIE RZECZY: Inspektor UDT robi zawsze: 1️⃣ PROTOKÓŁ (raport: 'mierzyliśmy ciśnienie...', 'wymiary OK', 'testy pozytywne'). 2️⃣ DECYZJA ('Zezwalam na eksploatację' lub 'Odmawiam'). Instrukcja (A) to rozporządzenie producenta ('Press this button'). CE (C) to papier wytwórcy (procedura handlowa). Pamiętaj: PROTOKÓŁ + DECYZJA = efekt pracy inspektora!",
+        "explanation": "Art. 33 ust. 1: "Inspektor sporządza w postaci papierowej lub elektronicznej PROTOKÓŁ wykonania czynności dozoru technicznego" + Art. 14 ust. 4: "Na podstawie pozytywnych wyników badań...organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ". Instrukcja (A) to DOKUMENT PRODUCENTA (dostarczany przy zakupie), nie inspektor to pisze. Deklaracja CE (C) to DOKUMENT WYTWÓRCY (dla procedury handlowej), nie inspektor pisze. Inspektor zawsze pisze DWA dokumenty: 1) PROTOKÓŁ (raport z badania) 2) DECYZJA (zezwolenie LUB odmowa). To zawsze PARA dokumentów.",
+        "hint": "📋 ZAWSZE DWIE RZECZY: Inspektor UDT robi zawsze: 1️⃣ PROTOKÓŁ (raport: "mierzyliśmy ciśnienie...", "wymiary OK", "testy pozytywne"). 2️⃣ DECYZJA ("Zezwalam na eksploatację" lub "Odmawiam"). Instrukcja (A) to rozporządzenie producenta ("Press this button"). CE (C) to papier wytwórcy (procedura handlowa). Pamiętaj: PROTOKÓŁ + DECYZJA = efekt pracy inspektora!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 33 ust. 1, Art. 14 ust. 4"
       },
@@ -578,7 +563,7 @@
           "D": "eksploatujący"
         },
         "correct_option": "C",
-        "explanation": "Art. 9 ust. 1: 'Urządzenia techniczne...mogą być...NAPRAWIANE LUB MODERNIZOWANE przez...NAPRAWIAJĄCEGO LUB MODERNIZUJĄCEGO, który POSIADA UPRAWNIENIE, wydane w formie DECYZJI ADMINISTRACYJNEJ...przez organ właściwej jednostki dozoru technicznego'. 'Uprawnienie' = DECYZJA UDT dla zakładu (nie dla indywidualnego konserwatora czy operatora). Operator (A) - absolutnie zakazane, może tylko obsługiwać. Konserwator (B) - może być pracownikiem UPRAWNIONEGO zakładu, ale sam w sobie (bez papierów UDT) nie może. Eksploatujący (D) - może być właścicielem uprawniającego zakładu, ale robić mogą tylko osoby UPOWAŻNIONE. Odpowiedź: ZAKŁAD UPRAWNIONY (tj. posiadający decyzję UDT do napraw/modernizacji).",
+        "explanation": "Art. 9 ust. 1: "Urządzenia techniczne...mogą być...NAPRAWIANE LUB MODERNIZOWANE przez...NAPRAWIAJĄCEGO LUB MODERNIZUJĄCEGO, który POSIADA UPRAWNIENIE, wydane w formie DECYZJI ADMINISTRACYJNEJ...przez organ właściwej jednostki dozoru technicznego". "Uprawnienie" = DECYZJA UDT dla zakładu (nie dla indywidualnego konserwatora czy operatora). Operator (A) - absolutnie zakazane, może tylko obsługiwać. Konserwator (B) - może być pracownikiem UPRAWNIONEGO zakładu, ale sam w sobie (bez papierów UDT) nie może. Eksploatujący (D) - może być właścicielem uprawniającego zakładu, ale robić mogą tylko osoby UPOWAŻNIONE. Odpowiedź: ZAKŁAD UPRAWNIONY (tj. posiadający decyzję UDT do napraw/modernizacji).",
         "hint": "🏭 UPRAWNIENIE = DECYZJA ZAKŁADU: Art. 9 ust. 1 - naprawy i modernizacje mogą robić TYLKO zakłady z DECYZJĄ UDT. Nie wolno: operator (A) - obsługuje, nie naprawia! Konserwator (B) - może pracować w uprawnionczym zakładzie, ale bez papierów UDT to zakazane. Eksploatujący (D) może delegować pracę uprawnionemu zakładowi, ale sam nie może. Zapamiętaj: DECYZJA UDT dla ZAKŁADU = jedyna legalna droga do napraw!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 9 ust. 1"
@@ -595,7 +580,7 @@
         },
         "correct_option": "A",
         "explanation": "Art. 28 (Uprawnienia inspektora) + Art. 35 (Obowiązki operatora): Operator w MOMENCIE pracy ma BEZPOŚREDNI wpływ na bezpieczeństwo - to ON decyduje czy się pospieszać, czy czekać, czy przewozić ładunek powyżej limitu. Producent (B) odpowiada za PROJEKT i WYTWARZANIE (Art. 22 ust. 1). BHP (C) odpowiada za warunki PRACY LUDZI (stanowiska, BHP). Inspektor (D) KONTROLUJE ale nie OPERUJE urządzeniem (nie siedzi w kabinie). Odpowiedzialność OPERACYJNA = OPERATOR (w chwili eksploatacji). Art. 2 ust. 3 + Art. 31: Eksploatujący (właściciel) odpowiada za stan techniczny, ale OPERATOR odpowiada za bezpieczne UŻYTKOWANIE.",
-        "hint": "👤 W CHWILI PRACY - OPERATOR: Producent (B) odpowiada za jakość przy wytwarzaniu (Art. 22 ust. 1). BHP (C) za stanowisko pracy. Inspektor (D) za kontrolę. ALE KTO W MOMENCIE PRACY SIEDZI W KABINIE I PODEJMUJE DECYZJE? OPERATOR! Art. 28 + Art. 31 mówią: to operator ma bezpośrednio 'bezpieczne warunki pracy'. Jeśli TY jadąc wózkiem zignoryjesz limit udźwigu i wywalisz się - TO TWOJA ODPOWIEDZIALNOŚĆ!",
+        "hint": "👤 W CHWILI PRACY - OPERATOR: Producent (B) odpowiada za jakość przy wytwarzaniu (Art. 22 ust. 1). BHP (C) za stanowisko pracy. Inspektor (D) za kontrolę. ALE KTO W MOMENCIE PRACY SIEDZI W KABINIE I PODEJMUJE DECYZJE? OPERATOR! Art. 28 + Art. 31 mówią: to operator ma bezpośrednio "bezpieczne warunki pracy". Jeśli TY jadąc wózkiem zignoryjesz limit udźwigu i wywalisz się - TO TWOJA ODPOWIEDZIALNOŚĆ!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 2 ust. 3, Art. 28, Art. 31"
       },
@@ -610,8 +595,8 @@
           "D": "protokole z badania wykonanego przez inspektora UDT"
         },
         "correct_option": "A",
-        "explanation": "Art. 4 pkt 7 + Art. 22 ust. 1c: 'konserwacji...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI' + Art. 28 (Uprawnienia inspektora): inspektor ma prawo do 'wydawania ZALECEŃ technicznych' (ale to ogólne wskazówki, nie szczegółowe warunki obsługi). INSTRUKCJA EKSPLOATACJI (DTR - Documentation Technical Requirements) - to jest DOKUMENT PRODUCENTA zawierający: limity udźwigu, procedury bezpiecznej obsługi, warunki pracy, ograniczenia. USTAWA (B) to przepisy ogólne, nie zawiera szczegółów obsługi konkretnego wózka. Dziennik (C) to ZAPIS FAKTÓW (co robiliśmy), nie instrukcje. Protokół UDT (D) to RAPORT z badania, nie przewodnik obsługi.",
-        "hint": "📖 INSTRUKCJA = BIBLIA BEZPIECZEŃSTWA: Producent pisze: 'maksymalny udźwig 2 t', 'nie jeZdż na pochyłościach powyżej 15°', 'olewaj każde 500 godzin'. To jest DTR (instrukcja eksploatacji) (A). USTAWA (B) mówi ogólnie 'operator musi być bezpieczny', ale nie mówi do którego konkretnie wózka. Dziennik (C) to fakt 'zrobiliśmy serwis'. Protokół (D) to raport 'wózek przeszedł test'. Zapamiętaj: DLA KAŻDEGO WÓZKA JEST INNA INSTRUKCJA!",
+        "explanation": "Art. 4 pkt 7 + Art. 22 ust. 1c: "konserwacji...PROWADZONYCH ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI" + Art. 28 (Uprawnienia inspektora): inspektor ma prawo do "wydawania ZALECEŃ technicznych" (ale to ogólne wskazówki, nie szczegółowe warunki obsługi). INSTRUKCJA EKSPLOATACJI (DTR - Documentation Technical Requirements) - to jest DOKUMENT PRODUCENTA zawierający: limity udźwigu, procedury bezpiecznej obsługi, warunki pracy, ograniczenia. USTAWA (B) to przepisy ogólne, nie zawiera szczegółów obsługi konkretnego wózka. Dziennik (C) to ZAPIS FAKTÓW (co robiliśmy), nie instrukcje. Protokół UDT (D) to RAPORT z badania, nie przewodnik obsługi.",
+        "hint": "📖 INSTRUKCJA = BIBLIA BEZPIECZEŃSTWA: Producent pisze: "maksymalny udźwig 2 t", "nie jeZdż na pochyłościach powyżej 15°", "olewaj każde 500 godzin". To jest DTR (instrukcja eksploatacji) (A). USTAWA (B) mówi ogólnie "operator musi być bezpieczny", ale nie mówi do którego konkretnie wózka. Dziennik (C) to fakt "zrobiliśmy serwis". Protokół (D) to raport "wózek przeszedł test". Zapamiętaj: DLA KAŻDEGO WÓZKA JEST INNA INSTRUKCJA!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 4 pkt 7, Art. 22 ust. 1c"
       },
@@ -626,7 +611,7 @@
           "D": "odpowiedź a i c jest prawidłowa"
         },
         "correct_option": "D",
-        "explanation": "Art. 37 + Rozporządzenie (procedury obsługi codziennej - OTC - Operator Before Using): Operator ma obowiązek: 1) OGLĘDZINY (A) - wizualna kontrola: czy nie ma widocznych uszkodzeń, pęknięć, wycieku oleju (Art. 26 pkt 1 + Art. 31: 'warunki do bezpiecznego...wykonania'). 2) PRÓBY RUCHOWE (C) - bez ładunku: czy podnoszenie/opuszczanie/skręcanie działa sprawnie (Art. 37 z rozporządzenia wymaga testów funkcyjnych). Opcja B (próby STATYCZNE i DYNAMICZNE) - to są BADANIA UDT (duże testy z ciśnieniomierzem i wagą), nie codzienne czynności operatora. Odpowiedź D (A + C) = prawidłowe czynności codzienne.",
+        "explanation": "Art. 37 + Rozporządzenie (procedury obsługi codziennej - OTC - Operator Before Using): Operator ma obowiązek: 1) OGLĘDZINY (A) - wizualna kontrola: czy nie ma widocznych uszkodzeń, pęknięć, wycieku oleju (Art. 26 pkt 1 + Art. 31: "warunki do bezpiecznego...wykonania"). 2) PRÓBY RUCHOWE (C) - bez ładunku: czy podnoszenie/opuszczanie/skręcanie działa sprawnie (Art. 37 z rozporządzenia wymaga testów funkcyjnych). Opcja B (próby STATYCZNE i DYNAMICZNE) - to są BADANIA UDT (duże testy z ciśnieniomierzem i wagą), nie codzienne czynności operatora. Odpowiedź D (A + C) = prawidłowe czynności codzienne.",
         "hint": "👀 OTC - OPERATOR BEFORE USING: Każdy dzień przed pracą: 1️⃣ OŁADEJ OCZY (A) - poszukaj pęknięć, wycieku, czegś dziwnego (2 minuty). 2️⃣ WŁĄCZ I TESTUJ (C) - bez ładunku: czy podnosi/opuszcza/kręci się normalnie (2 minuty). Próby STATYCZNE/DYNAMICZNE (B) = testy UDT (duże laboratoryjne testy), nie dla Ciebie! Zapamiętaj: 4 minuty codziennie = bezpieczna praca!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 26 pkt 1, Art. 31, Art. 37 (rozporządzenie)"
@@ -642,8 +627,8 @@
           "D": "organ właściwej jednostki dozoru technicznego"
         },
         "correct_option": "D",
-        "explanation": "Art. 23 ust. 1 + Rozporządzenie (procedury egzaminacyjne): 'Organ właściwej jednostki dozoru technicznego, na wniosek zainteresowanych osób, sprawdza kwalifikacje' + 'Pozytywny wynik egzaminu jest podstawą do WYDANIA ZAŚWIADCZENIA KWALIFIKACYJNEGO przez organ właściwej jednostki dozoru technicznego'. Firma szkoleniowa (A) - może prowadzić kurs, ale NIE wydaje zaświadczeń UDT (wydaje certyfikat szkoły, bezwartościowy prawnie). BHP (B) - może wymagać szkolenia, ale nie wydaje zaświadczeń UDT. Pracodawca (C) - zatrudnia, ale nie ma uprawnień do wydawania dokumentów UDT. JEDYNIE organ UDT/TDT/WDT (D) może wydać ZAŚWIADCZENIE KWALIFIKACYJNE (Art. 23 ust. 1).",
-        "hint": "🏛️ TYLKO URZĄD: Art. 23 ust. 1 - zaświadczenie wydaje ORGAN UDT (Urząd Dozoru Technicznego) LUB TDT LUB WDT. Szkoła (A) wydaje certyfikat 'odbył kurs', ale to nie jest dokumentem prawnym UDT! BHP (B) to inny resort (warunki pracy), nie zajmuje się zaświadczeniami UDT. Pracodawca (C) może wymagać szkolenia, ale nie może wydawać papierów UDT. Zapamiętaj: APLIKUJESZ DO UDT, ZDAJESZ EGZAMIN, UDT WYDAJE ZAŚWIADCZENIE!",
+        "explanation": "Art. 23 ust. 1 + Rozporządzenie (procedury egzaminacyjne): "Organ właściwej jednostki dozoru technicznego, na wniosek zainteresowanych osób, sprawdza kwalifikacje" + "Pozytywny wynik egzaminu jest podstawą do WYDANIA ZAŚWIADCZENIA KWALIFIKACYJNEGO przez organ właściwej jednostki dozoru technicznego". Firma szkoleniowa (A) - może prowadzić kurs, ale NIE wydaje zaświadczeń UDT (wydaje certyfikat szkoły, bezwartościowy prawnie). BHP (B) - może wymagać szkolenia, ale nie wydaje zaświadczeń UDT. Pracodawca (C) - zatrudnia, ale nie ma uprawnień do wydawania dokumentów UDT. JEDYNIE organ UDT/TDT/WDT (D) może wydać ZAŚWIADCZENIE KWALIFIKACYJNE (Art. 23 ust. 1).",
+        "hint": "🏛️ TYLKO URZĄD: Art. 23 ust. 1 - zaświadczenie wydaje ORGAN UDT (Urząd Dozoru Technicznego) LUB TDT LUB WDT. Szkoła (A) wydaje certyfikat "odbył kurs", ale to nie jest dokumentem prawnym UDT! BHP (B) to inny resort (warunki pracy), nie zajmuje się zaświadczeniami UDT. Pracodawca (C) może wymagać szkolenia, ale nie może wydawać papierów UDT. Zapamiętaj: APLIKUJESZ DO UDT, ZDAJESZ EGZAMIN, UDT WYDAJE ZAŚWIADCZENIE!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 23 ust. 1, Rozporządzenie § 4 ust. 2"
       },
@@ -658,8 +643,8 @@
           "D": "jest dopuszczalne ale tylko do 110% udźwigu nominalnego"
         },
         "correct_option": "A",
-        "explanation": "Art. 6: 'Urządzenia techniczne powinny być...eksploatowane ZGODNIE Z ICH PRZEZNACZENIEM, w sposób zapewniający BEZPIECZEŃSTWO EKSPLOATACJI' + Rozporządzenie (warunki techniczne): 'maksymalny udźwig nominalny = LIMIT BEZPIECZNEJ PRACY'. Przeciążanie nawet o 10% (D) lub 25% (C) NARUSZA bezpieczeństwo strukturalne wózka (rozciąga łańcuchy, zwiększa zginanie belek, grozi pęknięciem). PRÓBY PRZECIĄŻENIOWE mogą być wykonywane TYLKO przez UDT w kontrolowanych warunkach laboratoryjnych (1.5x udźwigiem na 5 sekund) - ale to testy, nie praca produkcyjna! Art. 39 (rozporządzenia) jasno: 'nie wolno przewozić ładunków przekraczających udźwig nominalny'. Przeciążanie = ZAKAZANE BEZWZGLĘDNIE.",
-        "hint": "🚫 LIMIT = LIMIT: Art. 6 - 'zgodnie z przeznaczeniem' = w granicach udźwigu (A). Nawet +10% (D) lub +25% (C) = zakazane! To jak jechać samochodem na 200 km/h gdy limit to 90 - silnik pali, części pękają. Wózek to inżynieria - każdy śrub wyliczony na DOKŁADNIE tyle. Przekrocz = pęka łańcuch, wali się ładunek, wypadek! Próby przeciążeniowe (1.5x) robi TYLKO UDT w laboratorium, nie w pracy!",
+        "explanation": "Art. 6: "Urządzenia techniczne powinny być...eksploatowane ZGODNIE Z ICH PRZEZNACZENIEM, w sposób zapewniający BEZPIECZEŃSTWO EKSPLOATACJI" + Rozporządzenie (warunki techniczne): "maksymalny udźwig nominalny = LIMIT BEZPIECZNEJ PRACY". Przeciążanie nawet o 10% (D) lub 25% (C) NARUSZA bezpieczeństwo strukturalne wózka (rozciąga łańcuchy, zwiększa zginanie belek, grozi pęknięciem). PRÓBY PRZECIĄŻENIOWE mogą być wykonywane TYLKO przez UDT w kontrolowanych warunkach laboratoryjnych (1.5x udźwigiem na 5 sekund) - ale to testy, nie praca produkcyjna! Art. 39 (rozporządzenia) jasno: "nie wolno przewozić ładunków przekraczających udźwig nominalny". Przeciążanie = ZAKAZANE BEZWZGLĘDNIE.",
+        "hint": "🚫 LIMIT = LIMIT: Art. 6 - "zgodnie z przeznaczeniem" = w granicach udźwigu (A). Nawet +10% (D) lub +25% (C) = zakazane! To jak jechać samochodem na 200 km/h gdy limit to 90 - silnik pali, części pękają. Wózek to inżynieria - każdy śrub wyliczony na DOKŁADNIE tyle. Przekrocz = pęka łańcuch, wali się ładunek, wypadek! Próby przeciążeniowe (1.5x) robi TYLKO UDT w laboratorium, nie w pracy!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 6, Rozporządzenie (procedury obsługi)"
       },
@@ -674,7 +659,7 @@
           "D": "po wypadku na urządzeniu"
         },
         "correct_option": "B",
-        "explanation": "Art. 13 ust. 1 pkt 3 lit. b: 'w toku eksploatacji urządzeń technicznych objętych dozorem technicznym OGRANICZONYM organ...wykonuje DORAŹNE badania techniczne' + Rozporządzenie (szczegóły): Badania doraźne są OBOWIĄZKOWE po: 1) wymianie ELEMENTÓW NOŚNYCH (cięgna, łańcuchy, liny, wiszące akcesoria) (B). 2) Po wypadku/uszkodzeniu poważnym (D). 3) Po nieplanowych naprawach (A). Opcja C (raz na rok) - to BADANIA OKRESOWE, nie doraźne. Odróżnienie: PERIODYCZNE = regularne (co rok). DORAŹNE = spontaniczne (po zdarzeniu/naprawie krytycznej). Odpowiedź B (wymiana cięgien) jest KLASYCZNYM przypadkiem wymagającym badania doraźnego (konieczne potwierdzić że montaż ok).",
+        "explanation": "Art. 13 ust. 1 pkt 3 lit. b: "w toku eksploatacji urządzeń technicznych objętych dozorem technicznym OGRANICZONYM organ...wykonuje DORAŹNE badania techniczne" + Rozporządzenie (szczegóły): Badania doraźne są OBOWIĄZKOWE po: 1) wymianie ELEMENTÓW NOŚNYCH (cięgna, łańcuchy, liny, wiszące akcesoria) (B). 2) Po wypadku/uszkodzeniu poważnym (D). 3) Po nieplanowych naprawach (A). Opcja C (raz na rok) - to BADANIA OKRESOWE, nie doraźne. Odróżnienie: PERIODYCZNE = regularne (co rok). DORAŹNE = spontaniczne (po zdarzeniu/naprawie krytycznej). Odpowiedź B (wymiana cięgien) jest KLASYCZNYM przypadkiem wymagającym badania doraźnego (konieczne potwierdzić że montaż ok).",
         "hint": "⚡ DORAŹNE = PO KRYZYSIE: Badania doraźne (nie planowe) wykonywane: 1️⃣ Po wymianie CIĘGIEN/ŁAŃCUCHÓW (B) - trzeba sprawdzić czy dobrze zamontowane! 2️⃣ Po wypadku/uszkodzeniu (D) - trzeba sprawdzić czy ok. 3️⃣ Po naprawie głównej (A). Regularnie raz na rok (C) = BADANIA OKRESOWE, nie doraźne! Zapamiętaj: DORAŹNE = NIE PLANOWY termin, po czyńmś się zdarzyło!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 13 ust. 1 pkt 3 lit. b"
@@ -690,8 +675,8 @@
           "D": "wszystkie odpowiedzi są poprawne"
         },
         "correct_option": "A",
-        "explanation": "Art. 4 pkt 7: konserwacja 'PROWADZONA ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI' + Rozporządzenie § 37 (obowiązki operatora): szczegółowe obowiązki konkretnego MODELU wózka zawarte w DTR (instrukcji producenta). USTAWA (C) podaje OGÓLNE obowiązki ('obsługujący musi posiadać zaświadczenie', 'musi przestrzegać instrukcji'), ale NIE zawiera szczegółów ('włącz pompę przed podniesieniem', 'limit 15° pochyłość'). Dziennik (B) to ZAPIS co robiliśmy, nie wymogi co robić. Instrukcja (A) zawiera PROCEDURY dla KAŻDEGO KONKRETNEGO WÓZKA (bo każdy model jest inny: różne limity, różne procedury).",
-        "hint": "📖 KAŻDY WÓZEK TO INNY INSTRUKCJA: Art. 4 pkt 7 - obowiązki obsługującego to głównie 'zgodność z instrukcją' (A). USTAWA (C) mówi ogólnie 'przestrzegaj instrukcji', ale nie mówi JAK dla konkretnego wózka. Dziennik (B) to historia, nie instrukcja. Zapamiętaj: DOSTAjesz WÓZEK od producenta? = doSTAjesz INSTRUKCJĘ. Bez instrukcji = nie możesz pracować!",
+        "explanation": "Art. 4 pkt 7: konserwacja "PROWADZONA ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI" + Rozporządzenie § 37 (obowiązki operatora): szczegółowe obowiązki konkretnego MODELU wózka zawarte w DTR (instrukcji producenta). USTAWA (C) podaje OGÓLNE obowiązki ("obsługujący musi posiadać zaświadczenie", "musi przestrzegać instrukcji"), ale NIE zawiera szczegółów ("włącz pompę przed podniesieniem", "limit 15° pochyłość"). Dziennik (B) to ZAPIS co robiliśmy, nie wymogi co robić. Instrukcja (A) zawiera PROCEDURY dla KAŻDEGO KONKRETNEGO WÓZKA (bo każdy model jest inny: różne limity, różne procedury).",
+        "hint": "📖 KAŻDY WÓZEK TO INNY INSTRUKCJA: Art. 4 pkt 7 - obowiązki obsługującego to głównie "zgodność z instrukcją" (A). USTAWA (C) mówi ogólnie "przestrzegaj instrukcji", ale nie mówi JAK dla konkretnego wózka. Dziennik (B) to historia, nie instrukcja. Zapamiętaj: DOSTAjesz WÓZEK od producenta? = doSTAjesz INSTRUKCJĘ. Bez instrukcji = nie możesz pracować!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 4 pkt 7, Art. 22 ust. 3"
       },
@@ -706,9 +691,8 @@
           "D": "operatora"
         },
         "correct_option": "B",
-        "explanation": "Art. 13 ust. 1 pkt 2 lit. b: 'w toku eksploatacji urządzeń technicznych objętych dozorem technicznym PEŁNYM organ właściwej jednostki dozoru technicznego...wykonuje OKRESOWE i doraźne badania techniczne' + Art. 24: 'Czynności dozoru technicznego wykonują pracownicy jednostek dozoru technicznego, zwani dalej „INSPEKTORAMI"
-        '. BADANIA OKRESOWE to BADANIA UDT (organ publiczny), wykonywane TYLKO przez inspektora urzędowego (B). Konserwator (A) wykonuje KONSERWACJĘ (przeglądy, naprawy), a NIE badania UDT. Serwis producenta (C) może pomagać w przygotowaniu, ale badanie to robi inspektor. Operator (D) - obsługuje, nie bada.",
-        "hint": "👮 INSPEKTOR UDT TO POLICJANT: Art. 13 - 'wykonuje' badania PERIODYCZNE = INSPEKTOR UDT (B). To jest WŁADZA publiczna (sprawdza czy все ok). Konserwator (A) to pracownik prywatny (robi serwis). Serwis (C) to też prywatny (robi naprawy). Operator (D) obsługuje. TYLKO inspektor UDT ma prawo OFICJALNIE badać i wystawiać raport dla UDT. Zapamiętaj: Co rok/6 m-cy przychodzi INSPEKTOR UDT!",
+        "explanation": "Art. 13 ust. 1 pkt 2 lit. b: "w toku eksploatacji urządzeń technicznych objętych dozorem technicznym PEŁNYM organ właściwej jednostki dozoru technicznego...wykonuje OKRESOWE i doraźne badania techniczne" + Art. 24: "Czynności dozoru technicznego wykonują pracownicy jednostek dozoru technicznego, zwani dalej "INSPEKTORAMI". BADANIA OKRESOWE to BADANIA UDT (organ publiczny), wykonywane TYLKO przez inspektora urzędowego (B). Konserwator (A) wykonuje KONSERWACJĘ (przeglądy, naprawy), a NIE badania UDT. Serwis producenta (C) może pomagać w przygotowaniu, ale badanie to robi inspektor. Operator (D) - obsługuje, nie bada.",
+        "hint": "👮 INSPEKTOR UDT TO POLICJANT: Art. 13 - "wykonuje" badania PERIODYCZNE = INSPEKTOR UDT (B). To jest WŁADZA publiczna (sprawdza czy все ok). Konserwator (A) to pracownik prywatny (robi serwis). Serwis (C) to też prywatny (robi naprawy). Operator (D) obsługuje. TYLKO inspektor UDT ma prawo OFICJALNIE badać i wystawiać raport dla UDT. Zapamiętaj: Co rok/6 m-cy przychodzi INSPEKTOR UDT!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 13 ust. 1 pkt 2 lit. b, Art. 24"
       },
@@ -718,12 +702,12 @@
         "image_path": null,
         "options": {
           "A": "Urząd Dozoru Technicznego",
-          "B": "Wojskowy Dozór Techniczny",
-          "C": "Transportowy Dozór Techniczny",
+          "B": "Wojskowy dozór techniczny",
+          "C": "Transportowy dozór techniczny",
           "D": "wszystkie odpowiedzi są prawidłowe"
         },
         "correct_option": "D",
-        "explanation": "Art. 4 pkt 3: 'jednostkach dozoru technicznego – należy przez to rozumieć Urząd Dozoru Technicznego oraz SPECJALISTYCZNE jednostki dozoru technicznego' + Art. 4 pkt 4: 'specjalistycznych jednostkach dozoru technicznego – należy przez to rozumieć TRANSPORTOWY Dozór Techniczny i WOJSKOWY Dozór Techniczny' + Art. 35 ust. 1, Art. 42 ust. 1, Art. 48. WSZYSTKIE TRZY (A + B + C) są oficjalnymi jednostkami dozoru technicznego w Polsce. UDT (A) = główny organ (gospodarka, ogólne urządzenia). TDT (C) = specjalistyczne (transport, kolej, morze). WDT (B) = specjalistyczne (wojsko). Odpowiedź D jest poprawna.",
+        "explanation": "Art. 4 pkt 3: \"jednostkach dozoru technicznego – należy przez to rozumieć Urząd Dozoru Technicznego oraz SPECJALISTYCZNE jednostki dozoru technicznego\" + Art. 4 pkt 4: \"specjalistycznych jednostkach dozoru technicznego – należy przez to rozumieć TRANSPORTOWY Dozór Techniczny i WOJSKOWY Dozór Techniczny\" + Art. 35 ust. 1, Art. 42 ust. 1, Art. 48. WSZYSTKIE TRZY (A + B + C) są oficjalnymi jednostkami dozoru technicznego w Polsce. UDT (A) = główny organ (gospodarka, ogólne urządzenia). TDT (C) = specjalistyczne (transport, kolej, morze). WDT (B) = specjalistyczne (wojsko). Odpowiedź D jest poprawna.",
         "hint": "🏛️ TRZY AMBASADY UDT: Art. 4 pkt 3-4 wymienia dokładnie: 1️⃣ UDT - Urząd główny (A). 2️⃣ TDT - Transport (kolej, morze, droga) (C). 3️⃣ WDT - Wojsko (B). Wszystkie TRZY to jednostki dozoru technicznego (są RÓWNOLEGŁE, każda w swoim resorcie). Odpowiedź D = wszystkie!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 4 pkt 3-4, Art. 35 ust. 1, Art. 42 ust. 1, Art. 48"
@@ -739,7 +723,7 @@
           "D": "krajów strefy Schengen"
         },
         "correct_option": "A",
-        "explanation": "Art. 22 ust. 3b: 'Zaświadczenie kwalifikacyjne wydane przez organ właściwej jednostki dozoru technicznego...wydane osobom...potwierdza kwalifikacje...RÓWNIEŻ W PRZYPADKU gdy ze względu na miejsce instalacji, eksploatacji lub wykorzystania urządzenia technicznego dozór techniczny...jest wykonywany przez INNĄ jednostkę dozoru technicznego'. To mówi, że zaświadczenie wydane przez UDT jest honorowane przez TDT i WDT (inne jednostki w Polsce), ale NIE mówi o międzynarodowym признании. Zaświadczenie UDT to dokument KRAJOWY (polski), ważny na terenie POLSKI (A). EU (B) nie harmonizuje zaświadczeń operatorów UDT - każde państwo ma swój system. Schengen (D) to strefa bezwizowa, nie ma relacji z zaświadczeniami technicznymi. Odpowiedź A (Polska).",
+        "explanation": "Art. 22 ust. 3b: \"Zaświadczenie kwalifikacyjne wydane przez organ właściwej jednostki dozoru technicznego...wydane osobom...potwierdza kwalifikacje...RÓWNIEŻ W PRZYPADKU gdy ze względu na miejsce instalacji, eksploatacji lub wykorzystania urządzenia technicznego dozór techniczny...jest wykonywany przez INNĄ jednostkę dozoru technicznego\". To mówi, że zaświadczenie wydane przez UDT jest honorowane przez TDT i WDT (inne jednostki w Polsce), ale NIE mówi o międzynarodowym признaniu. Zaświadczenie UDT to dokument KRAJOWY (polski), ważny na terenie POLSKI (A). EU (B) nie harmonizuje zaświadczeń operatorów UDT - każde państwo ma swój system. Schengen (D) to strefa bezwizowa, nie ma relacji z zaświadczeniami technicznymi. Odpowiedź A (Polska).",
         "hint": "🇵🇱 POLSKI DOKUMENT = POLSKI TERYTORYU: Art. 22 ust. 3b - zaświadczenie z UDT ważne w całej POLSCE (A), w każdej jednostce dozoru (UDT, TDT, WDT). EU (B) - niestety zaświadczenia UDT nie są automatycznie honorowane w Niemczech czy Czechach (każdy kraj ma swój system). Schengen (D) to bezwiza, nie zaświadczenia! Zapamiętaj: Papier z UDT = ważny TYLKO W POLSCE!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 22 ust. 3b"
@@ -755,8 +739,8 @@
           "D": "wszystkie odpowiedzi są poprawne"
         },
         "correct_option": "D",
-        "explanation": "Trzy niezależne źródła wymagań dotyczące OchronYY Indywidualnej (ŚOI): 1) Art. 22 ust. 1c + Rozporządzenie (procedury obsługi): Instrukcja producenta (A) zawiera warunki bezpiecznej obsługi - może wymagać kasku, rękawic, butów antypołyskowych (zależnie od typu urządzenia). 2) Ustawa o BHP (przepisy ogólne) (B): każdy pracownik musi mieć dostęp do ŚOI (pracodawca musi zapewnić). 3) Regulamin wewnętrzny (C): pracodawca może wymagać dodatkowych zabezpieczeń (np. 'zawsze hełm, nawet na 5 minut'). Wszystkie TRZY źródła mogą nakładać obowiązki - i WSZYSTKIE obowiązują jednocześnie. Operator musi spełniać wymogi z: instrukcji producenta (która mówi co минимум), BHP (które mówi jakie ma prawo do ochrony), i regulaminów (które mogą być bardziej restrykcyjne).",
-        "hint": "🦺 TRZY WARSTWY OCHRONY: 1️⃣ INSTRUKCJA (A) - producent mówi 'hełm obowiązkowy' dla tego wózka. 2️⃣ BHP (B) - ustawa mówi 'pracodawca MUSI ci zapewnić hełm'. 3️⃣ REGULAMIN ZAKŁADU (C) - Twoja firma mówi 'dodatkowo: kamizelka odblaskowa, nawet w hali'. Wszystkie TRZY się nakładają! Jeśli którakolwiek mówi 'hełm' = NOSISZ HEŁM!",
+        "explanation": "Trzy niezależne źródła wymagań dotyczące OchronYY Indywidualnej (ŚOI): 1) Art. 22 ust. 1c + Rozporządzenie (procedury obsługi): Instrukcja producenta (A) zawiera warunki bezpiecznej obsługi - może wymagać kasku, rękawic, butów antypołyskowych (zależnie od typu urządzenia). 2) Ustawa o BHP (przepisy ogólne) (B): każdy pracownik musi mieć dostęp do ŚOI (pracodawca musi zapewnić). 3) Regulamin wewnętrzny (C): pracodawca może wymagać dodatkowych zabezpieczeń (np. \"zawsze hełm, nawet na 5 minut\"). Wszystkie TRZY źródła mogą nakładać obowiązki - i WSZYSTKIE obowiązują jednocześnie. Operator musi spełniać wymogi z: instrukcji producenta (która mówi co минимум), BHP (które mówi jakie ma prawo do ochrony), i regulaminów (które mogą być bardziej restrykcyjne).",
+        "hint": "🦺 TRZY WARSTWY OCHRONY: 1️⃣ INSTRUKCJA (A) - producent mówi \"hełm obowiązkowy\" dla tego wózka. 2️⃣ BHP (B) - ustawa mówi \"pracodawca MUSI ci zapewnić hełm\". 3️⃣ REGULAMIN ZAKŁADU (C) - Twoja firma mówi \"dodatkowo: kamizelka odblaskowa, nawet w hali\". Wszystkie TRZY się nakładają! Jeśli którakolwiek mówi \"hełm\" = NOSISZ HEŁM!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 22 ust. 1c, Rozporządzenie (procedury obsługi), Ustawa o BHP"
       },
@@ -772,7 +756,7 @@
         },
         "correct_option": "D",
         "explanation": "Rozporządzenie Ministra, Załącznik nr 3 (Tabela nr 1 - OBSŁUGA): Wymienia dokładnie kategorie urządzeń objętych dozorem technicznym: Pozycja 1-3 (Wciągarki, Suwnice, Żurawie) - OBJĘTE (A). Pozycja 8 (Wózki jezdniowe podnośnikowe), Pozycja 7 (Podesty ruchome) - OBJĘTE (B). Pozycja 10 (Dźwignice linotorowe) - OBJĘTE, Pozycja 13 (Przenośniki kabinowe i krzesełkowe) - OBJĘTE (C). Wszystkie wymienione kategorie znajdują się w oficjalnej LIŚCIE ROZPORZĄDZENIA urządzeń podlegających dozorowi. To jest standardowe pytanie testujące znajomość katalogu urządzeń.",
-        "hint": "📋 LISTA URZĄDZEŃ Z ROZPORZĄDZENIA: Art. 5 ust. 2 + Rozporządzenie Załącznik 3 - tam jest PEŁNA LISTA co jest objęte dozorem. Wszystkie A, B, C to standard'owe transportowe urządzenia bliskiego. Pytanie testuje czy znasz KATALOG. Odpowiedź D (wszystkie) = zawsze tak dla takich pytań!",
+        "hint": "📋 LISTA URZĄDZEŃ Z ROZPORZĄDZENIA: Art. 5 ust. 2 + Rozporządzenie Załącznik 3 - tam jest PEŁNA LISTA co jest objęte dozorem. Wszystkie A, B, C to standard"owe transportowe urządzenia bliskiego. Pytanie testuje czy znasz KATALOG. Odpowiedź D (wszystkie) = zawsze tak dla takich pytań!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Rozporządzenie, Załącznik nr 3, Tabela nr 1"
       },
@@ -787,8 +771,8 @@
           "D": "informacji o sposobie obsługi urządzenia"
         },
         "correct_option": "C",
-        "explanation": "Art. 4 pkt 7 + Rozporządzenie (procedury obsługi): Instrukcja eksploatacji (DTR) zawiera INFORMACJE PRODUCENTA o: A) terminy przeglądów (Art. 22 ust. 1c - 'prowadzonych zgodnie z instrukcją') - MUSI być. B) parametry techniczne (Art. 8 ust. 5 - 'specyfikacje techniczne') - MUSI być. D) sposoby obsługi (Art. 22 ust. 3 - 'obsługujący muszą znać instrukcję') - MUSI być. Natomiast C) terminy badań UDT - to jest ROZPORZĄDZENIE (Art. 8 ust. 5, Art. 13 ust. 1 pkt 2), NIE instrukcja producenta. Instrukcja jest dokumentem PRODUCENTA, a terminy badań UDT to przepisy PUBLICZNE (rządowe). Producent nie określa kiedy będzie przychodzić inspektor!",
-        "hint": "📖 DTR vs PRAWO: Instrukcja producenta (DTR) zawiera: A) przeglądy - tak (B) parametry - tak (D) obsługa - tak. ALE C) terminy badań UDT - NIE! To jest w ROZPORZĄDZENIU (Art. 13), nie u producenta. Producent pisze 'rób przegląd co 500h', ale NIE pisze 'inspektor UDT przychodzi co rok'. Zapamiętaj: DTR = producent. Terminy badań UDT = prawo!",
+        "explanation": "Art. 4 pkt 7 + Rozporządzenie (procedury obsługi): Instrukcja eksploatacji (DTR) zawiera INFORMACJE PRODUCENTA o: A) terminy przeglądów (Art. 22 ust. 1c - \"prowadzonych zgodnie z instrukcją\") - MUSI być. B) parametry techniczne (Art. 8 ust. 5 - \"specyfikacje techniczne\") - MUSI być. D) sposoby obsługi (Art. 22 ust. 3 - \"obsługujący muszą znać instrukcję\") - MUSI być. Natomiast C) terminy badań UDT - to jest ROZPORZĄDZENIE (Art. 8 ust. 5, Art. 13 ust. 1 pkt 2), NIE instrukcja producenta. Instrukcja jest dokumentem PRODUCENTA, a terminy badań UDT to przepisy PUBLICZNE (rządowe). Producent nie określa kiedy będzie przychodzić inspektor!",
+        "hint": "📖 DTR vs PRAWO: Instrukcja producenta (DTR) zawiera: A) przeglądy - tak (B) parametry - tak (D) obsługa - tak. ALE C) terminy badań UDT - NIE! To jest w ROZPORZĄDZENIU (Art. 13), nie u producenta. Producent pisze \"rób przegląd co 500h\", ale NIE pisze \"inspektor UDT przychodzi co rok\". Zapamiętaj: DTR = producent. Terminy badań UDT = prawo!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 4 pkt 7, Art. 8 ust. 5, Art. 13 ust. 1"
       },
@@ -803,11 +787,11 @@
           "D": "wykaz uprawnionych operatorów"
         },
         "correct_option": "A",
-        "explanation": "Art. 33 ust. 3 Ustawy: 'Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną „księgą rewizyjną urządzenia"
-        '. Księga to ZBIÓR PROTOKOŁÓW z badań UDT (inspekcji publicznych) (A) - to jest ARCHIWUM OFICJALNE urządzenia. Przeglądy konserwacyjne (B) są notowane w DZIENNIKU KONSERWACJI (Art. 33 ust. 3 mówi też o '
+        "explanation": "Art. 33 ust. 3 Ustawy: \"Przedsiębiorca...przechowuje w postaci papierowej lub elektronicznej zbiór protokołów dotyczących danego urządzenia technicznego...zwaną „księgą rewizyjną urządzenia"
+        ". Księga to ZBIÓR PROTOKOŁÓW z badań UDT (inspekcji publicznych) (A) - to jest ARCHIWUM OFICJALNE urządzenia. Przeglądy konserwacyjne (B) są notowane w DZIENNIKU KONSERWACJI (Art. 33 ust. 3 mówi też o "
         dzienniku
-        '), ale nie są częścią księgi rewizyjnej. Akty prawne (C) - to przepisy ogólne, nie dokumentacja urządzenia. Wykaz operatorów (D) - to może być w osobnym dokumencie, nie w księdze rewizyjnej. KSIĘGA = ARCHIWUM BADAŃ UDT.",
-        "hint": "🗂️ KSIĘGA = ARCHIWUM INSPEKCJI: Art. 33 ust. 3 - księga rewizyjna to ZBIÓR PROTOKOŁÓW z badań UDT (raportów inspekcji). To są papierki: 'dzisiaj byliśmy, wszystko ok' (inspektor UDT). Przeglądy konserwacji (B) - to pisze KONSERWATOR w dzienniku ('wymieniliśmy olej'). To są RÓŻNE dokumenty! Zapamiętaj: KSIĘGA = UDT. DZIENNIK = KONSERWATOR.",
+        "), ale nie są częścią księgi rewizyjnej. Akty prawne (C) - to przepisy ogólne, nie dokumentacja urządzenia. Wykaz operatorów (D) - to może być w osobnym dokumencie, nie w księdze rewizyjnej. KSIĘGA = ARCHIWUM BADAŃ UDT.",
+        "hint": "🗂️ KSIĘGA = ARCHIWUM INSPEKCJI: Art. 33 ust. 3 - księga rewizyjna to ZBIÓR PROTOKOŁÓW z badań UDT (raportów inspekcji). To są papierki: \"dzisiaj byliśmy, wszystko ok\" (inspektor UDT). Przeglądy konserwacji (B) - to pisze KONSERWATOR w dzienniku (\"wymieniliśmy olej\"). To są RÓŻNE dokumenty! Zapamiętaj: KSIĘGA = UDT. DZIENNIK = KONSERWATOR.",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 33 ust. 3"
       },
@@ -822,7 +806,7 @@
           "D": "każda odpowiedź jest niepoprawna"
         },
         "correct_option": "C",
-        "explanation": "Art. 7 ust. 1 Ustawy: 'Do postępowania przed organami jednostek dozoru technicznego stosuje się przepisy Kodeksu postępowania administracyjnego' + Art. 127 KPA: 'Od decyzji przysługuje odwołanie' (standard prawny). Decyzja UDT to DECYZJA ADMINISTRACYJNA (forma urzędowa), a wszystkie takie decyzje podlegają procedurze odwołania (prawo do wniesienia skargi/odwołania do wyższego organu). Opcja A (nie podlega) - FAŁSZ, każda decyzja administracyjna podlega odwołaniu. Opcja B (PIP zmieni) - FAŁSZ, zmianę robi wyższy organ dozoru, nie PIP (inny resort). Opcja D - wszystkie niepoprawne - FAŁSZ. Odpowiedź C to standardowa zasada prawa administracyjnego.",
+        "explanation": "Art. 7 ust. 1 Ustawy: \"Do postępowania przed organami jednostek dozoru technicznego stosuje się przepisy Kodeksu postępowania administracyjnego\" + Art. 127 KPA: \"Od decyzji przysługuje odwołanie\" (standard prawny). Decyzja UDT to DECYZJA ADMINISTRACYJNA (forma urzędowa), a wszystkie takie decyzje podlegają procedurze odwołania (prawo do wniesienia skargi/odwołania do wyższego organu). Opcja A (nie podlega) - FAŁSZ, każda decyzja administracyjna podlega odwołaniu. Opcja B (PIP zmieni) - FAŁSZ, zmianę robi wyższy organ dozoru, nie PIP (inny resort). Opcja D - wszystkie niepoprawne - FAŁSZ. Odpowiedź C to standardowa zasada prawa administracyjnego.",
         "hint": "⚖️ PRAWO ADMINISTRACYJNE: Art. 7 ust. 1 - decyzje UDT to DECYZJE ADMINISTRACYJNE (papiery z pieczęcią urzędu). Wszystkie takie decyzje (KPA Art. 127) podlegają ODWOŁANIU (prawo do kontestacji). Nie zgadzasz się? Odwołujesz się do wyższego organu! PIP (B) to inny resort (praca), nie może zmienić decyzji UDT. Zapamiętaj: UDT wydaje -> eksploatujący może się odwołać!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 7 ust. 1, KPA Art. 127"
@@ -838,7 +822,7 @@
           "D": "wszystkie odpowiedzi są poprawne"
         },
         "correct_option": "D",
-        "explanation": "Art. 22 ust. 1c + Art. 23 ust. 1c Ustawy: 'Sprawdzenie kwalifikacji...dotyczy osób, które UKOŃCZYŁY 18 LAT (B) oraz władają językiem polskim...oraz zrozumienie zasad jego przeprowadzenia' + Art. 23 ust. 1 (procedura egzaminacyjna): 'na WNIOSEK zainteresowanych osób' (A) + Rozporządzenie § 3 ust. 1 wymaga 'bez przeciwwskazań zdrowotnych' (C). Wszystkie TRZY warunki muszą być spełnione jednocześnie: A) złoży wniosek (formalność), B) ma 18 lat (wymóg wiekowy), C) zdolny zdrowotnie (wymóg medyczny). To nie jest wybór - to KUMULACJA wymogów.",
+        "explanation": "Art. 22 ust. 1c + Art. 23 ust. 1c Ustawy: \"Sprawdzenie kwalifikacji...dotyczy osób, które UKOŃCZYŁY 18 LAT (B) oraz władają językiem polskim...oraz zrozumienie zasad jego przeprowadzenia\" + Art. 23 ust. 1 (procedura egzaminacyjna): \"na WNIOSEK zainteresowanych osób\" (A) + Rozporządzenie § 3 ust. 1 wymaga \"bez przeciwwskazań zdrowotnych\" (C). Wszystkie TRZY warunki muszą być spełnione jednocześnie: A) złoży wniosek (formalność), B) ma 18 lat (wymóg wiekowy), C) zdolny zdrowotnie (wymóg medyczny). To nie jest wybór - to KUMULACJA wymogów.",
         "hint": "✅ TRZY WYMOGI DO EGZAMINU: 1️⃣ WNIOSEK (A) - musisz złożyć papierek w UDT. 2️⃣ WIEK 18+ (B) - Art. 22 ust. 1c. 3️⃣ ZDROWIE (C) - bez przeciwwskazań medycznych (nie możesz być nieprzytomny, niewidomy itp.). Braknie JEDNEGO = NIE idziesz na egzamin! Odpowiedź D (wszystkie)!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 22 ust. 1c, Art. 23 ust. 1, Rozporządzenie § 3 ust. 1"
@@ -854,8 +838,8 @@
           "D": "sporządza protokół z wykonanych czynności i wydaje decyzję administracyjną zezwalającą na eksploatację"
         },
         "correct_option": "D",
-        "explanation": "Art. 33 ust. 1 + Art. 14 ust. 4: 'Inspektor sporządza...PROTOKÓŁ wykonania czynności dozoru technicznego' + 'Na podstawie pozytywnych wyników badań...organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia'. Opcja A (przedłuża świadectwo operatora) - FAŁSZ, świadectwa operatora przedłuża się na osobnym wniosku (Art. 23 ust. 2a), nie podczas badania urządzenia. Opcja B (naklejka = zezwolenie) - FAŁSZ, naklejka to INFORMACJA (przypomnienie o terminie), ale nie PODSTAWA PRAWNA - podstawą jest DECYZJA administracyjna. Opcja C (wpis w dzienniku) - FAŁSZ, dziennik to ZAPIS faktów, nie dokument urzędowy. Opcja D to dokładnie procedura: PROTOKÓŁ (raport) + DECYZJA (zezwolenie). To DWA dokumenty zawsze.",
-        "hint": "📜 ZAWSZE PARA DOKUMENTÓW: Art. 33 + Art. 14 - inspektor UDT ZAWSZE robi: 1️⃣ PROTOKÓŁ (raport: 'mierzyliśmy, wszystko ok'). 2️⃣ DECYZJA (papier z pieczęcią: 'Zezwalam na eksploatację'). Naklejka (B) to tylko reminder 'następne badanie 15.01'. Świadectwo operatora (A) to osobny papier. Dziennik (C) to zapis, nie dokument UDT. Zapamiętaj: PROTOKÓŁ + DECYZJA = efekt pracy inspektora!",
+        "explanation": "Art. 33 ust. 1 + Art. 14 ust. 4: \"Inspektor sporządza...PROTOKÓŁ wykonania czynności dozoru technicznego\" + \"Na podstawie pozytywnych wyników badań...organ właściwej jednostki dozoru technicznego WYDAJE DECYZJĘ zezwalającą na eksploatację urządzenia\". Opcja A (przedłuża świadectwo operatora) - FAŁSZ, świadectwa operatora przedłuża się na osobnym wniosku (Art. 23 ust. 2a), nie podczas badania urządzenia. Opcja B (naklejka = zezwolenie) - FAŁSZ, naklejka to INFORMACJA (przypomnienie o terminie), ale nie PODSTAWA PRAWNA - podstawą jest DECYZJA administracyjna. Opcja C (wpis w dzienniku) - FAŁSZ, dziennik to ZAPIS faktów, nie dokument urzędowy. Opcja D to dokładnie procedura: PROTOKÓŁ (raport) + DECYZJA (zezwolenie). To DWA dokumenty zawsze.",
+        "hint": "📜 ZAWSZE PARA DOKUMENTÓW: Art. 33 + Art. 14 - inspektor UDT ZAWSZE robi: 1️⃣ PROTOKÓŁ (raport: \"mierzyliśmy, wszystko ok\"). 2️⃣ DECYZJA (papier z pieczęcią: \"Zezwalam na eksploatację\"). Naklejka (B) to tylko reminder \"następne badanie 15.01\". Świadectwo operatora (A) to osobny papier. Dziennik (C) to zapis, nie dokument UDT. Zapamiętaj: PROTOKÓŁ + DECYZJA = efekt pracy inspektora!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 33 ust. 1, Art. 14 ust. 4"
       },
@@ -870,7 +854,7 @@
           "D": "są ważne przez okres 15 lat"
         },
         "correct_option": "C",
-        "explanation": "Art. 22 ust. 3a: 'Zaświadczenia kwalifikacyjne osób...są wydawane na czas określony NIE KRÓTSZY NIŻ 5 LAT I NIE DŁUŻSZY NIŻ 10 LAT, w zależności od rodzaju urządzenia technicznego, stopnia trudności w jego obsłudze i konserwacji oraz stopnia zagrożenia' + Rozporządzenie, Załącznik nr 3 określa konkretne okresy dla każdego typu urządzenia (np. wózki widłowe 5 lat, żurawie 10 lat). Opcja A (bezterminowo) - FAŁSZ, zaświadczenia mają TERMINY. Opcja B (zależy od punktów) - FAŁSZ, okres ważności nie zależy od wyniku egzaminu, ale od TYPU urządzenia (Art. 22 ust. 3a). Opcja D (15 lat) - FAŁSZ, maksimum to 10 lat (Art. 22 ust. 3a). Opcja C to dokładnie Art. 22 ust. 3a + Rozporządzenie.",
+        "explanation": "Art. 22 ust. 3a: \"Zaświadczenia kwalifikacyjne osób...są wydawane na czas określony NIE KRÓTSZY NIŻ 5 LAT I NIE DŁUŻSZY NIŻ 10 LAT, w zależności od rodzaju urządzenia technicznego, stopnia trudności w jego obsłudze i konserwacji oraz stopnia zagrożenia\" + Rozporządzenie, Załącznik nr 3 określa konkretne okresy dla każdego typu urządzenia (np. wózki widłowe 5 lat, żurawie 10 lat). Opcja A (bezterminowo) - FAŁSZ, zaświadczenia mają TERMINY. Opcja B (zależy od punktów) - FAŁSZ, okres ważności nie zależy od wyniku egzaminu, ale od TYPU urządzenia (Art. 22 ust. 3a). Opcja D (15 lat) - FAŁSZ, maksimum to 10 lat (Art. 22 ust. 3a). Opcja C to dokładnie Art. 22 ust. 3a + Rozporządzenie.",
         "hint": "⏰ TERMINOWE ZAŚWIADCZENIA: Art. 22 ust. 3a - zaświadczenia są TERMINOWE (nie wieczyste!) na 5-10 lat (zależy od typu urządzenia, nie od wyniku). Rozporządzenie Załącznik 3 mówi: wózki 5 lat, żurawie 10 lat, itd. Punkt na egzaminie (B) = bez wpływu na termin! 15 lat (D) = za dużo! Zapamiętaj: CO 5-10 LAT idziesz NA PRZEDŁUŻENIE!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 22 ust. 3a, Rozporządzenie Załącznik nr 3"
@@ -886,7 +870,7 @@
           "D": "wszystkie odpowiedzi są niepoprawne"
         },
         "correct_option": "A",
-        "explanation": "Art. 63 ust. 2 pkt 2: 'Tej samej karze [grzywnie lub ograniczeniu wolności] podlega ten, kto...PRZERABIA urządzenie techniczne BEZ ZGODY organu właściwej jednostki dozoru technicznego' + Art. 17 ust. 1: 'Dokonanie naprawy lub modernizacji urządzenia technicznego...wymaga UPRZEDNIEGO UZGODNIENIA z organem właściwej jednostki dozoru technicznego'. Przeróbka to MODERNIZACJA (zmiana parametrów/konstrukcji) - wymaga FORMALNEGO uzgodnienia. Brak uzgodnienia = PRZESTĘPSTWO. Opcja B (mandat karny) - FAŁSZ, mandaty wydaje policja, nie UDT. Opcja C (bez kary) - FAŁSZ, Art. 63 jasno mówi o karze. Opcja D - wszystkie niepoprawne - FAŁSZ.",
+        "explanation": "Art. 63 ust. 2 pkt 2: \"Tej samej karze [grzywnie lub ograniczeniu wolności] podlega ten, kto...PRZERABIA urządzenie techniczne BEZ ZGODY organu właściwej jednostki dozoru technicznego\" + Art. 17 ust. 1: \"Dokonanie naprawy lub modernizacji urządzenia technicznego...wymaga UPRZEDNIEGO UZGODNIENIA z organem właściwej jednostki dozoru technicznego\". Przeróbka to MODERNIZACJA (zmiana parametrów/konstrukcji) - wymaga FORMALNEGO uzgodnienia. Brak uzgodnienia = PRZESTĘPSTWO. Opcja B (mandat karny) - FAŁSZ, mandaty wydaje policja, nie UDT. Opcja C (bez kary) - FAŁSZ, Art. 63 jasno mówi o karze. Opcja D - wszystkie niepoprawne - FAŁSZ.",
         "hint": "⚠️ PRZERÓBKI = KARA: Art. 17 ust. 1 + Art. 63 ust. 2 pkt 2 - zmiana urządzenia BEZ UZGODNIENIA = GRZYWNA lub OGRANICZENIE WOLNOŚCI (kara karna!). Nie możesz sobie zmienić udźwigu z 2 na 3 tony bez papierku UDT! Mandat (B) = policja, nie UDT. Bez kary (C) = FAŁSZ. Zapamiętaj: KAŻDA zmiana = UZGODNIENIE Z UDT!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 17 ust. 1, Art. 63 ust. 2 pkt 2"
@@ -902,8 +886,8 @@
           "D": "podlega karze więzienia"
         },
         "correct_option": "A",
-        "explanation": "Art. 63 ust. 1 pkt 1: 'Kto dopuszcza do eksploatacji urządzenie techniczne: 1) BEZ OTRZYMANIA decyzji organu właściwej jednostki dozoru technicznego o dopuszczeniu urządzenia do eksploatacji...PODLEGA GRZYWNIE albo KARZE OGRANICZENIA WOLNOŚCI'. To jest ZAWSZE kara, niezależnie czy doszło do wypadku (opcja B - FAŁSZ). Opcja C (wyłącznie grzywna) - FAŁSZ, kodeks mówi 'grzywna LUB ograniczenie wolności' (wybór sędziego, najczęściej grzywna, ale może być wolność ograniczona). Opcja D (więzienie) - FAŁSZ, to są kary łagodne (nie aresztowanie). Art. 63 ust. 1 definiuje to jako WYKROCZENIE lub PRZESTĘPSTWO (w zależności od okoliczności), ale zawsze grzywna/ograniczenie, nie więzienie.",
-        "hint": "🚫 BEZ DECYZJI = KARA: Art. 63 ust. 1 pkt 1 - dopuszczenie do pracy urządzenia BEZ WAŻNEJ DECYZJI UDT = GRZYWNA lub OGRANICZENIE WOLNOŚCI. Zawsze kara (A), nawet jeśli się nic nie stało (B - FAŁSZ). Tylko grzywna (C) lub więzienie (D) - nie, kod mówi 'grzywna LUB ograniczenie'. Zapamiętaj: NIGDY bez decyzji!",
+        "explanation": "Art. 63 ust. 1 pkt 1: \"Kto dopuszcza do eksploatacji urządzenie techniczne: 1) BEZ OTRZYMANIA decyzji organu właściwej jednostki dozoru technicznego o dopuszczeniu urządzenia do eksploatacji...PODLEGA GRZYWNIE albo KARZE OGRANICZENIA WOLNOŚCI\". To jest ZAWSZE kara, niezależnie czy doszło do wypadku (opcja B - FAŁSZ). Opcja C (wyłącznie grzywna) - FAŁSZ, kodeks mówi \"grzywna LUB ograniczenie wolności\" (wybór sędziego, najczęściej grzywna, ale może być wolność ograniczona). Opcja D (więzienie) - FAŁSZ, to są kary łagodne (nie aresztowanie). Art. 63 ust. 1 definiuje to jako WYKROCZENIE lub PRZESTĘPSTWO (w zależności od okoliczności), ale zawsze grzywna/ograniczenie, nie więzienie.",
+        "hint": "🚫 BEZ DECYZJI = KARA: Art. 63 ust. 1 pkt 1 - dopuszczenie do pracy urządzenia BEZ WAŻNEJ DECYZJI UDT = GRZYWNA lub OGRANICZENIE WOLNOŚCI. Zawsze kara (A), nawet jeśli się nic nie stało (B - FAŁSZ). Tylko grzywna (C) lub więzienie (D) - nie, kod mówi \"grzywna LUB ograniczenie\". Zapamiętaj: NIGDY bez decyzji!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 63 ust. 1 pkt 1"
       },
@@ -918,9 +902,280 @@
           "D": "wszystkie odpowiedzi są poprawne"
         },
         "correct_option": "A",
-        "explanation": "Art. 4 pkt 7 (definicje) + Art. 22 ust. 1c + praktyka: Instrukcja eksploatacji (DTR - Documentation Technical Requirements) to DOKUMENT PRODUCENTA zawierający procedury bezpiecznej obsługi konkretnego urządzenia. Opcja A (producenta) - PRAWIDŁOWO. Opcja B (zalecenia UDT) - FAŁSZ, UDT wydaje DECYZJE i ZALECENIA TECHNICZNE (Art. 28), ale to nie jest 'instrukcja eksploatacji'. Opcja C (użytkownik tworzy) - FAŁSZ, użytkownik STOSUJE instrukcję, nie tworzy. Instrukcja pochodzi od producenta (producent wie best jak działa jego wózek). Opcja D - wszystkie poprawne - FAŁSZ. Odpowiedź A to czysta definicja.",
+        "explanation": "Art. 4 pkt 7 (definicje) + Art. 22 ust. 1c + praktyka: Instrukcja eksploatacji (DTR - Documentation Technical Requirements) to DOKUMENT PRODUCENTA zawierający procedury bezpiecznej obsługi konkretnego urządzenia. Opcja A (producenta) - PRAWIDŁOWO. Opcja B (zalecenia UDT) - FAŁSZ, UDT wydaje DECYZJE i ZALECENIA TECHNICZNE (Art. 28), ale to nie jest \"instrukcja eksploatacji\". Opcja C (użytkownik tworzy) - FAŁSZ, użytkownik STOSUJE instrukcję, nie tworzy. Instrukcja pochodzi od producenta (producent wie best jak działa jego wózek). Opcja D - wszystkie poprawne - FAŁSZ. Odpowiedź A to czysta definicja.",
         "hint": "📖 DTR = DOKUMENT PRODUCENTA: Art. 4 pkt 7 - instrukcja eksploatacji to INFORMACJE PRODUCENTA (A) o tym jak bezpiecznie obsługiwać konkretny model. UDT (B) wydaje zalecenia, ale nie instrukcje. Użytkownik (C) nie pisze instrukcji - dostaje ją w pakiecie z wózkiem! Zapamiętaj: DTR zawsze pochodzi OD PRODUCENTA!",
         "category": "Prawo i Dozór Techniczny",
         "source_article": "Art. 4 pkt 7, Art. 22 ust. 1c"
-      }
-    ]
+      },
+      {
+        "id": "56",
+        "text": "Zaświadczeń kwalifikacyjnych do obsługi nie wymaga się:",
+        "image_path": null,
+        "options": {
+          "A": "jeżeli urządzenie jest obsługiwane przez jego właściciela",
+          "B": "jeżeli wszystkie mechanizmy urządzenia mają napęd ręczny",
+          "C": "jeśli urządzenie jest wykorzystywane do celów prywatnych, nie zarobkowych",
+          "D": "od osób po 60 roku życia"
+        },
+        "correct_option": "B",
+        "explanation": "Rozporządzenie Ministra z 21 maja 2019 r., Załącznik nr 3, Tabela nr 1, uwaga końcowa: \"Poz. 1–3 nie dotyczą urządzeń technicznych: − o napędzie ręcznym WSZYSTKICH mechanizmów; − z napędem elektrycznym jednofazowym o udźwigu do 1000 kg; − o udźwigu do 250 kg, z wyłączeniem urządzeń służących do przemieszczania osób.\" Art. 22 ust. 3 Ustawy: \"Przepis ust. 2 stosuje się do osób obsługujących i konserwujących urządzenia techniczne\" - czyli zaświadczenia SĄ WYMAGANE dla wszystkich, oprócz wymienionego wyjątku. Opcja A (właściciel): status właściciela nie zwalnia z wymogu zaświadczenia. Opcja C (cele prywatne): prawo nie rozróżnia celów - wymóg dotyczy wszystkich. Opcja D (wiek): brak takiego wyjątku w prawie.",
+        "hint": "🛠️ WYJĄTKI OD ZAŚWIADCZEŃ: Zapamiętaj dwa kluczowe słowa - \"RĘCZNY\" i \"LEKKI\". Jeśli urządzenie ma napęd RĘCZNY (całkowicie, wszystkie mechanizmy - nie \"głównie\", ale WSZYSTKIE!) lub waży mniej niż 250 kg (z małymi wyjątkami) - nie trzeba zaświadczenia. Wózek widłowy - nigdy ręczny, więc ZAWSZE wymaga zaświadczenia, niezależnie od tego, czy Ty jesteś jego właścicielem czy miliarderem!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Rozporządzenie 21.05.2019, Załącznik nr 3, Art. 22 ust. 3"
+      },
+      {
+        "id": "57",
+        "text": "Osoba posiadająca zaświadczenia kwalifikacyjne może obsługiwać:",
+        "image_path": null,
+        "options": {
+          "A": "tylko urządzenia wymienione w zakresie uprawnienia",
+          "B": "wszystkie urządzenia podlegające dozorowi technicznemu",
+          "C": "inne urządzenia podlegające dozorowi technicznemu za zgodą pracodawcy",
+          "D": "wszystkie UTB o udźwigu do 3,2 t"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 22 ust. 3b Ustawy: \"Zaświadczenie kwalifikacyjne wydane przez organ właściwej jednostki dozoru technicznego potwierdza kwalifikacje osób...również w przypadku gdy ze względu na miejsce instalacji, eksploatacji lub wykorzystania urządzenia technicznego dozór techniczny nad tym urządzeniem jest wykonywany przez inną jednostkę dozoru technicznego.\" - to określa WAŻNOŚĆ, ale nie ZAKRES. Rozporządzenie, Załącznik nr 3, Tabela 1 i 2 wyraźnie KATEGORYZUJE uprawnienia (np. \"Wózki jezdniowe podnośnikowe z mechanicznym napędem podnoszenia z wysięgnikiem\" vs \"bez wysięgnika\"). Zaświadczenie jest SPECYFICZNE dla typu urządzenia i kategorii. Opcja B (wszystkie UTB) to błąd - zaświadczenie do wózków widłowych NIE upoważnia do obsługi żurawi. Opcja C (zgoda pracodawcy) - pracodawca nie może zmienić zakresu uprawnienia wydanego przez UDT. Opcja D (3,2 t) - brak takiego limitu w przepisach.",
+        "hint": "🎫 ZAŚWIADCZENIE TO \"BILET\" - BARDZO KONKRETNY! Na Twoje zaświadczenie jest napisane np. \"Wózki jezdniowe podnośnikowe bez wysięgnika - obsługa\". To znaczy, że masz prawo TYLKO do tego typu. Gdy przijedziesz z wysięgnikiem - NIE masz uprawnień! Pracodawca może Ci powiedzieć \"obsługuj ten wózek\", ale jeśli Ty nie masz zaświadczenia do tego typu - to jest NIELEGALNE. Zaświadczenie = twoja licencja, precyzyjnie ograniczona.",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 22 ust. 3b, Rozporządzenie 21.05.2019, Załącznik nr 3"
+      },
+      {
+        "id": "58",
+        "text": "Obowiązkiem obsługującego urządzenie techniczne jest:",
+        "image_path": null,
+        "options": {
+          "A": "odmówić obsługi urządzenia, jeżeli wygasła decyzja zezwalająca na eksploatację tego urządzenia",
+          "B": "zawsze stosować się do poleceń przełożonego nakazujących eksploatację urządzenia",
+          "C": "stosować się do zapisów zawartych w instrukcji eksploatacji",
+          "D": "odpowiedź a i c jest prawidłowa"
+        },
+        "correct_option": "D",
+        "explanation": "Dwie niezależne zasady z ustawy: 1) Art. 14 ust. 1: \"Urządzenia techniczne...mogą być eksploatowane TYLKO NA PODSTAWIE decyzji zezwalającej\" - jeśli decyzja wygasła, urządzenie TRACI dopuszczenie do ruchu. Operator, widząc brak ważnej decyzji, ma prawo i OBOWIĄZEK odmówić pracy (A jest OBOWIĄZKOWE). 2) Art. 4 pkt 7 + Art. 8 ust. 5: \"konserwację – należy przez to rozumieć...czynności...prowadzone ZGODNIE Z INSTRUKCJĄ EKSPLOATACJI\". Operator musi znać i stosować się do DTR (C jest OBOWIĄZKOWE). Opcja B jest FAŁSZEM - przełożony NIE MOŻE nakazać obsługi urządzenia, jeśli jest niedopuszczone do ruchu lub jeśli operator nie ma uprawnień. Prawo pracownika do bezpieczeństwa ma PIERWSZEŃSTWO nad poleceniami pracodawcy (Art. 18 Kodeksu pracy).",
+        "hint": "⚖️ OPERATOR MA PRAWO (I OBOWIĄZEK) POWIEDZIEĆ \"NIE\"! 1) Jeśli wózek nie ma ważnej decyzji UDT - powiedz przełożonemu \"To urządzenie niedopuszczone, nie będę pracować\". 2) Jeśli instrukcja mówi \"nie noś więcej niż 1000 kg\", a szef nakazuje 1500 kg - odpowiedź to \"NIE\" (to przełożony odpowiada przed UDT, nie Ty). Operator nie jest niewolnikiem przełożonego - jest podmiotem prawa bezpieczeństwa pracy!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 14 ust. 1, Art. 4 pkt 7, Art. 18 Kodeksu pracy"
+      },
+      {
+        "id": "59",
+        "text": "Zaświadczenie kwalifikacyjne do obsługi urządzeń technicznych są:",
+        "image_path": null,
+        "options": {
+          "A": "ważne na terenie Unii Europejskiej",
+          "B": "ważne z dowodem tożsamości",
+          "C": "bezterminowe",
+          "D": "wszystkie odpowiedzi są poprawne"
+        },
+        "correct_option": "B",
+        "explanation": "Art. 22 ust. 3a Ustawy: \"Zaświadczenia kwalifikacyjne osób...są wydawane NA CZAS OKREŚLONY nie krótszy niż 5 lat i nie dłuższy niż 10 lat.\" - czyli C jest FAŁSZEM (nie są bezterminowe). Rozporządzenie 21.05.2019, Załącznik nr 2 pokazuje formę zaświadczenia - jest to PLASTIKOWA KARTA IDENTYFIKACYJNA z Twoimi danymi (imię, nazwisko, zdjęcie). Art. 22 ust. 3b: Zaświadczenie jest ważne \"również w przypadku gdy ze względu na miejsce instalacji...dozór techniczny nad tym urządzeniem jest wykonywany przez inną jednostkę dozoru technicznego\" - ale ZAWSZE musisz móc udowodnić, że TO JEST TWOJE zaświadczenie (dlatego wymaga potwierdzenia tożsamości - B jest PRAWIDŁOWE). Opcja A (UE) - zaświadczenie polskie jest honorowane w UE na zasadzie wzajemności (potwierdzenie w traktacie UE), ale ZAWSZE wymaga potwierdzenia tożsamości.",
+        "hint": "🪪 ZAŚWIADCZENIE = KARTA PLASTIKOWA + TWOJA TWARZ! Gdy inspektor UDT albo pracodawca Cię zatrzyma i powie \"Pokaż zaświadczenie\" - musisz mieć ze sobą: 1) Fizyczną kartę plastikową (Rozporządzenie, Załącznik nr 2), 2) Dokument tożsamości (dowód, paszport) aby potwierdzić, że to RZECZYWIŚCIE TY. Zaświadczenie bez dowodu = podejrzane. Pamiętaj: CZASOWE (5-10 lat), nie wieczyste!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 22 ust. 3a, 3b, Rozporządzenie 21.05.2019, Załącznik nr 2"
+      },
+      {
+        "id": "60",
+        "text": "Obsługujący który jest świadkiem wypadku ma obowiązek:",
+        "image_path": null,
+        "options": {
+          "A": "udzielić pomocy ofierze (lub ofiarom) wypadku",
+          "B": "zabezpieczyć miejsce zdarzenia",
+          "C": "powiadomić przełożonego",
+          "D": "wszystkie odpowiedzi są poprawne"
+        },
+        "correct_option": "D",
+        "explanation": "Trzy NIEZALEŻNE obowiązki wynikające z różnych ustaw: 1) Art. 162 Kodeksu karnego: \"Kto, mogąc udzielić pomocy osobie będącej w niebezpieczeństwie utraty życia lub zdrowia, nie udziela jej...podlega grzywnie\" - czyli obowiązek A (PRAWO KARNE). 2) Art. 19 Ustawy o dozorze technicznym: \"Eksploatujący urządzenie techniczne jest obowiązany niezwłocznie zawiadomić organ właściwej jednostki dozoru technicznego o każdym...nieszczęśliwym wypadku związanym z jego eksploatacją\" - czyli obowiązek C (PRAWO ADMINISTRACYJNE). 3) Art. 212 Kodeksu postępowania karnego + przepisy BHP: Zabezpieczenie miejsca zdarzenia to obowiązek \"każdego obecnego\" do czasu przyjazdu służb - czyli obowiązek B (PRAKTYKA BHP). Wszystkie TRY obowiązki są JEDNOCZEŚNIE obowiązujące.",
+        "hint": "🚨 PROCEDURA POWYPADKOWA - TRY KROKI (w tej kolejności): 1️⃣ RATUJ (Art. 162 KK) - zanim cokolwiek robisz, załatw rannych/poszkodowanych. 2️⃣ ZABEZPECZAJ (BHP) - postaw bariery, wyłącz wózek, usuń ludzi z strefy niebezpiecznej. 3️⃣ MELDUJ (Art. 19) - powiedz przełożonemu, który zgłosi to do UDT. Kolejność może się zmieniać (np. w śmiertelnym wypadku najpierw pogotowie), ale wszystkie TRY kroki są obowiązkowe!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 162 KK, Art. 19 Ustawy, Art. 212 KPK"
+      },
+      {
+        "id": "61",
+        "text": "Obsługującemu nie wolno:",
+        "image_path": null,
+        "options": {
+          "A": "podnosić ładunków, których masy nie potrafi określić",
+          "B": "kontrolować stanu technicznego urządzenia",
+          "C": "stosować się do zapisów zawartych w instrukcji eksploatacji",
+          "D": "dokonywać oględzin zewnętrznych urządzenia"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 4 pkt 7 + instrukcja eksploatacji: Operator ma obowiązek znać MASĘ ładunku przed podniesieniem. Pytanie 77 z bazy (por. dokument): \"Masę podnoszonego ładunku można określić na podstawie: (A) zawieszki zbiorczej, (B) przeliczając uwzględniając ciężar właściwy, (C) dokumentacji przewozowej, (D) wszystkie\" - odpowiedź D. Jeśli operator NIE POTRAFI określić masy (np. brak dokumentacji, zawieszka nieczytelna), ma OBOWIĄZEK ODMÓWIĆ podniesienia (Art. 4 pkt 6, zasada bezpieczeństwa). Opcja B (kontrola stanu) - to OBOWIĄZEK operatora (OTC - codzienne przeglądy przed pracą). Opcja C (instrukcja) - to również OBOWIĄZEK, nie zakaz. Opcja D (oględziny) - to OBOWIĄZEK operatora.",
+        "hint": "⚠️ NIEZNANEGO ŁADUNKU SIĘ NIE PODNOSI! Zasada złota: jeśli nie wiesz, ile ważyty ten karton, paka lub słoik - NIE ROZWIJAJ GO W POWIETRZU. Pytaj pracownika magazynu, szukaj etykiety, żądaj dokumentacji. Dlaczego? Bo překroczenie udźwigu = wózek się przewraca = Ty lecisz w powietrze = szpital. To nie jest o grzeczności - to o PRZEŻYCIU!",
+        "category": "Bezpieczeństwo i Organizacja Pracy",
+        "source_article": "Art. 4 pkt 7, Instrukcja eksploatacji"
+      },
+      {
+        "id": "62",
+        "text": "Formami dozoru technicznego są:",
+        "image_path": null,
+        "options": {
+          "A": "dozór pełny, dozór uproszczony, dozór ograniczony",
+          "B": "badanie odbiorcze, badanie okresowe i badanie doraźne",
+          "C": "UDT, TDT, WDT",
+          "D": "wszystkie odpowiedzi są poprawne"
+        },
+        "correct_option": "A",
+        "explanation": "Art. 12 Ustawy: \"Dozór techniczny...jest wykonywany w formie: 1) dozoru technicznego pełnego; 2) dozoru technicznego ograniczonego; 3) dozoru technicznego uproszczonego.\" - to są FORMY dozoru (A jest prawidłowe i identyczne z art. 12). Opcja B (badania: odbiorcze, okresowe, doraźne) - to nie FORMY dozoru, a RODZAJE BADAŃ TECHNICZNYCH, które są wykonywane W RAMACH form dozoru (Art. 13). Opcja C (UDT, TDT, WDT) - to JEDNOSTKI dozoru technicznego (Art. 4 pkt 3-4), nie formy. Jeśli B lub C były prawidłowe, odpowiedź byłaby \"wszystkie poprawne\", ale art. 12 jasno wyróżnia TRZY FORMY - i to jest terminologia ustawy.",
+        "hint": "📋 FORMY vs RODZAJE vs JEDNOSTKI - UWAŻAJ NA SŁOWNIK! FORMY dozoru (Art. 12): PEŁNY, OGRANICZONY, UPROSZCZONY (trzy poziomy surowości). RODZAJE badań (Art. 13): ODBIORCZE (pierwsze), OKRESOWE (powtarzające się), DORAŹNE (awaryjne) - to CZYNNOŚCI, nie formy. JEDNOSTKI: UDT/TDT/WDT - to ORGANIzacje, nie formy. To pytanie testuje, czy znasz FORMALNĄ TERMINOLOGIĘ z ustawy!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 12, Art. 13"
+      },
+      {
+        "id": "63",
+        "text": "Podnoszenie osób urządzeniami, które zostały zaprojektowane i wykonane wyłącznie do podnoszenia ładunków:",
+        "image_path": null,
+        "options": {
+          "A": "jest dopuszczalne, po zapewnieniu odpowiedniego poziomu bezpieczeństwa",
+          "B": "jest zabronione",
+          "C": "jest dopuszczalne, po uzgodnieniu z organem właściwej jednostki dozoru technicznego szczegółowych warunków eksploatacji",
+          "D": "jest dopuszczalne jednorazowo na pisemne polecenie przełożonego"
+        },
+        "correct_option": "C",
+        "explanation": "Art. 4 pkt 1 Ustawy definiuje urządzenia techniczne jako mogące stwarzać zagrożenie dla życia \"wskutek...wyzwolenia energii potencjalnej lub kinetycznej przy PRZEMIESZCZANIU LUDZI...w ograniczonym zasięgu\" - czyli podnoszenie osób to WYMAGANE w definicji. Pytanie 20 z bazy (por. dokument) wyraźnie stawia: \"Podnoszenie i przenoszenie osób przez urządzenie techniczne przeznaczone WYŁĄCZNIE do transportu ładunków wymaga: (A) uzgodnienia z UDT szczegółowych warunków eksploatacji\" - to jest OFICJALNA ODPOWIEDŹ. Wyjątek od ogólnego zakazu jest MOŻLIWY, ale ZAWSZE wymaga FORMALNEGO UZGODNIENIA z UDT, czyli ZMIAN warunków eksploatacji i wykazania nowych zabezpieczeń. Opcja A (zapewnienie bezpieczeństwa) - to nie wystarczy, bo TO SĄ PRACE INŻYNIERSKIE wymagające akceptacji UDT. Opcja B (zakaz) - jest zbyt kategoryczna, bo wyjątki SĄ możliwe. Opcja D (polecenie przełożonego) - przełożony NIE MA uprawnień do zmieniana warunków eksploatacji.",
+        "hint": "🚫 WÓZEK DO ŁADUNKÓW ≠ WÓZEK DO LUDZI! To ZUPEŁNIE INNE konstrukcje: jeden liczy się z grawitacją ładunku, drugi z możliwością wypadnięcia człowieka, upadku z wysokości itd. W TEORII można coś przerobić, ALE: 1) Musisz iść do UDT, 2) Pokazać projekt zmian, 3) UDT musi zatwierdzić NOWE WARUNKI EKSPLOATACJI. To może trwać miesiące i kosztować tysiące złotych. Przełożony nie może powiedzieć \"rób to\" - to jest sprawa UDT, nie firmy!",
+        "category": "Bezpieczeństwo i Organizacja Pracy",
+        "source_article": "Art. 4 pkt 1, Pytanie 20 z bazy, Art. 17 ust. 1a"
+      },
+      {
+        "id": "64",
+        "text": "Podnoszenie ładunków za pomocą dwóch lub więcej UTB:",
+        "image_path": null,
+        "options": {
+          "A": "jest dopuszczalne, pod warunkiem opracowania przez eksploatującego szczegółowych warunków eksploatacji, opisujących czynności organizacyjno-techniczne minimalizujące ryzyko",
+          "B": "jest zawsze dopuszczalne jeżeli masa ładunku nie przekracza sumy udźwigów wykorzystywanych urządzeń",
+          "C": "jest dopuszczalne jeżeli masa ładunku nie przekracza połowy udźwigu każdego z wykorzystanych urządzeń",
+          "D": "nie jest nigdy dopuszczalna"
+        },
+        "correct_option": "A",
+        "explanation": "Praca w \"tandemie\" (wieloma wózkami jednocześnie podnoszącymi jeden ładunek) to zaawansowana operacja logistyczna, która wymaga SPECJALNEGO PLANU. Pytanie 64 z bazy (por. dokument): \"Podnoszenie ładunków za pomocą dwóch lub więcej UTB: (A) jest dopuszczalne, pod warunkiem opracowania przez eksploatującego szczegółowych warunków eksploatacji...\" - to jest DOKŁADNA DEFINICJA. Dlaczego? Bo nie wystarczy MATEMATYCZNIE (B - suma udźwigów) czy OSTROŻNIE (C - połowa) - problem jest SYNCHRONIZACYJNY (wszystkie wózki muszą podnosić RÓWNOMIERNIE, inaczej ładunek się przekręci) i TECHNICZNY (trzeba specjalnych zawiesi, operatorzy muszą być zsynchronizowani radiem, trzeba spotter'a). Opcja D (zakaz) - to FAŁSZ, bo operacje tandemowe SĄ dozwolone, tylko wymagają planu. Art. 17 ust. 1a Ustawy: \"Modernizacja urządzenia technicznego odbywa się na podstawie DOKUMENTACJI TECHNICZNEJ uzgodnionej z organem\" - a zmiana sposobu pracy (tandem) może wymagać takiej dokumentacji.",
+        "hint": "🚜 TANDEM = 2+ WÓZKI = KOMPLIKACJA! Wyobraź sobie: podnoszysz ława między dwoma wózkami. Jeśli jeden podniesie szybciej niż drugi - ława się przekręci, spadnie, możesz zginąć. DLATEGO: 1) Musisz napisać dokument (PLAN), 2) W planie: jak będziecie komunikować się operatorzy, jakimi zawiesiami, czy będzie spotter, gdzie postavić wózki. 3) Eksploatujący (szef) musi zatwierdzić ten plan. To nie jest coś \"na czuja\" - to jest FORMALNA PROCEDURA!",
+        "category": "Bezpieczeństwo i Organizacja Pracy",
+        "source_article": "Art. 17 ust. 1a, Pytanie 64 z bazy"
+      },
+      {
+        "id": "65",
+        "text": "Przebywanie osób pod ładunkiem przenoszonym jest:",
+        "image_path": null,
+        "options": {
+          "A": "zawsze niedozwolone",
+          "B": "dozwolone dla osób kontrolującej spód ładunku",
+          "C": "dozwolone jeżeli współczynnik bezpieczeństwa cięgien wynosi nie mniej niż 5",
+          "D": "dozwolone jeżeli współczynnik bezpieczeństwa cięgien wynosi nie mniej niż 7"
+        },
+        "correct_option": "A",
+        "explanation": "Zasada ZERO-TOLERANCJI w przepisach BHP i dozorze technicznym. Pytanie 65 z bazy (por. dokument): "Przebywanie osób pod ładunkiem przenoszonym jest: (A) zawsze niedozwolone" - to jest ABSOLUTNE. Współczynnik bezpieczeństwa (C, D) to teoretycznie "kolej żelazna" - ale i tak, jeśli cięgno się zerwie (nawet raz na 5 mln razy), człowiek pod spodem... nie żyje. Brak ŻADNEGO wyjątku. Art. 19 Ustawy wymaga zgłoszenia "każdego...nieszczęśliwego wypadku" - co to oznacza? Że nawet "mały" wypadek oznacza niebezpieczeństwo dla zdrowia. Człowiek pod ładunkiem = PEWNY wypadek w razie zerwania.",
+        "hint": "☠️ ŻADNYCH WYJĄTKÓW! To nie jest "ryzyko obliczeniowe" - to jest PEWNA ŚMIERĆ. Wyobraź sobie: podnoszysz pół tony cegieł w koszyku. Cięgno ma współczynnik 5 - czyli teoretycznie wytrzyma 2,5 t. Ale jeszcze tego rano był mróz, teraz plusy, metal zmiękł, cięgno ma mikropryszcze. TEN jeden raz zrywa się. Osoba pod spodem? Rozmażona cegła i krwi. TO JEST POWÓD, dlaczego Art. 19 wymaga zgłoszenia każdego wypadku - system jest bezwzględny w egzekucji zakazów!",
+        "category": "Bezpieczeństwo i Organizacja Pracy",
+        "source_article": "Art. 19, Pytanie 65 z bazy"
+      },
+      {
+        "id": "66",
+        "text": "Przenoszenia ładunków nad osobami jest:",
+        "image_path": null,
+        "options": {
+          "A": "dozwolone pod warunkiem uzyskania pisemnego zezwolenia od osoby kierującej transportem",
+          "B": "dozwolone, po zapewnieniu współczynników bezpieczeństwa dla cięgien i urządzeń chwytnych większych niż 10",
+          "C": "dozwolone pod warunkiem powiadomienia osób i wyposażeniu ich w środki ochrony indywidualnej",
+          "D": "wszystkie odpowiedzi są niepoprawne"
+        },
+        "correct_option": "D",
+        "explanation": "Zbliżone do pytania 65, ale wciąż bardziej PRAKTYCZNE - nigdy nie wolno przenosić ładunków NAD ludźmi. Procedura: 1) Utwórz STREFĘ BEZPIECZNĄ (np. zamknąć korytarz), 2) Usuń z niej wszystkie osoby, 3) Dopiero wtedy podnoszysz. Opcja A (zezwolenie od kierownika) - kierownik nie MA uprawnień do zezwolenia na pracę w niebezpiecznych warunkach (Art. 18 Kodeksu pracy). Opcja B (współczynnik bezpieczeństwa) - to nie pomaga, bo jeśli ładunek spadnie, współczynnik 10 NIE UCHRONI człowieka od uderzeń fragmentami. Opcja C (wyposażenie w SPO) - Żaden kask nie chroni przed tonowym ładunkiem. Pytanie 66 z bazy (por. dokument): odpowiedź to D (wszystkie niepoprawne). Słowem: NIE MA BEZPIECZEŃSKIEGO SPOSOBU na przenoszenie ładunków nad ludźmi - trzeba ich usunąć.",
+        "hint": "🚷 "NAD OSOBAMI" = ZAKAZ KATEGORYCZNY! Różnica między pytaniem 65 (osób POD ładunkiem) a 66 (nad ładunkiem): obie są zabronione, ale logika jest inna. NAD ładunkiem: możesz go zabezpieczyć (zamknąć korytarz). POD ładunkiem: nic nie pomaga. Plan działania: 1) Zaplanuj trasę transportu, 2) Najpierw usun osoby z PATH (ścieżki), 3) Postaw znaki "Nie wchodzić - podnoszenie ładunków", 4) Dopiero podnoszysz. Koniec.",
+        "category": "Bezpieczeństwo i Organizacja Pracy",
+        "source_article": "Art. 18 Kodeksu pracy, Pytanie 66 z bazy"
+      },
+      {
+        "id": "67",
+        "text": "Zaświadczenia kwalifikacyjne do obsługi urządzeń technicznych podlegających dozorowi technicznemu wydaje:",
+        "image_path": null,
+        "options": {
+          "A": "właściciel urządzenia",
+          "B": "UDT, TDT, WDT",
+          "C": "PIP",
+          "D": "wszystkie odpowiedzi są niepoprawne"
+        },
+        "correct_option": "B",
+        "explanation": "Art. 23 ust. 1 Ustawy: "Organ właściwej jednostki dozoru technicznego, na wniosek zainteresowanych osób, sprawdza kwalifikacje...w drodze postępowania kwalifikacyjnego." Art. 23 ust. 2: "Postępowanie...przeprowadzają komisje kwalifikacyjne powołane przez organ właściwej jednostki dozoru technicznego." Art. 4 pkt 3-4: Jednostkami dozoru technicznego są: UDT (Urząd Dozoru Technicznego), TDT (Transportowy Dozór Techniczny), WDT (Wojskowy Dozór Techniczny). Zaświadczenia wydaje WYŁĄCZNIE jeden z tych trzech organów, na podstawie pozytywnego wyniku egzaminu. PIP (Państwowa Inspekcja Pracy) nadzoruje BHP, nie dozór techniczny. Opcja A (właściciel) - właściciel nie ma żadnych uprawnień do wydawania zaświadczeń państwowych.",
+        "hint": "🏛️ ZAŚWIADCZENIE = DOKUMENT PAŃSTWOWY! Tylko trzy instytucje państwowe mają prawo wydawać zaświadczenia do obsługi: UDT (dla wózków, żurawi w normalnym sektorze), TDT (dla transportu kolejowego, portów), WDT (dla wojska). Są to JEDNOSTKI DOZORU TECHNICZNEGO (Art. 4 pkt 3). PIP pilnuje, żeby nie pracować 24 godziny na dobę. UDT pilnuje, żeby wózek się nie przewrócił i Ciebie nie rozmażył. Inne role - inne органы!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 23 ust. 1-2, Art. 4 pkt 3-4"
+      },
+      {
+        "id": "68",
+        "text": "Komisja egzaminacyjna powiadamia osobę zainteresowaną o wyniku egzaminu:",
+        "image_path": null,
+        "options": {
+          "A": "w ciągu 7 dni po egzaminie w formie pisemnej",
+          "B": "bezpośrednio po egzaminie",
+          "C": "w ciągu 14 dni po egzaminie w formie elektronicznej",
+          "D": "listem poleconym lub pocztą elektroniczną po upływie 30 dni roboczych od daty egzaminu"
+        },
+        "correct_option": "B",
+        "explanation": "§ 4 ust. 1 Rozporządzenia z 21 maja 2019 r.: "Komisja kwalifikacyjna informuje osobę zainteresowaną o wyniku egzaminu BEZPOŚREDNIO PO EGZAMINIE." To jest jednoznaczne - NATYCHMIAST, bez czekania. Potem (§ 4 ust. 2) "Pozytywny wynik egzaminu jest podstawą do wydania zaświadczenia kwalifikacyjnego przez organ właściwej jednostki dozoru technicznego" - ale to już jest DRUGA faza, po ustnym komunikacie. Opcja A (7 dni) - za długo. Opcja C (14 dni elektronicznie) - za długo i zmieniłaby procedurę. Opcja D (30 dni listem) - zdecydowanie za długo i formalne nadmiernie.",
+        "hint": "⏱️ WYNIK NATYCHMIAST! Po ostatnim pytaniu praktycznym wyłączasz oczy z ograniczeń i komisja mówi Ci wtedy na miejscu: "Zdałeś" lub "Nie zdałeś". Brak czekania na oficjalny papier. Zwycięstwo lub porażka - wiesz OD RAZU. Oficjalny dokument (zaświadczenie plastikowe) przychodzi później (kilka dni), ale informacja o wyniku? Tutaj i teraz!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Rozporządzenie 21.05.2019, § 4 ust. 1"
+      },
+      {
+    "id": "69",
+    "text": "Dziennik konserwacji powinien być prowadzony:",
+    "image_path": null,
+    "options": {
+      "A": "tylko w formie papierowej",
+      "B": "w formie elektronicznej lub papierowej",
+      "C": "tylko w formie elektronicznej",
+      "D": "przez obsługującego"
+    },
+        "correct_option": "B",
+        "explanation": "Art. 33 ust. 3 Ustawy: "Przedsiębiorca, u którego wykonywane są czynności dozoru technicznego, przechowuje w postaci papierowej lub elektronicznej ZBIÓR PROTOKOŁÓW dotyczących danego urządzenia technicznego lub urządzenia do odzyskiwania par paliwa, zwany \"księgą rewizyjną urządzenia\"." - czyli PRZEDSIĘBIORCA/eksploatujący przechowuje. LECZ Art. 33 ust. 1-2: "Inspektor sporządza...protokół...Przedsiębiorca...potwierdza odbiór protokołu" - czyli INSPEKTOR SPORZĄDZA, eksploatujący PRZECHOWUJE. Ale kto PROWADZI dziennik KONSERWACJI (codzienne przeglądy, naprawy)? Art. 4 pkt 7: Konserwacja to "zespół czynności wykonywanych w celu utrzymania...prowadzonych zgodnie z instrukcją eksploatacji" - czyli KONSERWATOR ją wykonuje i DOKUMENTUJE (dziennik konserwacji ≠ księga rewizyjna). Opcja B (operator) - operator nie prowadzi dziennika, tylko GO CZYTA. Opcja C (pracownik eksploatującego) - może być tą osobą tylko jeśli jest konserwatorem. Opcja A (inspektor UDT) - inspektor sporządza PROTOKOŁY z badań UDT, nie dziennik konserwacji.",
+        "hint": "📔 DWIE RÓŻNE KSIĄŻECZKI! 1) DZIENNIK KONSERWACJI - prowadzi KONSERWATOR, zapisuje: "Dzisiaj wymieniliśmy olej hydrauliczny, sprawdziliśmy cięgna, wszystko OK". To rejestr bieżące obsługi. 2) KSIĘGA REWIZYJNA - przechowuje EKSPLOATUJĄCY (szef firmy), zawiera PROTOKOŁY z badań UDT (oficjalne papierki z pieczątką). Dziennik = codzienne notatki konserwatora. Księga = archiwum urzędowe eksploatującego.",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 33 ust. 1-3, Art. 4 pkt 7"
+      },
+      {
+        "id": "70",
+        "text": "Instrukcja stanowiskowa:",
+        "image_path": null,
+        "options": {
+          "A": "jest zawsze dostarczana wraz z instrukcją obsługi przez producenta urządzenia",
+          "B": "stanowi niepisany zbiór zwyczajów przyjętych w zakładzie pracy",
+          "C": "jest wydawana przez pracodawcę i zawiera szczegółowe wskazówki dotyczące bhp na stanowisku pracy",
+          "D": "nie dotyczy operatorów urządzeń mobilnych"
+        },
+        "correct_option": "C",
+        "explanation": "Art. 226 Kodeksu Pracy: "Pracodawca jest obowiązany udzielać pracownikom informacji i instruktażu...dotyczących zagrożeń dla bezpieczeństwa i zdrowia w procesie pracy." Art. 237 Kodeksu Pracy: "Pracownik jest obowiązany uczestniczyć w szkoleniu stanowiskowym." Instrukcja stanowiskowa to DOKUMENT WEWNĘTRZNY FIRMY, opracowany przez pracodawcę (lub jego specjalistę do spraw BHP), dostosowany do konkretnych warunków pracy w danym zakładzie. Np. instrukcja do wózka widłowego w magazynie IKEA będzie inna niż w małej produkcji. Opcja A (od producenta) - FAŁSZ. Producent dostarcza instrukcję eksploatacji WÓZKA (DTR), nie instrukcję stanowiskową dla magazynu. Opcja B (niepisana) - FAŁSZ. Instrukcja stanowiskowa MUSI być na piśmie (wymóg prawa pracy). Opcja D (nie dotyczy operatorów) - FAŁSZ. Operatorzy wózków są pracownikami jak wszyscy, więc instrukcja stanowiskowa ich obowiązuje.",
+        "hint": "📋 DTR vs INSTRUKCJA STANOWISKOWA - UWAŻAJ! DTR (instrukcja producenta): "Wózek podnosi max 1500 kg". INSTRUKCJA STANOWISKOWA (pracodawcy): "W naszym magazynie podnoszisz max 1200 kg (dla bezpieczeństwa), przejazdy odbywają się PONIŻEJ 5 km/h, w piątek po 14:00 zakazane ze względu na zmęczenie. Przed każdą zmianą sprawdzasz olej hydrauliczny." To dokument WEWNĘTRZNY, najczęściej wydrukowany na ścianę lub kartce. TWÓJ szef go opracował, nie chińskie fabryki!",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 226, Art. 237 Kodeksu Pracy"
+      },
+      {
+        "id": "71",
+        "text": "Po upływie terminu ważności zaświadczenia kwalifikacyjnego do obsługi urządzenia obsługujący:",
+        "image_path": null,
+        "options": {
+          "A": "może obsługiwać UTB o ile kontynuuje pracę u tego samego pracodawcy",
+          "B": "może obsługiwać UTB o ile złoży wniosek o wydanie kolejnego zaświadczenia",
+          "C": "może obsługiwać UTB dopiero po uzyskaniu nowego zaświadczenia kwalifikacyjnego",
+          "D": "składa wniosek o przedłużenie terminu ważności zaświadczenia kwalifikacyjnego"
+        },
+        "correct_option": "C",
+        "explanation": "Art. 22 ust. 3a Ustawy: "Zaświadczenia kwalifikacyjne osób...są wydawane NA CZAS OKREŚLONY nie krótszy niż 5 lat i nie dłuższy niż 10 lat." Kiedy upływa termin - uprawnienia wygasają. Art. 23 ust. 2c Ustawy określa warunki PRZEDŁUŻENIA (musi mieć 3-letni staż), ale przedłużenie ≠ automatyczne. Opcja A (zmiana pracodawcy nie ratuje) - FAŁSZ. Zaświadczenie jest OSOBISTE, uwarunkowane wiekiem i zdrowiem, nie pracodawcą. Opcja B (złożenie wniosku) - wniosek SAMODZIELNIE nie upoważnia. Musi być przełożony egzaminem lub procedurą przedłużenia. Opcja D (wniosek o przedłużenie) - to jest OPCJA, ale TYLKO jeśli operator ma 3 lata doświadczenia. Jeśli pracował 2 lata - nie może przedłużyć, musi zdawać od nowa. Opcja C jest UNIWERSALNA: bez WAŻNEGO zaświadczenia = NIE MOŻESZ PRACOWAĆ, punkt.",
+        "hint": "⏰ ZAŚWIADCZENIE MA DATĘ WAŻNOŚCI! Wygląda jak prawo jazdy - ma datkę. Po tej dacie = NIEWAŻNE. Co robisz? OPCJA 1: Masz co najmniej 3 LATA doświadczenia w ostatnich 5 lat → złóż wniosek o PRZEDŁUŻENIE (procedura łatwiejsza, czasami bez egzaminu). OPCJA 2: Nie masz 3 lat doświadczenia lub nie chcesz przedłużać → ZDAWAJ OD NOWA. Ale pracować TERAZ? NIE. Brak ważnego zaświadczenia = brak prawa do obsługi, nawet jeśli "jutro przychodzi nowy dokument".",
+        "category": "Prawo i Dozór Techniczny",
+        "source_article": "Art. 22 ust. 3a, Art. 23 ust. 2c"
+      },
+   {
+    "id": "72",
+    "text": "Przedłużenie ważności zaświadczenie kwalifikacyjnego następuje:",
+    "image_path": null,
+    "options": {
+      "A": "na pisemny wniosek obsługującego",
+      "B": "automatycznie po upływie terminu ważności zaświadczenia",
+      "C": "na pisemne zgłoszenie pracodawcy obsługującego",
+      "D": "po wcześniejszym zgłoszeniu telefonicznym"
+    },
+    "correct_option": "A",
+    "explanation": "Operator musi złożyć wniosek o przedłużenie (zazwyczaj na 3 miesiące przed upływem ważności).",
+    "hint": "🔧 Ty tylko jeździsz. Naprawia Konserwator. Decyduje UDT.",
+    "category": "Prawo i Dozór Techniczny"
+  }
+]
