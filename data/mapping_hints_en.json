@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "translations": {
+      "en": {
+        "hint": "⚠️ **Check the hierarchy:** The maintenance technician (konserwator) is important, but only does check-ups. Who is the \"big boss\" that issues the official administrative DECISION (decyzja) allowing operation?"
+      }
+    }
+  },
+  {
+    "id": "2",
+    "translations": {
+      "en": {
+        "hint": "🛠️ **Your role:** Your job is to drive safely (obsługa), not to be a mechanic. Look for the answer that involves fixing the machine (naprawa) – you are NOT allowed to do that."
+      }
+    }
+  },
+  {
+    "id": "3",
+    "translations": {
+      "en": {
+        "hint": "🔍 **What is more important?** On the exam, the manufacturer's manual (instrukcja eksploatacji) is like a bible. Look for deadlines there first, before checking the laws."
+      }
+    }
+  },
+  {
+    "id": "4",
+    "translations": {
+      "en": {
+        "hint": "📖 **Tricky words:** They are asking for the definition of \"supervision\" (dozór techniczny - actions), not the name of the office (Urząd - institution). Look for the answer that describes actions (działania)."
+      }
+    }
+  },
+  {
+    "id": "5",
+    "translations": {
+      "en": {
+        "hint": "⚠️ **Trap:** \"Authorized organizations\" (upoważnione organizacje) sounds smart, but they usually only do repairs. Supervision in Poland is done by UDT, plus the military (WDT) and railways (TDT)."
+      }
+    }
+  },
+  {
+    "id": "6",
+    "translations": {
+      "en": {
+        "hint": "🔄 **What changed?** If you fix a fault – it's a repair (naprawa). But if you change parameters (e.g., lifting capacity) – it's a modernization (modernizacja). Look for that word."
+      }
+    }
+  },
+  {
+    "id": "7",
+    "translations": {
+      "en": {
+        "hint": "📜 **Paperwork is key:** Experience doesn't count here. To repair forklifts, you need an official certificate (uprawnienie) issued by the UDT."
+      }
+    }
+  },
+  {
+    "id": "8",
+    "translations": {
+      "en": {
+        "hint": "🧠 **Memorize this:** There is no logic here. There are three forms of supervision (formy dozoru). Remember the abbreviation **POU** (Pełny, Ograniczony, Uproszczony)."
+      }
+    }
+  },
+  {
+    "id": "9",
+    "translations": {
+      "en": {
+        "hint": "🏛️ **Only one authority:** The decision (decyzja) to allow operation can only be issued by a UDT inspector (organ właściwej jednostki). Not your boss, not the technician."
+      }
+    }
+  },
+  {
+    "id": "10",
+    "translations": {
+      "en": {
+        "hint": "🧩 **The 3-element rule:** To work legally, you need a full set: 1. A working forklift, 2. A UDT decision (decyzja), 3. Your certificate (zaświadczenie kwalifikacyjne). Missing one? You don't drive."
+      }
+    }
+  },
+  {
+    "id": "11",
+    "translations": {
+      "en": {
+        "hint": "⚠️ **All or nothing:** Is just an entry in the logbook (dziennik konserwacji) enough? No. Look for the answer that lists ALL conditions together (wszystkie powyższe)."
+      }
+    }
+  },
+  {
+    "id": "12",
+    "translations": {
+      "en": {
+        "hint": "⚖️ **It's not a ticket:** Breaking UDT laws is not a minor offense. It's a crime. Look for the most severe punishment: fine or restriction of liberty (grzywna lub ograniczenie wolności)."
+      }
+    }
+  },
+  {
+    "id": "13",
+    "translations": {
+      "en": {
+        "hint": "🛑 **Inspector's power:** The inspector doesn't give fines (mandat). If they see danger, they issue a decision stopping operation (decyzja wstrzymująca)."
+      }
+    }
+  },
+  {
+    "id": "14",
+    "translations": {
+      "en": {
+        "hint": "🚑 **Like a crime scene:** Don't touch anything! In case of an accident (nieszczęśliwy wypadek), first notify the UDT (powiadamia UDT) immediately."
+      }
+    }
+  },
+  {
+    "id": "15",
+    "translations": {
+      "en": {
+        "hint": "🔄 **Simple rule:** Who gave you the certificate (zaświadczenie)? UDT. So only UDT (organ właściwej jednostki) can take it away (cofnięte)."
+      }
+    }
+  }
+]
