@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "car_analogy": "To jak Dowód Rejestracyjny z pieczątką przeglądu. Samochodem nie możesz jeździć tylko dlatego, że mechanik powiedział 'jest OK' (A) lub dlatego, że ma znaczek producenta na masce (C). Musisz mieć ważny dowód rejestracyjny podbity przez diagnostę."
+  },
+  {
+    "id": "2",
+    "car_analogy": "Jako kierowca możesz dolać płynu do spryskiwaczy lub sprawdzić olej (obsługa codzienna). Ale nie wolno Ci samemu grzebać w układzie hamulcowym czy kierowniczym na drodze – od tego jest autoryzowany serwis (konserwator)."
+  },
+  {
+    "id": "3",
+    "car_analogy": "Skąd wiesz, co ile wymieniać olej w silniku? Z instrukcji obsługi auta (książki serwisowej) napisanej przez producenta, a nie z ogólnych przepisów ruchu drogowego."
+  },
+  {
+    "id": "4",
+    "car_analogy": "Policja to instytucja, a 'kontrola drogowa' to działanie. Dozór to właśnie ten proces kontroli i dbania o bezpieczeństwo, a nie sam budynek urzędu."
+  },
+  {
+    "id": "5",
+    "car_analogy": "Zwykłe auta kontroluje Policja (UDT). Ale auta wojskowe kontroluje Żandarmeria Wojskowa (WDT), a pociągi podlegają pod specjalistyczny dozór kolejowy (TDT). Każdy pilnuje swojego podwórka."
+  },
+  {
+    "id": "6",
+    "car_analogy": "Jeśli wymienisz zepsuty silnik na taki sam – to NAPRAWA. Ale jeśli wstawisz silnik o większej mocy i dodasz turbosprężarkę (zmieniasz parametry) – to TUNING (Modernizacja)."
+  },
+  {
+    "id": "7",
+    "car_analogy": "Nie możesz otworzyć Stacji Kontroli Pojazdów tylko dlatego, że 'znasz się na autach'. Musisz mieć oficjalne uprawnienia diagnosty i stacji nadane przez starostwo."
+  },
+  {
+    "id": "8",
+    "car_analogy": "Pełny = coroczny przegląd na stacji diagnostycznej. Uproszczony = mała przyczepka lekka (nie musi jeździć na przeglądy, ale musi być sprawna)."
+  },
+  {
+    "id": "9",
+    "car_analogy": "Dowód rejestracyjny wydaje tylko Urząd. Twój mechanik (konserwator) może naprawić auto i wpisać to w książkę serwisową, ale nie może wydać Ci dowodu rejestracyjnego ani podbić przeglądu urzędowego. To robi tylko Urząd (UDT)."
+  },
+  {
+    "id": "10",
+    "car_analogy": "Żeby legalnie jechać autem musisz mieć: 1. Prawo jazdy (Ty), 2. Ważny przegląd techniczny (Auto sprawne), 3. Dowód rejestracyjny (Auto dopuszczone do ruchu). Brak jednego = mandat i laweta."
+  },
+  {
+    "id": "11",
+    "car_analogy": "To tak jak z ubezpieczeniem OC. Musi być ważne DZISIAJ. To, że miałeś ważne OC rok temu, nie pozwala Ci wyjechać na drogę dzisiaj."
+  },
+  {
+    "id": "12",
+    "car_analogy": "Jazda bez uprawnień lub niesprawnym autem to nie jest 'upomnienie'. To sprawa karna lub wysoka grzywna, zwłaszcza jeśli spowodujesz wypadek."
+  },
+  {
+    "id": "13",
+    "car_analogy": "Gdy policjant widzi auto bez hamulców i z łysymi oponami, to ZABIERA DOWÓD REJESTRACYJNY (wstrzymuje eksploatację), żebyś nikogo nie zabił."
+  },
+  {
+    "id": "14",
+    "car_analogy": "Gdy masz poważny wypadek na drodze, najpierw dzwonisz na Policję, żeby zrobili oględziny. Nie wolno Ci szybko naprawić auta i uciec, bo to zacieranie śladów."
+  },
+  {
+    "id": "15",
+    "car_analogy": "Prawo jazdy wydaje Starosta/Urząd. Twój szef w firmie transportowej może Ci zabrać kluczyki do służbowego auta, ale nie może Ci fizycznie unieważnić Prawa Jazdy. To może zrobić tylko Urząd."
+  }
+]
