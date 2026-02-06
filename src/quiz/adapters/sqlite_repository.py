@@ -6,7 +6,7 @@ from typing import Any
 
 from src.config import GameConfig
 from src.quiz.adapters.db_manager import DatabaseManager
-from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
+from src.quiz.domain.models import Language, Question, QuestionCandidate, UserProfile
 from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
 
@@ -162,16 +162,16 @@ class SQLiteQuizRepository(IQuizRepository):
                     streak_days=1,
                     last_login=today,
                     last_daily_reset=today,
-                    metadata={},  # Add this
+                    preferred_language=Language.PL,
                 )
                 conn.execute(
                     """
                     INSERT INTO user_profiles (
                         user_id, streak_days, last_login, daily_goal,
                         daily_progress, last_daily_reset,
-                        has_completed_onboarding
+                        has_completed_onboarding, preferred_language
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         profile.user_id,
@@ -183,12 +183,16 @@ class SQLiteQuizRepository(IQuizRepository):
                         # FIX: Convert date to string
                         today.isoformat(),
                         False,
+                        profile.preferred_language.value,
                     ),
                 )
                 conn.commit()
                 return profile
 
-            # Existing User Logic
+            # LOAD EXISTING PROFILE
+            # Row mapping:
+            # 0:id, 1:streak, 2:last_login, 3:goal, 4:progress, 5:reset, 6:onboarding, 7:lang
+
             last_login_db = (
                 datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
             )
@@ -206,6 +210,14 @@ class SQLiteQuizRepository(IQuizRepository):
                 # Gap > 1 day OR Future date (delta < 0) -> Reset
                 new_streak = 1
 
+            # Safely load language (handle if column was just added and is NULL)
+            lang_val = Language.PL
+            if len(row) > 7 and row[7]:
+                try:
+                    lang_val = Language(row[7])
+                except ValueError:
+                    pass
+
             profile = UserProfile(
                 user_id=row[0],
                 streak_days=new_streak,
@@ -216,6 +228,7 @@ class SQLiteQuizRepository(IQuizRepository):
                 if row[5]
                 else today,
                 has_completed_onboarding=bool(row[6]) if len(row) > 6 else False,
+                preferred_language=lang_val,
             )
 
             if delta > 0:
@@ -237,7 +250,8 @@ class SQLiteQuizRepository(IQuizRepository):
                     daily_goal               = ?,
                     daily_progress           = ?,
                     last_daily_reset         = ?,
-                    has_completed_onboarding = ?
+                    has_completed_onboarding = ?,
+                    preferred_language       = ?
                 WHERE user_id = ?
                 """,
                 (
@@ -249,6 +263,7 @@ class SQLiteQuizRepository(IQuizRepository):
                     # FIX: Convert date to string
                     profile.last_daily_reset.isoformat(),
                     profile.has_completed_onboarding,
+                    profile.preferred_language.value,
                     profile.user_id,
                 ),
             )

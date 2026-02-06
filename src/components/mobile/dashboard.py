@@ -102,13 +102,15 @@ _mobile_dashboard_component = st.components.v2.component(
 
 
 def mobile_dashboard(
-    categories: list[dict[str, Any]], key: str | None = None
+    categories: list[dict[str, Any]], current_lang: str = "pl", key: str | None = None
 ) -> dict[str, Any] | None:
     """
-    Renders the dashboard grid.
-    Returns: {'type': 'SPRINT'|'CATEGORY', 'payload': ...}
+    Renders the dashboard grid and settings.
+    Returns: {'type': 'SPRINT'|'CATEGORY'|'LANGUAGE', 'payload': ...}
     """
     sprint_count = GameConfig.SPRINT_QUESTIONS
+
+    # 1. Render the React/Custom Component for the Grid
     result = _mobile_dashboard_component(
         data={
             "categories": categories,
@@ -118,4 +120,40 @@ def mobile_dashboard(
         key=key,
         on_action_change=lambda: None,
     )
-    return dict(result.action) if result.action is not None else None
+
+    # 2. Render Settings Section (Native Streamlit)
+    st.markdown("---")
+    st.subheader("⚙️ Ustawienia / Settings")
+
+    lang_map = {
+        "pl": "🇵🇱 Polski (Polish)",
+        "en": "🇬🇧 English",
+        "uk": "🇺🇦 Українська (Ukrainian)",
+        "ka": "🇬🇪 ქართული (Georgian)",
+    }
+
+    # Determine index safely
+    options = list(lang_map.keys())
+    try:
+        idx = options.index(current_lang)
+    except ValueError:
+        idx = 0
+
+    selected_code = st.selectbox(
+        "Język pomocy / Help Language",
+        options=options,
+        format_func=lambda x: lang_map[x],
+        index=idx,
+        key=f"{key}_lang_select" if key else "lang_select",
+    )
+
+    # 3. Handle Return Values
+    # Priority 1: Language Change (Immediate)
+    if selected_code != current_lang:
+        return {"type": "LANGUAGE", "payload": selected_code}
+
+    # Priority 2: Grid Action (Sprint/Category)
+    if result.action is not None:
+        return dict(result.action)
+
+    return None

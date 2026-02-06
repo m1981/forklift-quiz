@@ -6,7 +6,7 @@ from typing import Any, Union
 
 from src.config import GameConfig
 from src.game.core import GameContext, GameStep, UIModel
-from src.quiz.domain.models import Question
+from src.quiz.domain.models import Language, Question  # <--- Import Language
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +20,12 @@ class QuestionStepPayload:
     category_name: str
     category_mastery: float
     # --- NEW FIELDS FOR UX ---
-    session_history: list[bool | None]  # True=Correct, False=Wrong, None=Future
+    session_history: list[bool | None]
     current_streak: int
     # -------------------------
+    # --- LOCALIZATION ---
+    preferred_language: Language  # <--- Added
+    # --------------------
     last_feedback: dict[str, Any] | None = None
     app_logo_src: str | None = None
 
@@ -36,34 +39,43 @@ class QuestionLoopStep(GameStep):
         self.feedback_mode = False
         self.last_result: dict[str, Any] | None = None
 
+        # Default to PL, will update in enter()
+        self.user_language: Language = Language.PL
+
         # UX State
-        self.history: list[bool] = []  # Stores results of answered questions
-        self.current_streak = 0  # Tracks consecutive correct answers in this session
+        self.history: list[bool] = []
+        self.current_streak = 0
 
     def enter(self, context: GameContext) -> None:
         super().enter(context)
         if "score" not in context.data:
             context.data["score"] = 0
 
-        # TELEMETRY: Log entry
-        logger.info(f"[QuestionLoopStep] Entered. Context User: {context.user_id}")
+        # --- LOCALIZATION SETUP ---
+        # Fetch user profile to get language preference
+        try:
+            profile = context.repo.get_or_create_profile(context.user_id)
+            self.user_language = profile.preferred_language
+        except Exception as e:
+            logger.error(f"Failed to fetch profile language: {e}")
+            self.user_language = Language.PL
+        # --------------------------
 
-    # --- RESTORED MISSING METHOD ---
+        logger.info(
+            f"[QuestionLoopStep] Entered. User: {context.user_id}, Lang: {self.user_language}"
+        )
+
     def _get_category_mastery(self, category: str) -> float:
-        # TELEMETRY: Log this call to prove the method exists and is called
         logger.info(f"[QuestionLoopStep] _get_category_mastery called for '{category}'")
 
         if not self.context:
-            logger.error(
-                "[QuestionLoopStep] Context is None inside _get_category_mastery!"
-            )
+            logger.error("[QuestionLoopStep] Context is None!")
             return 0.0
 
         try:
             val = self.context.repo.get_mastery_percentage(
                 self.context.user_id, category
             )
-            logger.info(f"[QuestionLoopStep] Repo returned mastery: {val}")
             return val
         except Exception as e:
             logger.error(f"[QuestionLoopStep] Error fetching mastery: {e}")
@@ -72,13 +84,8 @@ class QuestionLoopStep(GameStep):
     def get_ui_model(self) -> UIModel:
         try:
             current_q = self.questions[self.index]
-            logger.info(
-                f"[QuestionLoopStep] Preparing UI for Question Index "
-                f"{self.index} (ID: {current_q.id})"
-            )
 
             # Calculate mastery
-            # This is where the previous error happened
             cat_mastery = self._get_category_mastery(current_q.category)
 
             # Prepare history
@@ -95,6 +102,7 @@ class QuestionLoopStep(GameStep):
                 category_mastery=cat_mastery,
                 session_history=ui_history,
                 current_streak=self.current_streak,
+                preferred_language=self.user_language,  # <--- Pass to UI
                 last_feedback=self.last_result if self.feedback_mode else None,
             )
 
@@ -106,12 +114,11 @@ class QuestionLoopStep(GameStep):
                 branding_logo = GameConfig.get_demo_logo_path(
                     self.context.prospect_slug
                 )
-            # -----------------------
 
             return UIModel(
                 type=ui_type,
                 payload=payload,
-                branding_logo_path=branding_logo,  # <--- Pass to Renderer
+                branding_logo_path=branding_logo,
             )
 
         except Exception as e:
@@ -125,8 +132,6 @@ class QuestionLoopStep(GameStep):
     ) -> Union["GameStep", str, None]:
         current_q = self.questions[self.index]
 
-        logger.info(f"[QuestionLoopStep] Handling Action: {action}")
-
         if action == "SUBMIT_ANSWER":
             selected_option = payload
             is_correct = selected_option == current_q.correct_option
@@ -136,34 +141,29 @@ class QuestionLoopStep(GameStep):
                 self.current_streak += 1
             else:
                 context.data["errors"].append(current_q.id)
-                self.current_streak = 0  # Reset streak on error (High stakes!)
+                self.current_streak = 0
 
-            # Update History
             self.history.append(is_correct)
-
             context.repo.save_attempt(context.user_id, current_q.id, is_correct)
 
-            # 3. Set Feedback State
             self.feedback_mode = True
             self.last_result = {
                 "is_correct": is_correct,
                 "selected": selected_option,
                 "correct_option": current_q.correct_option,
-                "explanation": current_q.explanation,
+                # Note: We don't pass 'explanation' string here anymore,
+                # the UI will fetch the translated version from the Question object directly.
             }
-            return None  # Stay on this step to show feedback
+            return None
 
         elif action == "NEXT_QUESTION":
-            # Advance index
             self.index += 1
             self.feedback_mode = False
             self.last_result = None
 
-            # Check if loop is finished
             if self.index >= len(self.questions):
-                logger.info("[QuestionLoopStep] Loop finished. Returning NEXT.")
                 return "NEXT"
 
-            return None  # Stay on this step (show next question)
+            return None
 
         return None

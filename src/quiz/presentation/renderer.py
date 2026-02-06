@@ -98,8 +98,13 @@ class StreamlitRenderer:
             key="hero_stats",
         )
 
-        # 2. RENDER DASHBOARD GRID
-        action = mobile_dashboard(payload.categories)
+        # 2. FETCH CURRENT LANGUAGE
+        # Safely get preferred_language, defaulting to 'pl' if missing
+        current_lang = getattr(payload, "preferred_language", "pl")
+
+        # 3. RENDER DASHBOARD GRID & SETTINGS
+        action = mobile_dashboard(payload.categories, current_lang=current_lang)
+
         # Handle Actions
         if action:
             if action["type"] == "SPRINT":
@@ -107,5 +112,8 @@ class StreamlitRenderer:
             elif action["type"] == "CATEGORY":
                 st.session_state["selected_category_manual"] = action["payload"]
                 callback("START_CATEGORY_MANUAL", action["payload"])
+            elif action["type"] == "LANGUAGE":
+                callback("CHANGE_LANGUAGE", action["payload"])
+                st.rerun()
 
             st.rerun()

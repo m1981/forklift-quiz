@@ -48,14 +48,19 @@ class GameDirector:
 
         # Special case: If no step is active, we are effectively in Dashboard
         if not self._current_step:
-            # The ViewModel handles global actions like START_SPRINT_MANUAL
-            # so we might not even reach here, but for safety:
-            self.telemetry.log_info(f"Action on Dashboard: {action}")
+            self.telemetry.log_info(
+                f"🌍 Action on Dashboard: {action}",
+                payload=str(payload),
+                is_complete=self._is_complete,
+            )
             return
 
         step_name = self._current_step.__class__.__name__
         self.telemetry.log_info(
-            f"🎮 Action: {action}", step=step_name, payload=str(payload)
+            f"🎮 Action: {action}",
+            step=step_name,
+            payload=str(payload),
+            queue_length=len(self._queue),
         )
 
         # Delegate logic to the specific step

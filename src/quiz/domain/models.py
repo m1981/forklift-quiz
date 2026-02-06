@@ -96,7 +96,7 @@ class UserProfile(BaseModel):
     last_daily_reset: date = Field(default_factory=date.today)
     preferred_language: Language = Language.PL
     daily_goal: int = GameConfig.DAILY_GOAL
-    has_completed_onboarding: bool = False
+    has_completed_onboarding: bool = True
     metadata: dict[str, Any] = Field(default_factory=dict)
 
     def is_bonus_mode(self) -> bool:

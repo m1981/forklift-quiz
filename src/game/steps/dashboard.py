@@ -7,6 +7,7 @@ from typing import Any, Union
 
 from src.config import Category, GameConfig
 from src.game.core import GameContext, GameStep, UIModel
+from src.quiz.domain.models import Language
 from src.shared.telemetry import Telemetry
 
 
@@ -20,6 +21,7 @@ class DashboardPayload:
     finish_date_str: str
     days_left: int
     categories: list[dict[str, Any]]
+    preferred_language: str = "pl"
 
 
 class DashboardStep(GameStep):
@@ -71,10 +73,21 @@ class DashboardStep(GameStep):
 
     def get_ui_model(self) -> UIModel:
         if not self.context:
-            raise RuntimeError("DashboardStep accessed before enter()")
+            raise RuntimeError("DashboardStep accessed before enter() called")
+
+        profile = self.context.repo.get_or_create_profile(self.context.user_id)
+
+        self.telemetry.log_info(
+            "🌍 GET_UI_MODEL_CALLED",
+            current_lang=profile.preferred_language.value,
+            user_id=self.context.user_id,
+        )
 
         # 1. Fetch Data
         stats = self.context.repo.get_category_stats(self.context.user_id)
+
+        # Fetch Profile for Language Settings
+        profile = self.context.repo.get_or_create_profile(self.context.user_id)
 
         # 2. Calculate Global Stats
         total_q = sum(int(s["total"]) for s in stats)
@@ -115,15 +128,19 @@ class DashboardStep(GameStep):
         )
         # ----------------------------
 
+        # Use the shared config method for the logo
+        logo_b64 = GameConfig.get_image_base64(GameConfig.APP_LOGO_PATH)
+
         payload = DashboardPayload(
             app_title=GameConfig.APP_TITLE,
-            app_logo_src=self._get_logo_base64(),
+            app_logo_src=logo_b64,
             global_progress=global_progress,
             total_mastered=total_mastered,
             total_questions=total_q,
             finish_date_str=finish_date.strftime("%d %b"),
             days_left=days_left,
             categories=cat_data,
+            preferred_language=profile.preferred_language.value,  # <--- Added
         )
 
         # --- DEMO MODE LOGIC ---
@@ -136,10 +153,41 @@ class DashboardStep(GameStep):
         return UIModel(
             type="DASHBOARD",
             payload=payload,
-            branding_logo_path=branding_logo,  # <--- Pass to Renderer
+            branding_logo_path=branding_logo,
         )
 
     def handle_action(
         self, action: str, payload: Any, context: GameContext
     ) -> Union["GameStep", str, None]:
+        if action == "CHANGE_LANGUAGE":
+            self.telemetry.log_info(
+                "🌍 DASHBOARD_RECEIVED_LANGUAGE_ACTION",
+                payload=payload,
+                user_id=context.user_id,
+            )
+
+            new_lang_code = payload
+            profile = context.repo.get_or_create_profile(context.user_id)
+
+            self.telemetry.log_info(
+                "🌍 PROFILE_BEFORE_CHANGE",
+                old_lang=profile.preferred_language.value,
+                new_lang=new_lang_code,
+            )
+
+            profile.preferred_language = Language(new_lang_code)
+            context.repo.save_profile(profile)
+
+            # Verify save
+            verify_profile = context.repo.get_or_create_profile(context.user_id)
+            self.telemetry.log_info(
+                "🌍 PROFILE_AFTER_SAVE",
+                saved_lang=verify_profile.preferred_language.value,
+                matches_expected=verify_profile.preferred_language.value
+                == new_lang_code,
+            )
+
+            return None
+        # -----------------------------------------
+
         return None
