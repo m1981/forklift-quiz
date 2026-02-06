@@ -10,9 +10,15 @@
       "D": "deklaracji zgodności wystawionej przez wytwórcę"
     },
     "correct_option": "B",
-    "explanation": "Decyzja ta jest wydawana przez inspektora dopiero po przeprowadzeniu badania odbiorczego i wystawieniu protokołu. Pamiętaj o kolejności: Badanie -> Protokół -> Decyzja.",
+    "explanation": "Decyzja ta jest wydawana przez **inspektora** dopiero po przeprowadzeniu badania odbiorczego i wystawieniu protokołu. Pamiętaj o kolejności: Badanie -> Protokół -> Decyzja.",
     "hint": "⚠️ **Uważaj na hierarchię:** Konserwator jest ważny, ale tylko robi przeglądy. Kto jest \"szefem wszystkich szefów\" i wydaje ten najważniejszy papier (decyzję)?",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "⚠️ **Check the hierarchy:** The maintenance technician (konserwator) is important, but only does check-ups. Who is the \"big boss\" that issues the official administrative DECISION (decyzja) allowing operation?"
+        ,"explanation": "ENG explanation"
+      }
+    }
   },
   {
     "id": "2",
@@ -27,7 +33,14 @@
     "correct_option": "A",
     "explanation": "Operator wykonuje tylko obsługę codzienną (sprawdzanie płynów, działanie hamulców). Wszelkie naprawy i ingerencje w konstrukcję lub zabezpieczenia może wykonywać TYLKO uprawniony konserwator.",
     "hint": "🛠️ **Twoja rola:** Ty masz jeździć, a nie naprawiać. Szukaj odpowiedzi, która mówi o grzebaniu w maszynie – tego Ci nie wolno robić.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🛠️ **Your role:** Your job is to drive safely (obsługa), not to be a mechanic. Look for the answer that involves fixing the machine (naprawa) – you are NOT allowed to do that."
+        ,"explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "3",
@@ -42,7 +55,14 @@
     "correct_option": "A",
     "explanation": "Instrukcja producenta jest najważniejsza (święta). Dopiero gdy producent NIE określi terminów w instrukcji, stosuje się terminy ustawowe (np. co 30 dni). Na egzaminie zawsze szukamy nadrzędności instrukcji.",
     "hint": "🔍 **Co jest ważniejsze?** Na egzaminie instrukcja obsługi od producenta jest jak biblia. To tam najpierw szukamy terminów, dopiero potem w ustawach.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🔍 **What is more important?** On the exam, the manufacturer's manual (instrukcja eksploatacji) is like a bible. Look for deadlines there first, before checking the laws."
+        ,"explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "4",
@@ -57,7 +77,14 @@
     "correct_option": "A",
     "explanation": "Jest to oficjalna definicja dozoru technicznego zawarta w Ustawie o dozorze technicznym. Kluczem jest słowo 'działania'.",
     "hint": "📖 **Haczyk w słowach:** Pytają o definicję \"dozoru\" (czyli co się robi), a nie o nazwę urzędu (kto to robi). Szukaj odpowiedzi, która opisuje działania.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "📖 **Tricky words:** They are asking for the definition of \"supervision\" (dozór techniczny - actions), not the name of the office (Urząd - institution). Look for the answer that describes actions (działania).",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "5",
@@ -72,7 +99,14 @@
     "correct_option": "A",
     "explanation": "W Polsce dozór sprawuje UDT oraz jednostki specjalistyczne: TDT (Transportowy Dozór Techniczny - kolej) oraz WDT (Wojskowy Dozór Techniczny).",
     "hint": "⚠️ **Pułapka:** \"Upoważnione organizacje\" brzmią mądrze, ale one zazwyczaj tylko naprawiają. Dozór to tylko UDT oraz wojsko i kolej (WDT, TDT).",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "⚠️ **Trap:** \"Authorized organizations\" (upoważnione organizacje) sounds smart, but they usually only do repairs. Supervision in Poland is done by UDT, plus the military (WDT) and railways (TDT).",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "6",
@@ -87,7 +121,14 @@
     "correct_option": "A",
     "explanation": "Modernizacja to zmiana parametrów (np. udźwigu, zasięgu) w istniejącym urządzeniu. Jeśli zmiana jest tak duża, że powstaje nowa maszyna wymagająca nowego znaku CE, to już wytwarzanie, a nie modernizacja.",
     "hint": "🔄 **Co się zmieniło?** Jeśli naprawiasz usterkę – to naprawa. Ale jeśli zmieniasz parametry (np. wózek ma teraz większy udźwig) – to już poważniejsza sprawa. Jak to się nazywa?",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🔄 **What changed?** If you fix a fault – it's a repair (naprawa). But if you change parameters (e.g., lifting capacity) – it's a modernization (modernizacja). Look for that word.",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "7",
@@ -102,7 +143,14 @@
     "correct_option": "A",
     "explanation": "UWAGA: 'Uprawnienie' to zawsze oficjalny dokument (decyzja administracyjna) wydany przez UDT. Samo doświadczenie, nawet wieloletnie, nie daje prawa do naprawiania urządzeń podlegających dozorowi.",
     "hint": "📜 **Papier to podstawa:** Doświadczenie wujka czy kolegi się nie liczy. Żeby naprawiać wózki, trzeba mieć oficjalne uprawnienie z pieczątką UDT.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "📜 **Paperwork is key:** Experience doesn't count here. To repair forklifts, you need an official certificate (uprawnienie) issued by the UDT.",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "8",
@@ -117,7 +165,14 @@
     "correct_option": "B",
     "explanation": "Ustawa wyróżnia trzy formy dozoru: pełny, ograniczony oraz uproszczony.",
     "hint": "🧠 **Do wykucia:** Tu nie ma logiki, trzeba zapamiętać. Są trzy formy dozoru. Zapamiętaj skrót **POU** (P..., O..., U...).",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🧠 **Memorize this:** There is no logic here. There are three forms of supervision (formy dozoru). Remember the abbreviation **POU** (Pełny, Ograniczony, Uproszczony).",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "9",
@@ -132,7 +187,14 @@
     "correct_option": "D",
     "explanation": "KLUCZOWE: Decyzję wydaje ZAWSZE i WYŁĄCZNIE 'organ właściwej jednostki dozoru technicznego' (czyli inspektor UDT/TDT/WDT działający w imieniu tej jednostki). Nikt inny nie ma takiej mocy prawnej.",
     "hint": "🏛️ **Tylko jeden organ:** Decyzję o dopuszczeniu do pracy może wydać tylko inspektor UDT. Ani Twój szef, ani konserwator nie mają takiej mocy.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🏛️ **Only one authority:** The decision (decyzja) to allow operation can only be issued by a UDT inspector (organ właściwej jednostki). Not your boss, not the technician.",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "10",
@@ -147,7 +209,14 @@
     "correct_option": "D",
     "explanation": "Zasada trzech kroków: 1. Sprzęt sprawny (przegląd). 2. Sprzęt legalny (decyzja UDT). 3. Operator uprawniony (zaświadczenie). Brak jednego elementu oznacza zakaz pracy.",
     "hint": "🧩 **Zasada 3 elementów:** Żeby legalnie pracować, musisz mieć komplet: 1. Sprawny wózek, 2. Decyzję UDT, 3. Swoje uprawnienia. Brakuje jednego? Nie jedziesz.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🧩 **The 3-element rule:** To work legally, you need a full set: 1. A working forklift, 2. A UDT decision (decyzja), 3. Your certificate (zaświadczenie kwalifikacyjne). Missing one? You don't drive.",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "11",
@@ -162,7 +231,14 @@
     "correct_option": "D",
     "explanation": "To inna wersja poprzedniego pytania. Kluczowe: wpis w dzienniku konserwacji musi być AKTUALNY (zrobiony w terminie). Stary wpis sprzed roku nie upoważnia do pracy, nawet jak wózek wygląda na sprawny.",
     "hint": "⚠️ **Wszystko albo nic:** Czy sam wpis w dzienniku wystarczy? Nie. Szukaj odpowiedzi, która wymienia WSZYSTKIE warunki naraz.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "⚠️ **All or nothing:** Is just an entry in the logbook (dziennik konserwacji) enough? No. Look for the answer that lists ALL conditions together (wszystkie powyższe).",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "12",
@@ -177,8 +253,14 @@
     "correct_option": "C",
     "explanation": "To nie jest mandat za brak kamizelki. Za dopuszczenie do pracy urządzenia bez ważnej decyzji UDT (lub wbrew decyzji wstrzymującej) grozi prokurator, grzywna lub ograniczenie wolności (Art. 63 Ustawy).",
     "hint": "⚖️ **To nie mandat:** Łamanie przepisów UDT to nie jest zwykłe wykroczenie jak przejście na czerwonym. To przestępstwo. Szukaj najsurowszej kary.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "⚖️ **It's not a ticket:** Breaking UDT laws is not a minor offense. It's a crime. Look for the most severe punishment: fine or restriction of liberty (grzywna lub ograniczenie wolności).",
+        "explanation": "ENG explanation"
 
+      }
+    }
   },
   {
     "id": "13",
@@ -193,7 +275,14 @@
     "correct_option": "A",
     "explanation": "Jeśli inspektor stwierdzi ZAGROŻENIE (wypadek, kolizja, niebezpieczne uszkodzenie), wydaje DECYZJĘ O WSTRZYMANIU. To jest natychmiastowy zakaz używania sprzętu.",
     "hint": "🛑 **Co może inspektor?** Inspektor nie wlepia mandatów. Jeśli widzi zagrożenie, robi coś gorszego dla firmy – natychmiast zakazuje używania maszyny.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🛑 **Inspector's power:** The inspector doesn't give fines (mandat). If they see danger, they issue a decision stopping operation (decyzja wstrzymująca).",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "14",
@@ -208,7 +297,14 @@
     "correct_option": "A",
     "explanation": "Art. 19 ust. 1 Ustawy nakazuje NIEZWŁOCZNIE ZAWIADOMIĆ UDT. Celem jest zbadanie przyczyn wypadku przez ekspertów, zanim cokolwiek zostanie naprawione lub zatarte.",
     "hint": "🚑 **Jak przy wypadku:** Nic nie ruszaj, nic nie naprawiaj, bo zatrzesz ślady. Najpierw dzwonisz do UDT i czekasz na ich zgodę.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🚑 **Like a crime scene:** Don't touch anything! In case of an accident (nieszczęśliwy wypadek), first notify the UDT (powiadamia UDT) immediately.",
+        "explanation": "ENG explanation"
+
+      }
+    }
   },
   {
     "id": "15",
@@ -223,7 +319,13 @@
     "correct_option": "A",
     "explanation": "Tylko UDT może dać i zabrać uprawnienia. Mogą zostać cofnięte, jeśli operator rażąco narusza przepisy bezpieczeństwa lub stwarza zagrożenie.",
     "hint": "🔄 **Prosta zasada:** Kto dał Ci uprawnienia? UDT. Więc tylko UDT może Ci je zabrać. Szef czy BHP-owiec nie mogą unieważnić państwowego dokumentu.",
-    "category": "Prawo i Dozór Techniczny"
+    "category": "Prawo i Dozór Techniczny",
+    "translations": {
+      "en": {
+        "hint": "🔄 **Simple rule:** Who gave you the certificate (zaświadczenie)? UDT. So only UDT (organ właściwej jednostki) can take it away (cofnięte).",
+        "explanation": "ENG explanation"
 
+      }
+    }
   }
 ]
