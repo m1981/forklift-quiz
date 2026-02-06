@@ -33,7 +33,7 @@ class Category(Enum):
 
 class GameConfig:
     # --- Infrastructure Switch ---
-    USE_SQLITE: bool = True  # Changed from "true" string to boolean
+    USE_SQLITE: bool = os.getenv("USE_SQLITE", "true").lower() in ("true", "1", "yes")
 
     # --- App Identity ---
     APP_TITLE = "Wózki widłowe 2 WJO"
