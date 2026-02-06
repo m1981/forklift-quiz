@@ -82,7 +82,7 @@ HERO_CSS = (
 }
 
 .app-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: #111827;
     margin-bottom: 6px;
@@ -116,7 +116,7 @@ HERO_CSS = (
 }
 
 .percent-text {
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
     color: #374151;
     min-width: 32px;
@@ -125,7 +125,7 @@ HERO_CSS = (
 
 /* --- STATS --- */
 .stats-row {
-    font-size: 11px;
+    font-size: 16px;
     color: #6b7280;
 }
 

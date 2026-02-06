@@ -13,6 +13,7 @@ OPTION_CSS = (
     SHARED_CSS
     + """
 .option-card {
+    font-family: "Inter";
     display: flex;
     align-items: flex-start;
     width: 100%;

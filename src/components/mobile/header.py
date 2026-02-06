@@ -33,8 +33,8 @@ HEADER_CSS = (
     background: #f0f2f6;
     border: none;
     border-radius: 8px;
-    width: 36px;
-    height: 36px;
+    width: 64px;
+    height: 64px;
     font-size: 18px;
     display: flex;
     align-items: center;
@@ -53,7 +53,7 @@ HEADER_CSS = (
 .meta {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 16px;
     color: #555;
     margin-bottom: 4px;
     font-weight: 600;

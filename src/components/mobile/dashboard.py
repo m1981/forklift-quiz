@@ -34,13 +34,13 @@ DASHBOARD_CSS = (
 .sprint-card { border: 1px solid #22c55e; background: #f0fdf4; margin-bottom: 24px; }
 .icon-box { font-size: 24px; margin-right: 12px; }
 .content { flex: 1; overflow: hidden; }
-.title { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 2px; }
-.subtitle { font-size: 12px; color: #4b5563; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.title { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 2px; }
+.subtitle { font-size: 16px; color: #4b5563; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .grid { display: flex; flex-direction: column; gap: 12px; }
 .cat-item { border: 1px solid #e5e7eb; margin-bottom: 0; }
-.cat-title { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 2px; }
-.cat-sub { font-size: 12px; color: #6b7280; }
-.badge { padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-left: 8px; min-width: 40px; text-align: center; }
+.cat-title { font-size: 16px; font-weight: 600; color: #111827; margin-bottom: 2px; }
+.cat-sub { font-size: 16px; color: #6b7280; }
+.badge { padding: 4px 8px; border-radius: 6px; font-size: 16px; font-weight: 600; margin-left: 8px; min-width: 40px; text-align: center; }
 .badge-green-light { background-color: #dcfce7; color: #16a34a; }
 .badge-green-solid { background-color: #22c55e; color: white; }
 """
