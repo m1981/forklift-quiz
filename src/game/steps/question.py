@@ -173,6 +173,20 @@ class QuestionLoopStep(GameStep):
             }
             return None
 
+        # --- ADD THIS BLOCK ---
+        if action == "CHANGE_LANGUAGE":
+            new_lang_str = payload
+            # 1. Update DB
+            profile = context.repo.get_or_create_profile(context.user_id)
+            profile.preferred_language = Language(new_lang_str)
+            context.repo.save_profile(profile)
+
+            # 2. Update Local State immediately so UI reflects it on rerun
+            self.user_language = Language(new_lang_str)
+
+            return None
+        # ----------------------
+
         elif action == "NEXT_QUESTION":
             self.index += 1
             self.feedback_mode = False

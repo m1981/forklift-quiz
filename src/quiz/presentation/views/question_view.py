@@ -25,7 +25,7 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
     _render_compact_header(payload, callback)
 
     q = payload.question
-    lang = payload.preferred_language
+    user_lang = payload.preferred_language
 
     # 1. Question Text (ALWAYS POLISH - Source of Truth)
     st.markdown(
@@ -52,19 +52,65 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
         if clicked_key:
             callback("SUBMIT_ANSWER", key)
 
-    # 3. Hint (TRANSLATED)
-    # Logic: Get translated hint. If user is foreign AND translation exists,
-    # show translation + expander for original.
-    hint_text = q.get_hint(lang)
+    # 3. Hint (Always show pills if translations exist)
+    # Check if the base Polish hint exists
+    if q.hint:
+        with st.expander("💡 Wskazówka", expanded=True):
+            # A. Identify which languages have a hint defined
+            # Polish is always available if q.hint exists
+            available_langs = [Language.PL]
 
-    if hint_text:
-        with st.expander("💡 Wskazówka"):
-            st.info(hint_text)
+            # Check translations dictionary
+            for lang, content in q.translations.items():
+                if content.hint:
+                    available_langs.append(lang)
 
-            # If we are showing a translation, offer the original
-            if lang != Language.PL and hint_text != q.hint:
-                st.caption("🇵🇱 Oryginał:")
-                st.text(q.hint)
+            # B. If we have more than just Polish, show the selector
+            if len(available_langs) > 1:
+                # Helper for labels
+                def format_lang(lang: Language) -> str:
+                    if lang == Language.PL:
+                        return "🇵🇱 Polski"
+                    if lang == Language.EN:
+                        return "🇬🇧 English"
+                    if lang == Language.UK:
+                        return "🇺🇦 Українська"
+                    if lang == Language.KA:
+                        return "🇬🇪 ქართული"
+                    return lang.value.upper()
+
+                # Determine default
+                default_selection = (
+                    user_lang if user_lang in available_langs else Language.PL
+                )
+
+                # Unique key for this widget
+                pill_key = f"hint_pill_{q.id}"
+
+                # Render Pills
+                selected_lang = st.pills(
+                    "Język / Language",
+                    options=available_langs,
+                    format_func=format_lang,
+                    default=default_selection,
+                    selection_mode="single",
+                    label_visibility="collapsed",
+                    key=pill_key,
+                )
+
+                # Linear Check: If value changed, trigger action immediately.
+                # This runs in the main script flow, so st.rerun() inside callback() is valid.
+                if selected_lang is not None and selected_lang != user_lang:
+                    callback("CHANGE_LANGUAGE", selected_lang.value)
+
+                # Handle None case (if user deselects) -> fallback to default
+                display_lang = selected_lang if selected_lang else default_selection
+
+                st.info(q.get_hint(display_lang))
+
+            else:
+                # Only Polish available, just show text
+                st.info(q.hint)
 
 
 def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
