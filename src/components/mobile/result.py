@@ -21,7 +21,7 @@ RESULT_CSS = (
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     padding: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     text-align: left;
     color: #31333F;
     opacity: 0.8; /* Slightly faded to indicate read-only */
