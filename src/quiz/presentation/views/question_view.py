@@ -1,3 +1,4 @@
+import logging  # <--- Added import
 import os
 from collections.abc import Callable
 from typing import Any
@@ -6,6 +7,9 @@ import streamlit as st
 
 from src.components.mobile import mobile_header, mobile_option, mobile_result_row
 from src.quiz.domain.models import Language
+
+# Setup logger
+logger = logging.getLogger(__name__)
 
 
 def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
@@ -55,9 +59,7 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
     # 3. Hint (Always show pills if translations exist)
     # Check if the base Polish hint exists
     if q.hint:
-        with st.expander("💡 Wskazówka", expanded=True):
-            # A. Identify which languages have a hint defined
-            # Polish is always available if q.hint exists
+        with st.expander("💡 Wskazówka"):
             available_langs = [Language.PL]
 
             # Check translations dictionary
@@ -143,11 +145,20 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
     expl_text = q.get_explanation(lang)
 
     if expl_text:
+        # Check if we are falling back
+        is_fallback = (lang != Language.PL) and (expl_text == q.explanation)
+
+        if is_fallback:
+            st.warning(
+                f"⚠️ Brak tłumaczenia ({lang.value.upper()}). Wyświetlam oryginał:"
+            )
+
         # Main explanation box
         st.info(f"{expl_text}")
 
-        # If we are showing a translation, offer the original
-        if lang != Language.PL and expl_text != q.explanation:
+        # Show "Original" expander if user is NOT in Polish mode
+        # (Even if text is same, we show it so you can verify the UI logic)
+        if lang != Language.PL:
             with st.expander("🇵🇱 Pokaż wyjaśnienie po polsku"):
                 st.write(q.explanation)
 
