@@ -28,7 +28,7 @@ def _render_hint_section(
     q: Any,
     user_lang: Language,
     callback: Callable[[str, Any], None],
-    default_expanded: bool = False,  # <--- Added parameter
+    view_mode: str,  # <--- New parameter to force unique identity
 ) -> None:
     """
     Shared logic to render the Hint section with Pills and Dual Display.
@@ -36,8 +36,16 @@ def _render_hint_section(
     if not q.hint:
         return
 
-    # Pass the expanded state to the expander
-    with st.expander("💡 Wskazówka", expanded=default_expanded):
+    # --- FIX START ---
+    # Streamlit identifies expanders by their label. To force a reset when switching views,
+    # we make the labels technically different but visually identical.
+    # In 'feedback' mode, we append a Zero-Width Space (\u200b).
+    label = "💡 Wskazówka"
+    if view_mode == "feedback":
+        label += "\u200b"
+    # --- FIX END ---
+
+    with st.expander(label, expanded=False):
         available_langs = [Language.PL]
         for lang, content in q.translations.items():
             if content.hint:
@@ -59,7 +67,9 @@ def _render_hint_section(
             default_selection = (
                 user_lang if user_lang in available_langs else Language.PL
             )
-            pill_key = f"hint_pill_{q.id}"
+
+            # Unique key includes view_mode to prevent state bleeding
+            pill_key = f"hint_pill_{q.id}_{view_mode}"
 
             selected_lang = st.pills(
                 "Język / Language",
@@ -119,9 +129,8 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
         if clicked_key:
             callback("SUBMIT_ANSWER", key)
 
-    # 3. Hint (Shared Logic)
-    # In active view, we keep it collapsed by default (standard behavior)
-    _render_hint_section(q, user_lang, callback, default_expanded=False)
+    # 3. Hint (Mode: ACTIVE)
+    _render_hint_section(q, user_lang, callback, view_mode="active")
 
 
 def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
@@ -150,9 +159,13 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
 
         mobile_result_row(key.value, text, state=state, key=f"res_{q.id}_{key}")
 
-    # --- 1. HINT SECTION ---
-    # Explicitly force collapsed state in feedback view
-    _render_hint_section(q, user_lang, callback, default_expanded=False)
+    if st.button("Dalej ➡️", type="primary", use_container_width=True):
+        callback("NEXT_QUESTION", None)
+
+    # --- 1. HINT SECTION (Mode: FEEDBACK) ---
+    # Changing the view_mode changes the internal keys of widgets inside,
+    # forcing Streamlit to re-mount them, thus respecting 'expanded=False'.
+    _render_hint_section(q, user_lang, callback, view_mode="feedback")
 
     # --- 2. EXPLANATION SECTION ---
     if q.explanation:
@@ -212,6 +225,3 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
         else:
             # Only Polish available
             st.info(q.explanation)
-
-    if st.button("Dalej ➡️", type="primary", use_container_width=True):
-        callback("NEXT_QUESTION", None)
