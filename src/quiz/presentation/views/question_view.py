@@ -108,16 +108,13 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
                 # Handle None case (if user deselects) -> fallback to default
                 display_lang = selected_lang if selected_lang else default_selection
 
-                # --- DUAL DISPLAY LOGIC ---
-                translated_text = q.get_hint(display_lang)
+                # Display Translated
+                st.info(q.get_hint(display_lang))
 
-                # 1. Show the selected language text
-                st.info(translated_text)
-
-                # 2. If selected is NOT Polish, show Polish below it
+                # Display Original if different
                 if display_lang != Language.PL:
                     st.caption("🇵🇱 Oryginał:")
-                    st.markdown(f"_{q.hint}_")
+                    st.markdown(f"{q.hint}")
                 # --------------------------
 
             else:
@@ -133,7 +130,7 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
 
     q = payload.question
     fb = payload.last_feedback
-    lang = payload.preferred_language
+    user_lang = payload.preferred_language
 
     # Question Text (Polish)
     st.markdown(f"{q.text}")
@@ -151,26 +148,64 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
 
         mobile_result_row(key.value, text, state=state, key=f"res_{q.id}_{key}")
 
-    # Explanation (TRANSLATED)
-    expl_text = q.get_explanation(lang)
+    # --- EXPLANATION SECTION (Refactored to match Hint) ---
+    if q.explanation:
+        st.markdown("### 📖 Wyjaśnienie")
 
-    if expl_text:
-        # Check if we are falling back
-        is_fallback = (lang != Language.PL) and (expl_text == q.explanation)
+        # A. Identify which languages have an EXPLANATION defined
+        available_langs = [Language.PL]
+        for lang, content in q.translations.items():
+            if content.explanation:
+                available_langs.append(lang)
 
-        if is_fallback:
-            st.warning(
-                f"⚠️ Brak tłumaczenia ({lang.value.upper()}). Wyświetlam oryginał:"
+        # B. If we have more than just Polish, show the selector
+        if len(available_langs) > 1:
+
+            def format_lang(lang: Language) -> str:
+                if lang == Language.PL:
+                    return "🇵🇱 Polski"
+                if lang == Language.EN:
+                    return "🇬🇧 English"
+                if lang == Language.UK:
+                    return "🇺🇦 Українська"
+                if lang == Language.KA:
+                    return "🇬🇪 ქართული"
+                return lang.value.upper()
+
+            default_selection = (
+                user_lang if user_lang in available_langs else Language.PL
             )
 
-        # Main explanation box
-        st.info(f"{expl_text}")
+            # Unique key for explanation pills
+            pill_key = f"expl_pill_{q.id}"
 
-        # Show "Original" expander if user is NOT in Polish mode
-        # (Even if text is same, we show it so you can verify the UI logic)
-        if lang != Language.PL:
-            with st.expander("🇵🇱 Pokaż wyjaśnienie po polsku"):
-                st.write(q.explanation)
+            selected_lang = st.pills(
+                "Język / Language",
+                options=available_langs,
+                format_func=format_lang,
+                default=default_selection,
+                selection_mode="single",
+                label_visibility="collapsed",
+                key=pill_key,
+            )
+
+            # Persistence Logic
+            if selected_lang is not None and selected_lang != user_lang:
+                callback("CHANGE_LANGUAGE", selected_lang.value)
+
+            display_lang = selected_lang if selected_lang else default_selection
+
+            # 1. Display Translated Text
+            st.info(q.get_explanation(display_lang))
+
+            # 2. Display Original if different
+            if display_lang != Language.PL:
+                st.caption("🇵🇱 Oryginał:")
+                st.markdown(f"{q.explanation}")
+
+        else:
+            # Only Polish available
+            st.info(q.explanation)
 
     if st.button("Dalej ➡️", type="primary", use_container_width=True):
         callback("NEXT_QUESTION", None)
