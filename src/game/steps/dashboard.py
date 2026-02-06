@@ -160,34 +160,21 @@ class DashboardStep(GameStep):
         self, action: str, payload: Any, context: GameContext
     ) -> Union["GameStep", str, None]:
         if action == "CHANGE_LANGUAGE":
+            new_lang = payload
             self.telemetry.log_info(
-                "🌍 DASHBOARD_RECEIVED_LANGUAGE_ACTION",
-                payload=payload,
-                user_id=context.user_id,
+                f"🔄 [Dashboard] Requesting Language Change to: {new_lang}"
             )
 
-            new_lang_code = payload
+            # 1. Update DB
             profile = context.repo.get_or_create_profile(context.user_id)
-
-            self.telemetry.log_info(
-                "🌍 PROFILE_BEFORE_CHANGE",
-                old_lang=profile.preferred_language.value,
-                new_lang=new_lang_code,
-            )
-
-            profile.preferred_language = Language(new_lang_code)
+            profile.preferred_language = Language(new_lang)
             context.repo.save_profile(profile)
 
-            # Verify save
-            verify_profile = context.repo.get_or_create_profile(context.user_id)
+            # 2. DEBUG: Immediate Readback to verify persistence
+            check = context.repo.get_or_create_profile(context.user_id)
             self.telemetry.log_info(
-                "🌍 PROFILE_AFTER_SAVE",
-                saved_lang=verify_profile.preferred_language.value,
-                matches_expected=verify_profile.preferred_language.value
-                == new_lang_code,
+                f"✅ [Dashboard] DB Updated. Readback Lang: {check.preferred_language.value}"
             )
 
             return None
-        # -----------------------------------------
-
         return None

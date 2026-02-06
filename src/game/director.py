@@ -53,6 +53,12 @@ class GameDirector:
                 payload=str(payload),
                 is_complete=self._is_complete,
             )
+            # --- FIX START ---
+            # We must delegate the action to the DashboardStep logic
+            dashboard = DashboardStep()
+            dashboard.enter(self.context)
+            dashboard.handle_action(action, payload, self.context)
+            # --- FIX END ---
             return
 
         step_name = self._current_step.__class__.__name__

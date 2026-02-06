@@ -132,6 +132,9 @@ def mobile_dashboard(
         "ka": "🇬🇪 ქართული (Georgian)",
     }
 
+    # DEBUG LOG (Visible in terminal)
+    print(f"DEBUG: mobile_dashboard rendered. Incoming current_lang={current_lang}")
+
     # Determine index safely
     options = list(lang_map.keys())
     try:
@@ -139,26 +142,38 @@ def mobile_dashboard(
     except ValueError:
         idx = 0
 
-    # KEY FIX: Use a unique key based on the current language to prevent state retention issues
-    # This forces Streamlit to reset the widget if the backend value changes
-    select_key = (
-        f"{key}_lang_select_{current_lang}" if key else f"lang_select_{current_lang}"
-    )
+    # FIX: Use a static key. We handle updates via index.
+    # Changing the key dynamically (as we did before) forces a remount,
+    # which is good for resetting, but can cause the loop if the DB read is stale.
+    widget_key = f"{key}_lang_select" if key else "lang_select"
+
+    # We use on_change to detect interaction, rather than checking return value manually
+    def on_lang_change() -> None:
+        # This runs BEFORE the script reruns
+        st.session_state[f"{widget_key}_changed"] = True
 
     selected_code = st.selectbox(
         "Język pomocy / Help Language",
         options=options,
         format_func=lambda x: lang_map[x],
         index=idx,
-        key=select_key,
+        key=widget_key,
+        on_change=on_lang_change,
     )
 
     # 3. Handle Return Values
-    # Priority 1: Language Change (Immediate)
-    if selected_code != current_lang:
-        return {"type": "LANGUAGE", "payload": selected_code}
 
-    # Priority 2: Grid Action (Sprint/Category)
+    # CHECK 1: Did the user JUST interact with the widget?
+    if st.session_state.get(f"{widget_key}_changed", False):
+        # Reset the flag so we don't loop forever
+        st.session_state[f"{widget_key}_changed"] = False
+
+        # Only return if it's actually different (Double check)
+        if selected_code != current_lang:
+            print(f"DEBUG: UI Triggering Change: {current_lang} -> {selected_code}")
+            return {"type": "LANGUAGE", "payload": selected_code}
+
+    # CHECK 2: Grid Action
     if result.action is not None:
         return dict(result.action)
 
