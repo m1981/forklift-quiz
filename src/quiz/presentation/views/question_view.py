@@ -1,4 +1,4 @@
-import logging  # <--- Added import
+import logging
 import os
 from collections.abc import Callable
 from typing import Any
@@ -108,7 +108,17 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
                 # Handle None case (if user deselects) -> fallback to default
                 display_lang = selected_lang if selected_lang else default_selection
 
-                st.info(q.get_hint(display_lang))
+                # --- DUAL DISPLAY LOGIC ---
+                translated_text = q.get_hint(display_lang)
+
+                # 1. Show the selected language text
+                st.info(translated_text)
+
+                # 2. If selected is NOT Polish, show Polish below it
+                if display_lang != Language.PL:
+                    st.caption("🇵🇱 Oryginał:")
+                    st.markdown(f"_{q.hint}_")
+                # --------------------------
 
             else:
                 # Only Polish available, just show text
