@@ -49,6 +49,7 @@ class GameViewModel:
             # --- DEMO MODE LOGIC ---
             query_params = st.query_params
             demo_slug = query_params.get("demo")
+            demo_lang = query_params.get("lang")  # e.g. "en"
 
             if demo_slug:
                 if "demo_user_id" not in st.session_state:
@@ -57,11 +58,24 @@ class GameViewModel:
                 user_id = st.session_state.demo_user_id
                 is_demo = True
 
-                # Save metadata for analytics
                 profile = repo.get_or_create_profile(user_id)
-                # Ensure your UserProfile model has 'metadata' field!
                 profile.metadata = {"type": "demo", "prospect": demo_slug}
-                repo.save_profile(profile)
+
+                # 4. FORCE LANGUAGE UPDATE if param is present
+                # This ensures ?lang=en overrides whatever is in DB
+                if demo_lang:
+                    try:
+                        from src.quiz.domain.models import Language
+
+                        new_lang = Language(demo_lang)
+                        if profile.preferred_language != new_lang:
+                            profile.preferred_language = new_lang
+                            repo.save_profile(profile)  # <--- SAVE IMMEDIATELY
+                            st.toast(f"Language set to: {new_lang.value}")
+                    except ValueError:
+                        pass  # Invalid lang code, ignore
+
+                # If no param, we keep whatever is in DB (persistence)
 
             else:
                 user_id = "User1"

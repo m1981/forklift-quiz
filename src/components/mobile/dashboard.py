@@ -121,7 +121,7 @@ def mobile_dashboard(
         on_action_change=lambda: None,
     )
 
-    # 2. Render Settings Section (Native Streamlit)
+    # 2. Render Settings Section
     st.markdown("---")
     st.subheader("⚙️ Ustawienia / Settings")
 
@@ -139,12 +139,18 @@ def mobile_dashboard(
     except ValueError:
         idx = 0
 
+    # KEY FIX: Use a unique key based on the current language to prevent state retention issues
+    # This forces Streamlit to reset the widget if the backend value changes
+    select_key = (
+        f"{key}_lang_select_{current_lang}" if key else f"lang_select_{current_lang}"
+    )
+
     selected_code = st.selectbox(
         "Język pomocy / Help Language",
         options=options,
         format_func=lambda x: lang_map[x],
         index=idx,
-        key=f"{key}_lang_select" if key else "lang_select",
+        key=select_key,
     )
 
     # 3. Handle Return Values

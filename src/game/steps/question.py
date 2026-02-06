@@ -6,7 +6,7 @@ from typing import Any, Union
 
 from src.config import GameConfig
 from src.game.core import GameContext, GameStep, UIModel
-from src.quiz.domain.models import Language, Question  # <--- Import Language
+from src.quiz.domain.models import Language, Question
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class QuestionStepPayload:
     current_streak: int
     # -------------------------
     # --- LOCALIZATION ---
-    preferred_language: Language  # <--- Added
+    preferred_language: Language
     # --------------------
     last_feedback: dict[str, Any] | None = None
     app_logo_src: str | None = None
@@ -56,8 +56,15 @@ class QuestionLoopStep(GameStep):
         try:
             profile = context.repo.get_or_create_profile(context.user_id)
             self.user_language = profile.preferred_language
+
+            # DEBUG LOG: Confirm what language the system thinks the user has
+            logger.info(
+                f"🌍 [QuestionLoopStep] Loaded Profile. "
+                f"User: {context.user_id}, "
+                f"Preferred Lang: {self.user_language.value}"
+            )
         except Exception as e:
-            logger.error(f"Failed to fetch profile language: {e}")
+            logger.error(f"❌ [QuestionLoopStep] Failed to fetch profile language: {e}")
             self.user_language = Language.PL
         # --------------------------
 
@@ -84,6 +91,16 @@ class QuestionLoopStep(GameStep):
     def get_ui_model(self) -> UIModel:
         try:
             current_q = self.questions[self.index]
+
+            # DEBUG LOG: Inspect the question object itself
+            # Check if translations actually exist in the object loaded from DB
+            has_en = Language.EN in current_q.translations
+            logger.info(
+                f"🔍 [QuestionLoopStep] Preparing Q: {current_q.id}. "
+                f"User Lang: {self.user_language.value}. "
+                f"Has EN Translation? {has_en}. "
+                f"Raw Translations Keys: {list(current_q.translations.keys())}"
+            )
 
             # Calculate mastery
             cat_mastery = self._get_category_mastery(current_q.category)
@@ -123,7 +140,7 @@ class QuestionLoopStep(GameStep):
 
         except Exception as e:
             logger.critical(
-                f"[QuestionLoopStep] CRASH in get_ui_model: {e}", exc_info=True
+                f"❌ [QuestionLoopStep] CRASH in get_ui_model: {e}", exc_info=True
             )
             raise e
 

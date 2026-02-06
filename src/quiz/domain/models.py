@@ -69,14 +69,19 @@ class Question(BaseModel):
         Returns hint in requested language.
         Falls back to Polish if translation is missing.
         """
+        # DEBUG PRINT: Trace the lookup
+        # print(f"DEBUG: get_hint called for {self.id} with lang={lang.value}")
+
         if lang == Language.PL:
             return self.hint
 
         if lang in self.translations:
             content = self.translations[lang]
+            # print(f"DEBUG: Found translation for {lang.value}: {content.hint}")
             if content.hint:
                 return content.hint
 
+        # print(f"DEBUG: No translation found, falling back to PL")
         return self.hint
 
 

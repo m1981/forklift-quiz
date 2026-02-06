@@ -177,25 +177,32 @@ class DatabaseManager:
     def _migrate_schema(self) -> None:
         conn = self.get_connection()
         try:
-            cursor = conn.execute("PRAGMA table_info(user_progress)")
-            columns = [row[1] for row in cursor.fetchall()]
+            cursor = conn.cursor()
 
-            if "consecutive_correct" not in columns:
-                self.telemetry.log_info("Migrating DB: Adding consecutive_correct")
-                conn.execute(
-                    "ALTER TABLE user_progress "
-                    "ADD COLUMN consecutive_correct INTEGER DEFAULT 0"
+            # Check user_profiles columns
+            cursor.execute("PRAGMA table_info(user_profiles)")
+            columns = [info[1] for info in cursor.fetchall()]
+
+            # Migration: Add preferred_language if missing
+            if "preferred_language" not in columns:
+                self.telemetry.log_info(
+                    "Migrating: Adding preferred_language to user_profiles"
+                )
+                cursor.execute(
+                    "ALTER TABLE user_profiles ADD COLUMN preferred_language TEXT DEFAULT 'pl'"
                 )
 
-            cursor = conn.execute("PRAGMA table_info(questions)")
-            q_columns = [row[1] for row in cursor.fetchall()]
-
-            if "category" not in q_columns:
-                self.telemetry.log_info("Migrating DB: Adding category column")
-                conn.execute(
-                    "ALTER TABLE questions ADD COLUMN category TEXT DEFAULT 'Ogólne'"
+            # Migration: Add metadata if missing (for Demo Mode)
+            if "metadata" not in columns:
+                self.telemetry.log_info("Migrating: Adding metadata to user_profiles")
+                # SQLite doesn't have native JSON type like Postgres, TEXT is fine
+                cursor.execute(
+                    "ALTER TABLE user_profiles ADD COLUMN metadata TEXT DEFAULT '{}'"
                 )
 
             conn.commit()
         except Exception as e:
-            self.telemetry.log_error("Migration Failed", e)
+            self.telemetry.log_error("Schema migration failed", e)
+        finally:
+            if not self._shared_connection:
+                conn.close()

@@ -215,8 +215,17 @@ class SQLiteQuizRepository(IQuizRepository):
             if len(row) > 7 and row[7]:
                 try:
                     lang_val = Language(row[7])
+                    # DEBUG LOG:
+                    self.telemetry.log_info(
+                        f"DB_READ: User {user_id} has lang={row[7]}"
+                    )
                 except ValueError:
                     pass
+            else:
+                self.telemetry.log_info(
+                    f"DB_READ: User {user_id} has NO lang column/value. Defaulting to PL."
+                )
+                pass
 
             profile = UserProfile(
                 user_id=row[0],

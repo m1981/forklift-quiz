@@ -24,7 +24,7 @@ class DataSeeder:
         self.repo = repo
         self.telemetry = Telemetry("DataSeeder")
 
-    def seed_if_empty(self, seed_file: str = "data/seed_questions.json") -> None:
+    def seed_if_empty(self, seed_file: str = "data/seed_questions_demo.json") -> None:
         """
         Checks if the repository is empty, and if so, loads data from JSON.
         """
