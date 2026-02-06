@@ -34,9 +34,9 @@ class DailySprintFlow(GameFlow):
             # Keep this TextStep only for the "All Mastered" edge case
             return [
                 TextStep(
-                    "Gratulacje! 🏆",
-                    "Opanowałeś cały materiał! Wróć później na powtórkę.",
-                    "Menu",
+                    title="Gratulacje! 🏆",
+                    content="Opanowałeś cały materiał! Wróć później na powtórkę.",
+                    button_text="Menu",
                 )
             ]
 
@@ -76,7 +76,11 @@ class CategorySprintFlow(GameFlow):
 
         if not questions:
             return [
-                TextStep("Pusto", f"Brak pytań w kategorii: {self.category}", "Menu")
+                TextStep(
+                    title="Pusto",
+                    content=f"Brak pytań w kategorii: {self.category}",
+                    button_text="Menu",
+                )
             ]
 
         context.data["total_questions"] = len(questions)
@@ -114,16 +118,16 @@ class OnboardingFlow(GameFlow):
         context.data["total_questions"] = 1
         return [
             TextStep(
-                "👋 Witaj w Magazynie!",
-                "Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.",
-                "Dalej",
+                title="👋 Witaj w Magazynie!",
+                content="Jesteś nowym operatorem wózka. Przejdźmy szybkie szkolenie BHP.",
+                button_text="Dalej",
             ),
             # --- FIX: Added flow_title ---
             QuestionLoopStep([tutorial_q], flow_title="🎓 Szkolenie Wstępne"),
             TextStep(
-                "Szkolenie Zakończone",
-                "Jesteś gotowy do pracy!",
-                "Rozpocznij Sprint 🚀",
+                title="Szkolenie Zakończone",
+                content="Jesteś gotowy do pracy!",
+                button_text="Rozpocznij Sprint 🚀",
             ),
         ]
 
@@ -144,9 +148,9 @@ class DemoFlow(GameFlow):
         if not questions:
             return [
                 TextStep(
-                    "Konfiguracja Demo",
-                    "Nie znaleziono pytań demo w bazie danych.",
-                    "Zamknij",
+                    title="Konfiguracja Demo",
+                    content="Nie znaleziono pytań demo w bazie danych.",
+                    button_text="Zamknij",
                 )
             ]
 
@@ -154,11 +158,41 @@ class DemoFlow(GameFlow):
         context.data["score"] = 0
         context.data["errors"] = []
 
+        # --- RICH MARKDOWN CONTENT ---
+        # We use standard Markdown.
+        # <br> is used for line breaks within a bullet point.
+        # ### is used for the main headline.
+
+        demo_intro_md = """
+### 🚀 **Zdasz za pierwszym razem.**
+Inteligentna nauka do egzaminu UDT.
+
+💡 **Inteligentne Wyjaśnienia**
+Zrozum sens, a nie tylko wkuwaj.
+
+⚠️ **Unikaj Pułapek Egzaminacyjnych**
+Ostrzeżenia przed podchwytliwymi pytaniami.
+
+🌍 **PL 🇵🇱 / UA 🇺🇦 / EN 🇬🇧**
+Ucz się pytań w swoim języku, żeby zrozumieć. Zdawaj po polsku.
+
+
+"""
+
+        #  🛡 **Symulator Stresu**
+        # Próbny egzamin identyczny jak w UDT.
+        #
+        # 📊 **Twoje Postępy**
+        # Widzisz czarno na białym, kiedy jesteś gotowy, by zdać.
+        #
+        # 🧠 **Inteligentny Mix**
+        # Algorytm uczy Cię tylko tego, czego nie umiesz. Oszczędź 50% czasu.
+
         return [
             TextStep(
-                "Tryb Demonstracyjny",
-                f"Witaj! Przygotowaliśmy dla Ciebie {len(questions)} przykładowych pytań.",
-                "Rozpocznij Test",
+                title="",  # Empty title so Markdown header takes over
+                content=demo_intro_md,  # Correct argument name
+                button_text="Rozpocznij Test 🚀",  # Correct argument name
             ),
             QuestionLoopStep(questions, flow_title="⭐ Demo"),
             SummaryStep(),
