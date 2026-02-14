@@ -11,12 +11,28 @@ The algorithm categorizes all available questions into three pools based on the 
 3.  **Review Pool:** Questions currently **mastered** (`streak >= MASTERY_THRESHOLD`).
 
 ### B. Selection Logic (Daily Sprint)
-When a user starts a "Daily Sprint" (15 questions), the `SpacedRepetitionSelector` builds the quiz using the following priority mix:
 
-1.  **Review Priority:** First, it looks for **Review** questions that haven't been seen in at least **3 days**. This prevents "over-practicing" known material.
-2.  **Learning Priority:** Next, it fills the quota with **Learning** questions (the "struggle zone").
-3.  **New Content:** Finally, it fills the remaining slots with **New** questions (approx. 60% of the sprint, configurable via `NEW_RATIO`).
-4.  **Backfill:** If there aren't enough New/Review questions, it falls back to random Learning questions to ensure the user always gets a full 15-question set.
+#### Stage 1: Pool Segregation
+The algorithm divides all eligible questions into 3 independent pools:
+1.  **New Pool:** Questions never seen (`is_seen = False`).
+2.  **Learning Pool:** Questions with `streak < MASTERY_THRESHOLD`.
+3.  **Review Pool:** Questions with `streak >= MASTERY_THRESHOLD` AND `last_seen > 3 days`.
+
+#### Stage 2: Independent Shuffling
+Each pool is shuffled **independently** using `random.shuffle()` to ensure unpredictability.
+
+#### Stage 3: Priority-Based Selection
+1.  **Review Priority:** Select up to 40% from (Learning + Review) pools.
+2.  **New Content:** Select up to 60% from New pool.
+3.  **Backfill:** If New pool is empty, fill remaining slots from Learning/Review.
+
+#### Stage 4: Final Shuffle
+The selected 15 questions are shuffled **again** to hide the algorithm's pattern from users.
+
+**Example:**
+- Learning Pool: 20 questions → Shuffle → Take 6
+- New Pool: 30 questions → Shuffle → Take 9
+- Final Mix: 15 questions → Shuffle → Present to user
 
 ---
 
@@ -56,6 +72,31 @@ The quiz operates in two modes per question:
 *   **Trigger:** If a user makes mistakes during a sprint, the Summary screen offers a "Fix Mistakes" button.
 *   **Behavior:** A new, temporary quiz session is generated containing **only** the questions answered incorrectly in the immediate previous session.
 *   **Scoring:** Answers in this mode **do** update the database (streak reset/increment) but do not affect the score of the *previous* sprint.
+
+---
+
+## 2.3. Category Mode Selection
+
+### A. Purpose
+Allows users to focus on a specific topic (e.g., "Diagramy Udźwigu") instead of the Smart Mix.
+
+### B. Selection Logic
+When a user starts Category Mode, the system:
+
+1.  **Filters** all questions by the selected category.
+2.  **Prioritizes** questions with the lowest `consecutive_correct` (weakest mastery).
+3.  **Randomizes** among questions with equal mastery levels.
+4.  **Returns** 15 questions (or fewer if category is small).
+
+### C. Implementation Notes
+*   **SQLite:** Uses `ORDER BY COALESCE(up.consecutive_correct, 0) ASC, RANDOM()`.
+*   **Supabase:** Fetches 45 questions, shuffles in Python, takes first 15.
+*   **Inconsistency:** Supabase does NOT prioritize weak questions (pure random).
+
+### D. Difference from Daily Sprint
+*   **No 60/40 New/Review split** (all questions from one category).
+*   **No 3-day decay logic** (shows all eligible questions).
+*   **Simpler algorithm** (prioritize weak, then random).
 
 ---
 

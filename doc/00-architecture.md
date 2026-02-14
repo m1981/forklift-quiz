@@ -64,6 +64,15 @@ graph TD
     *   `SupabaseQuizRepository`: For production deployment.
 *   **Switching:** Controlled via `GameConfig.USE_SQLITE` (or env vars).
 
+#### Known Inconsistencies
+⚠️ **Category Mode Behavior:**
+- **SQLite:** Prioritizes weakest questions (`ORDER BY consecutive_correct ASC`).
+- **Supabase:** Pure random selection (no mastery-based sorting).
+
+**Impact:** Users on Supabase may see random questions instead of their weak spots in Category Mode.
+
+**Recommendation:** Align Supabase implementation with SQLite by adding client-side sorting.
+
 ---
 
 ## 1.3. State Management Strategy
@@ -131,3 +140,8 @@ The `GameService` is the public API for the application logic.
     1.  **Identity Isolation:** Creates a unique, ephemeral `user_id` (e.g., `demo_tesla`) to prevent polluting real user data.
     2.  **Branding:** Overrides the default application logo with a prospect-specific logo found in `assets/logos/{slug}.png`.
     3.  **Persistence:** The `demo_slug` is stored in `st.session_state` for the duration of the session.
+
+### D. Question Selection
+*   **Behavior:** Demo users experience the **same** Smart Mix and Category Mode algorithms as regular users.
+*   **Isolation:** Progress is tracked separately (e.g., `demo_tesla` has independent `user_progress` records).
+*   **Future Enhancement:** The constant `GameConfig.DEMO_QUESTION_IDS` exists but is **not currently used**. To create a curated demo experience, implement filtering in `GameService.start_daily_sprint()`.
