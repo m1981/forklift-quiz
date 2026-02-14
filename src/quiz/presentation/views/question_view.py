@@ -170,7 +170,13 @@ def _render_feedback(service: Any, q: Question, user_lang: Language) -> None:
 
         mobile_result_row(key.value, text, state=state, key=f"res_{q.id}_{key}")
 
-    # Explanation (TRANSLATED) - in expandable section
+    # Hint (collapsed) - Show what was available
+    if q.hint:
+        with st.expander("💡 Wskazówka"):
+            hint_text = q.get_hint(user_lang)
+            st.info(hint_text)
+
+    # Explanation (TRANSLATED) - expanded
     expl_text = q.get_explanation(user_lang)
 
     if expl_text:
