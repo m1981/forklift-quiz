@@ -44,7 +44,7 @@ HERO_CSS = (
     border-bottom: 1px solid #e5e7eb;
     padding: 12px 8px;
     margin: 0 -4px 16px -4px;
-    font-family: "Source Sans Pro", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 /* --- LOGO --- */
