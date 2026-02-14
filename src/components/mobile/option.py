@@ -47,7 +47,7 @@ OPTION_CSS = (
 }
 
 .text {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.4;
     word-wrap: break-word;
 }

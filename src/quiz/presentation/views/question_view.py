@@ -64,8 +64,8 @@ def _render_active(
     st.markdown(
         f"""
         <div style="
-            font-size: 17px;  /* Increased from 1rem (16px) */
-            font-weight: 500; /* Medium weight for emphasis */
+            font-size: 16px;  /* Increased from 1rem (16px) */
+            font-weight: 600; /* Medium weight for emphasis */
             color: #111827;
             margin-top: 10px;
             margin-bottom: 20px; /* More breathing room */

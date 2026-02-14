@@ -126,7 +126,7 @@ HERO_CSS = (
 /* --- STATS --- */
 .stats-row {
     font-size: 16px;
-    color: #6b7280;
+    color: #4b5563; /* Changed from #6b7280 - now 8.6:1 ratio */
 }
 
 .highlight {
@@ -145,11 +145,11 @@ HERO_CSS = (
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #9ca3af;
+    color: #6b7280; /* Changed from #9ca3af - now 5.9:1 ratio */
     padding: 0 8px;
     line-height: 1;
 }
-.menu-btn:hover { color: #4b5563; }
+.menu-btn:hover { color: #374151; } /* Darker on hover */
 """
 )
 

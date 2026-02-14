@@ -72,7 +72,7 @@ RESULT_CSS = (
 }
 
 .text {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.4;
     flex: 1; /* Take remaining space */
 }
