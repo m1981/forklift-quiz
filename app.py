@@ -1,106 +1,96 @@
-# src/app.py
+import os
 
-import logging
-import sys
-
-import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv
 
 from src.config import GameConfig
+from src.game.service import GameService
+from src.quiz.adapters.db_manager import DatabaseManager
+from src.quiz.adapters.seeder import DataSeeder
 from src.quiz.adapters.sqlite_repository import SQLiteQuizRepository
-from src.quiz.presentation.renderer import StreamlitRenderer
-from src.quiz.presentation.viewmodel import GameViewModel
+from src.quiz.adapters.supabase_repository import SupabaseQuizRepository
+from src.quiz.domain.ports import IQuizRepository
+from src.quiz.presentation.views import dashboard_view, question_view, summary_view
 from src.quiz.presentation.views.components import apply_styles
 
-# --- 1. Configure Global Logging to Console ---
-# Note: We configure this after imports to ensure all modules use this config,
-# but imports are moved up to satisfy PEP8 (E402).
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)],
-    force=True,  # Force override of any existing config
+# --- CONFIGURATION ---
+st.set_page_config(
+    page_title=GameConfig.APP_TITLE,
+    page_icon="🚜",
+    layout="centered",
+    initial_sidebar_state="collapsed",
 )
 
-# Setup
-st.set_page_config(page_title="Kurs 2 WJO", layout="centered")
-apply_styles()
-vm = GameViewModel()
-renderer = StreamlitRenderer()
+load_dotenv()
 
-# --- Sidebar Menu ---
-st.sidebar.header("Nawigacja")
 
-# 1. NEW: Dashboard Button (Home)
-if st.sidebar.button("🏠 Pulpit", use_container_width=True):
-    vm.navigate_to_dashboard()
+def main() -> None:
+    apply_styles()
 
-st.sidebar.markdown("---")
-
-# 2. Daily Sprint
-if st.sidebar.button("🚀 Codzienny Sprint", type="primary", use_container_width=True):
-    vm.start_daily_sprint()
-
-st.sidebar.markdown("---")
-
-# 3. Category Selection (Improved Logic)
-st.sidebar.subheader("📚 Trening Tematyczny")
-
-# We use a form or just a selectbox with a button.
-# To make it feel "instant", we can check if the selection changed.
-selected_cat = st.sidebar.selectbox(
-    "Wybierz kategorię:", GameConfig.CATEGORIES, key="sidebar_cat_select"
-)
-
-# The button triggers the switch
-if st.sidebar.button("Rozpocznij Trening", use_container_width=True):
-    vm.start_category_mode(selected_cat)
-
-st.sidebar.markdown("---")
-
-# --- 🕵️‍♂️ DEBUG ZONE (NEW) ---
-with st.sidebar.expander("🕵️‍♂️ QA / Debug Zone", expanded=False):
-    st.markdown("### 1. Session Variables")
-    # Show critical Python variables from the Director's Context
-    if "game_director" in st.session_state:
-        director = st.session_state.game_director
-        if director.context:
-            data = director.context.data
-            st.write(f"**Score:** {data.get('score', 0)}")
-            st.write(f"**Errors:** {len(data.get('errors', []))}")
-            st.write(f"**Total Q:** {data.get('total_questions', 0)}")
-
-    st.markdown("---")
-    st.markdown("### 2. Database State")
-    if st.button("📸 Snapshot DB"):
-        # Fetch raw data
-        repo = vm.director.context.repo
-        user_id = vm.director.context.user_id
-        # Cast to concrete type for debug method
-        if isinstance(repo, SQLiteQuizRepository):
-            rows = repo.debug_dump_user_progress(user_id)
-
-            if rows:
-                st.session_state["debug_db_rows"] = rows
-            else:
-                st.warning("No history found.")
+    # --- 1. INITIALIZATION ---
+    if "service" not in st.session_state:
+        repo: IQuizRepository
+        # Repo Setup
+        if GameConfig.USE_SQLITE:
+            db_manager = DatabaseManager("data/quiz.db")
+            repo = SQLiteQuizRepository(db_manager)
         else:
-            st.warning("Debug method only available for SQLite repository.")
+            url = os.getenv("SUPABASE_URL")
+            key = os.getenv("SUPABASE_KEY")
 
-    # Render the snapshot if it exists
-    if "debug_db_rows" in st.session_state:
-        df = pd.DataFrame(st.session_state["debug_db_rows"])
-        st.dataframe(df, hide_index=True)
+            # Explicit check to satisfy MyPy
+            if url is None or key is None:
+                st.error("Missing Supabase Credentials")
+                st.stop()
 
-    st.markdown("---")
-    if st.button("⚠️ RESET USER DB"):
-        # Note: reset_user_progress was removed from the interface
-        # If you need this functionality, re-add it to IQuizRepository
-        st.warning("Reset functionality temporarily disabled")
-        # vm.director.context.repo.reset_user_progress(vm.director.context.user_id)
-        # st.success("User reset!")
-        # st.rerun()
+            # Now MyPy knows url and key are definitely strings
+            repo = SupabaseQuizRepository(url, key)
 
-# Main Render Loop
-ui_data = vm.ui_model
-renderer.render(ui_data, vm.handle_ui_action)
+        # Seeding
+        seeder = DataSeeder(repo)
+        seeder.seed_if_empty()
+
+        # Service & State
+        st.session_state.service = GameService(repo)
+
+        # --- FIX START: DEMO LOGIC ---
+        # Check URL params for ?demo=tesla
+        query_params = st.query_params
+        demo_slug = query_params.get("demo")
+
+        if demo_slug:
+            # Use a unique ID for demo users so they don't mess up real stats
+            st.session_state.user_id = f"demo_{demo_slug}"
+            st.session_state.demo_slug = demo_slug  # Store for later use
+        elif "user_id" not in st.session_state:
+            st.session_state.user_id = "User1"
+            st.session_state.demo_slug = None
+        # --- FIX END ---
+
+        # Routing Init
+        profile = repo.get_or_create_profile(st.session_state.user_id)
+        if not profile.has_completed_onboarding:
+            st.session_state.service.start_onboarding(st.session_state.user_id)
+        else:
+            st.session_state.screen = "dashboard"
+
+    # --- 2. ROUTING ---
+    service = st.session_state.service
+    user_id = st.session_state.user_id
+    screen = st.session_state.get("screen", "dashboard")
+
+    # Retrieve the slug we stored during init
+    demo_slug = st.session_state.get("demo_slug")
+
+    if screen == "dashboard":
+        dashboard_view.render_dashboard_screen(service, user_id, demo_slug)
+
+    elif screen == "quiz":
+        question_view.render_quiz_screen(service, user_id)
+
+    elif screen == "summary":
+        summary_view.render_summary_screen(service, user_id)
+
+
+if __name__ == "__main__":
+    main()

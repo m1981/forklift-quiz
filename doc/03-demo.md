@@ -1,3 +1,7 @@
+Here is the fully updated **System Architecture & Design Documentation**. It has been rewritten to accurately reflect the new **Service-Oriented Architecture** while preserving the valuable high-level flow diagrams.
+
+---
+
 # System Architecture & Design Documentation
 
 ## Executive Summary

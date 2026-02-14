@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from typing import Any
 
 import streamlit as st
@@ -6,15 +5,17 @@ import streamlit as st
 from src.config import GameConfig
 
 
-def render(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    score = payload.score
-    total = payload.total
+def render_summary_screen(service: Any, user_id: str) -> None:
+    # 1. Get State
+    score = st.session_state.get("score", 0)
+    total = len(st.session_state.get("quiz_questions", []))
+    errors = st.session_state.get("quiz_errors", [])
 
-    # <--- NEW: Check Passing Score
     is_passed = score >= GameConfig.PASSING_SCORE
 
+    # 2. Render UI
     if is_passed:
-        st.balloons()  # Only show balloons if passed
+        st.balloons()
 
     st.title("🏁 Podsumowanie")
 
@@ -34,12 +35,18 @@ def render(payload: Any, callback: Callable[[str, Any], None]) -> None:
     st.markdown("---")
 
     col_a, col_b = st.columns(2)
+
+    # 3. Actions
     with col_a:
         if st.button("🔄 Menu Główne", type="secondary", use_container_width=True):
-            callback("FINISH", None)
+            st.session_state.screen = "dashboard"
+            st.rerun()
 
     with col_b:
         # Only show Review button if there were errors
-        if payload.has_errors:
+        if errors:
             if st.button("🛠️ Popraw Błędy", type="primary", use_container_width=True):
-                callback("REVIEW_MISTAKES", None)
+                # Logic to restart quiz with errors
+                questions = service.repo.get_questions_by_ids(errors)
+                service._reset_quiz_state(questions, "🛠️ Poprawa Błędów")
+                st.rerun()

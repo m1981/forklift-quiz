@@ -1,110 +1,66 @@
-import logging
 import os
-from collections.abc import Callable
 from typing import Any
 
 import streamlit as st
 
 from src.components.mobile import mobile_header, mobile_option, mobile_result_row
-from src.quiz.domain.models import Language
-
-logger = logging.getLogger(__name__)
+from src.quiz.domain.models import Language, Question
 
 
-def _render_compact_header(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    cat_name = payload.category_name
-    if len(cat_name) > 40:
-        cat_name = cat_name[:40] + "..."
+def render_quiz_screen(service: Any, user_id: str) -> None:
+    """
+    Main entry point for the Quiz Screen.
+    Orchestrates rendering based on session state (Active vs Feedback).
+    """
+    # 1. Get State from Session
+    if "quiz_questions" not in st.session_state or not st.session_state.quiz_questions:
+        st.error("Brak pytań w sesji. Powrót do menu.")
+        st.session_state.screen = "dashboard"
+        st.rerun()
 
-    context_text = f"{payload.current_index}/{payload.total_count} • {cat_name}"
+    idx = st.session_state.current_index
+    questions = st.session_state.quiz_questions
+    question: Question = questions[idx]
 
-    if mobile_header(
-        context=context_text, progress=payload.category_mastery, key="mob_header"
-    ):
-        callback("NAVIGATE_HOME", None)
+    # 2. Get User Preferences (Language)
+    # We fetch this fresh every time to ensure UI updates immediately after a change
+    profile = service.repo.get_or_create_profile(user_id)
+    user_lang = profile.preferred_language
+
+    # 3. Calculate Progress for Header
+    total = len(questions)
+    # Calculate mastery for the current category on the fly
+    # (Optional optimization: cache this in session state if it's too slow)
+    category_mastery = service.repo.get_mastery_percentage(user_id, question.category)
+
+    # 4. Render Header
+    _render_compact_header(idx + 1, total, question.category, category_mastery)
+
+    # 5. Render Content (Active Question or Feedback)
+    if st.session_state.get("feedback_mode", False):
+        _render_feedback(service, question, user_lang)
+    else:
+        _render_active(service, user_id, question, user_lang)
 
 
-def _render_hint_section(
-    q: Any,
-    user_lang: Language,
-    callback: Callable[[str, Any], None],
-    view_mode: str,  # <--- New parameter to force unique identity
+def _render_compact_header(
+    current_idx: int, total: int, category: str, mastery: float
 ) -> None:
-    """
-    Shared logic to render the Hint section with Pills and Dual Display.
-    """
-    if not q.hint:
-        return
+    if len(category) > 40:
+        category = category[:40] + "..."
 
-    # --- FIX START ---
-    # Streamlit identifies expanders by their label. To force a reset when switching views,
-    # we make the labels technically different but visually identical.
-    # In 'feedback' mode, we append a Zero-Width Space (\u200b).
-    label = "💡 Wskazówka"
-    if view_mode == "feedback":
-        label += "\u200b"
-    # --- FIX END ---
+    context_text = f"{current_idx}/{total} • {category}"
 
-    with st.expander(label, expanded=False):
-        available_langs = [Language.PL]
-        for lang, content in q.translations.items():
-            if content.hint:
-                available_langs.append(lang)
-
-        if len(available_langs) > 1:
-
-            def format_lang(lang: Language) -> str:
-                if lang == Language.PL:
-                    return "🇵🇱 Polski"
-                if lang == Language.EN:
-                    return "🇬🇧 English"
-                if lang == Language.UK:
-                    return "🇺🇦 Українська"
-                if lang == Language.KA:
-                    return "🇬🇪 ქართული"
-                return lang.value.upper()
-
-            default_selection = (
-                user_lang if user_lang in available_langs else Language.PL
-            )
-
-            # Unique key includes view_mode to prevent state bleeding
-            pill_key = f"hint_pill_{q.id}_{view_mode}"
-
-            selected_lang = st.pills(
-                "Język / Language",
-                options=available_langs,
-                format_func=format_lang,
-                default=default_selection,
-                selection_mode="single",
-                label_visibility="collapsed",
-                key=pill_key,
-            )
-
-            if selected_lang is not None and selected_lang != user_lang:
-                callback("CHANGE_LANGUAGE", selected_lang.value)
-
-            display_lang = selected_lang if selected_lang else default_selection
-
-            # Display Translated
-            st.info(q.get_hint(display_lang))
-
-            # Display Original if different
-            if display_lang != Language.PL:
-                st.caption("🇵🇱 Oryginał:")
-                st.markdown(f"_{q.hint}_")
-
-        else:
-            st.info(q.hint)
+    # mobile_header returns True if "Home" is clicked
+    if mobile_header(context=context_text, progress=mastery, key="mob_header"):
+        st.session_state.screen = "dashboard"
+        st.rerun()
 
 
-def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
-    _render_compact_header(payload, callback)
-
-    q = payload.question
-    user_lang = payload.preferred_language
-
-    # 1. Question Text
+def _render_active(
+    service: Any, user_id: str, q: Question, user_lang: Language
+) -> None:
+    # 1. Question Text (ALWAYS POLISH - Source of Truth)
     st.markdown(
         f"""
         <div style="
@@ -123,25 +79,80 @@ def render_active(payload: Any, callback: Callable[[str, Any], None]) -> None:
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
 
-    # 2. Options
+    # 2. Options (ALWAYS POLISH - Source of Truth)
     for key, text in q.options.items():
+        # mobile_option returns the key (e.g., "A") if clicked
         clicked_key = mobile_option(key.value, text, key=f"opt_{q.id}_{key}")
+
         if clicked_key:
-            callback("SUBMIT_ANSWER", key)
+            # --- DIRECT SERVICE CALL ---
+            service.submit_answer(user_id, q, key)
+            st.rerun()
 
-    # 3. Hint (Mode: ACTIVE)
-    _render_hint_section(q, user_lang, callback, view_mode="active")
+    # 3. Hint (Persisted Language Selection)
+    if q.hint:
+        with st.expander("💡 Wskazówka"):
+            # A. Identify available languages
+            available_langs = [Language.PL]
+            for lang, content in q.translations.items():
+                if content.hint:
+                    available_langs.append(lang)
+
+            # B. If multiple languages, show selector that UPDATES DB
+            if len(available_langs) > 1:
+
+                def format_lang(lang: Language) -> str:
+                    if lang == Language.PL:
+                        return "🇵🇱 Polski"
+                    if lang == Language.EN:
+                        return "🇬🇧 English"
+                    if lang == Language.UK:
+                        return "🇺🇦 Українська"
+                    if lang == Language.KA:
+                        return "🇬🇪 ქართული"
+                    return lang.value.upper()
+
+                # Determine default
+                default_selection = (
+                    user_lang if user_lang in available_langs else Language.PL
+                )
+
+                # Unique key for this widget
+                pill_key = f"hint_pill_{q.id}"
+
+                # Render Pills
+                selected_lang = st.pills(
+                    "Język / Language",
+                    options=available_langs,
+                    format_func=format_lang,
+                    default=default_selection,
+                    selection_mode="single",
+                    label_visibility="collapsed",
+                    key=pill_key,
+                )
+
+                # Linear Check: If value changed, trigger action immediately.
+                if selected_lang is not None and selected_lang != user_lang:
+                    # --- DIRECT SERVICE CALL ---
+                    service.update_language(user_id, selected_lang.value)
+                    # Service handles rerun, but we can do it here to be explicit
+                    st.rerun()
+
+                # Handle None case (if user deselects) -> fallback to default
+                display_lang = selected_lang if selected_lang else default_selection
+                st.info(q.get_hint(display_lang))
+
+            else:
+                # Only Polish available
+                st.info(q.hint)
 
 
-def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
+def _render_feedback(service: Any, q: Question, user_lang: Language) -> None:
     """
     Renders the feedback screen using the new Gentle Result Rows.
     """
-    _render_compact_header(payload, callback)
-
-    q = payload.question
-    fb = payload.last_feedback
-    user_lang = payload.preferred_language
+    # Retrieve feedback data from session state
+    fb = st.session_state.last_feedback
 
     # Question Text (Polish)
     st.markdown(f"{q.text}")
@@ -159,69 +170,19 @@ def render_feedback(payload: Any, callback: Callable[[str, Any], None]) -> None:
 
         mobile_result_row(key.value, text, state=state, key=f"res_{q.id}_{key}")
 
+    # Explanation (TRANSLATED)
+    expl_text = q.get_explanation(user_lang)
+
+    if expl_text:
+        # Main explanation box
+        st.info(f"{expl_text}")
+
+        # If we are showing a translation, offer the original
+        if user_lang != Language.PL and expl_text != q.explanation:
+            with st.expander("🇵🇱 Pokaż wyjaśnienie po polsku"):
+                st.write(q.explanation)
+
     if st.button("Dalej ➡️", type="primary", use_container_width=True):
-        callback("NEXT_QUESTION", None)
-
-    # --- 1. HINT SECTION (Mode: FEEDBACK) ---
-    # Changing the view_mode changes the internal keys of widgets inside,
-    # forcing Streamlit to re-mount them, thus respecting 'expanded=False'.
-    _render_hint_section(q, user_lang, callback, view_mode="feedback")
-
-    # --- 2. EXPLANATION SECTION ---
-    if q.explanation:
-        st.markdown("### 📖 Wyjaśnienie")
-
-        # A. Identify which languages have an EXPLANATION defined
-        available_langs = [Language.PL]
-        for lang, content in q.translations.items():
-            if content.explanation:
-                available_langs.append(lang)
-
-        # B. If we have more than just Polish, show the selector
-        if len(available_langs) > 1:
-
-            def format_lang(lang: Language) -> str:
-                if lang == Language.PL:
-                    return "🇵🇱 Polski"
-                if lang == Language.EN:
-                    return "🇬🇧 English"
-                if lang == Language.UK:
-                    return "🇺🇦 Українська"
-                if lang == Language.KA:
-                    return "🇬🇪 ქართული"
-                return lang.value.upper()
-
-            default_selection = (
-                user_lang if user_lang in available_langs else Language.PL
-            )
-
-            # Unique key for explanation pills
-            pill_key = f"expl_pill_{q.id}"
-
-            selected_lang = st.pills(
-                "Język / Language",
-                options=available_langs,
-                format_func=format_lang,
-                default=default_selection,
-                selection_mode="single",
-                label_visibility="collapsed",
-                key=pill_key,
-            )
-
-            # Persistence Logic
-            if selected_lang is not None and selected_lang != user_lang:
-                callback("CHANGE_LANGUAGE", selected_lang.value)
-
-            display_lang = selected_lang if selected_lang else default_selection
-
-            # 1. Display Translated Text
-            st.info(q.get_explanation(display_lang))
-
-            # 2. Display Original if different
-            if display_lang != Language.PL:
-                st.caption("🇵🇱 Oryginał:")
-                st.markdown(f"{q.explanation}")
-
-        else:
-            # Only Polish available
-            st.info(q.explanation)
+        # --- DIRECT SERVICE CALL ---
+        service.next_question()
+        st.rerun()
