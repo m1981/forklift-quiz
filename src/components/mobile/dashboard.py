@@ -28,7 +28,7 @@ DASHBOARD_HTML = """
 DASHBOARD_CSS = (
     SHARED_CSS
     + """
-.dashboard-container { padding: 0 4px; font-family: "Source Sans Pro", sans-serif; }
+.dashboard-container { padding: 0 4px; font-family: "Inter", sans-serif; }
 .card { display: flex; align-items: center; width: 100%; background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; margin-bottom: 12px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
 .card:active { transform: scale(0.98); }
 .sprint-card { border: 1px solid #22c55e; background: #f0fdf4; margin-bottom: 24px; }
