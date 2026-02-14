@@ -1,5 +1,3 @@
-# src/quiz/adapters/sqlite_repository.py
-
 import sqlite3
 from datetime import date, datetime
 from typing import Any
@@ -33,7 +31,6 @@ class SQLiteQuizRepository(IQuizRepository):
     @measure_time("db_get_repetition_candidates")
     def get_repetition_candidates(self, user_id: str) -> list[QuestionCandidate]:
         conn = self._get_connection()
-        # Use Config for threshold
         threshold = GameConfig.MASTERY_THRESHOLD
 
         query = """
@@ -69,7 +66,6 @@ class SQLiteQuizRepository(IQuizRepository):
         conn = self._get_connection()
         threshold = GameConfig.MASTERY_THRESHOLD
 
-        # TELEMETRY: Log the inputs to verify config is loaded
         self.telemetry.log_info(
             f"Calculating stats for user={user_id} with threshold={threshold}"
         )
@@ -88,17 +84,10 @@ class SQLiteQuizRepository(IQuizRepository):
               GROUP BY q.category \
               """
 
-        # Pass threshold FIRST, then user_id
         cursor = conn.execute(sql, (threshold, user_id))
 
         stats = []
         raw_rows = cursor.fetchall()
-
-        # TELEMETRY: Log the raw DB result
-        self.telemetry.log_info(
-            f"Raw stats rows fetched: {len(raw_rows)}",
-            first_row=str(raw_rows[0]) if raw_rows else "None",
-        )
 
         for row in raw_rows:
             stats.append(
@@ -158,6 +147,7 @@ class SQLiteQuizRepository(IQuizRepository):
             today = date.today()
 
             if not row:
+                # --- FIX 1: Create new profile logic ---
                 profile = UserProfile(
                     user_id=user_id,
                     streak_days=1,
@@ -165,25 +155,22 @@ class SQLiteQuizRepository(IQuizRepository):
                     last_daily_reset=today,
                     preferred_language=Language.PL,
                     demo_prospect_slug=None,
+                    has_completed_onboarding=False,
                 )
                 conn.execute(
                     """
-                    INSERT INTO user_profiles (
-                        user_id, streak_days, last_login, daily_goal,
-                        daily_progress, last_daily_reset,
-                        has_completed_onboarding, preferred_language,
-                        demo_prospect_slug
-                    )
+                    INSERT INTO user_profiles (user_id, streak_days, last_login, daily_goal,
+                                               daily_progress, last_daily_reset,
+                                               has_completed_onboarding, preferred_language,
+                                               demo_prospect_slug)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         profile.user_id,
                         profile.streak_days,
-                        # FIX: Convert date to string
                         today.isoformat(),
                         profile.daily_goal,
                         0,
-                        # FIX: Convert date to string
                         today.isoformat(),
                         False,
                         profile.preferred_language.value,
@@ -192,25 +179,33 @@ class SQLiteQuizRepository(IQuizRepository):
                 )
                 conn.commit()
                 return profile
+                # ---------------------------------------
 
-            # Load existing profile (row[8] is demo_prospect_slug)
+            # --- FIX 2: Robust Row Parsing ---
+            # We map columns by index, assuming the order from SELECT *
+            # 0: user_id, 1: streak_days, 2: last_login, 3: daily_goal,
+            # 4: daily_progress, 5: last_daily_reset, 6: has_completed_onboarding
+            # 7: preferred_language, 8: demo_prospect_slug
+
+            # Helper to safely get column if it exists (migration safety)
+            def get_col(idx: int, default: Any = None) -> Any:
+                return row[idx] if len(row) > idx else default
+
             profile = UserProfile(
                 user_id=row[0],
                 streak_days=row[1],
-                last_login=today,
+                last_login=today,  # Will be updated below if needed
                 daily_goal=row[3],
                 daily_progress=row[4],
                 last_daily_reset=datetime.strptime(row[5], "%Y-%m-%d").date()
                 if row[5]
                 else today,
-                has_completed_onboarding=bool(row[6]) if len(row) > 6 else False,
-                preferred_language=Language(row[7])
-                if len(row) > 7 and row[7]
-                else Language.PL,
-                demo_prospect_slug=row[8] if len(row) > 8 else None,
+                has_completed_onboarding=bool(row[6]),
+                preferred_language=Language(get_col(7)) if get_col(7) else Language.PL,
+                demo_prospect_slug=get_col(8),
             )
 
-            # Calculate streak logic
+            # Streak Logic
             last_login_db = (
                 datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
             )
@@ -218,9 +213,12 @@ class SQLiteQuizRepository(IQuizRepository):
 
             if delta == 1:
                 profile.streak_days += 1
+                profile.last_login = today
             elif delta > 1 or delta < 0:
                 profile.streak_days = 1
+                profile.last_login = today
 
+            # Only save if changed (delta > 0 means date changed)
             if delta > 0:
                 self.save_profile(profile)
 
@@ -241,17 +239,15 @@ class SQLiteQuizRepository(IQuizRepository):
                     daily_progress           = ?,
                     last_daily_reset         = ?,
                     has_completed_onboarding = ?,
-                    preferred_language = ?,
-                    demo_prospect_slug = ?
+                    preferred_language       = ?,
+                    demo_prospect_slug       = ?
                 WHERE user_id = ?
                 """,
                 (
                     profile.streak_days,
-                    # FIX: Convert date to string
                     profile.last_login.isoformat(),
                     profile.daily_goal,
                     profile.daily_progress,
-                    # FIX: Convert date to string
                     profile.last_daily_reset.isoformat(),
                     profile.has_completed_onboarding,
                     profile.preferred_language.value,
@@ -268,44 +264,29 @@ class SQLiteQuizRepository(IQuizRepository):
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
         conn = self._get_connection()
         try:
-            # Explicitly cast to int to avoid SQLite boolean ambiguity
-            # in CASE statements
             is_correct_int = 1 if is_correct else 0
             initial_streak = 1 if is_correct else 0
 
+            # --- FIX 3: Simplified UPSERT Logic ---
+            # We use COALESCE to ensure we don't add to NULL
             sql = """
-                  INSERT INTO user_progress (
-                      user_id, question_id, is_correct,
-                      consecutive_correct, timestamp
-                  )
-                  VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
-                  ON CONFLICT(user_id, question_id)
-                DO UPDATE SET
-                  consecutive_correct = CASE
-                      WHEN excluded.is_correct = 1
-                      THEN user_progress.consecutive_correct + 1
+                  INSERT INTO user_progress (user_id, question_id, is_correct, \
+                                             consecutive_correct, timestamp)
+                  VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP) ON CONFLICT(user_id, question_id)
+                DO \
+                  UPDATE SET
+                      consecutive_correct = CASE \
+                      WHEN excluded.is_correct = 1 \
+                      THEN COALESCE (user_progress.consecutive_correct, 0) + 1 \
                       ELSE 0
-                  END,
+                  END \
+                  ,
                   is_correct = excluded.is_correct,
                   timestamp = CURRENT_TIMESTAMP
                   """
 
-            cursor = conn.execute(
-                sql, (user_id, question_id, is_correct_int, initial_streak)
-            )
+            conn.execute(sql, (user_id, question_id, is_correct_int, initial_streak))
             conn.commit()
-
-            # Log if no rows were affected (which would indicate a logic error)
-            if cursor.rowcount == 0:
-                self.telemetry.log_info(
-                    f"save_attempt: No rows affected for {user_id} on {question_id}"
-                )
-            else:
-                # TELEMETRY: Confirm write success
-                self.telemetry.log_info(
-                    f"save_attempt: Success for {question_id}, correct={is_correct}"
-                )
-
         except Exception as e:
             self.telemetry.log_error(f"save_attempt failed for {user_id}", e)
             raise e
@@ -321,16 +302,20 @@ class SQLiteQuizRepository(IQuizRepository):
             query = """
                     SELECT q.json_data, COALESCE(up.consecutive_correct, 0) as streak
                     FROM questions q
-                    LEFT JOIN user_progress up
-                        ON q.id = up.question_id AND up.user_id = ?
-                    WHERE q.category = ?
-                """
+                             LEFT JOIN user_progress up
+                                       ON q.id = up.question_id AND up.user_id = ?
+                    WHERE q.category = ? \
+                    """
 
+            # Fetch all matching category questions first
             rows = conn.execute(query, (user_id, category)).fetchall()
+
+            # Convert to candidates
             candidates = [
                 (Question.model_validate_json(row[0]), row[1]) for row in rows
             ]
 
+            # Use Domain Logic to sort and limit
             return CategorySelector.prioritize_weak_questions(candidates, limit)
         finally:
             if not self.db_manager._shared_connection:
@@ -356,11 +341,6 @@ class SQLiteQuizRepository(IQuizRepository):
             cursor = conn.execute(sql, (threshold, user_id, category))
             row = cursor.fetchone()
 
-            # TELEMETRY: Log mastery calculation details
-            self.telemetry.log_info(
-                f"Mastery for {category}: {row} (Threshold: {threshold})"
-            )
-
             if not row or row[0] == 0:
                 return 0.0
             return float(row[1]) / float(row[0])
@@ -368,18 +348,7 @@ class SQLiteQuizRepository(IQuizRepository):
             if not self.db_manager._shared_connection:
                 conn.close()
 
-    # --- ADR 006: Debug Methods in Repository ---
-    # Decision: We allow `debug_dump_user_progress` in the concrete
-    # implementation.
-    # Rationale: This method is used by the `app.py` entry point for
-    # developer diagnostics. It is NOT part of the `IQuizRepository`
-    # interface because domain logic should not rely on raw debug dumps.
-    # It is strictly for the outer shell (Infrastructure/Main).
-    # --------------------------------------------
     def debug_dump_user_progress(self, user_id: str) -> list[dict[str, Any]]:
-        """
-        Returns raw rows from user_progress for debugging.
-        """
         conn = self._get_connection()
         try:
             cursor = conn.execute(
@@ -388,7 +357,7 @@ class SQLiteQuizRepository(IQuizRepository):
                 FROM user_progress
                 WHERE user_id = ?
                 ORDER BY timestamp DESC
-                LIMIT 20
+                    LIMIT 20
                 """,
                 (user_id,),
             )

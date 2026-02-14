@@ -179,6 +179,11 @@ class GameService:
     def update_language(self, user_id: str, new_lang: str) -> None:
         # Use manager instead of direct repo call
         self.profile_manager.update_language(Language(new_lang))
+
+        # Force update the UI cache so the new language shows immediately
+        if "cached_profile" in st.session_state:
+            st.session_state.cached_profile.preferred_language = Language(new_lang)
+
         st.rerun()
 
     def debug_profile(self, user_id: str) -> dict[str, Any]:

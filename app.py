@@ -50,27 +50,29 @@ def main() -> None:
         seeder = DataSeeder(repo)
         seeder.seed_if_empty()
 
-        # Service & State
-        st.session_state.service = GameService(repo)
-
-        # --- FIX START: DEMO LOGIC ---
-        # Check URL params for ?demo=tesla
+        # --- DEMO LOGIC: Determine user_id BEFORE creating service ---
         query_params = st.query_params
         demo_slug = query_params.get("demo")
 
         if demo_slug:
             # Use a unique ID for demo users so they don't mess up real stats
-            st.session_state.user_id = f"demo_{demo_slug}"
-            st.session_state.demo_slug = demo_slug  # Store for later use
+            user_id = f"demo_{demo_slug}"
+            st.session_state.user_id = user_id
+            st.session_state.demo_slug = demo_slug
         elif "user_id" not in st.session_state:
-            st.session_state.user_id = "User1"
+            user_id = "User1"
+            st.session_state.user_id = user_id
             st.session_state.demo_slug = None
-        # --- FIX END ---
+        else:
+            user_id = st.session_state.user_id
+
+        # Service & State - NOW with user_id
+        st.session_state.service = GameService(repo, user_id)
 
         # Routing Init
-        profile = repo.get_or_create_profile(st.session_state.user_id)
+        profile = repo.get_or_create_profile(user_id)
         if not profile.has_completed_onboarding:
-            st.session_state.service.start_onboarding(st.session_state.user_id)
+            st.session_state.service.start_onboarding(user_id)
         else:
             st.session_state.screen = "dashboard"
 
