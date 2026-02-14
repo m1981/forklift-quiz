@@ -22,9 +22,11 @@ def render_quiz_screen(service: Any, user_id: str) -> None:
     questions = st.session_state.quiz_questions
     question: Question = questions[idx]
 
-    # 2. Get User Preferences (Language)
-    # We fetch this fresh every time to ensure UI updates immediately after a change
-    profile = service.repo.get_or_create_profile(user_id)
+    # Cache profile in session state
+    if "cached_profile" not in st.session_state:
+        st.session_state.cached_profile = service.profile_manager.get()
+
+    profile = st.session_state.cached_profile
     user_lang = profile.preferred_language
 
     # 3. Calculate Progress for Header

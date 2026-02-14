@@ -11,6 +11,13 @@ def render_dashboard_screen(
     # 1. Get Data from Service
     data = service.get_dashboard_stats(user_id, demo_slug)
 
+    # NEW: Check bonus mode
+    profile = service.repo.get_or_create_profile(user_id)
+    if profile.is_bonus_mode():
+        st.success(
+            f"🎉 Bonus Mode! Goal reached: {profile.daily_progress}/{profile.daily_goal}"
+        )
+
     # 2. Render Hero Component
     mobile_hero(
         title=data["app_title"],

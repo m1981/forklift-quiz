@@ -109,5 +109,60 @@ class QuestionCandidate:
     *   `explanation` and `hint` have localized overrides in the `translations` dictionary.
     *   If a requested language is missing in `translations`, the system **must** fall back to the root Polish fields.
 3.  **Persistence Strategy:**
-    *   **User Preferences (Language):** Persisted **immediately** on change (write-through).
+    *   **Profile Management:** Handled by `ProfileManager` (`src/quiz/domain/profile_manager.py`), which implements a **write-through cache with batching**.
+        *   **Caching:** Profile is fetched once per session and stored in `st.session_state` to avoid redundant DB reads.
+        *   **Batching:** Non-critical updates (e.g., `daily_progress` increments) are batched and flushed every 5 changes to reduce DB writes.
+        *   **Immediate Flush:** Critical changes (language preference, onboarding completion, date reset) are persisted immediately.
     *   **Quiz Progress:** Persisted **per question** (after every "Submit Answer" click). This ensures that if a user closes the browser mid-quiz, their progress on specific questions is saved, even if the "Sprint" session is lost.
+
+---
+
+## 3.4. ProfileManager: Caching & Batching Layer
+
+**Location:** `src/quiz/domain/profile_manager.py`
+
+**Purpose:** Reduces database load by caching `UserProfile` in `st.session_state` and batching non-critical writes.
+
+### A. Caching Strategy
+*   **First Access:** Fetches profile from database via `repo.get_or_create_profile(user_id)`.
+*   **Subsequent Access:** Returns cached profile from `st.session_state[f"profile_{user_id}"]`.
+*   **Cache Lifetime:** Persists for the duration of the Streamlit session (until browser tab is closed or session expires).
+
+### B. Batching Strategy
+*   **Dirty Tracking:** Maintains a set of modified fields (`_dirty_fields`) and a change counter (`_change_count`).
+*   **Auto-Flush Threshold:** Automatically saves to database every 5 changes (configurable via `_batch_threshold`).
+*   **Manual Flush:** Exposes `flush()` method for explicit save (e.g., at end of quiz session).
+
+### C. Immediate Flush Triggers
+The following operations bypass batching and save immediately:
+
+| Operation | Reason |
+| :--- | :--- |
+| `update_language()` | User preference change - must persist for next session |
+| `complete_onboarding()` | Critical milestone - prevents re-triggering tutorial |
+| Date Reset in `increment_daily_progress()` | New day detected - resets `daily_progress` to 0 and updates `last_daily_reset` |
+
+### D. Performance Impact
+**Before ProfileManager (Direct Repository Access):**
+*   15-question quiz = 15 DB reads + 15 DB writes = **30 database calls**
+
+**After ProfileManager (Cached + Batched):**
+*   15-question quiz = 1 DB read + 3 DB writes = **4 database calls** (~87% reduction)
+
+### E. Usage Example
+```python
+# In GameService.__init__
+self.profile_manager = ProfileManager(repo, user_id)
+
+# Get cached profile
+profile = self.profile_manager.get()
+
+# Batched update (saves every 5 calls)
+self.profile_manager.increment_daily_progress()
+
+# Immediate save
+self.profile_manager.update_language(Language.EN)
+
+# Force save at end of session
+self.profile_manager.flush_on_exit()
+```

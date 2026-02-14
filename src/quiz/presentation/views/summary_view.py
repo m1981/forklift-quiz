@@ -6,6 +6,9 @@ from src.config import GameConfig
 
 
 def render_summary_screen(service: Any, user_id: str) -> None:
+    # Ensure all profile changes are saved before showing summary
+    service.profile_manager.flush_on_exit()
+
     # 1. Get State
     score = st.session_state.get("score", 0)
     total = len(st.session_state.get("quiz_questions", []))

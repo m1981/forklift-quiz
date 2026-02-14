@@ -23,11 +23,21 @@ The codebase is organized into three distinct architectural layers.
     *   `src/components/mobile/`: Custom HTML/CSS/JS components for the mobile-specific UI.
 
 ### 2. Service Layer (The "Brain")
-*Located in:* `src/game/`
-*   **Purpose:** Encapsulates all business logic, state transitions, scoring rules, and database orchestration.
+*Located in:* `src/game/service.py` and `src/quiz/domain/`
+*   **Purpose:** Orchestrates business logic, coordinates between repositories and domain models.
 *   **Key Files:**
-    *   `service.py`: The `GameService` class. It is the central engine that mutates session state and calls the repository.
-    *   `src/quiz/domain/spaced_repetition.py`: The algorithm deciding which questions to show next.
+    *   `src/game/service.py`: The main `GameService` class. Handles quiz session lifecycle, scoring, and state transitions.
+    *   `src/quiz/domain/spaced_repetition.py`: The algorithm that selects questions based on user mastery.
+    *   `src/quiz/domain/profile_manager.py`: **NEW** - Caching layer for `UserProfile` with batched writes to reduce DB load.
+    *   `src/quiz/domain/models.py`: Domain entities (`Question`, `UserProfile`, `QuestionCandidate`).
+
+**Key Principle:** The Service Layer is **stateless** (except for `ProfileManager` cache). All persistent state lives in the database or `st.session_state`.
+
+#### ProfileManager: The Caching Layer
+*   **Problem Solved:** Streamlit reruns the entire script on every interaction. Without caching, `GameService` would fetch the user profile from the database on every rerun.
+*   **Solution:** `ProfileManager` caches the profile in `st.session_state` and batches non-critical writes.
+*   **Trade-off:** Slightly more complex code in exchange for ~87% reduction in database calls during a quiz session.
+*   **Critical Changes:** Language updates, onboarding completion, and date resets bypass batching and save immediately.
 
 ### 3. Data Layer (The "Storage")
 *Located in:* `src/quiz/adapters/` and `src/quiz/domain/`
@@ -59,30 +69,27 @@ flowchart TD
     ServiceCheck -->|Yes| UpdateStreak[Update Score & DB]
     ServiceCheck -->|No| LogError[Log Error & DB]
 
-    UpdateStreak --> SetFeedback[Set Feedback Mode = True]
-    LogError --> SetFeedback
-    SetFeedback --> Rerun2[Streamlit Rerun]
+    UpdateStreak --> ProfileMgr[ProfileManager:<br/>Increment Daily Progress]
+    LogError --> ProfileMgr
 
-    Rerun2 --> ShowFeed[Render Feedback View]
-    ShowFeed --> ClickNext[Click 'Dalej' Button]
+    ProfileMgr --> BatchCheck{Change Count<br/>>= 5?}
+    BatchCheck -->|Yes| FlushDB[Flush to Database]
+    BatchCheck -->|No| MarkDirty[Mark Dirty, Continue]
 
-    ClickNext --> MoreQ{More Questions?}
-    MoreQ -->|Yes| NextQ[Increment Index]
-    NextQ --> Rerun
+    FlushDB --> NextQ{More Questions?}
+    MarkDirty --> NextQ
+    NextQ -->|Yes| LoadQ
+    NextQ -->|No| CalcScore[Calculate Final Score]
 
-    MoreQ -->|No| SetSummary[Set Screen='summary']
-    SetSummary --> Rerun3[Streamlit Rerun]
-    Rerun3 --> ShowSum[Render Summary View]
-
-    ShowSum --> ClickFinish[Click 'Menu Główne']
-    ClickFinish --> End([Task Complete: Return to Dashboard])
+    CalcScore --> FinalFlush[ProfileManager: Final Flush]
+    FinalFlush --> Summary[Render Summary Screen]
+    Summary --> End([Task Complete])
 
     style Start fill:#e1f5e1,stroke:#4caf50,stroke-width:3px
     style End fill:#e1f5e1,stroke:#4caf50,stroke-width:3px
-    style ServiceCall fill:#fff3e0,stroke:#ffa726
-    style ServiceCheck fill:#fff3e0,stroke:#ffa726
-    style UpdateStreak fill:#fff3e0,stroke:#ffa726
-    style LogError fill:#ffebee,stroke:#ef5350
+    style ProfileMgr fill:#fff3e0,stroke:#ffa726,stroke-width:2px
+    style BatchCheck fill:#e3f2fd,stroke:#2196f3
+    style FlushDB fill:#ffebee,stroke:#f44336
 ```
 
 ### Task Flow 2: Review Mistakes

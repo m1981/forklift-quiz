@@ -130,3 +130,29 @@ When a user starts Category Mode, the system:
     *   Demo progress is saved to the database under the `demo_{slug}` user ID.
     *   This allows the sales team to "pre-warm" a demo account with some progress if desired, or reset it by clearing that specific user ID in the DB.
 *   **Logo Fallback:** If `assets/logos/{slug}.png` does not exist, the system silently falls back to the default application logo (`assets/logo.jpg`).
+
+## 2.7. Performance Optimization: ProfileManager
+
+### A. Problem Statement
+Streamlit's reactive model reruns the entire script on every user interaction. Without optimization, this would cause:
+*   **Excessive DB Reads:** Fetching `UserProfile` on every rerun (15+ times per quiz).
+*   **Excessive DB Writes:** Saving `daily_progress` after every question (15 writes per quiz).
+
+### B. Solution: Write-Through Cache with Batching
+The `ProfileManager` class (`src/quiz/domain/profile_manager.py`) implements a caching layer:
+
+1.  **Read Caching:** Profile is fetched once per session and stored in `st.session_state`.
+2.  **Write Batching:** Non-critical updates are accumulated and flushed every 5 changes.
+3.  **Immediate Flush:** Critical changes (language, onboarding, date reset) bypass batching.
+
+### C. Performance Metrics
+| Metric | Before | After | Improvement |
+| :--- | :--- | :--- | :--- |
+| DB Reads (15-question quiz) | 15 | 1 | 93% ↓ |
+| DB Writes (15-question quiz) | 15 | 3 | 80% ↓ |
+| Total DB Calls | 30 | 4 | 87% ↓ |
+
+### D. Trade-offs
+*   **Complexity:** Adds ~100 lines of code for caching logic.
+*   **Risk:** If `flush()` is not called at session end, the last 1-4 changes may be lost (mitigated by auto-flush threshold).
+*   **Benefit:** Significantly reduces database load, especially important for cloud-hosted databases (Supabase) where API calls are rate-limited.

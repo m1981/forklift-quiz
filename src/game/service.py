@@ -7,13 +7,20 @@ import streamlit as st
 from src.config import Category, GameConfig
 from src.quiz.domain.models import Language, Question
 from src.quiz.domain.ports import IQuizRepository
+from src.quiz.domain.profile_manager import ProfileManager
 from src.quiz.domain.spaced_repetition import SpacedRepetitionSelector
+from src.shared.telemetry import Telemetry
 
 
 class GameService:
-    def __init__(self, repo: IQuizRepository):
+    def __init__(self, repo: IQuizRepository, user_id: str):
         self.repo = repo
+        self.user_id = user_id
         self.selector = SpacedRepetitionSelector()
+        self.telemetry = Telemetry("GameService")
+
+        # NEW: Profile manager
+        self.profile_manager = ProfileManager(repo, user_id)
 
     # --- Session Management ---
 
@@ -129,10 +136,8 @@ class GameService:
             category="Tutorial",
         )
 
-        # Mark onboarding as done
-        profile = self.repo.get_or_create_profile(user_id)
-        profile.has_completed_onboarding = True
-        self.repo.save_profile(profile)
+        # Use manager
+        self.profile_manager.complete_onboarding()
 
         self._reset_quiz_state([tutorial_q], "🎓 Szkolenie Wstępne")
         st.rerun()
@@ -151,6 +156,9 @@ class GameService:
         else:
             st.session_state.quiz_errors.append(question.id)
 
+        # 3. NEW: Update daily progress via manager
+        self.profile_manager.increment_daily_progress()
+
         st.session_state.answers_history.append(is_correct)
         st.session_state.feedback_mode = True
         st.session_state.last_feedback = {
@@ -168,8 +176,25 @@ class GameService:
         if st.session_state.current_index >= len(st.session_state.quiz_questions):
             st.session_state.screen = "summary"
 
-    def update_language(self, user_id: str, lang_code: str) -> None:
-        profile = self.repo.get_or_create_profile(user_id)
-        profile.preferred_language = Language(lang_code)
-        self.repo.save_profile(profile)
-        # No st.rerun() here; let the caller decide or let Streamlit auto-rerun
+    def update_language(self, user_id: str, new_lang: str) -> None:
+        # Use manager instead of direct repo call
+        self.profile_manager.update_language(Language(new_lang))
+        st.rerun()
+
+    def debug_profile(self, user_id: str) -> dict[str, Any]:
+        """Debug helper to inspect profile state."""
+        profile = self.profile_manager.get()
+
+        return {
+            "user_id": profile.user_id,
+            "streak_days": profile.streak_days,
+            "last_login": str(profile.last_login),
+            "daily_progress": profile.daily_progress,
+            "daily_goal": profile.daily_goal,
+            "last_daily_reset": str(profile.last_daily_reset),
+            "is_bonus_mode": profile.is_bonus_mode(),
+            "preferred_language": profile.preferred_language.value,
+            "has_completed_onboarding": profile.has_completed_onboarding,
+            "demo_prospect_slug": profile.demo_prospect_slug,
+            "cached_in_session": f"profile_{user_id}" in st.session_state,
+        }

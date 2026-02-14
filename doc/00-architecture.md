@@ -32,7 +32,148 @@ graph TD
     Service -->|Uses| Selector
     Repo -->|Returns| Models
 ```
+```mermaid
+classDiagram
+    %% Presentation Layer
+    class app_py {
+        +main()
+        +initialize_session()
+    }
 
+    class DashboardView {
+        +render_dashboard_screen()
+    }
+
+    class QuestionView {
+        +render_quiz_screen()
+    }
+
+    class SummaryView {
+        +render_summary_screen()
+    }
+
+    %% Service Layer (The Brain)
+    class GameService {
+        -repo: IQuizRepository
+        -user_id: str
+        -selector: SpacedRepetitionSelector
+        -profile_manager: ProfileManager
+        +start_sprint_mode()
+        +start_category_mode()
+        +start_onboarding()
+        +submit_answer()
+        +get_dashboard_stats()
+        +update_language()
+    }
+
+    %% NEW: Profile Manager (Caching Layer)
+    class ProfileManager {
+        -repo: IQuizRepository
+        -user_id: str
+        -_cache_key: str
+        -_dirty_fields: set
+        -_change_count: int
+        -_batch_threshold: int
+        +get() UserProfile
+        +increment_daily_progress()
+        +update_language()
+        +complete_onboarding()
+        +flush()
+        -_flush()
+    }
+
+    %% Domain Layer
+    class IQuizRepository {
+        <<interface>>
+        +get_or_create_profile()
+        +save_profile()
+        +get_questions_by_ids()
+        +save_attempt()
+    }
+
+    class UserProfile {
+        +user_id: str
+        +daily_progress: int
+        +daily_goal: int
+        +last_daily_reset: date
+        +streak_days: int
+        +preferred_language: Language
+        +has_completed_onboarding: bool
+        +is_bonus_mode() bool
+    }
+
+    class Question {
+        +id: str
+        +text: str
+        +options: dict
+        +correct_option: str
+        +category: str
+    }
+
+    class SpacedRepetitionSelector {
+        +select_questions()
+    }
+
+    %% Data Layer (Adapters)
+    class SQLiteQuizRepository {
+        -db_manager: DatabaseManager
+        +get_or_create_profile()
+        +save_profile()
+        +get_questions_by_ids()
+    }
+
+    class SupabaseQuizRepository {
+        -client: Client
+        +get_or_create_profile()
+        +save_profile()
+        +get_questions_by_ids()
+    }
+
+    class DatabaseManager {
+        -db_path: str
+        +get_connection()
+        +_init_schema()
+    }
+
+    class SessionState {
+        <<Streamlit>>
+        +profile_user123: UserProfile
+        +score: int
+        +quiz_questions: list
+    }
+
+    %% Relationships
+    app_py --> GameService : creates
+    app_py --> DashboardView : routes to
+    app_py --> QuestionView : routes to
+    app_py --> SummaryView : routes to
+
+    DashboardView --> GameService : calls
+    QuestionView --> GameService : calls
+    SummaryView --> GameService : calls
+
+    GameService --> ProfileManager : uses
+    GameService --> IQuizRepository : uses
+    GameService --> SpacedRepetitionSelector : uses
+
+    ProfileManager --> IQuizRepository : uses
+    ProfileManager --> SessionState : caches in
+    ProfileManager ..> UserProfile : manages
+
+    IQuizRepository <|.. SQLiteQuizRepository : implements
+    IQuizRepository <|.. SupabaseQuizRepository : implements
+
+    SQLiteQuizRepository --> DatabaseManager : uses
+    SQLiteQuizRepository ..> UserProfile : returns
+    SQLiteQuizRepository ..> Question : returns
+
+    SupabaseQuizRepository ..> UserProfile : returns
+    SupabaseQuizRepository ..> Question : returns
+
+    style ProfileManager fill:#fff3e0,stroke:#ffa726,stroke-width:3px
+    style SessionState fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px
+    style GameService fill:#f3e5f5,stroke:#ab47bc,stroke-width:2px
+```
 ## 1.2. Core Design Patterns
 
 ### A. The Service Layer Pattern

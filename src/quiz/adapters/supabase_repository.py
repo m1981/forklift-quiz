@@ -139,14 +139,50 @@ class SupabaseQuizRepository(IQuizRepository):
             self.telemetry.log_error(f"get_or_create_profile failed for {user_id}", e)
             return UserProfile(user_id=user_id)
 
-    def save_profile(self, profile: UserProfile) -> None:
-        try:
-            payload = profile.model_dump(mode="json")
-            self.client.table("user_profiles").update(payload).eq(
-                "user_id", profile.user_id
-            ).execute()
-        except Exception as e:
-            self.telemetry.log_error(f"save_profile failed for {profile.user_id}", e)
+    def save_profile(
+        self, profile: UserProfile, fields: set[str] | None = None
+    ) -> None:
+        """
+        Save profile to database.
+
+        Args:
+            profile: The profile to save
+            fields: Optional set of field names to update. If None, updates all fields.
+        """
+        # Build payload with only specified fields
+        if fields:
+            payload: dict[str, Any] = {}
+            field_mapping: dict[str, Any] = {
+                "streak_days": profile.streak_days,
+                "last_login": str(profile.last_login),
+                "daily_goal": profile.daily_goal,
+                "daily_progress": profile.daily_progress,
+                "last_daily_reset": str(profile.last_daily_reset),
+                "preferred_language": profile.preferred_language.value,
+                "has_completed_onboarding": profile.has_completed_onboarding,
+                "metadata": profile.metadata,
+                "demo_prospect_slug": profile.demo_prospect_slug,
+            }
+            for field in fields:
+                if field in field_mapping:
+                    payload[field] = field_mapping[field]
+        else:
+            # Full update (existing behavior)
+            payload = {
+                "streak_days": profile.streak_days,
+                "last_login": str(profile.last_login),
+                "daily_goal": profile.daily_goal,
+                "daily_progress": profile.daily_progress,
+                "last_daily_reset": str(profile.last_daily_reset),
+                "preferred_language": profile.preferred_language.value,
+                "has_completed_onboarding": profile.has_completed_onboarding,
+                "metadata": profile.metadata,
+                "demo_prospect_slug": profile.demo_prospect_slug,
+            }
+
+        self.client.table("user_profiles").update(payload).eq(
+            "user_id", profile.user_id
+        ).execute()
 
     @measure_time("sb_save_attempt")
     def save_attempt(self, user_id: str, question_id: str, is_correct: bool) -> None:
