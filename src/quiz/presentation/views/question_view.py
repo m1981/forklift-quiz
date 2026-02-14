@@ -70,7 +70,7 @@ def _render_active(
             margin-top: 10px;
             margin-bottom: 15px;
             line-height: 1.4;">
-            {q.text}
+            {q.id}: {q.text}
         </div>
         """,
         unsafe_allow_html=True,
@@ -155,7 +155,7 @@ def _render_feedback(service: Any, q: Question, user_lang: Language) -> None:
     fb = st.session_state.last_feedback
 
     # Question Text (Polish)
-    st.markdown(f"{q.text}")
+    st.markdown(f"{q.id}: {q.text}")
 
     if q.image_path and os.path.exists(q.image_path):
         st.image(q.image_path, use_container_width=True)
@@ -175,7 +175,7 @@ def _render_feedback(service: Any, q: Question, user_lang: Language) -> None:
 
     if expl_text:
         # Main explanation box
-        st.info(f"{expl_text}")
+        st.info(f"📖 {expl_text}")
 
         # If we are showing a translation, offer the original
         if user_lang != Language.PL and expl_text != q.explanation:
