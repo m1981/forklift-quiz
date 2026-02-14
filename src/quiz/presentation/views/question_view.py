@@ -170,19 +170,18 @@ def _render_feedback(service: Any, q: Question, user_lang: Language) -> None:
 
         mobile_result_row(key.value, text, state=state, key=f"res_{q.id}_{key}")
 
-    # Explanation (TRANSLATED)
+    # Explanation (TRANSLATED) - in expandable section
     expl_text = q.get_explanation(user_lang)
 
     if expl_text:
-        # Main explanation box
-        st.info(f"📖 {expl_text}")
+        with st.expander("📖 Wyjaśnienie", expanded=True):
+            st.info(expl_text)
 
-        # If we are showing a translation, offer the original
-        if user_lang != Language.PL and expl_text != q.explanation:
-            with st.expander("🇵🇱 Pokaż wyjaśnienie po polsku"):
-                st.write(q.explanation)
+            # If showing translation, offer original
+            if user_lang != Language.PL and expl_text != q.explanation:
+                with st.expander("🇵🇱 Pokaż wyjaśnienie po polsku"):
+                    st.write(q.explanation)
 
     if st.button("Dalej ➡️", type="primary", use_container_width=True):
-        # --- DIRECT SERVICE CALL ---
         service.next_question()
         st.rerun()
