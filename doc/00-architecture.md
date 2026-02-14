@@ -1,221 +1,133 @@
-# Architecture Overview
+# 1. Architecture & Patterns (The "How")
 
-This document outlines the structural design of the Warehouse Quiz App. The application follows a **Service-Oriented Architecture (SOA)** adapted for Streamlit, emphasizing simplicity, direct state management, and a clean separation between UI, Business Logic, and Data.
+## 1.1. High-Level Architecture
+The application follows a **Streamlit-Native Service Architecture**. It is designed to be flat, explicit, and state-aware, minimizing the abstraction overhead typical of enterprise frameworks while maintaining separation of concerns.
 
----
-
-## 1. System Architecture Diagram
-
-The system is divided into three distinct layers. The **Presentation Layer** (Streamlit) interacts directly with the **Service Layer** (Business Logic), which in turn manages the **Data Layer** (Repositories).
-
+### Diagram
 ```mermaid
 graph TD
-    subgraph Presentation["Presentation Layer (Streamlit)"]
-        App["app.py<br/>(Router & Entry Point)"]
-        Views["View Modules<br/>dashboard_view, question_view"]
-        Components["Custom HTML/JS Components"]
-        Session["st.session_state"]
+    subgraph Presentation ["Presentation Layer (Streamlit)"]
+        App["app.py (Entry Point & Routing)"]
+        Views["Views Module (dashboard, question, summary)"]
+        Components["UI Components (hero, pills, header)"]
     end
 
-    subgraph Service["Service Layer (Business Logic)"]
-        GameService["GameService"]
-        Algo["SpacedRepetitionSelector"]
+    subgraph Logic ["Service Layer (Business Logic)"]
+        Service["GameService"]
+        Selector["SpacedRepetitionSelector"]
     end
 
-    subgraph Data["Data Layer (Persistence)"]
-        Repo["IQuizRepository<br/>(Interface)"]
-        SQLiteRepo["SQLiteQuizRepository"]
-        SupabaseRepo["SupabaseQuizRepository"]
-        Models["Domain Models<br/>Question, UserProfile"]
+    subgraph Data ["Data Layer (Persistence)"]
+        Repo["IQuizRepository (Interface)"]
+        SQLite["SQLiteQuizRepository"]
+        Supabase["SupabaseQuizRepository"]
+        Models["Domain Models (Question, UserProfile)"]
     end
 
-    %% Interactions
-    App -->|Initializes| GameService
+    %% Data Flow
+    App -->|Initializes| Service
     App -->|Routes to| Views
-
-    Views -->|Reads| Session
-    Views -->|Calls Actions| GameService
-
-    GameService -->|Updates| Session
-    GameService -->|Uses| Algo
-    GameService -->|Reads/Writes| Repo
-
+    Views -->|Calls Actions| Service
+    Service -->|Reads/Writes| Repo
+    Service -->|Uses| Selector
     Repo -->|Returns| Models
-    SQLiteRepo -.->|implements| Repo
-    SupabaseRepo -.->|implements| Repo
 ```
+
+## 1.2. Core Design Patterns
+
+### A. The Service Layer Pattern
+*   **Concept:** All business logic (scoring, navigation, database updates) is encapsulated in `GameService`.
+*   **Rule:** The UI (Views) **never** talks to the Repository directly. It must go through the Service.
+*   **Benefit:** Allows swapping the UI framework (e.g., to FastAPI + React) without rewriting game logic.
+
+### B. The Singleton Service
+*   **Concept:** The `GameService` is instantiated **once** in `app.py` and stored in `st.session_state.service`.
+*   **Implementation:**
+    ```python
+    if "service" not in st.session_state:
+        repo = SQLiteQuizRepository(...)
+        st.session_state.service = GameService(repo)
+    ```
+
+### C. State-Based Routing
+*   **Concept:** Navigation is controlled by a single string variable: `st.session_state.screen`.
+*   **States:**
+    *   `"dashboard"`: The main menu.
+    *   `"quiz"`: The active question loop.
+    *   `"summary"`: The result screen.
+*   **Transition:** Views or the Service update this variable, and `st.rerun()` triggers the new view.
+
+### D. Repository Pattern
+*   **Concept:** Data access is abstracted behind the `IQuizRepository` interface.
+*   **Implementations:**
+    *   `SQLiteQuizRepository`: For local development and fast iteration.
+    *   `SupabaseQuizRepository`: For production deployment.
+*   **Switching:** Controlled via `GameConfig.USE_SQLITE` (or env vars).
 
 ---
 
-## 2. Component Interaction Patterns
+## 1.3. State Management Strategy
 
-### 2.1. Streamlit-Native State Management
-Instead of a custom "Director" or "Context" object, the application uses Streamlit's native `st.session_state` as the **Single Source of Truth** for transient UI state.
-*   **Screen Routing:** `st.session_state.screen` determines which view function to call in `app.py`.
-*   **Quiz State:** `st.session_state.quiz_questions`, `current_index`, and `score` track progress.
-*   **Service Layer:** The `GameService` is responsible for mutating this state in response to user actions.
+Streamlit apps are stateless scripts that rerun on every interaction. We manage state in two distinct buckets:
 
-### 2.2. Service Layer Pattern
-All business logic is encapsulated in `src/game/service.py`.
-*   **Responsibility:** It handles rules for scoring, spaced repetition, onboarding, and database synchronization.
-*   **Benefit:** The UI (Views) remains "dumb." It simply calls methods like `service.submit_answer()` or `service.start_daily_sprint()`.
+### Bucket 1: Persistent State (Database)
+*   **What:** Data that must survive a browser refresh or session close.
+*   **Storage:** SQLite / Supabase.
+*   **Items:**
+    *   `UserProfile` (Language preference, Onboarding status).
+    *   `UserProgress` (History of answered questions, Mastery streaks).
+*   **Sync Strategy:** **Immediate Write.** Every time a user changes a setting (e.g., Language Pill) or answers a question, we write to the DB immediately.
 
-### 2.3. Repository Pattern (Ports & Adapters)
-The Domain layer defines *what* data operations are needed (`IQuizRepository`), but not *how* they are implemented.
-*   **Port:** `src/quiz/domain/ports.py`
-*   **Adapter:** `src/quiz/adapters/sqlite_repository.py`
-*   **Benefit:** Allows seamless switching between SQLite (local dev) and Supabase (production) via configuration (`GameConfig.USE_SQLITE`).
-
-### 2.4. The Demo Mode Pattern
-To support sales demos without polluting production data:
-*   **Trigger:** URL Parameter `?demo=slug` (e.g., `?demo=tesla`).
-*   **Isolation:** `app.py` detects the parameter and generates a unique `user_id` (e.g., `demo_tesla`), ensuring isolated progress.
-*   **Branding:** The `GameService` accepts the slug to dynamically resolve and inject custom logos into the Dashboard.
+### Bucket 2: Ephemeral State (Session State)
+*   **What:** Data relevant only to the current user session or active quiz flow.
+*   **Storage:** `st.session_state`.
+*   **Items:**
+    *   `quiz_questions`: List of Question objects for the current sprint.
+    *   `current_index`: Integer pointer to the active question.
+    *   `score`: Current session score.
+    *   `feedback_mode`: Boolean flag (Are we showing the question or the result?).
+    *   `last_feedback`: Dict containing the result of the last answer (for rendering the feedback view).
 
 ---
 
-## 3. Core Business Processes
+## 1.4. Service Layer Contract (`GameService`)
 
-### 3.1. The "Smart Mix" Generation Process
-This logic resides in `SpacedRepetitionSelector` and is called by `GameService.start_daily_sprint`.
+The `GameService` is the public API for the application logic.
 
-```mermaid
-flowchart TD
-    Start([Start Daily Sprint]) --> Fetch[Fetch All Candidates from DB]
-    Fetch --> Filter[Filter Logic]
-
-    subgraph Filtering["Candidate Filtering (SQL)"]
-        C1{Is New?}
-        C2{Is Learning?<br/>Streak < Threshold}
-        C3{Is Review?<br/>Streak >= Threshold AND<br/>LastSeen > 3 days}
-    end
-
-    Filter --> C1
-    Filter --> C2
-    Filter --> C3
-
-    C1 --> PoolNew[New Pool]
-    C2 --> PoolRev[Review/Learning Pool]
-    C3 --> PoolRev
-
-    PoolNew --> Calc[Calculate Targets<br/>Target: 60% New, 40% Review]
-    PoolRev --> Calc
-
-    Calc --> Select{Selection}
-    Select -->|Fill Review| List[Selected Questions]
-    Select -->|Fill New| List
-
-    List --> Check{Not Full?}
-    Check -->|Yes| Backfill[Backfill from remaining pools]
-    Check -->|No| Shuffle[Random Shuffle]
-    Backfill --> Shuffle
-    Shuffle --> End([Return 15 Questions])
-```
-
-### 3.2. User Attempt & Mastery Update
-This process describes the flow when a user answers a question.
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant View as question_view.py
-    participant Service as GameService
-    participant Session as st.session_state
-    participant DB as SQLiteRepository
-
-    User->>View: Clicks Option "A"
-    View->>Service: submit_answer(user, q, "A")
-
-    Service->>Service: Check Correctness
-
-    alt is Correct
-        Service->>Session: score += 1
-        Service->>DB: save_attempt(is_correct=True)
-        DB->>DB: UPDATE user_progress<br/>SET consecutive_correct += 1
-    else is Wrong
-        Service->>Session: Add to Error List
-        Service->>DB: save_attempt(is_correct=False)
-        DB->>DB: UPDATE user_progress<br/>SET consecutive_correct = 0
-    end
-
-    Service->>Session: Set feedback_mode = True
-    View->>User: Rerun & Show Feedback
-```
-
-### 3.3. Profile Synchronization (Login)
-Logic found in `get_or_create_profile` to handle daily streaks.
-
-```mermaid
-flowchart LR
-    Login([User App Open]) --> Fetch[Fetch Profile]
-    Fetch --> CheckDate{Compare Today <br/>vs Last Login}
-
-    CheckDate -->|Diff == 0| NoOp[Do Nothing]
-    CheckDate -->|Diff == 1| Inc[Streak++]
-    CheckDate -->|Diff > 1| Reset[Streak = 1]
-
-    Inc --> Save[Save Profile]
-    Reset --> Save
-    NoOp --> Ready([Ready])
-    Save --> Ready
-```
+| Method | Description | Side Effects |
+| :--- | :--- | :--- |
+| **`get_dashboard_stats(user_id, demo_slug)`** | Calculates progress, mastery, and days left. Handles Demo logo logic. | Reads DB. |
+| **`start_daily_sprint(user_id)`** | Selects questions using Spaced Repetition. | Resets Session State. Reruns app. |
+| **`start_category_mode(user_id, category)`** | Selects questions from a specific category. | Resets Session State. Reruns app. |
+| **`start_onboarding(user_id)`** | Loads the tutorial question. Marks profile as onboarded. | Writes DB. Resets Session State. |
+| **`submit_answer(user_id, question, option)`** | Validates answer, updates score, saves attempt to DB. | Writes DB. Updates Session State. |
+| **`next_question()`** | Advances index. Checks if quiz is finished. | Updates Session State. May change `screen` to "summary". |
+| **`update_language(user_id, lang_code)`** | Updates user preference. | Writes DB. |
 
 ---
 
-## 4. Domain Model (Entity Relationships)
+## 1.5. Directory Structure
 
-This diagram represents the logical data structure derived from `src/quiz/domain/models.py` and the SQLite schema.
-
-```mermaid
-erDiagram
-    User ||--|| UserProfile : "has"
-    User ||--o{ UserProgress : "attempts"
-    Question ||--o{ UserProgress : "tracks"
-    Question }|--|| Category : "belongs to"
-
-    User {
-        string user_id PK
-    }
-
-    UserProfile {
-        string user_id FK
-        int streak_days
-        date last_login
-        int daily_goal
-        int daily_progress
-        bool has_completed_onboarding
-        string preferred_language
-    }
-
-    Question {
-        string id PK
-        string text
-        string category
-        json options
-        string correct_option
-        string explanation
-        json translations
-    }
-
-    UserProgress {
-        string user_id PK, FK
-        string question_id PK, FK
-        bool is_correct
-        int consecutive_correct "Critical for Mastery"
-        datetime timestamp "Used for Decay logic"
-    }
+```text
+/
+├── app.py                  # Entry Point & Routing
+├── src/
+│   ├── config.py           # Configuration & Constants
+│   ├── game/
+│   │   └── service.py      # CORE LOGIC (The Brain)
+│   ├── quiz/
+│   │   ├── adapters/       # Database Implementations
+│   │   ├── domain/         # Data Models & Algorithms
+│   │   └── presentation/   # UI Logic
+│   │       └── views/      # Screen Renderers
+│   └── components/         # Reusable UI Widgets (HTML/CSS/JS)
+└── data/                   # Local SQLite DB & Seed files
 ```
 
----
-
-## 5. Integration Points
-
-### 5.1. Internal Integration (Persistence)
-*   **SQLite File:** The app integrates with the local file system at `data/quiz.db`.
-*   **Migration System:** The `DatabaseManager` performs schema checks on startup (`_init_schema`, `_migrate_schema`) to ensure the DB structure matches the code version.
-
-### 5.2. External Integration (Observability)
-*   **Telemetry:** The `src/shared/telemetry.py` module provides a wrapper for logging and metrics (Prometheus), allowing performance monitoring of database queries and service actions.
-
-### 5.3. Entry Point Integration
-*   **`app.py`:** Acts as the Composition Root. It initializes the Repository, seeds the database, creates the `GameService`, and sets up the User Session before routing to the appropriate View.
+## 1.6. Demo Mode Strategy
+*   **Concept:** A lightweight mechanism to personalize the application for sales prospects without changing the codebase.
+*   **Trigger:** URL Query Parameter (e.g., `/?demo=tesla`).
+*   **Behavior:**
+    1.  **Identity Isolation:** Creates a unique, ephemeral `user_id` (e.g., `demo_tesla`) to prevent polluting real user data.
+    2.  **Branding:** Overrides the default application logo with a prospect-specific logo found in `assets/logos/{slug}.png`.
+    3.  **Persistence:** The `demo_slug` is stored in `st.session_state` for the duration of the session.
