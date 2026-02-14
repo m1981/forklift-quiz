@@ -17,8 +17,14 @@ create table if not exists user_profiles (
     last_daily_reset date,
     has_completed_onboarding boolean default false,
     preferred_language text default 'pl',
-    metadata jsonb default '{}'::jsonb
+    metadata jsonb default '{}'::jsonb,
+    demo_prospect_slug text default null
 );
+
+-- Index for fast demo analytics queries
+create index if not exists idx_user_profiles_demo_prospect
+on user_profiles(demo_prospect_slug)
+where demo_prospect_slug is not null;
 
 create table if not exists user_progress (
     user_id text,

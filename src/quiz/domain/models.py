@@ -103,6 +103,7 @@ class UserProfile(BaseModel):
     daily_goal: int = GameConfig.DAILY_GOAL
     has_completed_onboarding: bool = True
     metadata: dict[str, Any] = Field(default_factory=dict)
+    demo_prospect_slug: str | None = None  # NEW: First-class field for analytics
 
     def is_bonus_mode(self) -> bool:
         return self.daily_progress >= self.daily_goal

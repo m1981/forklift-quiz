@@ -142,30 +142,16 @@ class DatabaseManager:
                 """
                 CREATE TABLE IF NOT EXISTS user_profiles
                 (
-                    user_id
-                    TEXT
-                    PRIMARY
-                    KEY,
-                    streak_days
-                    INTEGER
-                    DEFAULT
-                    0,
-                    last_login
-                    DATE,
-                    daily_goal
-                    INTEGER
-                    DEFAULT
-                    3,
-                    daily_progress
-                    INTEGER
-                    DEFAULT
-                    0,
-                    last_daily_reset
-                    DATE,
-                    has_completed_onboarding
-                    BOOLEAN
-                    DEFAULT
-                    0
+                    user_id TEXT PRIMARY KEY,
+                    streak_days INTEGER DEFAULT 0,
+                    last_login DATE,
+                    daily_goal INTEGER DEFAULT 3,
+                    daily_progress INTEGER DEFAULT 0,
+                    last_daily_reset DATE,
+                    has_completed_onboarding BOOLEAN DEFAULT 0,
+                    preferred_language TEXT DEFAULT 'pl',
+                    metadata TEXT DEFAULT '{}',
+                    demo_prospect_slug TEXT DEFAULT NULL
                 )
                 """
             )
@@ -178,26 +164,16 @@ class DatabaseManager:
         conn = self.get_connection()
         try:
             cursor = conn.cursor()
-
-            # Check user_profiles columns
             cursor.execute("PRAGMA table_info(user_profiles)")
             columns = [info[1] for info in cursor.fetchall()]
 
-            # Migration: Add preferred_language if missing
-            if "preferred_language" not in columns:
+            # Migration: Add demo_prospect_slug if missing
+            if "demo_prospect_slug" not in columns:
                 self.telemetry.log_info(
-                    "Migrating: Adding preferred_language to user_profiles"
+                    "Migrating: Adding demo_prospect_slug to user_profiles"
                 )
                 cursor.execute(
-                    "ALTER TABLE user_profiles ADD COLUMN preferred_language TEXT DEFAULT 'pl'"
-                )
-
-            # Migration: Add metadata if missing (for Demo Mode)
-            if "metadata" not in columns:
-                self.telemetry.log_info("Migrating: Adding metadata to user_profiles")
-                # SQLite doesn't have native JSON type like Postgres, TEXT is fine
-                cursor.execute(
-                    "ALTER TABLE user_profiles ADD COLUMN metadata TEXT DEFAULT '{}'"
+                    "ALTER TABLE user_profiles ADD COLUMN demo_prospect_slug TEXT DEFAULT NULL"
                 )
 
             conn.commit()

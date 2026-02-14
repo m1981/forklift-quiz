@@ -50,6 +50,8 @@ class QuestionLoopStep(GameStep):
         super().enter(context)
         if "score" not in context.data:
             context.data["score"] = 0
+        if "errors" not in context.data:
+            context.data["errors"] = []
 
         # --- LOCALIZATION SETUP ---
         # Fetch user profile to get language preference

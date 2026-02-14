@@ -3,12 +3,12 @@ from datetime import date, datetime
 from typing import Any, cast
 
 from postgrest.types import CountMethod
-from supabase import Client, create_client
 
 from src.config import GameConfig
 from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
 from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
+from supabase import Client, create_client
 
 
 class SupabaseQuizRepository(IQuizRepository):
@@ -98,13 +98,14 @@ class SupabaseQuizRepository(IQuizRepository):
                     streak_days=1,
                     last_login=today,
                     last_daily_reset=today,
-                    metadata={},  # Add this
+                    metadata={},
+                    demo_prospect_slug=None,
                 )
                 payload = new_profile.model_dump(mode="json")
                 self.client.table("user_profiles").insert(payload).execute()
                 return new_profile
 
-            # Existing User Logic (Streak Calculation)
+            # Existing User Logic
             row = data[0]
             last_login_db = datetime.strptime(str(row["last_login"]), "%Y-%m-%d").date()
             current_streak = int(row["streak_days"])
@@ -126,7 +127,8 @@ class SupabaseQuizRepository(IQuizRepository):
                     str(row["last_daily_reset"]), "%Y-%m-%d"
                 ).date(),
                 has_completed_onboarding=bool(row["has_completed_onboarding"]),
-                metadata=row.get("metadata", {}),  # Add this
+                metadata=row.get("metadata", {}),
+                demo_prospect_slug=row.get("demo_prospect_slug"),
             )
 
             if delta > 0:

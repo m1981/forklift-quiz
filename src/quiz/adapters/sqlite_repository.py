@@ -163,15 +163,17 @@ class SQLiteQuizRepository(IQuizRepository):
                     last_login=today,
                     last_daily_reset=today,
                     preferred_language=Language.PL,
+                    demo_prospect_slug=None,
                 )
                 conn.execute(
                     """
                     INSERT INTO user_profiles (
                         user_id, streak_days, last_login, daily_goal,
                         daily_progress, last_daily_reset,
-                        has_completed_onboarding, preferred_language
+                        has_completed_onboarding, preferred_language,
+                        demo_prospect_slug
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         profile.user_id,
@@ -184,52 +186,16 @@ class SQLiteQuizRepository(IQuizRepository):
                         today.isoformat(),
                         False,
                         profile.preferred_language.value,
+                        None,
                     ),
                 )
                 conn.commit()
                 return profile
 
-            # LOAD EXISTING PROFILE
-            # Row mapping:
-            # 0:id, 1:streak, 2:last_login, 3:goal, 4:progress, 5:reset, 6:onboarding, 7:lang
-
-            last_login_db = (
-                datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
-            )
-            current_streak = row[1]
-            delta = (today - last_login_db).days
-            new_streak = current_streak
-
-            if delta == 0:
-                # Same day login, do nothing
-                pass
-            elif delta == 1:
-                # Consecutive day, increment
-                new_streak += 1
-            else:
-                # Gap > 1 day OR Future date (delta < 0) -> Reset
-                new_streak = 1
-
-            # Safely load language (handle if column was just added and is NULL)
-            lang_val = Language.PL
-            if len(row) > 7 and row[7]:
-                try:
-                    lang_val = Language(row[7])
-                    # DEBUG LOG:
-                    self.telemetry.log_info(
-                        f"DB_READ: User {user_id} has lang={row[7]}"
-                    )
-                except ValueError:
-                    pass
-            else:
-                self.telemetry.log_info(
-                    f"DB_READ: User {user_id} has NO lang column/value. Defaulting to PL."
-                )
-                pass
-
+            # Load existing profile (row[8] is demo_prospect_slug)
             profile = UserProfile(
                 user_id=row[0],
-                streak_days=new_streak,
+                streak_days=row[1],
                 last_login=today,
                 daily_goal=row[3],
                 daily_progress=row[4],
@@ -237,8 +203,22 @@ class SQLiteQuizRepository(IQuizRepository):
                 if row[5]
                 else today,
                 has_completed_onboarding=bool(row[6]) if len(row) > 6 else False,
-                preferred_language=lang_val,
+                preferred_language=Language(row[7])
+                if len(row) > 7 and row[7]
+                else Language.PL,
+                demo_prospect_slug=row[8] if len(row) > 8 else None,
             )
+
+            # Calculate streak logic
+            last_login_db = (
+                datetime.strptime(row[2], "%Y-%m-%d").date() if row[2] else today
+            )
+            delta = (today - last_login_db).days
+
+            if delta == 1:
+                profile.streak_days += 1
+            elif delta > 1 or delta < 0:
+                profile.streak_days = 1
 
             if delta > 0:
                 self.save_profile(profile)
@@ -260,7 +240,8 @@ class SQLiteQuizRepository(IQuizRepository):
                     daily_progress           = ?,
                     last_daily_reset         = ?,
                     has_completed_onboarding = ?,
-                    preferred_language       = ?
+                    preferred_language = ?,
+                    demo_prospect_slug = ?
                 WHERE user_id = ?
                 """,
                 (
@@ -273,6 +254,7 @@ class SQLiteQuizRepository(IQuizRepository):
                     profile.last_daily_reset.isoformat(),
                     profile.has_completed_onboarding,
                     profile.preferred_language.value,
+                    profile.demo_prospect_slug,
                     profile.user_id,
                 ),
             )

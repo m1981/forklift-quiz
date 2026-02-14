@@ -60,6 +60,8 @@ class GameViewModel:
 
                 profile = repo.get_or_create_profile(user_id)
                 profile.metadata = {"type": "demo", "prospect": demo_slug}
+                profile.demo_prospect_slug = demo_slug  # NEW: Set first-class field
+                repo.save_profile(profile)
 
                 # 4. FORCE LANGUAGE UPDATE if param is present
                 # This ensures ?lang=en overrides whatever is in DB
