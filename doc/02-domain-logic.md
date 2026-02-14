@@ -88,10 +88,10 @@ When a user starts Category Mode, the system:
 3.  **Randomizes** among questions with equal mastery levels.
 4.  **Returns** 15 questions (or fewer if category is small).
 
-### C. Implementation Notes
-*   **SQLite:** Uses `ORDER BY COALESCE(up.consecutive_correct, 0) ASC, RANDOM()`.
-*   **Supabase:** Fetches 45 questions, shuffles in Python, takes first 15.
-*   **Inconsistency:** Supabase does NOT prioritize weak questions (pure random).
+### C. Implementation
+*   **Algorithm:** `CategorySelector.prioritize_weak_questions()`
+*   **Sorting:** Primary key = `consecutive_correct ASC`, Secondary key = `RANDOM()`
+*   **Consistency:** Both SQLite and Supabase use identical logic (as of v1.1.0).
 
 ### D. Difference from Daily Sprint
 *   **No 60/40 New/Review split** (all questions from one category).

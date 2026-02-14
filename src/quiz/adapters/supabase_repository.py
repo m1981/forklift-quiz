@@ -1,10 +1,10 @@
-import random
 from datetime import date, datetime
 from typing import Any, cast
 
 from postgrest.types import CountMethod
 
 from src.config import GameConfig
+from src.quiz.domain.category_selector import CategorySelector
 from src.quiz.domain.models import Question, QuestionCandidate, UserProfile
 from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
@@ -205,25 +205,32 @@ class SupabaseQuizRepository(IQuizRepository):
             return []
 
     def get_questions_by_category(
-        self, category: str, user_id: str, limit: int
+        self, category: str, user_id: str, limit: int = GameConfig.SPRINT_QUESTIONS
     ) -> list[Question]:
-        try:
-            response = (
-                self.client.table("questions")
-                .select("json_data")
-                .eq("category", category)
-                .limit(limit * 3)
-                .execute()
-            )
+        response = (
+            self.client.table("questions")
+            .select("json_data, user_progress!left(consecutive_correct)")
+            .eq("category", category)
+            .eq("user_progress.user_id", user_id)
+            .execute()
+        )
 
-            data = cast(list[dict[str, Any]], response.data)
-            random.shuffle(data)
-            selected = data[:limit]
+        data = cast(list[dict[str, Any]], response.data)
+        candidates: list[tuple[Question, int]] = []
 
-            return [Question.model_validate(row["json_data"]) for row in selected]
-        except Exception as e:
-            self.telemetry.log_error("get_questions_by_category failed", e)
-            return []
+        for row in data:
+            question = Question.model_validate(row["json_data"])
+
+            # Extract streak with proper type handling
+            user_progress = row.get("user_progress")
+            if isinstance(user_progress, dict):
+                streak = user_progress.get("consecutive_correct", 0) or 0
+            else:
+                streak = 0
+
+            candidates.append((question, int(streak)))
+
+        return CategorySelector.prioritize_weak_questions(candidates, limit * 3)
 
     def get_category_stats(self, user_id: str) -> list[dict[str, int | str]]:
         try:

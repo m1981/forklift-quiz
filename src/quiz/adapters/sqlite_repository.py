@@ -6,6 +6,7 @@ from typing import Any
 
 from src.config import GameConfig
 from src.quiz.adapters.db_manager import DatabaseManager
+from src.quiz.domain.category_selector import CategorySelector
 from src.quiz.domain.models import Language, Question, QuestionCandidate, UserProfile
 from src.quiz.domain.ports import IQuizRepository
 from src.shared.telemetry import Telemetry, measure_time
@@ -318,15 +319,19 @@ class SQLiteQuizRepository(IQuizRepository):
         conn = self._get_connection()
         try:
             query = """
-                    SELECT q.json_data
+                    SELECT q.json_data, COALESCE(up.consecutive_correct, 0) as streak
                     FROM questions q
-                             LEFT JOIN user_progress up
-                                       ON q.id = up.question_id AND up.user_id = ?
+                    LEFT JOIN user_progress up
+                        ON q.id = up.question_id AND up.user_id = ?
                     WHERE q.category = ?
-                    ORDER BY COALESCE(up.consecutive_correct, 0) ASC, RANDOM() LIMIT ? \
-                    """
-            cursor = conn.execute(query, (user_id, category, limit))
-            return [Question.model_validate_json(row[0]) for row in cursor.fetchall()]
+                """
+
+            rows = conn.execute(query, (user_id, category)).fetchall()
+            candidates = [
+                (Question.model_validate_json(row[0]), row[1]) for row in rows
+            ]
+
+            return CategorySelector.prioritize_weak_questions(candidates, limit)
         finally:
             if not self.db_manager._shared_connection:
                 conn.close()
