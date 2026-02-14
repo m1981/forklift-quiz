@@ -64,12 +64,13 @@ def _render_active(
     st.markdown(
         f"""
         <div style="
-            font-size: 1rem;
-            font-weight: 400;
-            color: #31333F;
+            font-size: 17px;  /* Increased from 1rem (16px) */
+            font-weight: 500; /* Medium weight for emphasis */
+            color: #111827;
             margin-top: 10px;
-            margin-bottom: 15px;
-            line-height: 1.4;">
+            margin-bottom: 20px; /* More breathing room */
+            line-height: 1.6;    /* Improved readability */
+            letter-spacing: -0.011em;">
             {q.id}: {q.text}
         </div>
         """,
